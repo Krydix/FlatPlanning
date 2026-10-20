@@ -1,7 +1,15 @@
-import fs from 'node:fs';import assert from 'node:assert/strict';
+import fs from 'node:fs';import assert from 'node:assert/strict';import {createHash} from 'node:crypto';
 const project=JSON.parse(fs.readFileSync('public/data/project.json'));const bake=JSON.parse(fs.readFileSync('public/data/bake-manifest.json'));const graph=JSON.parse(fs.readFileSync('public/data/assembly.json'));
 assert.equal(project.meta.design,'V18');assert.equal(project.meta.locked,true);assert.equal(project.meta.partCount,270);assert.equal(project.stages.length,21);assert.equal(bake.ceiling_light_on,false);assert.equal(bake.baked,true);
 const ids=project.stages.flatMap(s=>s.parts);assert.equal(ids.length,270);assert.equal(new Set(ids).size,270);assert.equal(graph.validation.geometry_errors.length,0);
+assert.equal(bake.render_engine,'Cycles');assert.ok(bake.samples>=128);assert.equal(bake.view_independent,true);assert.equal(bake.max_atlas_size,4096);
+const ceilingLights=bake.baked_lights.filter(l=>l.name.toLowerCase().includes('ceiling'));assert.ok(ceilingLights.length>0);assert.ok(ceilingLights.every(l=>l.watts===0));
+const panoramas=JSON.parse(fs.readFileSync('public/data/panoramas.json'));
+assert.equal(panoramas.engine,'Cycles');assert.equal(panoramas.ceiling_light_on,false);assert.equal(panoramas.full_materials,true);assert.ok(panoramas.samples>=256);
+assert.equal(panoramas.source_sha256,createHash('sha256').update(fs.readFileSync('source/flat-v18.blend')).digest('hex'));
+const panoramaCeilings=panoramas.lights.filter(l=>l.name.toLowerCase().includes('ceiling'));assert.ok(panoramaCeilings.length>0);assert.ok(panoramaCeilings.every(l=>l.watts===0));
+assert.ok(panoramas.panoramas.length>=1&&panoramas.panoramas.length<=3);assert.deepEqual(panoramas.panoramas.map(p=>p.id),['entrance','desk','wardrobe'].slice(0,panoramas.panoramas.length));
+for(const p of panoramas.panoramas){const bytes=fs.readFileSync('public/'+p.file);assert.equal(bytes.readUInt16BE(0),0xffd8);assert.equal(bytes.length,p.bytes);assert.equal(createHash('sha256').update(bytes).digest('hex'),p.sha256);assert.equal(p.width,p.height*2);assert.ok(p.width>=6000);}
 const core=project.parts.filter(r=>!r.optional).reduce((n,r)=>n+r.total,0);assert.ok(Math.abs(core-project.meta.coreBudget)<.02);assert.equal(project.meta.coreBudget,2751.61);
 for(const r of project.parts){if(r.url)assert.ok(r.url.startsWith('https://'));if(r.buyPacks)assert.ok(r.buyPacks*r.packSize>=r.quantity);assert.ok(Number.isFinite(r.total));}
 for(const s of project.stages){assert.ok(fs.statSync(`public/${s.diagram}`).size>100);for(const id of s.parts)assert.ok(graph.parts.find(p=>p.id===id));}
