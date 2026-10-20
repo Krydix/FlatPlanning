@@ -1,0 +1,617 @@
+{
+  "revision": 18,
+  "currency": "EUR",
+  "checked_date": "2026-10-19",
+  "hardware": [
+    {
+      "kind": "flange",
+      "name": "DOLLE plate / flange Ø70",
+      "quantity": 20,
+      "buy_packs": 20,
+      "units_per_pack": 1,
+      "unit_eur": "2.59",
+      "total_eur": "51.80",
+      "source": "https://www.globus-baumarkt.de/p/dolle-plattenscheibe-fuer-pipe-regalsystem-oe-70-mm-20-mm-3-4-schwarz-matt-0763202822/",
+      "status": "Current public product price"
+    },
+    {
+      "kind": "tube_1000",
+      "name": "DOLLE tube Ø25 × 1000 mm",
+      "quantity": 12,
+      "buy_packs": 12,
+      "units_per_pack": 1,
+      "unit_eur": "9.99",
+      "total_eur": "119.88",
+      "source": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1000-mm-20-mm-3-4-schwarz-matt-0763202825/",
+      "status": "Current public product price"
+    },
+    {
+      "kind": "extension",
+      "name": "DOLLE Extension, TWO FEMALE THREADS",
+      "quantity": 12,
+      "buy_packs": 12,
+      "units_per_pack": 1,
+      "unit_eur": "1.59",
+      "total_eur": "19.08",
+      "source": "https://www.obi.de/p/4978219/dolle-doppelmuffe-extension-fuer-pipe-regalsystem-20-mm-3-4-schwarz-matt",
+      "status": "Indicative indexed listing; current direct page unavailable; price/stock must be rechecked"
+    },
+    {
+      "kind": "tube_1200",
+      "name": "DOLLE tube Ø25 × 1200 mm",
+      "quantity": 10,
+      "buy_packs": 10,
+      "units_per_pack": 1,
+      "unit_eur": "10.99",
+      "total_eur": "109.90",
+      "source": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1200-mm-20-mm-3-4-schwarz-matt-0763202841/",
+      "status": "Current public product price"
+    },
+    {
+      "kind": "cap",
+      "name": "DOLLE end stopper, fit to verify, 2 per pack",
+      "quantity": 18,
+      "buy_packs": 9,
+      "units_per_pack": 2,
+      "unit_eur": "3.79",
+      "total_eur": "34.11",
+      "source": "https://www.globus-baumarkt.de/p/dolle-abdeckstopfen-fuer-pipe-regalsystem-20-mm-3-4-schwarz-matt-2-stueck-0763202816/",
+      "status": "Current public product price"
+    },
+    {
+      "kind": "slide_tee",
+      "name": "DOLLE sliding T, one female branch, Ø25 sleeve",
+      "quantity": 74,
+      "buy_packs": 74,
+      "units_per_pack": 1,
+      "unit_eur": "5.99",
+      "total_eur": "443.26",
+      "source": "https://www.globus-baumarkt.de/p/dolle-t-verbinder-fuer-pipe-regalsystem-20-mm-3-4-verschiebbar-schwarz-matt-0763202823/",
+      "status": "Current public product price"
+    },
+    {
+      "kind": "tube_40",
+      "name": "DOLLE tube Ø25 × 40 mm",
+      "quantity": 10,
+      "buy_packs": 10,
+      "units_per_pack": 1,
+      "unit_eur": "1.19",
+      "total_eur": "11.90",
+      "source": "https://www.obi.de/p/4964102/dolle-rohr-tube-fuer-pipe-regalsystem-25-mm-x-40-mm-schwarz-matt",
+      "status": "Indicative indexed listing; current direct page unavailable; price/stock must be rechecked"
+    },
+    {
+      "kind": "tube_250",
+      "name": "DOLLE tube Ø25 × 250 mm",
+      "quantity": 30,
+      "buy_packs": 30,
+      "units_per_pack": 1,
+      "unit_eur": "2.99",
+      "total_eur": "89.70",
+      "source": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-250-mm-20-mm-3-4-schwarz-matt-0763202837/",
+      "status": "Current public product price"
+    },
+    {
+      "kind": "saddle",
+      "name": "DOLLE PIPE one-sided saddle shelf holder, 2 per Toom pack",
+      "quantity": 60,
+      "buy_packs": 30,
+      "units_per_pack": 2,
+      "unit_eur": "2.99",
+      "total_eur": "89.70",
+      "source": "https://toom.de/p/regalbodenhalter-fuer-regalsystem-pipe-schwarz-2-stueck/7450897",
+      "status": "€2.99 / 2 holders observed on toom product page 19 Oct; delivery unavailable, store pickup shown; screws not promised"
+    },
+    {
+      "kind": "tube_602",
+      "name": "DOLLE tube Ø25 × 602 mm",
+      "quantity": 4,
+      "buy_packs": 4,
+      "units_per_pack": 1,
+      "unit_eur": "6.99",
+      "total_eur": "27.96",
+      "source": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-602-mm-20-mm-3-4-schwarz-matt-0763202834/",
+      "status": "Current public product price"
+    },
+    {
+      "kind": "tube_200",
+      "name": "DOLLE tube Ø25 × 200 mm",
+      "quantity": 4,
+      "buy_packs": 4,
+      "units_per_pack": 1,
+      "unit_eur": "2.59",
+      "total_eur": "10.36",
+      "source": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-200-mm-20-mm-3-4-schwarz-matt-0763202832/",
+      "status": "Current public product price"
+    },
+    {
+      "kind": "elbow",
+      "name": "DOLLE 90 degree elbow, two female threads",
+      "quantity": 2,
+      "buy_packs": 2,
+      "units_per_pack": 1,
+      "unit_eur": "1.79",
+      "total_eur": "3.58",
+      "source": "https://www.obi.de/p/4974440/dolle-90-eckverbinder-fuer-pipe-regalsystem-2-innengewinden-20-mm-3-4-schwarz",
+      "status": "€1.79 per elbow observed 20 October 2026; home delivery unavailable, local store stock not checked; DOLLE EAN 4007557096353"
+    }
+  ],
+  "wood": [
+    {
+      "id": "Desk.shelf0",
+      "length_mm": 1554,
+      "depth_mm": 350,
+      "thickness_mm": 40,
+      "area_m2": "0.5439",
+      "net_eur": {
+        "low": "97.90",
+        "base": "130.54",
+        "high": "206.68"
+      },
+      "holes": [],
+      "reliefs": []
+    },
+    {
+      "id": "Desk.shelf1",
+      "length_mm": 1554,
+      "depth_mm": 350,
+      "thickness_mm": 28,
+      "area_m2": "0.5439",
+      "net_eur": {
+        "low": "59.83",
+        "base": "87.02",
+        "high": "125.10"
+      },
+      "holes": [],
+      "reliefs": []
+    },
+    {
+      "id": "Desk.shelf2",
+      "length_mm": 1554,
+      "depth_mm": 350,
+      "thickness_mm": 28,
+      "area_m2": "0.5439",
+      "net_eur": {
+        "low": "59.83",
+        "base": "87.02",
+        "high": "125.10"
+      },
+      "holes": [],
+      "reliefs": []
+    },
+    {
+      "id": "Rack.top0",
+      "length_mm": 1004,
+      "depth_mm": 350,
+      "thickness_mm": 28,
+      "area_m2": "0.3514",
+      "net_eur": {
+        "low": "38.65",
+        "base": "56.22",
+        "high": "80.82"
+      },
+      "holes": [],
+      "reliefs": []
+    },
+    {
+      "id": "Rack.top1",
+      "length_mm": 606,
+      "depth_mm": 350,
+      "thickness_mm": 28,
+      "area_m2": "0.2121",
+      "net_eur": {
+        "low": "23.33",
+        "base": "33.94",
+        "high": "48.78"
+      },
+      "holes": [],
+      "reliefs": []
+    },
+    {
+      "id": "Rack.fold0",
+      "length_mm": 606,
+      "depth_mm": 350,
+      "thickness_mm": 28,
+      "area_m2": "0.2121",
+      "net_eur": {
+        "low": "23.33",
+        "base": "33.94",
+        "high": "48.78"
+      },
+      "holes": [],
+      "reliefs": []
+    },
+    {
+      "id": "Rack.fold1",
+      "length_mm": 606,
+      "depth_mm": 350,
+      "thickness_mm": 28,
+      "area_m2": "0.2121",
+      "net_eur": {
+        "low": "23.33",
+        "base": "33.94",
+        "high": "48.78"
+      },
+      "holes": [],
+      "reliefs": []
+    },
+    {
+      "id": "Rack.fold2",
+      "length_mm": 606,
+      "depth_mm": 350,
+      "thickness_mm": 28,
+      "area_m2": "0.2121",
+      "net_eur": {
+        "low": "23.33",
+        "base": "33.94",
+        "high": "48.78"
+      },
+      "holes": [],
+      "reliefs": []
+    },
+    {
+      "id": "Rack.fold3",
+      "length_mm": 606,
+      "depth_mm": 350,
+      "thickness_mm": 28,
+      "area_m2": "0.2121",
+      "net_eur": {
+        "low": "23.33",
+        "base": "33.94",
+        "high": "48.78"
+      },
+      "holes": [],
+      "reliefs": []
+    },
+    {
+      "id": "Rack.top2",
+      "length_mm": 606,
+      "depth_mm": 350,
+      "thickness_mm": 28,
+      "area_m2": "0.2121",
+      "net_eur": {
+        "low": "23.33",
+        "base": "33.94",
+        "high": "48.78"
+      },
+      "holes": [],
+      "reliefs": []
+    },
+    {
+      "id": "Rack.coat_shoes",
+      "length_mm": 606,
+      "depth_mm": 350,
+      "thickness_mm": 28,
+      "area_m2": "0.2121",
+      "net_eur": {
+        "low": "23.33",
+        "base": "33.94",
+        "high": "48.78"
+      },
+      "holes": [],
+      "reliefs": []
+    },
+    {
+      "id": "Speaker0.platform",
+      "length_mm": 350.0,
+      "depth_mm": 350,
+      "thickness_mm": 25,
+      "area_m2": "0.1225",
+      "net_eur": {
+        "low": "13.48",
+        "base": "18.38",
+        "high": "26.95"
+      },
+      "holes": [],
+      "reliefs": []
+    },
+    {
+      "id": "Speaker1.platform",
+      "length_mm": 350.0,
+      "depth_mm": 350,
+      "thickness_mm": 25,
+      "area_m2": "0.1225",
+      "net_eur": {
+        "low": "13.48",
+        "base": "18.38",
+        "high": "26.95"
+      },
+      "holes": [],
+      "reliefs": []
+    },
+    {
+      "id": "Desk.top",
+      "length_mm": 1615,
+      "depth_mm": 702,
+      "thickness_mm": 28,
+      "area_m2": "1.13373",
+      "net_eur": {
+        "low": "124.71",
+        "base": "181.40",
+        "high": "260.76"
+      },
+      "holes": [
+        [
+          3085,
+          1300,
+          44
+        ],
+        [
+          3375,
+          1300,
+          44
+        ],
+        [
+          3085,
+          2890,
+          44
+        ],
+        [
+          3375,
+          2890,
+          44
+        ]
+      ],
+      "reliefs": [
+        {
+          "bounds": [
+            3054,
+            3085,
+            1282,
+            1318,
+            703,
+            706.5
+          ]
+        },
+        {
+          "bounds": [
+            3344,
+            3375,
+            1282,
+            1318,
+            703,
+            706.5
+          ]
+        },
+        {
+          "bounds": [
+            3054,
+            3085,
+            2872,
+            2908,
+            703,
+            706.5
+          ]
+        },
+        {
+          "bounds": [
+            3344,
+            3375,
+            2872,
+            2908,
+            703,
+            706.5
+          ]
+        },
+        {
+          "bounds": [
+            2777.0,
+            2826.0,
+            1282,
+            1318,
+            703,
+            706.5
+          ]
+        },
+        {
+          "bounds": [
+            2777.0,
+            2826.0,
+            2872,
+            2908,
+            703,
+            706.5
+          ]
+        }
+      ]
+    }
+  ],
+  "lighting": [
+    {
+      "name": "MITTLED",
+      "quantity": 2,
+      "unit_eur": "22",
+      "total_eur": "44.00",
+      "source": "https://www.ikea.com/de/de/p/mittled-led-lichtleiste-fuer-arbeitsplatte-dimmbar-weiss-60528584/"
+    },
+    {
+      "name": "TRADFRI",
+      "quantity": 1,
+      "unit_eur": "25",
+      "total_eur": "25.00",
+      "source": "https://www.ikea.com/de/de/p/tradfri-treiber-fuer-kabellose-steuerung-smart-grau-60342656/"
+    },
+    {
+      "name": "VAGDAL",
+      "quantity": 1,
+      "unit_eur": "5",
+      "total_eur": "5.00",
+      "source": "https://www.ikea.com/de/de/p/vagdal-verbindungskabel-weiss-70463600/"
+    },
+    {
+      "name": "FORNIMMA",
+      "quantity": 1,
+      "unit_eur": "5.99",
+      "total_eur": "5.99",
+      "source": "https://www.ikea.com/de/de/p/foernimma-anschlusskabel-50446881/"
+    },
+    {
+      "name": "ÖVERSIDAN 96 cm / 505.895.49",
+      "quantity": 1,
+      "unit_eur": "17",
+      "total_eur": "17.00",
+      "source": "https://www.ikea.com/de/de/p/oeversidan-led-lichtleiste-kleidersch-sensor-dimmbar-weiss-50589549/"
+    },
+    {
+      "name": "ÖVERSIDAN 46 cm / 005.892.69",
+      "quantity": 2,
+      "unit_eur": "10",
+      "total_eur": "20.00",
+      "source": "https://www.ikea.com/de/de/p/oeversidan-led-lichtleiste-kleidersch-sensor-dimmbar-weiss-00589269/"
+    },
+    {
+      "name": "ÖVERSIDAN 71 cm / 205.894.85",
+      "quantity": 4,
+      "unit_eur": "15",
+      "total_eur": "60.00",
+      "source": "https://www.ikea.com/de/de/p/oeversidan-led-lichtleiste-kleidersch-sensor-dimmbar-weiss-20589485/"
+    },
+    {
+      "name": "TRÅDFRI 30 W / 603.426.56",
+      "quantity": 1,
+      "unit_eur": "25",
+      "total_eur": "25.00",
+      "source": "https://www.ikea.com/de/de/p/tradfri-treiber-fuer-kabellose-steuerung-smart-grau-60342656/"
+    },
+    {
+      "name": "FÖRNIMMA 3.5 m / 504.468.81",
+      "quantity": 1,
+      "unit_eur": "5.99",
+      "total_eur": "5.99",
+      "source": "https://www.ikea.com/de/de/p/foernimma-anschlusskabel-50446881/"
+    }
+  ],
+  "totals": {
+    "low": {
+      "hardware": "1011.23",
+      "timber_net": "571.19",
+      "timber_with_waste": "656.87",
+      "lip_with_waste": "42.86",
+      "lighting": "207.98",
+      "other_allowances": "132.00",
+      "core_before_contingency": "2050.94",
+      "contingency": "205.09",
+      "core_budget": "2256.03",
+      "optional_accessories": "57.00",
+      "with_optional_accessories": "2318.73"
+    },
+    "base": {
+      "hardware": "1011.23",
+      "timber_net": "816.54",
+      "timber_with_waste": "939.02",
+      "lip_with_waste": "61.23",
+      "lighting": "207.98",
+      "other_allowances": "282.00",
+      "core_before_contingency": "2501.46",
+      "contingency": "250.15",
+      "core_budget": "2751.61",
+      "optional_accessories": "90.00",
+      "with_optional_accessories": "2850.61"
+    },
+    "high": {
+      "hardware": "1011.23",
+      "timber_net": "1193.82",
+      "timber_with_waste": "1372.89",
+      "lip_with_waste": "91.84",
+      "lighting": "207.98",
+      "other_allowances": "555.00",
+      "core_before_contingency": "3238.94",
+      "contingency": "323.89",
+      "core_budget": "3562.83",
+      "optional_accessories": "155.00",
+      "with_optional_accessories": "3733.33"
+    }
+  },
+  "base_allowances": [
+    {
+      "id": "machining",
+      "name": "Board cuts, four rack-post openings (two edge notches), shallow underside reliefs and light-pocket machining / tooling",
+      "quantity": 1,
+      "unit": "job",
+      "low": 50,
+      "base": 100,
+      "high": 200
+    },
+    {
+      "id": "pads",
+      "name": "Nonmarking flange foot pads",
+      "quantity": 12,
+      "unit": "pads",
+      "low": 8,
+      "base": 12,
+      "high": 20
+    },
+    {
+      "id": "fixings",
+      "name": "Wall fixings and remaining wood / light-clip screws",
+      "quantity": 1,
+      "unit": "lot",
+      "low": 25,
+      "base": 45,
+      "high": 80
+    },
+    {
+      "id": "finish",
+      "name": "Timber oil/finish, abrasives and applicators",
+      "quantity": 1,
+      "unit": "lot",
+      "low": 25,
+      "base": 45,
+      "high": 70
+    },
+    {
+      "id": "cables",
+      "name": "Reusable cable ties and power strip",
+      "quantity": 1,
+      "unit": "lot",
+      "low": 12,
+      "base": 20,
+      "high": 35
+    },
+    {
+      "id": "delivery",
+      "name": "Delivery / collection budget across suppliers",
+      "quantity": 1,
+      "unit": "lot",
+      "low": 0,
+      "base": 35,
+      "high": 100
+    }
+  ],
+  "optional_allowances": [
+    {
+      "id": "vesa",
+      "name": "VESA monitor arm, if the existing mount cannot be reused",
+      "quantity": 1,
+      "unit": "arm",
+      "low": 35,
+      "base": 60,
+      "high": 100
+    },
+    {
+      "id": "isolation",
+      "name": "Speaker isolation pads, if needed",
+      "quantity": 1,
+      "unit": "pair",
+      "low": 12,
+      "base": 20,
+      "high": 35
+    },
+    {
+      "id": "remote",
+      "name": "Compatible IKEA dimming remote, if needed",
+      "quantity": 1,
+      "unit": "remote",
+      "low": 10,
+      "base": 10,
+      "high": 20
+    }
+  ],
+  "six_knagglig_crates": {
+    "quantity": 6,
+    "unit_eur": "9.99",
+    "total_eur": "59.94",
+    "price_date": "2026-10-20",
+    "core_plus_crates_including_contingency_eur": "2817.54"
+  }
+}
