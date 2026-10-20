@@ -13,3 +13,5 @@
 - The full-resolution entrance panorama passed browser inspection. A separate small Cycles preview verified projection, orientation, dragging, switching between panorama/free 3D, tab return and the 390 px layout. Unfinished viewing positions stay disabled until their full-quality images are ready.
 
 Physical dimensions and hardware load ratings are still provisional as described in the README and guide. These checks do not certify structural safety or the physical installation sequence.
+
+All three full-resolution panorama files passed dimension, source checksum, image checksum and ceiling-off provenance checks before publication.

@@ -17,10 +17,6 @@ The freely movable room uses a **128-sample Cycles bake**, with UV atlases up to
 
 For the closest match to an offline Cycles render, choose **Cycles 360°**. Each **6144 × 3072 panorama** is rendered in Cycles at **256 samples**, denoised, and saved with Blender’s display colour transform. The browser displays it without additional lighting or tone mapping. This preserves the render’s reflective materials and full lighting appearance, but movement is limited to looking around each fixed position. Free 3D remains available for arbitrary viewpoints and dimensions. The main ceiling light stays off in both modes.
 
-<!-- render-status -->
-The entrance panorama is available now. The workstation and wardrobe panoramas are rendering at the same quality and will be added when ready.
-<!-- /render-status -->
-
 ## Development
 
 Requires Node.js 22.12+ (or a compatible newer version) and Python 3 for data generation/tests.

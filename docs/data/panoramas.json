@@ -99,6 +99,36 @@
       "render_seconds": 1790.6,
       "bytes": 1194663,
       "sha256": "3828f9c4a046c13bf2729de8f219ce64d097756e0aebd1d4d9b693664691ca50"
+    },
+    {
+      "id": "desk",
+      "label": "Workstation",
+      "file": "panoramas/desk.jpg",
+      "position_blender_m": [
+        1.58,
+        2.1125,
+        1.43
+      ],
+      "width": 6144,
+      "height": 3072,
+      "render_seconds": 3350.2,
+      "bytes": 1698475,
+      "sha256": "b57efc9211e34c6127bcfa1e9fdbce03d842fb13ffea0ce7282596a3d9f67047"
+    },
+    {
+      "id": "wardrobe",
+      "label": "Wardrobe",
+      "file": "panoramas/wardrobe.jpg",
+      "position_blender_m": [
+        1.52,
+        3.85,
+        1.55
+      ],
+      "width": 6144,
+      "height": 3072,
+      "render_seconds": 1507.3,
+      "bytes": 1455885,
+      "sha256": "125f2997dad5f819a75d1d8f89c9af2a9d1d9fcdeda3e0032c4ad8595dda3fef"
     }
   ]
 }
