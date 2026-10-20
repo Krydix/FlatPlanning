@@ -1,0 +1,5 @@
+node_modules/
+.DS_Store
+*.blend1
+.cache/
+.test-results/
