@@ -5,8 +5,3 @@
 
 .canvas-wrap[hidden],.view-presets[hidden],#room-tools[hidden]{display:none}
 #room-tools{display:flex;gap:5px}
-.viewer-mode-switch{position:absolute;top:59px;left:22px;z-index:5;display:flex;gap:3px;padding:4px;background:#f8faf1eb;border:1px solid #dce4d2;border-radius:22px;backdrop-filter:blur(9px)}
-.viewer-mode-switch button{border-radius:17px;padding:8px 12px;background:transparent;color:#69805a;font-size:9px}
-.viewer-mode-switch button[aria-pressed=true]{background:#2b4430;color:#f2f9e6}
-.dimension-legend{top:106px}
-@media(max-width:540px){.viewer-mode-switch{left:12px;top:52px}.viewer-mode-switch button{font-size:8px;padding:7px 10px}.dimension-legend{top:98px}.scene-hint{max-width:48%;line-height:1.5}}
