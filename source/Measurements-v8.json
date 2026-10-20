@@ -20,7 +20,9 @@
     "cap_fit": null,
     "saddle_rise": null,
     "saddle_tab_offset": null,
-    "saddle_half_width": null
+    "saddle_half_width": null,
+    "cross_stop": null,
+    "cross_engagement": null
   },
   "what_to_measure": {
     "flange_stop": "Mounting face to fully seated tube end",
@@ -41,7 +43,11 @@
     "cap_fit": "Verify 96476 stopper installation on current externally threaded tube",
     "saddle_rise": "Horizontal tube axis to wood underside at the saddle tab",
     "saddle_tab_offset": "Tube axis to shelf screw hole, perpendicular to tube",
-    "saddle_half_width": "Half the strap width along the horizontal tube"
+    "saddle_half_width": "Half the strap width along the horizontal tube",
+    "cross_stop": "Cross centre to fully seated tube end; all four sockets must be checked",
+    "cross_engagement": "Cross socket mouth to seated pipe end"
   },
-  "notes": {}
+  "notes": {
+    "desk_cross": "This stock module requires cross, tee and elbow seating offsets to close the same geometry. Calibration rejects mismatches; reselect stock sections rather than changing pipe lengths."
+  }
 }

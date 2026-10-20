@@ -35,7 +35,7 @@ def category(o,inst):
   if any(k in n.lower() for k in ('exterior','partition','wall','pier')):return 'shell'
   return 'trim'
  if any(c.startswith('02 ') for c in cols):return 'kitchen'
- if any(c.startswith('04 ') for c in cols):return 'equipment'
+ if any(c.startswith('04 ') for c in cols):return 'chair' if n.startswith('Chair') else 'equipment'
  if any(c.startswith('05 ') for c in cols):return 'bed'
  if any(c.startswith('07 ') for c in cols):return 'curtains' if 'curtain' in n.lower() else 'clothes'
  if any(c.startswith('08 ') for c in cols):return 'hall'

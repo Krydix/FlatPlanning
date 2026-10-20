@@ -7,14 +7,14 @@ sys.path.insert(0,str(ROOT/'source'))
 from pipe_engine import board_corners,STOCK,CATALOG
 A=json.loads((ROOT/'source/assembly.json').read_text());P=json.loads((ROOT/'source/prices.json').read_text());parts={p['id']:p for p in A['parts']}
 OUT=ROOT/'public/data';OUT.mkdir(parents=True,exist_ok=True);DRAW=ROOT/'public/diagrams';DRAW.mkdir(exist_ok=True)
-labels={'tube_40':'40 mm pipe','tube_200':'200 mm pipe','tube_250':'250 mm pipe','tube_602':'602 mm pipe','tube_802':'802 mm pipe','tube_1000':'1,000 mm pipe','tube_1200':'1,200 mm pipe','tube_1500':'1,500 mm pipe','slide_tee':'Sliding T connector','flange':'Ø70 mm mounting flange','extension':'Female–female coupling','elbow':'90° elbow','saddle':'Saddle shelf holder','cap':'End cover'}
+labels={'tube_40':'40 mm pipe','tube_200':'200 mm pipe','tube_250':'250 mm pipe','tube_602':'602 mm pipe','tube_802':'802 mm pipe','tube_1000':'1,000 mm pipe','tube_1200':'1,200 mm pipe','tube_1500':'1,500 mm pipe','cross':'Four-way threaded cross','slide_tee':'Sliding T connector','flange':'Ø70 mm mounting flange','extension':'Female–female coupling','elbow':'90° elbow','saddle':'Saddle shelf holder','cap':'End cover'}
 def show(id):
  p=parts[id];return labels.get(p['kind'],id.replace('Rack.','Wardrobe · ').replace('Desk.','Desk · ').replace('Speaker0','Speaker L').replace('Speaker1','Speaker R'))
 def jwrite(path,value):path.write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n')
 # Complete purchase list; reconcile every core line with the retained budget.
 rows=[]
 for r in P['hardware']:
- rows.append({'id':r['kind'],'category':'Hardware','name':labels.get(r['kind'],r['name']),'description':r['name'],'sku':CATALOG[r['kind']]['sku'],'quantity':r['quantity'],'buyPacks':r['buy_packs'],'packSize':r['units_per_pack'],'unitPrice':float(r['unit_eur']),'total':float(r['total_eur']),'url':r['source'],'status':r['status'],'purchase':True})
+ rows.append({'id':r['kind'],'category':'Hardware','name':labels.get(r['kind'],r['name']),'description':r['name']+(' · €4 each budget allowance; verify store price' if r['kind']=='cross' else ''),'sku':CATALOG[r['kind']]['sku'],'quantity':r['quantity'],'buyPacks':r['buy_packs'],'packSize':r['units_per_pack'],'unitPrice':float(r['unit_eur']),'total':float(r['total_eur']),'url':r['source'],'status':r['status'],'purchase':True})
 for r in P['wood']:
  rows.append({'id':'wood:'+r['id'],'category':'Wood','name':show(r['id']),'description':f"{r['length_mm']:g} × {r['depth_mm']:g} × {r['thickness_mm']:g} mm · oak allowance",'quantity':1,'buyPacks':1,'packSize':1,'unitPrice':float(r['net_eur']['base']),'total':float(r['net_eur']['base']),'url':None,'status':'Concept dimensions, not final machining sizes. Timber supplier not selected.','holes':r['holes'],'purchase':True})
 t=P['totals']['base']
@@ -23,7 +23,7 @@ rows.append({'id':'light-lips','category':'Wood','name':'Five removable oak ligh
 for i,r in enumerate(P['lighting']):
  rows.append({'id':'light:'+str(i),'category':'Lighting','name':r['name'],'description':'Intact original IKEA fixture or driver/lead','quantity':r['quantity'],'buyPacks':r['quantity'],'packSize':1,'unitPrice':float(r['unit_eur']),'total':float(r['total_eur']),'url':r['source'],'status':'Retained 19 October 2026 price input','purchase':True})
 for i,r in enumerate(P['base_allowances']):
- rows.append({'id':'allowance:'+str(i),'category':'Allowances','name':r['name'],'description':'Working budget allowance','quantity':1,'total':float(r['base']),'url':None,'status':'Not a supplier quote','purchase':False})
+ rows.append({'id':'allowance:'+str(i),'category':'Allowances','name':r['name'],'description':'Working budget allowance','quantity':r['quantity'],'unitPrice':float(r['base'])/r['quantity'],'total':float(r['base']),'url':None,'status':'Not a supplier quote','purchase':False})
 allowance_gap=round(float(t['other_allowances'])-sum(float(r['base']) for r in P['base_allowances']),2)
 rows.append({'id':'lip-fixings','category':'Allowances','name':'Light-cover fixings and extra cuts','description':'Small brackets, short wood screws and removable-cover joinery','quantity':1,'total':allowance_gap,'url':None,'status':'Budget allowance','purchase':False})
 rows.append({'id':'contingency','category':'Allowances','name':'Contingency · 10%','description':'Reserve on the core frame, wood, lights and allowances','quantity':1,'total':float(t['contingency']),'url':None,'status':'Budget reserve','purchase':False})
@@ -58,23 +58,24 @@ stage('Stage the lower uprights','Frame','Lay out the ten main posts at their V1
  'Keep the frame braced or held during dry fitting; it is not self-supporting until its wall ties and braces are secured.'
 ],lambda id,p:bool(re.match(r'^(RF[0-3]|RB[0-3]|DS0|SB0)\.(foot|lower)$',id)),notes=['The near shelf frame is 50 mm before the desk edge frame used in older versions. Keep the V18 axes; moving it back causes a pipe intersection.'])
 stage('Build the shared desk supports','Desk module','Two front returns carry the desk edge; the existing shelf posts replace the short rear desk legs.',[
- 'At each desk end, preassemble a 250 mm outward arm and its free sliding T, then a 90° elbow, 40 mm pipe, coupling, 602 mm leg and floor flange.',
- 'Use a 200 mm capped arm on the corresponding rear upright, with two saddle tabs per arm.',
- 'Join each front/back rack pair with the 250 mm low brace at 300 mm, and add the low wall tie at 450 mm.',
+ 'Preassemble each free cross/front-arm/elbow module, with 40 mm pipe, coupling and 602 mm front leg. The cross-bearing post below uses 602 + coupling + 40 mm; above it uses 40 + coupling + 1500 mm.',
+ 'Fit a four-female DOLLE cross at each middle upright: 250 mm front arm, 250 mm rear bridge, upper and lower stock upright sections. Join the bridge to a sliding T on the rear upright.',
+ 'Use low 250 mm rear braces at 300 mm and front-leg braces at 400 mm, with a sliding T on both ends. Stagger them so two T sleeves cannot overlap; retain the low wall tie at 400 mm.',
  'The current fitting profile yields a 689 mm support-pipe axis. Keep all eight saddle screw points on the 704 mm underside plane.'
-],lambda id,p:id.startswith(('Desk.shared','Desk.low','DF0','DF1')),notes=['No separate short rear desk legs. The two front returns finish below the tabletop; no front-leg holes are required. Leave the final wall anchoring to the verified fixing specification.'],focus='desk')
-stage('Fit the desktop','Desk module','Keep the full 1,615 × 702 mm surface with a clear front edge.',[
+],lambda id,p:id.startswith(('Desk.shared','Desk.cross','Desk.low','DF0','DF1')) or bool(re.match(r'^(DS0|RF0)\.(joint_riser|extension)$',id)),notes=['No separate short rear desk legs. The two front returns finish below the tabletop; no front-leg holes are required. Leave the final wall anchoring to the verified fixing specification.'],focus='desk')
+stage('Fit the desktop and service shelf','Desk module','Keep the full 1,615 × 702 mm surface with a clear front edge.',[
  'While the upper frame is still open, fit the desktop around the continuing rack posts and support it safely during assembly.',
  'Transfer four post clearances from the measured frame. The preview uses Ø44 mm, including two open-edge notches at the near end.',
  'Transfer the shallow underside tee/elbow reliefs from real castings. Do not break through the top face.',
- 'Screw the board to its eight saddle tabs using short screws chosen for 28 mm timber. Verify screw length and edge distances.'
-],lambda id,p:id=='Desk.top',notes=['Preview top height: 732 mm. This is derived from stock lengths and unmeasured socket offsets; it may change after calibration. Check the near foot and desk corner still clear the kitchen by at least 600 mm.'],focus='desk')
+ 'Screw the desktop to its eight saddle tabs. Add the 1615 × 230 × 18 mm rear service shelf on two 250 mm T-connected pipes and four saddle tabs, at 500 mm underside / 518 mm top.',
+ 'The service shelf begins 472 mm behind the front edge. Transfer its two rear post clearances and shallow T-casting reliefs from actual parts. Keep the central knee area open.'
+],lambda id,p:id=='Desk.top' or id.startswith('Desk.service'),notes=['Preview top height: 732 mm. This is derived from stock lengths and unmeasured socket offsets; it may change after calibration. Check the near foot and desk corner still clear the kitchen by at least 600 mm.'],focus='desk')
 stage('Complete the upper posts','Frame','Feed the pre-staged upper sleeves before closing the upright sections.',[
- 'Use the specified female–female coupling between each 1,000 mm lower post and 1,200 mm upper post.',
+ 'Ordinary posts use 1000 + coupling + 1200 mm. The two cross-bearing desk posts instead use the separate 40 mm riser, coupling and 1500 mm upper tube above the cross; do not run a continuous pipe through the cross.',
  'Stage upper rail/cross-pipe subassemblies in height order before feeding the upper posts through their sleeves.',
  'Keep coupling seating fully engaged; do not shorten or leave a tube partly threaded to adjust the overall height.',
  'Leave the frame loose enough to square it, and retain temporary support until the wall ties are fixed.'
-],lambda id,p:bool(re.match(r'^(RF[0-3]|RB[0-3]|DS0|SB0)\.(extension|upper)$',id)))
+],lambda id,p:bool(re.match(r'^(RF[0-3]|RB[0-3]|DS0|SB0)\.(extension|upper|top_stub|top_extension)$',id)))
 stage('Square and brace the frame','Frame','Tie the frame back to the wall using the verified anchor arrangement.',[
  'Install the upper wall ties at their model heights. The near desk ties are at 1,200 and 2,020 mm.',
  'Fit the wardrobe depth bars, including the low 200 mm bars and the 1,800 mm coat-end brace.',
@@ -156,9 +157,12 @@ stage('Hide the upper shelf lighting','Lighting','Warm light comes from intact �
 stage('Add the six crates and equipment','Fit out','Finish the storage without changing the locked layout.',[
  'Place four KNAGGLIG 460 × 310 × 250 mm crates on top and two stacked in the lower folded bay.',
  'Check that top crates can be lifted out below the measured ceiling and secure storage as appropriate.',
- 'Fit the reused 28-inch VESA monitor, 61-key controller and speakers; check actual envelopes and cable routes.',
+ 'Fit the reused monitor, 61-key controller and speakers. Put the M1 Mac mini, router and three separated power bricks on the rear service shelf; leave its front/back open and Mac ports facing along the shelf.',
+ 'Fit the Focusrite and OWC dock beneath opposite front ends using adjustable open U holders. Keep front sockets/knobs accessible and preserve the central 700 mm knee width. Exact Focusrite generation and holder model remain unconfirmed.',
+ 'Secure individual bricks without covering vents; route audio away from the brick bay and retain cable service loops. Check plug bend space and short tabletop screw lengths.',
+ 'The shown dock-to-Mac route needs a 2 m certified Thunderbolt lead allowance; the supplied 0.8 m dock cable will not follow this route. Remove the cable allowance if you already own a suitable lead.',
  'Keep the kitchen and bar fixed and use removable finishes. The TV is not part of this layout.'
-],extra=['6 × KNAGGLIG crates','Reused monitor, speakers and MIDI controller'])
+],extra=['6 × KNAGGLIG crates','Reused M1 Mac mini, router, OWC dock and two-input Focusrite','Two adjustable under-desk device holder sets (allowance)','Removable equipment straps and cable clips'])
 stage('Walk through the real room','Final check','A physical fit check completes the concept review.',[
  'Walk the entrance with the chair parked and in use. Preserve at least 600 mm; current modeled corner gap is 640.9 mm.',
  'Open the independent right balcony leaf and check its handle, curtains, coats and worn-clothes rail.',
@@ -187,6 +191,8 @@ def draw_part(id,active=False):
    ring=[project((x+diam/2*math.cos(t),y+diam/2*math.sin(t),z+b['thickness'])) for t in [j*math.tau/20 for j in range(20)]];s.append(poly(ring,color,'#fff',2.5))
  elif kind=='slide_tee':
   s.append(line(project(add(o,mul(axis,-35))),project(add(o,mul(axis,35))),color,23));s.append(line(project(o),project(add(o,mul(d,30))),color,22))
+ elif kind=='cross':
+  for v in (axis,d):s.append(line(project(add(o,mul(v,-30))),project(add(o,mul(v,30))),color,23))
  elif kind=='extension':s.append(line(project(add(o,mul(axis,-16))),project(add(o,mul(axis,16))),color,23))
  elif kind=='flange':
   v=(1,0,0) if abs(axis[2])>.9 else (0,1,0);w=(0,1,0) if abs(axis[2])>.9 else (0,0,1)
@@ -215,15 +221,33 @@ for st in stages:
  for id in sorted(preview,key=lambda id:sum(parts[id]['origin'][:2]),reverse=True):body.append(draw_part(id,True))
  svg=f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{x0:.2f} {y0:.2f} {x1-x0:.2f} {y1-y0:.2f}" role="img" aria-labelledby="title"><title id="title">Step {st["id"]}: {esc(st["title"])}</title><rect x="{x0}" y="{y0}" width="{x1-x0}" height="{y1-y0}" fill="#fff"/>'+''.join(body)+'</svg>'
  (DRAW/f'step-{st["id"]:02}.svg').write_text(svg)
+# The equipment sheet shows the separately budgeted adjustable holders as well.
+import runpy
+runpy.run_path(str(ROOT/'scripts/equipment-diagram.py'))
+stages[19]['diagram']='diagrams/equipment.svg'
 # Purchase data, model graph and a printable CSV keep the guide independently usable.
 metadata={'design':'V18','locked':True,'updated':'2026-10-20','priceBasis':'19–20 October 2026','partCount':len(parts),'pipeCount':sum(n for k,n in counts.items() if k.startswith('tube_')),'boardCount':len(A['boards']),'hardwarePieces':sum(n for k,n in counts.items() if k!='wood'),'lightState':'Practical night lighting · ceiling fixture off','coreBudget':float(t['core_budget']),'withCrates':float(P['six_knagglig_crates']['core_plus_crates_including_contingency_eur']),'optionalAccessories':float(t['optional_accessories']),'entryGap':640.9,'desk':[1615,702,732],'room':[3450,5300,2500],'roomHeightMeasured':False,'verification':['Room height and connector seating offsets not measured','Cantilever, clamp, wood screw and wall-fixing load capacities not certified','Custom MITTLED recess and light-cover details remain provisional','Bathroom fixtures unknown; shell only']}
-jwrite(OUT/'project.json',{'meta':metadata,'parts':rows,'stages':stages,'boards':A['boards'],'columns':A['columns'],'graph':A['parts'],'checks':{'all270AssignedExactlyOnce':True,'coreBudgetReconciled':round(core,2),'tubeLengths':sorted(STOCK)},'sources':{'repo':'https://github.com/Krydix/FlatPlanning','pages':'https://krydix.github.io/FlatPlanning/'}})
+jwrite(OUT/'project.json',{'meta':metadata,'parts':rows,'stages':stages,'boards':A['boards'],'columns':A['columns'],'graph':A['parts'],'checks':{'allAssignedExactlyOnce':True,'coreBudgetReconciled':round(core,2),'tubeLengths':sorted(STOCK)},'sources':{'repo':'https://github.com/Krydix/FlatPlanning','pages':'https://krydix.github.io/FlatPlanning/'}})
 jwrite(OUT/'assembly.json',A)
+jwrite(OUT/'equipment.json',json.loads((ROOT/'source/equipment-layout.json').read_text()))
 with (ROOT/'public/downloads/bom.csv').open('w',newline='') as f:
- writer=csv.writer(f);writer.writerow(['Category','Part','Description','SKU','Required pieces','Purchase packs','Pack size','Pack/unit price EUR','Line total EUR','Supplier URL','Price / verification note'])
+ writer=csv.writer(f,lineterminator="\n");writer.writerow(['Category','Part','Description','SKU','Required pieces','Purchase packs','Pack size','Pack/unit price EUR','Line total EUR','Supplier URL','Price / verification note'])
  for r in rows:writer.writerow([r['category'],r['name'],r['description'],r.get('sku',''),r['quantity'],r.get('buyPacks',''),r.get('packSize',''),r.get('unitPrice',''),r['total'],r.get('url',''),r['status']])
 with (ROOT/'public/downloads/cut-list.csv').open('w',newline='') as f:
- w=csv.writer(f);w.writerow(['Board ID','Length mm','Depth mm','Thickness mm','Underside mm','Rotation degrees','Post holes mm','Status'])
+ w=csv.writer(f,lineterminator="\n");w.writerow(['Board ID','Length mm','Depth mm','Thickness mm','Underside mm','Rotation degrees','Post holes mm','Status'])
  for id,b in A['boards'].items():
   x0,x1,y0,y1=b['bounds'];w.writerow([id,y1-y0,x1-x0,b['thickness'],b['bottom'],b.get('rotation_degrees',0),json.dumps(b['holes']),'CONCEPT ONLY — calibrate fitting profile before cutting'])
 print('DATA_READY',json.dumps({'parts':len(parts),'stages':len(stages),'budget':round(core,2),'BOMlines':len(rows)}))
+
+md=['# Complete BOM — V18 connected desk joints','',f"Core estimate **€{metadata['coreBudget']:,.2f}** including 10% reserve. With six crates **€{metadata['withCrates']:,.2f}**.",'','The two cross joints use four female sockets. Rear support pipes now bridge to the middle posts. Low front braces at 400 mm use T fittings at both ends, staggered from the 300 mm rear braces. Cross-bearing posts use 602 + coupling + 40 mm below the cross, then 40 + coupling + 1500 mm above it. No structural stock pipe is cut or stretched.','', 'Crosses carry a €4.00 each budget allowance, not a confirmed shop quote. Other prices retain their dated 19–20 October 2026 basis.','', '| Part | Qty | Packs | Unit/pack € | Total € | Source |','|---|---:|---:|---:|---:|---|']
+for r in rows:
+ md.append(f"| {r['name']} · {r['description']} | {r['quantity']} | {r.get('buyPacks','—')} | {r.get('unitPrice','—')} | {r['total']:.2f} | {r.get('url') or 'Allowance'} |")
+category_totals={category:round(sum(r['total'] for r in rows if r['category']==category),2) for category in dict.fromkeys(r['category'] for r in rows)}
+wood_cents=round(category_totals['Wood']*100)
+core_cents=round(core*100)
+reserve_cents=round(float(t['contingency'])*100)
+without_wood_base=core_cents-wood_cents-reserve_cents
+without_wood_reserve=round(without_wood_base*.1)
+md[4:4]=[f"Without wood: **€{(without_wood_base+without_wood_reserve)/100:,.2f}**, including a recalculated 10% reserve of €{without_wood_reserve/100:,.2f}. Excludes boards, timber waste and light covers; keeps machining and fixings. Add your reclaimed wood cost separately. Crates and optional accessories remain extra.", '', '| Category | Subtotal € |', '|---|---:|', *[f"| {c}{' (extra)' if c in ('Crates','Optional') else ''} | {v:.2f} |" for c,v in category_totals.items()], '', 'Allowances includes the core 10% reserve. Category subtotals reconcile to the listed rows.', '']
+md += ['', '## Connection and machining checks' ,'',*A['notes'][-8:],'','Cross seating offsets, exact physical assembly closure, fixings, clamp loads and room height require measurement. The current stock module only closes when measured cross/T/elbow stops match the profile constraints. No final drilling or routing template is supplied.']
+(ROOT/'public/downloads/complete-bom.md').write_text('\n'.join(md)+'\n')

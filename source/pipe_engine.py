@@ -14,6 +14,8 @@ PROFILE={
  'saddle_tab_offset':{'value':32,'status':'preview','measure':'Tube axis to shelf screw hole, perpendicular to tube'},
  'saddle_half_width':{'value':7,'status':'preview','measure':'Half the strap width along the horizontal tube'},
  'flange_stop':{'value':15,'status':'preview','measure':'Mounting face to fully seated tube end'},
+ 'cross_stop':{'value':20,'status':'preview','measure':'DOLLE 96384 cross centre to seated tube end; verify on all four sockets'},
+ 'cross_engagement':{'value':10,'status':'preview','measure':'DOLLE 96384 cross socket mouth to seating stop'},
  'tee_stop':{'value':20,'status':'preview','measure':'Upright axis to fully seated branch tube end'},
  'tee_half_height':{'value':35,'status':'published envelope','measure':'Half of measured sleeve height: 70 mm overall means enter 35'},
  'tee_outer_radius':{'value':17,'status':'published envelope','measure':'Half of measured sleeve outside diameter: 34 mm overall means enter 17'},
@@ -33,6 +35,7 @@ PROFILE={
 CATALOG={
  'saddle':{'sku':'toom 7450897; DOLLE EAN unconfirmed','name':'DOLLE PIPE one-sided saddle shelf holder, 2 per Toom pack','source':'https://toom.de/p/regalbodenhalter-fuer-regalsystem-pipe-schwarz-2-stueck/7450897'},
  'flange':{'sku':'96483','name':'DOLLE plate / flange Ø70','source':'https://www.globus-baumarkt.de/p/dolle-plattenscheibe-fuer-pipe-regalsystem-oe-70-mm-20-mm-3-4-schwarz-matt-0763202822/'},
+ 'cross':{'sku':'96384 / EAN 4007557096384','name':'DOLLE PIPE four-way threaded cross, four female sockets','source':'https://toom.de/p/kreuzverbinder-fuer-regalsystem-pipe-34-schwarz/7450886'},
  'slide_tee':{'sku':'96544','name':'DOLLE sliding T, one female branch, Ø25 sleeve','source':'https://www.globus-baumarkt.de/p/dolle-t-verbinder-fuer-pipe-regalsystem-20-mm-3-4-verschiebbar-schwarz-matt-0763202823/'},
  'extension':{'sku':'96445','name':'DOLLE Extension, TWO FEMALE THREADS','source':'https://www.obi.de/p/4978219/dolle-doppelmuffe-extension-fuer-pipe-regalsystem-20-mm-3-4-schwarz-matt'},
  'elbow':{'sku':'96353','name':'DOLLE 90 degree elbow, two female threads','source':'https://www.obi.de/p/4974440/dolle-90-eckverbinder-fuer-pipe-regalsystem-2-innengewinden-20-mm-3-4-schwarz'},
@@ -228,6 +231,10 @@ class Assembly:
    if p.kind=='slide_tee':
     v=self.ports[p.id+'.branch']
     if not close(v.p,add(p.origin,mul(p.direction,self.v('tee_stop')))) or not close(v.n,p.direction):errors.append(p.id+': tee port moved independently')
+   if p.kind=='cross':
+    for suffix,d in [('up',p.axis),('down',mul(p.axis,-1)),('out',p.direction),('in',mul(p.direction,-1))]:
+     v=self.ports[p.id+'.'+suffix]
+     if not close(v.p,add(p.origin,mul(d,self.v('cross_stop')))) or not close(v.n,d):errors.append(p.id+': cross port moved independently')
    if p.kind=='flange':
     v=self.ports[p.id+'.socket']
     if not close(v.p,add(p.origin,mul(p.axis,self.v('flange_stop')))):errors.append(p.id+': flange port moved independently')
@@ -471,6 +478,73 @@ def build_shared_desk(profile=None):
  a.parts['Desk.top'].data['support_reliefs']=reliefs;a.boards['Desk.top']['support_reliefs']=reliefs
  a.notes=[n for n in a.notes if not n.startswith(('Desk far rear post','RF0/RB0 pass','Desktop remains 1615','DS0 is now'))]
  a.notes += ['V18: all four former short desktop columns and both 602 mm endframe cross-pipes removed. Existing DS0/SB0 and RF0/RB0 rack posts now support the desktop through sliding-T arms.', 'Each end uses one 250 mm outward arm from the front rack post, returned down through a stock elbow to a 40 + 602 mm front leg, plus one 200 mm inward arm from the rear rack post. Eight saddle holders support the desktop.', f'Derived desktop underside {bottom:g} mm / top {bottom+28:g} mm. Front support legs terminate under the tabletop through elbows: no front-leg bores or protrusions. Four 44 mm preview clearance bores remain only for the continuing rack posts, including near-edge notches.', 'Two 250 mm low depth ties and two 40 mm low wall ties brace the existing rack frame. Four old short desk legs are replaced by two front returns; no separate rear desk legs.', 'The desktop still measures 1615 x 702 x 28 mm in the same plan position. Main entry corner gap remains 640.9 mm. Closest modeled front foot clearance exceeds 600 mm.', 'Model connection and clearance checks are not a load certification. Verify desk saddle screws, clamp slip/rotation, wall anchorage and leaning loads before construction. Fully floating desk is not assumed approved.']
+ return add_equipment_shelf(connect_desk_crosses(a))
+def connect_desk_crosses(a):
+ """Threaded four-way joints replace the two disconnected rear desktop arms.
+
+ A cross cannot slide onto a continuous upright: rebuild those two posts from
+ catalog lengths and rehost all existing sleeves on the resulting tube bodies.
+ """
+ if abs(a.v('cross_stop')-a.v('tee_stop'))>.001 or abs(a.v('cross_stop')-a.v('elbow_stop'))>.001:
+  raise DesignError('Measured cross, sliding-T and elbow stops do not close this stock desk module; redesign stock stack, do not stretch pipes')
+ def remove(ids):
+  ids=set(ids)
+  # Release surviving sockets previously mated to a removed component.
+  removed_ports={id for id,p in a.ports.items() if p.owner in ids}
+  for p in a.ports.values():
+   if p.used in removed_ports or p.used in ids:p.used=None
+  a.parts={id:p for id,p in a.parts.items() if id not in ids};a.ports={id:p for id,p in a.ports.items() if p.owner not in ids}
+  a.edges=[e for e in a.edges if e[0] not in ids and e[1] not in ids]
+  a.clamps=[c for c in a.clamps if c['id'] not in ids]
+ def coupling(id,port):
+  p=a.ports[port];gap=a.v('extension_gap');a.part(id,'extension',add(p.p,(0,0,gap/2)),gap=gap)
+  a.port(id+'.down',id,'female',p.p,(0,0,-1));a.port(id+'.up',id,'female',add(p.p,(0,0,gap)),(0,0,1));a.connect(port,id+'.down');return id+'.up'
+ for i,(front,back) in enumerate((('DS0','SB0'),('RF0','RB0'))):
+  old_tubes=set(a.columns[front]['tubes']);retained=[c for c in a.clamps if c['host'] in old_tubes and c['id']!=f'Desk.shared{i}.0.tee']
+  remove([front+'.lower',front+'.upper',front+'.extension',front+'.cover',f'Desk.shared{i}.0.tee',f'Desk.shared{i}.1.cap'])
+  # Replace the old 200 mm capped rear arm with a 250 mm fully seated bridge.
+  rear=f'Desk.shared{i}.1.tube';old=a.parts[rear];end=a.ports[rear+'.b'];old.kind='tube_250';old.data['length']=250;end.p=add(old.origin,mul(old.axis,250))
+  # Lower 602 + coupling + 40, then the cross, upper 40 + coupling + 1500.
+  a.from_port(front+'.lower',602,front+'.foot.socket');a.from_port(front+'.joint_riser',40,coupling(front+'.extension',front+'.lower.b'))
+  end=a.ports[front+'.joint_riser.b'];centre=add(end.p,(0,0,a.v('cross_stop')));joint=f'Desk.cross{i}'
+  a.part(joint,'cross',centre,(0,0,1),(-1,0,0))
+  for suffix,d in [('up',(0,0,1)),('down',(0,0,-1)),('out',(-1,0,0)),('in',(1,0,0))]:a.port(joint+'.'+suffix,joint,'female',add(centre,mul(d,a.v('cross_stop'))),d)
+  a.connect(front+'.joint_riser.b',joint+'.down');a.connect(f'Desk.shared{i}.0.tube.a',joint+'.out');a.connect(rear+'.b',joint+'.in')
+  a.from_port(front+'.top_stub',40,joint+'.up');a.from_port(front+'.upper',1500,coupling(front+'.top_extension',front+'.top_stub.b'));a.cap(front+'.cover',front+'.upper.b')
+  a.columns[front]['tubes']=[front+'.lower',front+'.joint_riser',front+'.upper',front+'.top_stub']
+  for c in retained:
+   host,_=a.host_at(front,a.parts[c['id']].origin[2],c['half']);c['host']=host;a.parts[c['id']].data['host']=host;a.edges.append((host,c['id'],'clamp',None,None))
+  # Brace the front return too. Offset from the 300 mm rear tie so two real
+  # single-branch sleeves do not occupy the same station on the middle post.
+  a.bridge(f'Desk.low_front{i}','DF'+str(i),front,400,250)
+  x,y=centre[:2]
+  for rc in a.boards['Desk.top']['support_reliefs']:
+   if abs((rc['bounds'][2]+rc['bounds'][3])/2-y)<.001 and abs(rc['bounds'][1]-x)<.001:rc['bounds'][1]=x+31
+ a.parts['Desk.top'].data['support_reliefs']=a.boards['Desk.top']['support_reliefs']
+ a.notes=[n for n in a.notes if not n.startswith(('V18:','Each end uses','Two 250 mm low depth'))]
+ a.notes += ['V18 joint correction: two DOLLE 96384 four-female crosses at desk height join upper/lower upright, 250 mm front arm and 250 mm rear bridge. No capped rear arm or pipe passing through a solid upright.', 'The two cross-bearing posts use lower 602 + coupling + 40 mm, cross, then 40 + coupling + 1500 mm above. With the preview profile, their capped tops reach 2265 mm; boards, equipment and desktop retain their positions.', 'Two additional 250 mm low front braces join front legs to middle posts at 400 mm with sliding T fittings on both ends. Existing rear depth braces stay at 300 mm to avoid overlapping the two single-branch T sleeves.', 'The cross is a threaded fitting, not a slide-on clamp. Preassemble free modules and stage all sleeves before feeding posts; verify the physical closure sequence and measured socket stops before purchasing or cutting timber.']
+ return a
+def add_equipment_shelf(a):
+ """Rear service shelf stays behind a 472 mm deep central knee zone."""
+ # Move the two short wall ties down to clear the new 485 mm shelf sleeves.
+ for i in range(2):
+  stem=f'Desk.low_wall{i}'
+  ids={id for id in a.parts if id.startswith(stem)}
+  for id in ids:a.parts[id].origin=add(a.parts[id].origin,(0,0,-50))
+  for p in a.ports.values():
+   if p.owner in ids:p.p=add(p.p,(0,0,-50))
+  for c in a.clamps:
+   if c['id'] in ids:c['z']-=50
+ supports=[]
+ for i,(front,back,direction) in enumerate((('DS0','SB0',1),('RF0','RB0',-1))):
+  stem=f'Desk.service{i}';a.bridge(stem,front,back,485,250)
+  for j,offset in enumerate((90,205)):
+   sid=stem+'.saddle'+str(j);point=a.saddle(sid,stem+'.tube',offset,(0,direction,0));supports.append((sid,*point))
+ holes=[(a.columns[c]['x'],a.columns[c]['y'],44) for c in ('SB0','RB0')]
+ a.board('Desk.service_shelf',(3175,3405,1305,2920),500,18,supports,holes)
+ reliefs=[{'bounds':[a.columns[c]['x']-31,a.columns[c]['x'],a.columns[c]['y']-18,a.columns[c]['y']+18,499,502.5]} for c in ('SB0','RB0')]
+ a.boards['Desk.service_shelf']['support_reliefs']=reliefs;a.parts['Desk.service_shelf'].data['support_reliefs']=reliefs
+ a.notes += ['Rear equipment shelf: 1615 x 230 x 18 mm, underside 500 / top 518 mm. It begins 472 mm behind the desktop front; the middle knee zone remains open. Two 250 mm pipes at 485 mm connect to four sliding T fittings and four saddles; no new floor legs.', 'Low wall ties move from 450 to 400 mm to clear the 485 mm service-shelf sleeves. Low front braces stay at 400 mm on the other posts; rear braces stay at 300 mm.', 'M1 Mac mini 197 x 197 x 36 mm sits on the rear shelf with ports facing along its length for cable access. Router and power-brick sizes remain space allowances, not measured products. Keep the shelf open and separate the bricks; do not stack or strap across vents.', 'Focusrite and OWC dock use separate adjustable open-bottom/side U holders under the front ends. Their exposed front panels and cable reserves remain outside the 700 mm central seated knee width; bracket screw lengths and exact Focusrite generation remain to verify.']
  return a
 if __name__=='__main__':
  out=Path(__file__).parent;a=build(profile_from_measurements(out/'Measurements-v8.json'));a.save(out/'Assembly-v8.json');(out/'Validation-v8.json').write_text(json.dumps(a.validate(),indent=2));print(json.dumps(a.validate(),indent=2));print(dict(a.bom()))

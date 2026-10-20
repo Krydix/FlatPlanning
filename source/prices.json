@@ -5,7 +5,7 @@
   "hardware": [
     {
       "kind": "flange",
-      "name": "DOLLE plate / flange Ø70",
+      "name": "DOLLE plate / flange \u00d870",
       "quantity": 20,
       "buy_packs": 20,
       "units_per_pack": 1,
@@ -16,111 +16,111 @@
     },
     {
       "kind": "tube_1000",
-      "name": "DOLLE tube Ø25 × 1000 mm",
-      "quantity": 12,
-      "buy_packs": 12,
+      "name": "DOLLE tube \u00d825 \u00d7 1000 mm",
+      "quantity": 10,
+      "buy_packs": 10,
       "units_per_pack": 1,
       "unit_eur": "9.99",
-      "total_eur": "119.88",
+      "total_eur": "99.90",
       "source": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1000-mm-20-mm-3-4-schwarz-matt-0763202825/",
       "status": "Current public product price"
     },
     {
       "kind": "extension",
       "name": "DOLLE Extension, TWO FEMALE THREADS",
-      "quantity": 12,
-      "buy_packs": 12,
+      "quantity": 14,
+      "buy_packs": 14,
       "units_per_pack": 1,
       "unit_eur": "1.59",
-      "total_eur": "19.08",
+      "total_eur": "22.26",
       "source": "https://www.obi.de/p/4978219/dolle-doppelmuffe-extension-fuer-pipe-regalsystem-20-mm-3-4-schwarz-matt",
       "status": "Indicative indexed listing; current direct page unavailable; price/stock must be rechecked"
     },
     {
       "kind": "tube_1200",
-      "name": "DOLLE tube Ø25 × 1200 mm",
-      "quantity": 10,
-      "buy_packs": 10,
+      "name": "DOLLE tube \u00d825 \u00d7 1200 mm",
+      "quantity": 8,
+      "buy_packs": 8,
       "units_per_pack": 1,
       "unit_eur": "10.99",
-      "total_eur": "109.90",
+      "total_eur": "87.92",
       "source": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1200-mm-20-mm-3-4-schwarz-matt-0763202841/",
       "status": "Current public product price"
     },
     {
       "kind": "cap",
       "name": "DOLLE end stopper, fit to verify, 2 per pack",
-      "quantity": 18,
-      "buy_packs": 9,
+      "quantity": 16,
+      "buy_packs": 8,
       "units_per_pack": 2,
       "unit_eur": "3.79",
-      "total_eur": "34.11",
+      "total_eur": "30.32",
       "source": "https://www.globus-baumarkt.de/p/dolle-abdeckstopfen-fuer-pipe-regalsystem-20-mm-3-4-schwarz-matt-2-stueck-0763202816/",
       "status": "Current public product price"
     },
     {
       "kind": "slide_tee",
-      "name": "DOLLE sliding T, one female branch, Ø25 sleeve",
-      "quantity": 74,
-      "buy_packs": 74,
+      "name": "DOLLE sliding T, one female branch, \u00d825 sleeve",
+      "quantity": 80,
+      "buy_packs": 80,
       "units_per_pack": 1,
       "unit_eur": "5.99",
-      "total_eur": "443.26",
+      "total_eur": "479.20",
       "source": "https://www.globus-baumarkt.de/p/dolle-t-verbinder-fuer-pipe-regalsystem-20-mm-3-4-verschiebbar-schwarz-matt-0763202823/",
       "status": "Current public product price"
     },
     {
       "kind": "tube_40",
-      "name": "DOLLE tube Ø25 × 40 mm",
-      "quantity": 10,
-      "buy_packs": 10,
+      "name": "DOLLE tube \u00d825 \u00d7 40 mm",
+      "quantity": 14,
+      "buy_packs": 14,
       "units_per_pack": 1,
       "unit_eur": "1.19",
-      "total_eur": "11.90",
+      "total_eur": "16.66",
       "source": "https://www.obi.de/p/4964102/dolle-rohr-tube-fuer-pipe-regalsystem-25-mm-x-40-mm-schwarz-matt",
       "status": "Indicative indexed listing; current direct page unavailable; price/stock must be rechecked"
     },
     {
       "kind": "tube_250",
-      "name": "DOLLE tube Ø25 × 250 mm",
-      "quantity": 30,
-      "buy_packs": 30,
+      "name": "DOLLE tube \u00d825 \u00d7 250 mm",
+      "quantity": 36,
+      "buy_packs": 36,
       "units_per_pack": 1,
       "unit_eur": "2.99",
-      "total_eur": "89.70",
+      "total_eur": "107.64",
       "source": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-250-mm-20-mm-3-4-schwarz-matt-0763202837/",
       "status": "Current public product price"
     },
     {
       "kind": "saddle",
       "name": "DOLLE PIPE one-sided saddle shelf holder, 2 per Toom pack",
-      "quantity": 60,
-      "buy_packs": 30,
+      "quantity": 64,
+      "buy_packs": 32,
       "units_per_pack": 2,
       "unit_eur": "2.99",
-      "total_eur": "89.70",
+      "total_eur": "95.68",
       "source": "https://toom.de/p/regalbodenhalter-fuer-regalsystem-pipe-schwarz-2-stueck/7450897",
-      "status": "€2.99 / 2 holders observed on toom product page 19 Oct; delivery unavailable, store pickup shown; screws not promised"
+      "status": "\u20ac2.99 / 2 holders observed on toom product page 19 Oct; delivery unavailable, store pickup shown; screws not promised"
     },
     {
       "kind": "tube_602",
-      "name": "DOLLE tube Ø25 × 602 mm",
-      "quantity": 4,
-      "buy_packs": 4,
+      "name": "DOLLE tube \u00d825 \u00d7 602 mm",
+      "quantity": 6,
+      "buy_packs": 6,
       "units_per_pack": 1,
       "unit_eur": "6.99",
-      "total_eur": "27.96",
+      "total_eur": "41.94",
       "source": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-602-mm-20-mm-3-4-schwarz-matt-0763202834/",
       "status": "Current public product price"
     },
     {
       "kind": "tube_200",
-      "name": "DOLLE tube Ø25 × 200 mm",
-      "quantity": 4,
-      "buy_packs": 4,
+      "name": "DOLLE tube \u00d825 \u00d7 200 mm",
+      "quantity": 2,
+      "buy_packs": 2,
       "units_per_pack": 1,
       "unit_eur": "2.59",
-      "total_eur": "10.36",
+      "total_eur": "5.18",
       "source": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-200-mm-20-mm-3-4-schwarz-matt-0763202832/",
       "status": "Current public product price"
     },
@@ -133,7 +133,29 @@
       "unit_eur": "1.79",
       "total_eur": "3.58",
       "source": "https://www.obi.de/p/4974440/dolle-90-eckverbinder-fuer-pipe-regalsystem-2-innengewinden-20-mm-3-4-schwarz",
-      "status": "€1.79 per elbow observed 20 October 2026; home delivery unavailable, local store stock not checked; DOLLE EAN 4007557096353"
+      "status": "\u20ac1.79 per elbow observed 20 October 2026; home delivery unavailable, local store stock not checked; DOLLE EAN 4007557096353"
+    },
+    {
+      "kind": "cross",
+      "name": "DOLLE PIPE four-way threaded cross, four female sockets",
+      "units_per_pack": 1,
+      "unit_eur": "4.00",
+      "source": "https://toom.de/p/kreuzverbinder-fuer-regalsystem-pipe-34-schwarz/7450886",
+      "status": "Budget allowance \u20ac4 per single fitting; DOLLE product confirmed at toom 7450886; current local price/stock not verified",
+      "quantity": 2,
+      "buy_packs": 2,
+      "total_eur": "8.00"
+    },
+    {
+      "kind": "tube_1500",
+      "name": "DOLLE tube \u00d825 \u00d7 1500 mm",
+      "units_per_pack": 1,
+      "unit_eur": "12.99",
+      "source": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1500-mm-20-mm-3-4-schwarz-matt-0763202820/",
+      "status": "Retained 19 October 2026 Globus price input; verify local stock",
+      "quantity": 2,
+      "buy_packs": 2,
+      "total_eur": "25.98"
     }
   ],
   "wood": [
@@ -356,7 +378,7 @@
         {
           "bounds": [
             3054,
-            3085,
+            3116.0,
             1282,
             1318,
             703,
@@ -376,7 +398,7 @@
         {
           "bounds": [
             3054,
-            3085,
+            3116.0,
             2872,
             2908,
             703,
@@ -414,6 +436,52 @@
           ]
         }
       ]
+    },
+    {
+      "id": "Desk.service_shelf",
+      "length_mm": 1615,
+      "depth_mm": 230,
+      "thickness_mm": 18,
+      "area_m2": "0.371450",
+      "net_eur": {
+        "low": "26.00",
+        "base": "37.14",
+        "high": "55.72"
+      },
+      "holes": [
+        [
+          3375,
+          1300,
+          44
+        ],
+        [
+          3375,
+          2890,
+          44
+        ]
+      ],
+      "reliefs": [
+        {
+          "bounds": [
+            3344,
+            3375,
+            1282,
+            1318,
+            499,
+            502.5
+          ]
+        },
+        {
+          "bounds": [
+            3344,
+            3375,
+            2872,
+            2908,
+            499,
+            502.5
+          ]
+        }
+      ]
     }
   ],
   "lighting": [
@@ -446,35 +514,35 @@
       "source": "https://www.ikea.com/de/de/p/foernimma-anschlusskabel-50446881/"
     },
     {
-      "name": "ÖVERSIDAN 96 cm / 505.895.49",
+      "name": "\u00d6VERSIDAN 96 cm / 505.895.49",
       "quantity": 1,
       "unit_eur": "17",
       "total_eur": "17.00",
       "source": "https://www.ikea.com/de/de/p/oeversidan-led-lichtleiste-kleidersch-sensor-dimmbar-weiss-50589549/"
     },
     {
-      "name": "ÖVERSIDAN 46 cm / 005.892.69",
+      "name": "\u00d6VERSIDAN 46 cm / 005.892.69",
       "quantity": 2,
       "unit_eur": "10",
       "total_eur": "20.00",
       "source": "https://www.ikea.com/de/de/p/oeversidan-led-lichtleiste-kleidersch-sensor-dimmbar-weiss-00589269/"
     },
     {
-      "name": "ÖVERSIDAN 71 cm / 205.894.85",
+      "name": "\u00d6VERSIDAN 71 cm / 205.894.85",
       "quantity": 4,
       "unit_eur": "15",
       "total_eur": "60.00",
       "source": "https://www.ikea.com/de/de/p/oeversidan-led-lichtleiste-kleidersch-sensor-dimmbar-weiss-20589485/"
     },
     {
-      "name": "TRÅDFRI 30 W / 603.426.56",
+      "name": "TR\u00c5DFRI 30 W / 603.426.56",
       "quantity": 1,
       "unit_eur": "25",
       "total_eur": "25.00",
       "source": "https://www.ikea.com/de/de/p/tradfri-treiber-fuer-kabellose-steuerung-smart-grau-60342656/"
     },
     {
-      "name": "FÖRNIMMA 3.5 m / 504.468.81",
+      "name": "F\u00d6RNIMMA 3.5 m / 504.468.81",
       "quantity": 1,
       "unit_eur": "5.99",
       "total_eur": "5.99",
@@ -483,43 +551,43 @@
   ],
   "totals": {
     "low": {
-      "hardware": "1011.23",
-      "timber_net": "571.19",
-      "timber_with_waste": "656.87",
+      "hardware": "1076.06",
+      "timber_net": "597.19",
+      "timber_with_waste": "686.77",
       "lip_with_waste": "42.86",
       "lighting": "207.98",
-      "other_allowances": "132.00",
-      "core_before_contingency": "2050.94",
-      "contingency": "205.09",
-      "core_budget": "2256.03",
+      "other_allowances": "182.00",
+      "core_before_contingency": "2195.67",
+      "contingency": "219.57",
+      "core_budget": "2415.24",
       "optional_accessories": "57.00",
-      "with_optional_accessories": "2318.73"
+      "with_optional_accessories": "2477.940"
     },
     "base": {
-      "hardware": "1011.23",
-      "timber_net": "816.54",
-      "timber_with_waste": "939.02",
+      "hardware": "1076.06",
+      "timber_net": "853.68",
+      "timber_with_waste": "981.73",
       "lip_with_waste": "61.23",
       "lighting": "207.98",
-      "other_allowances": "282.00",
-      "core_before_contingency": "2501.46",
-      "contingency": "250.15",
-      "core_budget": "2751.61",
+      "other_allowances": "372.00",
+      "core_before_contingency": "2699.00",
+      "contingency": "269.90",
+      "core_budget": "2968.90",
       "optional_accessories": "90.00",
-      "with_optional_accessories": "2850.61"
+      "with_optional_accessories": "3067.900"
     },
     "high": {
-      "hardware": "1011.23",
-      "timber_net": "1193.82",
-      "timber_with_waste": "1372.89",
+      "hardware": "1076.06",
+      "timber_net": "1249.54",
+      "timber_with_waste": "1436.97",
       "lip_with_waste": "91.84",
       "lighting": "207.98",
-      "other_allowances": "555.00",
-      "core_before_contingency": "3238.94",
-      "contingency": "323.89",
-      "core_budget": "3562.83",
+      "other_allowances": "705.00",
+      "core_before_contingency": "3517.85",
+      "contingency": "351.78",
+      "core_budget": "3869.63",
       "optional_accessories": "155.00",
-      "with_optional_accessories": "3733.33"
+      "with_optional_accessories": "4040.130"
     }
   },
   "base_allowances": [
@@ -576,6 +644,34 @@
       "low": 0,
       "base": 35,
       "high": 100
+    },
+    {
+      "id": "device-holders",
+      "name": "Two adjustable under-desk device holder sets, four U saddles and short tabletop fixings; supplier/model not selected",
+      "quantity": 2,
+      "unit": "sets",
+      "low": 20,
+      "base": 40,
+      "high": 70
+    },
+    {
+      "id": "service-straps",
+      "name": "Removable equipment straps, underside cable clips and cable service loops",
+      "quantity": 1,
+      "unit": "lot",
+      "low": 5,
+      "base": 10,
+      "high": 20
+    },
+    {
+      "id": "thunderbolt-lead",
+      "name": "2 m certified Thunderbolt 4 cable; reuse existing lead if it reaches",
+      "quantity": 1,
+      "unit": "cable",
+      "low": 25,
+      "base": 40,
+      "high": 60,
+      "source": "https://www.owc.com/solutions/thunderbolt-4-usb-c-cables"
     }
   ],
   "optional_allowances": [
@@ -612,6 +708,7 @@
     "unit_eur": "9.99",
     "total_eur": "59.94",
     "price_date": "2026-10-20",
-    "core_plus_crates_including_contingency_eur": "2817.54"
-  }
+    "core_plus_crates_including_contingency_eur": "3034.83"
+  },
+  "joint_revision": "Four-way desk crosses and low front T braces; cross price is an allowance"
 }

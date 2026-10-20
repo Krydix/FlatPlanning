@@ -1,0 +1,168 @@
+{
+  "units": "mm",
+  "sources": {
+    "mac": "https://support.apple.com/en-gb/111894",
+    "dock": "https://www.owc.com/solutions/thunderbolt-dock",
+    "focusrite": "https://userguides.focusrite.com/hc/en-gb/articles/23031328747026-2i2-3rd-Gen-specifications"
+  },
+  "shelf": {
+    "bounds": [
+      3175,
+      3405,
+      1305,
+      2920
+    ],
+    "bottom": 500,
+    "thickness": 18,
+    "clear_height": 186,
+    "knee_depth": 472
+  },
+  "knee_zone": {
+    "bounds": [
+      2703,
+      3175,
+      1770,
+      2470
+    ],
+    "clear_height": 704
+  },
+  "devices": [
+    {
+      "id": "Mac mini M1",
+      "location": [
+        3290,
+        1575,
+        536
+      ],
+      "size": [
+        197,
+        197,
+        36
+      ],
+      "rotation": 90,
+      "status": "Apple M1 2020 published case; ports face along shelf; native feet and vents remain open"
+    },
+    {
+      "id": "Router allowance",
+      "location": [
+        3290,
+        1970,
+        538
+      ],
+      "size": [
+        160,
+        260,
+        40
+      ],
+      "status": "Unmeasured router envelope; antenna envelope reaches 680 mm, adjust angles to fit"
+    },
+    {
+      "id": "Power brick 1",
+      "location": [
+        3290,
+        2310,
+        538
+      ],
+      "size": [
+        80,
+        160,
+        40
+      ],
+      "status": "Unmeasured power-brick allowance; separate and retain with removable straps"
+    },
+    {
+      "id": "Power brick 2",
+      "location": [
+        3290,
+        2530,
+        538
+      ],
+      "size": [
+        80,
+        160,
+        40
+      ],
+      "status": "Unmeasured power-brick allowance"
+    },
+    {
+      "id": "Power brick 3",
+      "location": [
+        3290,
+        2750,
+        538
+      ],
+      "size": [
+        80,
+        160,
+        40
+      ],
+      "status": "Unmeasured power-brick allowance"
+    },
+    {
+      "id": "Focusrite two-input interface",
+      "location": [
+        2793,
+        1585,
+        661.5
+      ],
+      "size": [
+        160,
+        230,
+        65
+      ],
+      "status": "Adjustable mounting envelope, not a claimed generation-specific case dimension; front faces room"
+    },
+    {
+      "id": "OWC Thunderbolt 4 dock",
+      "location": [
+        2763,
+        2660,
+        674
+      ],
+      "size": [
+        100,
+        260,
+        40
+      ],
+      "status": "Conservative adjustable mounting envelope; verify exact OWCTB4DOCK revision before selecting holders; front faces room"
+    }
+  ],
+  "mounts": [
+    {
+      "id": "Focusrite adjustable U holder",
+      "device": "Focusrite two-input interface",
+      "bounds": [
+        2710,
+        2880,
+        1460,
+        1710
+      ],
+      "base_z": 626,
+      "upper_z": 704,
+      "quantity": 2,
+      "status": "Concept steel U saddles, open front/back; choose rated adjustable brackets after measuring case and vents"
+    },
+    {
+      "id": "OWC adjustable U holder",
+      "device": "OWC Thunderbolt 4 dock",
+      "bounds": [
+        2710,
+        2820,
+        2520,
+        2800
+      ],
+      "base_z": 650,
+      "upper_z": 704,
+      "quantity": 2,
+      "status": "Concept steel U saddles, open front/back; clear front ports and rear plug bends"
+    }
+  ],
+  "cable_reserve_mm": 60,
+  "notes": [
+    "Focusrite and dock fronts stay visible beneath the front edge at opposite ends, outside the central 700 mm knee width.",
+    "Rear shelf remains open at front/back. Route Mac ports along the shelf length; do not push its rear ports into the wall.",
+    "Strap power bricks individually without covering vents; keep audio signal leads away from the power-brick bay.",
+    "Use removable cable clips beneath the tabletop and service loops behind both front devices. Holder fasteners must be suitable for the 28 mm tabletop.",
+    "The drawn dock-to-Mac routing plus service slack requires a 2 m certified Thunderbolt lead. The OWC-supplied 0.8 m lead is too short for this path; €40 is a budget allowance, removable if already owned."
+  ]
+}

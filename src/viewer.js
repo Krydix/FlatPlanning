@@ -10,6 +10,8 @@ const VIEWS = {
  entrance: {position:[2.93,1.55,.42],target:[2.60,1.10,-1.68],fov:73},
  desk: {position:[1.58,1.43,-2.1125],target:[3.20,1.35,-2.1125],fov:62},
  wardrobe: {position:[1.52,1.55,-3.85],target:[3.22,1.43,-4.15],fov:65},
+ equipment: {position:[2.00,.56,-2.1125],target:[3.29,.56,-2.1125],fov:90},
+ joints: {position:[2.58,.50,-.94],target:[3.11,.48,-1.30],fov:68},
  plan: {position:[1.72,10.8,-1.4],target:[1.72,0,-1.4],fov:49},
 };
 export function rendererFor(element,background){
@@ -43,7 +45,7 @@ export class RoomViewer {
   this.runner=loopViewer(this.renderer,this.scene,this.camera,this.controls,container,this.labels,()=>{this.camera.fov=this.responsiveFov(VIEWS[this.currentView]?.fov||43);});
   this.dimensionGroup=new THREE.Group();this.dimensionGroup.visible=false;this.scene.add(this.dimensionGroup);this.addDimensions();this.setView('overview',true);
   const loader=new GLTFLoader();loader.setMeshoptDecoder(MeshoptDecoder);
-  loader.load(asset('models/flat-baked.glb?bake=cycles128-4k-v2'),gltf=>{
+  loader.load(asset('models/flat-baked.glb?bake=service-shelf-v4'),gltf=>{
    this.model=gltf.scene;this.scene.add(this.model);const atlasLimit=window.matchMedia('(pointer: coarse)').matches||container.clientWidth<600?2048:4096;
    this.model.traverse(o=>{if(o.isMesh){o.castShadow=false;o.receiveShadow=false;const mats=Array.isArray(o.material)?o.material:[o.material];for(const m of mats){m.toneMapped=true;if(m.map){limitTextureSize(m.map,atlasLimit);m.map.anisotropy=Math.min(8,this.renderer.capabilities.getMaxAnisotropy());}if(o.name==='flat_glass'){m.transparent=true;m.opacity=.10;m.depthWrite=false;m.side=THREE.DoubleSide;}}}});
    this.shellBounds=new THREE.Box3();this.model.traverse(o=>{if(o.isMesh&&o.userData.category==='shell')this.shellBounds.expandByObject(o);});
@@ -67,6 +69,7 @@ export class RoomViewer {
   this.model.traverse(o=>{const category=o.userData.category;
    if(['shell','ceiling','glass'].includes(category))o.visible=!this.cutaway||inside;
    if(category==='exterior')o.visible=!this.cutaway;
+   if(category==='chair')o.visible=this.currentView!=='equipment';
   });
  }
  setCutaway(value){this.cutaway=value;this.updateCutaway();this.onCutaway?.(value);this.runner.draw();}
@@ -76,7 +79,7 @@ export class RoomViewer {
   const view=VIEWS[name]||VIEWS.overview;this.currentView=name;this.controls.enablePan=true;
   const from=this.camera.position.clone(),fromTarget=this.controls.target.clone(),to=new THREE.Vector3(...view.position),toTarget=new THREE.Vector3(...view.target),oldFov=this.camera.fov;
   const token={};this.animation=token;const start=performance.now();
-  const move=time=>{if(this.animation!==token)return;const t=(immediate||reduced)?1:Math.min((time-start)/750,1);const k=1-Math.pow(1-t,3);this.camera.position.lerpVectors(from,to,k);this.controls.target.lerpVectors(fromTarget,toTarget,k);this.camera.fov=THREE.MathUtils.lerp(oldFov,this.responsiveFov(view.fov),k);this.camera.updateProjectionMatrix();this.controls.update();this.runner.draw();if(t<1)requestAnimationFrame(move);};move(start);
+  const move=time=>{if(this.animation!==token)return;const t=(immediate||reduced)?1:Math.min((time-start)/750,1);const k=1-Math.pow(1-t,3);this.camera.position.lerpVectors(from,to,k);this.controls.target.lerpVectors(fromTarget,toTarget,k);this.camera.fov=THREE.MathUtils.lerp(oldFov,this.responsiveFov(view.fov),k);this.camera.updateProjectionMatrix();this.controls.update();this.updateCutaway();this.runner.draw();if(t<1)requestAnimationFrame(move);};move(start);
  }
  resize(){this.runner.size();}
  setEnabled(value){this.runner.enable(value);}
@@ -87,7 +90,7 @@ export class AssemblyViewer {
   this.controls=new OrbitControls(this.camera,this.renderer.domElement);this.controls.enableDamping=true;this.controls.minDistance=.25;this.controls.maxDistance=12;this.runner=loopViewer(this.renderer,this.scene,this.camera,this.controls,container);
   this.materials={active:new THREE.MeshBasicMaterial({color:0x344b38}),wood:new THREE.MeshBasicMaterial({color:0xe2dfd0}),context:new THREE.MeshBasicMaterial({color:0xe4e8df}),initial:new THREE.MeshBasicMaterial({color:0xa6b69b})};
   this.edgeMaterial=new THREE.LineBasicMaterial({color:0x18281b});this.meshes=[];
-  const loader=new GLTFLoader();loader.setMeshoptDecoder(MeshoptDecoder);loader.load(asset('models/assembly.glb'),gltf=>{
+  const loader=new GLTFLoader();loader.setMeshoptDecoder(MeshoptDecoder);loader.load(asset('models/assembly.glb?design=service-shelf-v4'),gltf=>{
    this.model=gltf.scene;this.scene.add(this.model);this.model.traverse(o=>{if(!o.isMesh)return;let p=o;while(p&&!p.userData.part_id)p=p.parent;const id=p?.userData.part_id;if(!id)return;o.userData.componentId=id;o.userData.componentKind=p.userData.catalog_kind;const edge=new THREE.LineSegments(new THREE.EdgesGeometry(o.geometry,38),this.edgeMaterial);o.add(edge);o.userData.edge=edge;this.meshes.push(o);});this.ready=true;onReady?.();
   },undefined,e=>{console.error('Assembly model load failed',e);onError?.(e);});
  }

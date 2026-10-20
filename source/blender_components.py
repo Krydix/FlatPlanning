@@ -43,7 +43,7 @@ def rebuild(a,collection=MANAGED):
   root=bpy.data.objects.new(id,None);co.objects.link(root);root.location=Vector(p.origin)/1000;root['part_id']=id;root['catalog_kind']=p.kind;root['catalog_sku']=__import__('pipe_engine').CATALOG.get(p.kind,{}).get('sku','custom timber');root.empty_display_size=.025
   if p.kind in cache:
    if p.kind.startswith('tube_') or p.kind in ('flange','extension','cap'):rot=Vector(p.axis).to_track_quat('Z','Y').to_matrix()
-   elif p.kind=='slide_tee':
+   elif p.kind in ('slide_tee','cross'):
     xx,zz=Vector(p.direction),Vector(p.axis);rot=Matrix((xx,zz.cross(xx),zz)).transposed()
    elif p.kind in ('end_holder','middle_holder'):rot=Matrix.Rotation(math.atan2(p.direction[1],p.direction[0])-math.pi/2,3,'Z')
    elif p.kind=='elbow':
@@ -68,6 +68,12 @@ def rebuild(a,collection=MANAGED):
   elif p.kind=='extension':
    rot=Vector(p.axis).to_track_quat('Z','Y').to_matrix()
    gap=a.v('extension_gap');end=gap/2+a.v('extension_engagement');o=annulus(id+' / female extension',(0,0,-end),(0,0,end),17,12.6);objs.append(o);stop=annulus(id+' / internal seating shoulder',(0,0,-gap/2),(0,0,gap/2),12.6,10.5);objs.append(stop)
+  elif p.kind=='cross':
+   reach=a.v('cross_stop')+a.v('cross_engagement');o=c('Four-way threaded body',(0,0,-reach),(0,0,reach),17)
+   branch=cylinder('Cross horizontal body',(-reach,0,0),(reach,0,0),17);boolean(o,branch,'UNION')
+   for d in (Z,-Z,X,-X):
+    bore=cylinder('Cross socket',d*10,d*(reach+1),12.6);boolean(o,bore)
+   xx,zz=Vector(p.direction),Vector(p.axis);rot=Matrix((xx,zz.cross(xx),zz)).transposed()
   elif p.kind=='slide_tee':
    h=a.v('tee_half_height');r=a.v('tee_outer_radius');mouth=a.v('tee_stop')+a.v('tee_engagement');o=c('Sliding sleeve',(0,0,-h),(0,0,h),r);branch=cylinder('branch',(0,0,0),(mouth,0,0),17);boolean(o,branch,'UNION');bore=cylinder('through bore',(0,0,-h-1),(0,0,h+1),12.6);boolean(o,bore);bore=cylinder('female branch',(10,0,0),(mouth+1,0,0),12.6);boolean(o,bore)
    for zz in (-22,22):c('Set screw',(0,-17,zz),(0,-20,zz),3,silver)

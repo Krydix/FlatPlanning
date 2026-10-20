@@ -202,126 +202,133 @@
     {
       "category": "floor",
       "atlas": 4096,
-      "bake_seconds": 64.6,
+      "bake_seconds": 137.3,
       "vertices": 21912,
       "polygons": 22362
     },
     {
       "category": "shell",
       "atlas": 4096,
-      "bake_seconds": 180.5,
+      "bake_seconds": 339.3,
       "vertices": 72,
       "polygons": 54
     },
     {
       "category": "trim",
       "atlas": 1024,
-      "bake_seconds": 12,
+      "bake_seconds": 19.6,
       "vertices": 240,
       "polygons": 232
     },
     {
       "category": "kitchen",
       "atlas": 2048,
-      "bake_seconds": 59.6,
+      "bake_seconds": 103.3,
       "vertices": 3136,
       "polygons": 3014
     },
     {
       "category": "equipment",
       "atlas": 2048,
-      "bake_seconds": 25.3,
-      "vertices": 14648,
-      "polygons": 14512
+      "bake_seconds": 33.8,
+      "vertices": 15896,
+      "polygons": 15568
+    },
+    {
+      "category": "chair",
+      "atlas": 2048,
+      "bake_seconds": 76.9,
+      "vertices": 632,
+      "polygons": 438
     },
     {
       "category": "bed",
       "atlas": 2048,
-      "bake_seconds": 27,
+      "bake_seconds": 40,
       "vertices": 13312,
       "polygons": 13514
     },
     {
       "category": "curtains",
       "atlas": 2048,
-      "bake_seconds": 49.9,
+      "bake_seconds": 73.5,
       "vertices": 384,
       "polygons": 224
     },
     {
       "category": "clothes",
       "atlas": 2048,
-      "bake_seconds": 17.5,
+      "bake_seconds": 23.4,
       "vertices": 10384,
       "polygons": 9632
     },
     {
       "category": "hall",
       "atlas": 2048,
-      "bake_seconds": 64,
+      "bake_seconds": 96,
       "vertices": 624,
       "polygons": 550
     },
     {
       "category": "ceiling",
       "atlas": 1024,
-      "bake_seconds": 17.5,
+      "bake_seconds": 57.8,
       "vertices": 88,
       "polygons": 48
     },
     {
       "category": "exterior",
       "atlas": 1024,
-      "bake_seconds": 6.4,
+      "bake_seconds": 30.5,
       "vertices": 8,
       "polygons": 6
     },
     {
       "category": "doors",
       "atlas": 2048,
-      "bake_seconds": 75,
+      "bake_seconds": 121.9,
       "vertices": 1568,
       "polygons": 1588
     },
     {
       "category": "glass",
       "atlas": 1024,
-      "bake_seconds": 4,
+      "bake_seconds": 5.3,
       "vertices": 128,
       "polygons": 120
     },
     {
       "category": "pipes",
       "atlas": 1024,
-      "bake_seconds": 3.7,
-      "vertices": 60992,
-      "polygons": 36760
+      "bake_seconds": 5.2,
+      "vertices": 66300,
+      "polygons": 39976
     },
     {
       "category": "wood",
       "atlas": 4096,
-      "bake_seconds": 280.8,
-      "vertices": 1895,
-      "polygons": 1742
+      "bake_seconds": 361.5,
+      "vertices": 2454,
+      "polygons": 2237
     },
     {
       "category": "lighting",
       "atlas": 2048,
-      "bake_seconds": 22.5,
+      "bake_seconds": 24.6,
       "vertices": 12932,
       "polygons": 12504
     },
     {
       "category": "crates",
       "atlas": 2048,
-      "bake_seconds": 33.3,
+      "bake_seconds": 36.8,
       "vertices": 16608,
       "polygons": 16212
     }
   ],
-  "model_bytes": 8067868,
-  "mesh_count": 17,
+  "model_bytes": 8274988,
+  "mesh_count": 18,
   "lights_exported": false,
-  "uncompressed_model_bytes": 26164192,
+  "uncompressed_model_bytes": 27242268,
   "mesh_compression": "EXT_meshopt_compression"
 }

@@ -5,3 +5,5 @@
 
 .canvas-wrap[hidden],.view-presets[hidden],#room-tools[hidden]{display:none}
 #room-tools{display:flex;gap:5px}
+
+.view-presets{width:max-content;overflow-x:auto;scrollbar-width:none}.view-presets::-webkit-scrollbar{display:none}
