@@ -6,19 +6,26 @@ import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer
 const asset = path => new URL(path, document.baseURI).href;
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const VIEWS = {
- overview: {position:[8.0,7.2,4.8],target:[1.7,.85,-1.05],cutaway:true,fov:43},
- entrance: {position:[2.93,1.55,.42],target:[2.60,1.10,-1.68],cutaway:false,fov:73},
- desk: {position:[1.58,1.43,-2.1125],target:[3.20,1.35,-2.1125],cutaway:false,fov:62},
- wardrobe: {position:[1.52,1.55,-3.85],target:[3.22,1.43,-4.15],cutaway:false,fov:65},
- plan: {position:[1.72,10.8,-1.4],target:[1.72,0,-1.4],cutaway:true,fov:49},
+ overview: {position:[8.0,7.2,4.8],target:[1.7,.85,-1.05],fov:43},
+ entrance: {position:[2.93,1.55,.42],target:[2.60,1.10,-1.68],fov:73},
+ desk: {position:[1.58,1.43,-2.1125],target:[3.20,1.35,-2.1125],fov:62},
+ wardrobe: {position:[1.52,1.55,-3.85],target:[3.22,1.43,-4.15],fov:65},
+ plan: {position:[1.72,10.8,-1.4],target:[1.72,0,-1.4],fov:49},
 };
-function rendererFor(element,background){
+export function rendererFor(element,background){
  const renderer=new THREE.WebGLRenderer({antialias:true,alpha:false,powerPreference:'high-performance'});
  renderer.setPixelRatio(Math.min(window.devicePixelRatio,1.75));renderer.outputColorSpace=THREE.SRGBColorSpace;
  renderer.toneMapping=THREE.AgXToneMapping;renderer.toneMappingExposure=1.15;
  renderer.setClearColor(background);renderer.domElement.tabIndex=0;element.appendChild(renderer.domElement);return renderer;
 }
-function loopViewer(renderer,scene,camera,controls,container,labels,onResize){
+export function limitTextureSize(texture,limit){
+ const image=texture.image;if(!image||Math.max(image.width,image.height)<=limit)return;
+ const scale=limit/Math.max(image.width,image.height),canvas=document.createElement('canvas');
+ canvas.width=Math.round(image.width*scale);canvas.height=Math.round(image.height*scale);
+ const context=canvas.getContext('2d');if(!context)return;
+ context.drawImage(image,0,0,canvas.width,canvas.height);texture.image=canvas;texture.needsUpdate=true;
+}
+export function loopViewer(renderer,scene,camera,controls,container,labels,onResize){
  let dirty=true;let enabled=true;let frame;
  const size=()=>{const box=container.getBoundingClientRect();if(box.width<1||box.height<1)return;renderer.setSize(box.width,box.height);if(labels)labels.setSize(box.width,box.height);camera.aspect=box.width/box.height;onResize?.();camera.updateProjectionMatrix();dirty=true;};
  const ro=new ResizeObserver(size);ro.observe(container);controls.addEventListener('change',()=>{dirty=true;});
@@ -30,12 +37,16 @@ export class RoomViewer {
   this.container=container;this.onCutaway=onCutaway;this.onError=onError;this.cutaway=true;this.currentView='overview';this.scene=new THREE.Scene();
   this.camera=new THREE.PerspectiveCamera(43,1,.02,100);this.renderer=rendererFor(container,0xe8eadf);
   this.controls=new OrbitControls(this.camera,this.renderer.domElement);this.controls.enableDamping=true;this.controls.dampingFactor=.1;this.controls.minDistance=.35;this.controls.maxDistance=21;this.controls.maxPolarAngle=Math.PI*.52;
+  this.controls.addEventListener('start',()=>{this.animation=null;});
+  this.controls.addEventListener('change',()=>this.updateCutaway());
   this.labels=new CSS2DRenderer();this.labels.domElement.style.cssText='position:absolute;inset:0;pointer-events:none;z-index:2';container.appendChild(this.labels.domElement);
   this.runner=loopViewer(this.renderer,this.scene,this.camera,this.controls,container,this.labels,()=>{this.camera.fov=this.responsiveFov(VIEWS[this.currentView]?.fov||43);});
   this.dimensionGroup=new THREE.Group();this.dimensionGroup.visible=false;this.scene.add(this.dimensionGroup);this.addDimensions();this.setView('overview',true);
   const loader=new GLTFLoader();loader.setMeshoptDecoder(MeshoptDecoder);
-  loader.load(asset('models/flat-baked.glb'),gltf=>{
-   this.model=gltf.scene;this.scene.add(this.model);this.model.traverse(o=>{if(o.isMesh){o.castShadow=false;o.receiveShadow=false;const mats=Array.isArray(o.material)?o.material:[o.material];for(const m of mats){m.toneMapped=true;if(m.map)m.map.anisotropy=Math.min(8,this.renderer.capabilities.getMaxAnisotropy());if(o.name==='flat_glass'){m.transparent=true;m.opacity=.10;m.depthWrite=false;m.side=THREE.DoubleSide;}}}});
+  loader.load(asset('models/flat-baked.glb?bake=cycles128-4k-v2'),gltf=>{
+   this.model=gltf.scene;this.scene.add(this.model);const atlasLimit=window.matchMedia('(pointer: coarse)').matches||container.clientWidth<600?2048:4096;
+   this.model.traverse(o=>{if(o.isMesh){o.castShadow=false;o.receiveShadow=false;const mats=Array.isArray(o.material)?o.material:[o.material];for(const m of mats){m.toneMapped=true;if(m.map){limitTextureSize(m.map,atlasLimit);m.map.anisotropy=Math.min(8,this.renderer.capabilities.getMaxAnisotropy());}if(o.name==='flat_glass'){m.transparent=true;m.opacity=.10;m.depthWrite=false;m.side=THREE.DoubleSide;}}}});
+   this.shellBounds=new THREE.Box3();this.model.traverse(o=>{if(o.isMesh&&o.userData.category==='shell')this.shellBounds.expandByObject(o);});
    this.setCutaway(this.cutaway);this.runner.draw();onReady?.();
   },event=>{if(event.total)onProgress?.(Math.round(event.loaded/event.total*100));},error=>{console.error('Room model load failed',error);onError?.(error);});
  }
@@ -48,12 +59,24 @@ export class RoomViewer {
   line([2.70,0,-2.02],[2.70,.732,-2.02],'73.2 cm',[2.64,.39,-2.02]);
  }
  setDimensions(value){this.dimensionGroup.visible=value;this.runner.draw();}
- setCutaway(value){this.cutaway=value;if(this.model)this.model.traverse(o=>{const category=o.userData.category;if(['shell','ceiling','exterior','glass'].includes(category))o.visible=!value;});this.onCutaway?.(value);this.runner.draw();}
+ updateCutaway(){
+  if(!this.model)return;
+  // The same rule runs during hand orbit and preset motion. Inside the flat,
+  // retain the baked walls/ceiling; only outside views need the shell removed.
+  const inside=this.shellBounds?.containsPoint(this.camera.position);
+  this.model.traverse(o=>{const category=o.userData.category;
+   if(['shell','ceiling','glass'].includes(category))o.visible=!this.cutaway||inside;
+   if(category==='exterior')o.visible=!this.cutaway;
+  });
+ }
+ setCutaway(value){this.cutaway=value;this.updateCutaway();this.onCutaway?.(value);this.runner.draw();}
  setView(name,immediate=false){
-  const view=VIEWS[name]||VIEWS.overview;this.currentView=name;this.setCutaway(true);this.controls.enablePan=true;
+  // Presets move the same camera through the same baked model. Preserve the
+  // cutaway preference and never change materials or lights here.
+  const view=VIEWS[name]||VIEWS.overview;this.currentView=name;this.controls.enablePan=true;
   const from=this.camera.position.clone(),fromTarget=this.controls.target.clone(),to=new THREE.Vector3(...view.position),toTarget=new THREE.Vector3(...view.target),oldFov=this.camera.fov;
   const token={};this.animation=token;const start=performance.now();
-  const move=time=>{if(this.animation!==token)return;const t=(immediate||reduced)?1:Math.min((time-start)/750,1);const k=1-Math.pow(1-t,3);this.camera.position.lerpVectors(from,to,k);this.controls.target.lerpVectors(fromTarget,toTarget,k);this.camera.fov=THREE.MathUtils.lerp(oldFov,this.responsiveFov(view.fov),k);this.camera.updateProjectionMatrix();this.controls.update();this.runner.draw();if(t<1)requestAnimationFrame(move);else this.setCutaway(view.cutaway);};move(start);
+  const move=time=>{if(this.animation!==token)return;const t=(immediate||reduced)?1:Math.min((time-start)/750,1);const k=1-Math.pow(1-t,3);this.camera.position.lerpVectors(from,to,k);this.controls.target.lerpVectors(fromTarget,toTarget,k);this.camera.fov=THREE.MathUtils.lerp(oldFov,this.responsiveFov(view.fov),k);this.camera.updateProjectionMatrix();this.controls.update();this.runner.draw();if(t<1)requestAnimationFrame(move);};move(start);
  }
  resize(){this.runner.size();}
  setEnabled(value){this.runner.enable(value);}

@@ -3,131 +3,325 @@
   "ceiling_light_on": false,
   "baked": true,
   "render_engine": "Cycles",
-  "samples": 24,
+  "samples": 128,
+  "max_bounces": 12,
+  "diffuse_bounces": 6,
+  "bake_type": "COMBINED",
+  "passes": [
+    "DIFFUSE",
+    "DIRECT",
+    "INDIRECT",
+    "EMIT",
+    "COLOR"
+  ],
+  "view_independent": true,
+  "max_atlas_size": 4096,
+  "baked_lights": [
+    {
+      "name": "Balcony daylight",
+      "type": "AREA",
+      "watts": 0,
+      "color": [
+        0.8399999737739563,
+        0.9100000262260437,
+        1
+      ]
+    },
+    {
+      "name": "Soft room bounce",
+      "type": "AREA",
+      "watts": 0,
+      "color": [
+        1,
+        0.8799999952316284,
+        0.7200000286102295
+      ]
+    },
+    {
+      "name": "Kitchen wash",
+      "type": "AREA",
+      "watts": 0,
+      "color": [
+        1,
+        0.9100000262260437,
+        0.7900000214576721
+      ]
+    },
+    {
+      "name": "Pendant practical",
+      "type": "AREA",
+      "watts": 16,
+      "color": [
+        1,
+        0.7200000286102295,
+        0.4399999976158142
+      ]
+    },
+    {
+      "name": "Pendant practical.001",
+      "type": "AREA",
+      "watts": 16,
+      "color": [
+        1,
+        0.7200000286102295,
+        0.4399999976158142
+      ]
+    },
+    {
+      "name": "MITTLED desk task light",
+      "type": "AREA",
+      "watts": 14,
+      "color": [
+        1,
+        0.7200000286102295,
+        0.4399999976158142
+      ]
+    },
+    {
+      "name": "MITTLED desk task light.001",
+      "type": "AREA",
+      "watts": 14,
+      "color": [
+        1,
+        0.7200000286102295,
+        0.4399999976158142
+      ]
+    },
+    {
+      "name": "V9 existing ceiling fixture - on",
+      "type": "AREA",
+      "watts": 0,
+      "color": [
+        1,
+        0.7200000286102295,
+        0.4399999976158142
+      ]
+    },
+    {
+      "name": "V9 ceiling diffuser side spill",
+      "type": "AREA",
+      "watts": 0,
+      "color": [
+        1,
+        0.7200000286102295,
+        0.4399999976158142
+      ]
+    },
+    {
+      "name": "V9 existing undercab task light",
+      "type": "AREA",
+      "watts": 12,
+      "color": [
+        1,
+        0.7200000286102295,
+        0.4399999976158142
+      ]
+    },
+    {
+      "name": "V9 existing undercab task light.001",
+      "type": "AREA",
+      "watts": 12,
+      "color": [
+        1,
+        0.7200000286102295,
+        0.4399999976158142
+      ]
+    },
+    {
+      "name": "Rack.top0 ÖVERSIDAN 1 light",
+      "type": "AREA",
+      "watts": 9.666666984558105,
+      "color": [
+        1,
+        0.7200000286102295,
+        0.4399999976158142
+      ]
+    },
+    {
+      "name": "Rack.top1 ÖVERSIDAN 1 light",
+      "type": "AREA",
+      "watts": 4.666666507720947,
+      "color": [
+        1,
+        0.7200000286102295,
+        0.4399999976158142
+      ]
+    },
+    {
+      "name": "Rack.top2 ÖVERSIDAN 1 light",
+      "type": "AREA",
+      "watts": 4.666666507720947,
+      "color": [
+        1,
+        0.7200000286102295,
+        0.4399999976158142
+      ]
+    },
+    {
+      "name": "Desk.shelf1 ÖVERSIDAN 1 light",
+      "type": "AREA",
+      "watts": 7.333333492279053,
+      "color": [
+        1,
+        0.7200000286102295,
+        0.4399999976158142
+      ]
+    },
+    {
+      "name": "Desk.shelf1 ÖVERSIDAN 2 light",
+      "type": "AREA",
+      "watts": 7.333333492279053,
+      "color": [
+        1,
+        0.7200000286102295,
+        0.4399999976158142
+      ]
+    },
+    {
+      "name": "Desk.shelf2 ÖVERSIDAN 1 light",
+      "type": "AREA",
+      "watts": 7.333333492279053,
+      "color": [
+        1,
+        0.7200000286102295,
+        0.4399999976158142
+      ]
+    },
+    {
+      "name": "Desk.shelf2 ÖVERSIDAN 2 light",
+      "type": "AREA",
+      "watts": 7.333333492279053,
+      "color": [
+        1,
+        0.7200000286102295,
+        0.4399999976158142
+      ]
+    }
+  ],
   "atlases": [
     {
       "category": "floor",
-      "atlas": 2048,
-      "bake_seconds": 29.0,
+      "atlas": 4096,
+      "bake_seconds": 64.6,
       "vertices": 21912,
       "polygons": 22362
     },
     {
       "category": "shell",
-      "atlas": 2048,
-      "bake_seconds": 19.6,
+      "atlas": 4096,
+      "bake_seconds": 180.5,
       "vertices": 72,
       "polygons": 54
     },
     {
       "category": "trim",
-      "atlas": 512,
-      "bake_seconds": 2.1,
+      "atlas": 1024,
+      "bake_seconds": 12,
       "vertices": 240,
       "polygons": 232
     },
     {
       "category": "kitchen",
       "atlas": 2048,
-      "bake_seconds": 20.5,
+      "bake_seconds": 59.6,
       "vertices": 3136,
       "polygons": 3014
     },
     {
       "category": "equipment",
       "atlas": 2048,
-      "bake_seconds": 14.2,
+      "bake_seconds": 25.3,
       "vertices": 14648,
       "polygons": 14512
     },
     {
       "category": "bed",
-      "atlas": 1024,
-      "bake_seconds": 3.6,
+      "atlas": 2048,
+      "bake_seconds": 27,
       "vertices": 13312,
       "polygons": 13514
     },
     {
       "category": "curtains",
-      "atlas": 1024,
-      "bake_seconds": 4.4,
+      "atlas": 2048,
+      "bake_seconds": 49.9,
       "vertices": 384,
       "polygons": 224
     },
     {
       "category": "clothes",
-      "atlas": 1024,
-      "bake_seconds": 3.1,
+      "atlas": 2048,
+      "bake_seconds": 17.5,
       "vertices": 10384,
       "polygons": 9632
     },
     {
       "category": "hall",
-      "atlas": 1024,
-      "bake_seconds": 5.0,
+      "atlas": 2048,
+      "bake_seconds": 64,
       "vertices": 624,
       "polygons": 550
     },
     {
       "category": "ceiling",
-      "atlas": 512,
-      "bake_seconds": 1.6,
+      "atlas": 1024,
+      "bake_seconds": 17.5,
       "vertices": 88,
       "polygons": 48
     },
     {
       "category": "exterior",
-      "atlas": 512,
-      "bake_seconds": 1.2,
+      "atlas": 1024,
+      "bake_seconds": 6.4,
       "vertices": 8,
       "polygons": 6
     },
     {
       "category": "doors",
-      "atlas": 1024,
-      "bake_seconds": 5.1,
+      "atlas": 2048,
+      "bake_seconds": 75,
       "vertices": 1568,
       "polygons": 1588
     },
     {
       "category": "glass",
-      "atlas": 512,
-      "bake_seconds": 1.1,
+      "atlas": 1024,
+      "bake_seconds": 4,
       "vertices": 128,
       "polygons": 120
     },
     {
       "category": "pipes",
-      "atlas": 512,
-      "bake_seconds": 1.1,
+      "atlas": 1024,
+      "bake_seconds": 3.7,
       "vertices": 60992,
       "polygons": 36760
     },
     {
       "category": "wood",
-      "atlas": 2048,
-      "bake_seconds": 20.0,
+      "atlas": 4096,
+      "bake_seconds": 280.8,
       "vertices": 1895,
       "polygons": 1742
     },
     {
       "category": "lighting",
-      "atlas": 1024,
-      "bake_seconds": 3.8,
+      "atlas": 2048,
+      "bake_seconds": 22.5,
       "vertices": 12932,
       "polygons": 12504
     },
     {
       "category": "crates",
-      "atlas": 1024,
-      "bake_seconds": 3.5,
+      "atlas": 2048,
+      "bake_seconds": 33.3,
       "vertices": 16608,
       "polygons": 16212
     }
   ],
-  "model_bytes": 4266296,
+  "model_bytes": 8067868,
   "mesh_count": 17,
   "lights_exported": false,
-  "uncompressed_model_bytes": 22362612,
+  "uncompressed_model_bytes": 26164192,
   "mesh_compression": "EXT_meshopt_compression"
 }

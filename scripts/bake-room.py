@@ -9,12 +9,15 @@ from mathutils import Vector
 ROOT=Path(__file__).resolve().parent.parent
 BASE=ROOT/'source/flat-v18.blend';OUT=ROOT/'public/models';OUT.mkdir(parents=True,exist_ok=True);LIGHTMAPS=ROOT/'source/lightmaps';LIGHTMAPS.mkdir(parents=True,exist_ok=True)
 bpy.ops.wm.open_mainfile(filepath=str(BASE));scene=bpy.context.scene;scene.frame_set(1)
-scene.render.engine='CYCLES';scene.cycles.device='GPU';scene.cycles.samples=24
+SAMPLES=128
+scene.render.engine='CYCLES';scene.cycles.device='GPU';scene.cycles.samples=SAMPLES
+scene.cycles.seed=0;scene.cycles.max_bounces=12;scene.cycles.diffuse_bounces=6
 prefs=bpy.context.preferences.addons['cycles'].preferences;prefs.compute_device_type='METAL';prefs.get_devices()
 for device in prefs.devices:device.use=device.type=='METAL'
-scene.cycles.use_denoising=True;scene.render.bake.margin=5;scene.render.bake.use_pass_direct=True;scene.render.bake.use_pass_indirect=True;scene.render.bake.use_pass_color=True;scene.render.bake.use_pass_emit=True;scene.render.bake.use_pass_glossy=False;scene.render.bake.use_pass_transmission=False
+scene.cycles.use_denoising=True;scene.render.bake.margin=12;scene.render.bake.use_pass_direct=True;scene.render.bake.use_pass_indirect=True;scene.render.bake.use_pass_color=True;scene.render.bake.use_pass_emit=True;scene.render.bake.use_pass_glossy=False;scene.render.bake.use_pass_transmission=False
 for o in bpy.data.objects:
  if o.type=='LIGHT' and 'ceiling' in o.name.lower():o.data.energy=0
+light_records=[{'name':o.name,'type':o.data.type,'watts':o.data.energy,'color':list(o.data.color)} for o in scene.objects if o.type=='LIGHT' and not o.hide_render]
 # Keep only scene-linked, render-visible objects; alternate bed and cutaway duplicates stay excluded.
 allowed=set()
 def visit(c,hidden=False):
@@ -86,8 +89,8 @@ print('UV_READY',len(merged),flush=True)
 # Give each atlas material independent nodes while preserving the procedural albedo.
 records=[];prepared=[]
 for o in merged:
- key=o['category'];size=2048 if key in ('floor','shell','wood','equipment','kitchen') else 1024
- if key in ('trim','pipes','exterior','ceiling','glass'):size=512
+ key=o['category'];size=4096 if key in ('floor','shell','wood') else 2048
+ if key in ('trim','pipes','exterior','ceiling','glass'):size=1024
  image=bpy.data.images.new('baked_'+key,width=size,height=size,alpha=False);image.colorspace_settings.name='sRGB'
  copies={}
  for slot in o.material_slots:
@@ -113,7 +116,7 @@ for o,image,key,size in prepared:
  bpy.ops.object.select_all(action='DESELECT');o.select_set(True);bpy.context.view_layer.objects.active=o
  started=time.time();print('BAKE_START',key,size,flush=True)
  bpy.ops.object.bake(type='COMBINED',use_clear=True)
- image.filepath_raw=str(LIGHTMAPS/('baked-'+key+'.jpg'));image.file_format='JPEG';image.save()
+ image.filepath_raw=str(LIGHTMAPS/('baked-'+key+'.jpg'));image.file_format='JPEG';scene.render.image_settings.quality=94;image.save()
  records.append({'category':key,'atlas':size,'bake_seconds':round(time.time()-started,1),'vertices':len(o.data.vertices),'polygons':len(o.data.polygons)})
  print('BAKE_DONE',key,records[-1]['bake_seconds'],flush=True)
 for o,image,key,size in prepared:
@@ -124,12 +127,12 @@ for o,image,key,size in prepared:
 # Avoid re-lighting already baked textures at runtime.
 bpy.ops.object.select_all(action='DESELECT')
 for o in merged:o.select_set(True)
-file=OUT/'flat-baked.glb';bpy.ops.export_scene.gltf(filepath=str(file),export_format='GLB',use_selection=True,export_extras=True,export_cameras=False,export_lights=False,export_animations=False,export_image_format='JPEG',export_jpeg_quality=88)
+file=OUT/'flat-baked.glb';bpy.ops.export_scene.gltf(filepath=str(file),export_format='GLB',use_selection=True,export_extras=True,export_cameras=False,export_lights=False,export_animations=False,export_image_format='JPEG',export_jpeg_quality=94)
 data=file.read_bytes();length,kind=struct.unpack_from('<II',data,12);gltf=json.loads(data[20:20+length]);binary=data[20+length:]
 used=set(gltf.get('extensionsUsed',[]));used.add('KHR_materials_unlit');gltf['extensionsUsed']=sorted(used)
 for m in gltf.get('materials',[]):m.setdefault('extensions',{})['KHR_materials_unlit']={}
-gltf.setdefault('asset',{})['extras']={'design':'V18 locked','lighting':'Baked practical lights; main ceiling light OFF','bake':'Cycles combined diffuse/indirect/emission, 24 samples, per-category UV atlases','geometry':'Approved model; connector profiles and structural load capacities remain unverified'}
+gltf.setdefault('asset',{})['extras']={'design':'V18 locked','lighting':'Baked practical lights; main ceiling light OFF','bake':f'Cycles combined diffuse/indirect/emission, {SAMPLES} samples, per-category UV atlases up to 4096px','geometry':'Approved model; connector profiles and structural load capacities remain unverified'}
 encoded=json.dumps(gltf,separators=(',',':')).encode();encoded+=b' '*((-len(encoded))%4)
 file.write_bytes(struct.pack('<III',0x46546c67,2,12+8+len(encoded)+len(binary))+struct.pack('<II',len(encoded),0x4e4f534a)+encoded+binary)
-manifest={'design':'V18','ceiling_light_on':False,'baked':True,'render_engine':'Cycles','samples':24,'atlases':records,'model_bytes':file.stat().st_size,'mesh_count':len(merged),'lights_exported':False}
+manifest={'design':'V18','ceiling_light_on':False,'baked':True,'render_engine':'Cycles','samples':SAMPLES,'max_bounces':scene.cycles.max_bounces,'diffuse_bounces':scene.cycles.diffuse_bounces,'bake_type':'COMBINED','passes':['DIFFUSE','DIRECT','INDIRECT','EMIT','COLOR'],'view_independent':True,'max_atlas_size':4096,'baked_lights':light_records,'atlases':records,'model_bytes':file.stat().st_size,'mesh_count':len(merged),'lights_exported':False}
 (ROOT/'public/data/bake-manifest.json').write_text(json.dumps(manifest,indent=2)+'\n');print('BAKE_COMPLETE',json.dumps(manifest),flush=True)
