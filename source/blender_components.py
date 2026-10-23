@@ -133,6 +133,11 @@ def rebuild(a,collection=MANAGED):
    for rc in p.data.get('support_reliefs',[]):
     x0,x1,y0,y1,z0,z1=rc['bounds'];pos=Vector(((x0+x1)/2,(y0+y1)/2,(z0+z1)/2))-origin
     cut=box('Tee underside clearance',pos,(x1-x0,y1-y0,z1-z0));boolean(o,cut)
+   x0,x1,y0,y1=p.data['bounds']
+   for x,y,r in p.data.get('corner_radii',[]):
+    # Square corner block minus the radius cylinder leaves the rounded plan corner.
+    ax=x+(r if x==x0 else -r);ay=y+(r if y==y0 else -r);sx=1 if x==x0 else -1;sy=1 if y==y0 else -1
+    cut=box('Rounded corner',Vector(((x+ax)/2-sx,(y+ay)/2-sy,bt+th/2))-origin,(r+2,r+2,th+2));arc=cylinder('Corner radius',Vector((ax,ay,bt-2))-origin,Vector((ax,ay,bt+th+2))-origin,r);boolean(cut,arc);boolean(o,cut)
    bevel=o.modifiers.new('Soft timber edges','BEVEL');bevel.width=.0015;bevel.segments=2
   if p.kind not in ('wood','saddle'):cache[p.kind]=[(o.data,o.matrix_world.copy()) for o in objs]
   for o in objs:

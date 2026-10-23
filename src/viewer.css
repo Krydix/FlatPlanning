@@ -7,3 +7,8 @@
 #room-tools{display:flex;gap:5px}
 
 .view-presets{width:max-content;overflow-x:auto;scrollbar-width:none}.view-presets::-webkit-scrollbar{display:none}
+
+.dimension-label.unverified{color:#8a5a12;background:#fff8e8ee;border:1px dashed #d8a54a}.dimension-label.measure{color:#f2f9e6;background:#2b4430;border-color:#2b4430}
+.dimension-legend span.unverified{color:#8a5a12}.dimension-legend span.measured{color:#3f6a2e}.dimension-legend em{font-style:normal;font-size:8px;opacity:.75;margin-left:4px}
+.canvas-wrap.measuring canvas{cursor:crosshair}#context-lost{inset:auto 22px 130px}#context-lost[hidden]{display:none}
+@media(max-width:540px){#room-tools .icon-button span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}#room-tools .icon-button{font-size:14px;padding:7px 9px}}

@@ -2,8 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import * as THREE from 'three';
 
-globalThis.window={matchMedia:()=>({matches:false})};
-const {RoomViewer}=await import('../src/viewer.js');
+globalThis.window={matchMedia:()=>({matches:false}),devicePixelRatio:2,addEventListener(){},removeEventListener(){}};
+const {RoomViewer,loopViewer,INTERIOR}=await import('../src/viewer.js');
 
 test('camera presets preserve baked materials and the chosen cutaway throughout each transition',()=>{
  const queue=[];
@@ -46,17 +46,20 @@ test('a superseded camera animation cannot take over the next preset',()=>{
  assert.equal(viewer.currentView,'desk');
 });
 
-test('cutaway retains illuminated room surfaces for interior viewpoints',()=>{
+test('cutaway retains illuminated room surfaces and the outside view for interior viewpoints',()=>{
  const model=new THREE.Group();
  for(const category of ['shell','ceiling','glass','exterior','wood']){
   const mesh=new THREE.Mesh();mesh.userData.category=category;model.add(mesh);
  }
- const viewer={model,cutaway:true,camera:{position:new THREE.Vector3(1,1,-2)},
-  shellBounds:new THREE.Box3(new THREE.Vector3(0,0,-5.3),new THREE.Vector3(3.45,2.5,1))};
+ const viewer={model,cutaway:true,camera:{position:new THREE.Vector3(1,1,-2)}};
  RoomViewer.prototype.updateCutaway.call(viewer);
- assert.ok(model.children.filter(o=>o.userData.category!=='exterior').every(o=>o.visible));
+ assert.ok(model.children.every(o=>o.visible));
+ // The hall is interior too; a point beside the flat in wall thickness is not.
+ viewer.camera.position.set(2.8,1.5,1.5);RoomViewer.prototype.updateCutaway.call(viewer);assert.ok(model.children.every(o=>o.visible));
+ viewer.camera.position.set(-.2,1.5,-2);RoomViewer.prototype.updateCutaway.call(viewer);
+ assert.ok(model.children.filter(o=>['shell','ceiling','glass','exterior'].includes(o.userData.category)).every(o=>!o.visible));
  viewer.camera.position.set(8,7,5);RoomViewer.prototype.updateCutaway.call(viewer);
- assert.ok(model.children.filter(o=>['shell','ceiling','glass'].includes(o.userData.category)).every(o=>!o.visible));
+ assert.ok(model.children.filter(o=>['shell','ceiling','glass','exterior'].includes(o.userData.category)).every(o=>!o.visible));
  assert.equal(model.children.find(o=>o.userData.category==='wood').visible,true);
  viewer.cutaway=false;RoomViewer.prototype.updateCutaway.call(viewer);
  assert.ok(model.children.every(o=>o.visible));
@@ -70,4 +73,30 @@ test('equipment inspection hides only the chair and restores it for normal room 
  assert.equal(model.children[0].visible,false);assert.ok(model.children.slice(1).every(o=>o.visible));
  assert.ok(model.children.every(o=>o.material===material&&o.material.map===texture));
  viewer.currentView='desk';RoomViewer.prototype.updateCutaway.call(viewer);assert.ok(model.children.every(o=>o.visible));
+});
+
+test('the render loop sleeps when idle and wakes for changes, resize and context restore',()=>{
+ const queue=[];globalThis.requestAnimationFrame=callback=>{queue.push(callback);return queue.length;};globalThis.cancelAnimationFrame=()=>{};
+ globalThis.ResizeObserver=class{observe(){}disconnect(){}};
+ const listeners={},canvasEvents={};let renders=0,moving=0;
+ const renderer={domElement:{addEventListener:(type,fn)=>{canvasEvents[type]=fn;}},setPixelRatio(){},setSize(){},render(){renders++;},dispose(){}};
+ const controls={update:()=>moving-->0,addEventListener:(type,fn)=>{listeners[type]=fn;}};
+ const container={getBoundingClientRect:()=>({width:400,height:300})};
+ const runner=loopViewer(renderer,new THREE.Scene(),new THREE.PerspectiveCamera(),controls,container);
+ const flush=()=>{for(const callback of queue.splice(0))callback(0);};
+ flush();assert.equal(renders,1);flush();assert.equal(queue.length,0,'no frames while idle');
+ moving=3;listeners.change();flush();flush();flush();flush();assert.equal(queue.length,0);assert.ok(renders>=4);
+ const before=renders;canvasEvents.webglcontextlost({preventDefault(){}});runner.draw();flush();assert.equal(renders,before,'no drawing while the context is lost');
+ canvasEvents.webglcontextrestored();flush();assert.equal(renders,before+1);
+ runner.enable(false);runner.draw();assert.equal(queue.length,0,'disabled viewers request no frames');
+});
+
+test('dimensions are dashed unless measured on site',()=>{
+ globalThis.document={createElement:()=>({className:'',textContent:'',style:{},setAttribute(){}})};
+ const viewer={dimensionGroup:new THREE.Group()};
+ RoomViewer.prototype.addDimensions.call(viewer,[{label:'Room width',a:[0,0,0],b:[3450,0,0],value:3450,basis:'assumed'},{label:'Ceiling',a:[0,0,0],b:[0,0,2480],value:2480,basis:'measured'}]);
+ const lines=viewer.dimensionGroup.children.filter(o=>o.isLine);
+ assert.equal(lines[0].material.type,'LineDashedMaterial');assert.equal(lines[1].material.type,'LineBasicMaterial');
+ const labels=viewer.dimensionGroup.children.filter(o=>o.element);assert.match(labels[0].element.textContent,/3\.45 m · assumed/);assert.match(labels[1].element.textContent,/2\.48 m$/);
+ assert.ok(INTERIOR.length===3);
 });

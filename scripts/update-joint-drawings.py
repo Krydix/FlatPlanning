@@ -3,7 +3,7 @@ import sys,math,json
 from pathlib import Path
 import ezdxf
 ROOT=Path(__file__).resolve().parent.parent;sys.path.insert(0,str(ROOT/'source'))
-from pipe_engine import Assembly,add,mul,board_corners
+from pipe_engine import Assembly,add,mul,board_corners,board_outline
 A=Assembly.load(ROOT/'source/assembly.json')
 def draw(m,p,project,plan=False):
  kind=p.kind;o=p.origin;layer='V8_CLAMPS'
@@ -13,9 +13,11 @@ def draw(m,p,project,plan=False):
   if math.dist(project(o),project(end))<1e-8:m.add_circle(project(o),.0125,dxfattribs={'layer':'V8_PIPE'})
   else:line(o,end,'V8_PIPE')
  elif kind=='wood':
-  c=board_corners(p.data);bt=p.data['bottom'];th=p.data['thickness'];pts=[project((x,y,z)) for z in (bt,bt+th) for x,y in c]
-  for i in range(4):
-   for a,b in [(i,(i+1)%4),(i+4,(i+1)%4+4),(i,i+4)]:m.add_line(pts[a],pts[b],dxfattribs={'layer':'V8_OVERHEAD' if plan and p.id!='Desk.top' else 'V8_TIMBER'})
+  c=board_outline(p.data);n=len(c);bt=p.data['bottom'];th=p.data['thickness'];pts=[project((x,y,z)) for z in (bt,bt+th) for x,y in c]
+  for i in range(n):
+   # Arc points get outline edges only; vertical edges are drawn at true corners and arc ends.
+   straight=max(math.dist(c[i],c[(i+1)%n]),math.dist(c[i],c[i-1]))>50
+   for a,b in [(i,(i+1)%n),(i+n,(i+1)%n+n)]+([(i,i+n)] if straight else []):m.add_line(pts[a],pts[b],dxfattribs={'layer':'V8_OVERHEAD' if plan and p.id!='Desk.top' else 'V8_TIMBER'})
   if plan:
    for x,y,diam in p.data['holes']:m.add_circle(project((x,y,bt)),diam/2000,dxfattribs={'layer':'V8_CLAMPS'})
  elif kind in ('slide_tee','cross','elbow'):

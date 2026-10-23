@@ -1,17 +1,39 @@
 # Verification — V18 site
 
-- The published room geometry comes from the locked V18 Blender file. The source-model copy was checked with the component adapter before local render paths and obsolete notes were removed; geometry is unchanged.
-- Cycles combined UV baking uses 128 samples, six diffuse bounces and UV atlases up to 4096 px with the main ceiling fixture off. The runtime room has unlit baked materials and exports no live lights.
-- Camera presets do not change the user’s cutaway setting or replace baked materials. Smart cutaway retains the room shell for interior camera positions during both orbit and preset movement. Four regression tests cover transitions, interrupted transitions, interior shell visibility and chair-only equipment inspection.
-- Meshopt compresses the high-resolution baked room geometry for the browser. The separate assembly model retains component IDs for stage highlighting.
-- Blender mesh checks found no pipe/fitting intersection with the bored and relieved desktop or service shelf.
-- The revised desk uses two four-female DOLLE crosses and two low front braces with T fittings on both ends. All sockets are occupied; independent cross movement and incompatible measured stop offsets are rejected.
-- Data checks reconcile the core €2,968.90 estimate, purchase pack quantities, source graph, downloadable files and glTF compression/lighting properties.
-- All 291 frame/timber components are assigned exactly once across 21 planning stages.
-- The 47 source connection/geometry tests pass.
-- Browser checks verified the 3D room, workstation camera, cutaway, stage-specific 3D highlighting, illustrated guide, supplier links, BOM search, pack counts and browser-local checklist persistence.
-- A 390 px viewport check verified responsive navigation and guide layout; the narrow-screen camera framing was corrected.
+## What is measured and what is not
 
-Physical dimensions and hardware load ratings are still provisional as described in the README and guide. These checks do not certify structural safety or the physical installation sequence.
+- **Ceiling: measured, 2,630 mm** (reported 23 October 2026, location not recorded). The Blender walls, lintels, slab, ceiling lamp and pendant cables were refitted from the former 2,500 mm assumption by `scripts/update-architecture.py`.
+- **Still assumed:** width 3,450 and length 5,300 mm (the CAD footprint carried since V8, `source/room-measurements.json`). Sockets, switches, radiators and pipes are not surveyed, and door swing directions are assumed. All 21 DOLLE fitting offsets in `source/Measurements-v8.json` are preview values.
+- The site labels each dimension with its basis. Solid green is shown only for site measurements: currently the ceiling and the crate-to-ceiling gap. Everything else is dashed amber (assumed, preview profile or model-derived).
+- `scripts/check-clearances.py` checks that the Blender architecture agrees with the room file. If a measured value differs by more than 5 mm, the check fails until the architecture is redrawn.
 
-Budget comparison: category totals reconcile to the 55 BOM lines. Without timber, the base is €1,656.04 plus a recalculated €165.60 reserve = €1,821.64. Original wood allowance and its reserve reduction total €1,147.26. Local UI checked category filtering; purchase checks preserved.
+## Clearance report (`public/data/clearances.json`, 16 checks, no clashes)
+
+| Check | Model value | Status |
+|---|---|---|
+| Kitchen-corner passage (now limited by the near leg's low brace, previously 640.9 mm at the desk corner) | 665.5 mm | tight; at least 600, about 800 is comfortable |
+| Top crates to the measured ceiling (was 32 mm at the assumed 2,500 mm) | 162 mm | ok; 412 mm above the top boards lets a crate tilt in |
+| Bed to desk aisle | 673 mm | tight |
+| Under-bed boxes below the 250 mm side beam (was a 5 mm overlap) | 20 mm | ok |
+| Computer keyboard to MIDI controller (was a 10 mm overlap) | 20 mm | ok |
+| Desk equipment intersections, including the new monitor arm | 0 | ok |
+| Speaker tweeter aim error at the seated ear reference (was about 17°) | 5.7° | ok |
+| Room, bathroom, entrance and both balcony leaf sweeps (directions assumed) | 27–160 mm | ok |
+| Central knee zone | 700 mm wide | ok; check against your own knees and chair arms |
+
+## Geometry and data
+
+- 50 source connection/geometry tests pass, including the R100 entrance corner, ear-aimed speaker trays and the wall plane read from the room file.
+- All 291 frame/timber components are assigned exactly once across 21 planning stages. The BOM part counts are unchanged.
+- Data checks reconcile the core €2,968.90 estimate, pack quantities, KTX2 textures, the Basis transcoder version, the clearance report and the measured/assumed dimension labels.
+- Supplier status notes were rechecked on 21 October 2026. Globus listings were sold out without a price. Three OBI pages returned 404. The four-way cross EAN is listed elsewhere as a corner coupling and must be confirmed. The 1,200 mm tube is DOLLE 96322.
+
+## Rendering
+
+- Cycles combined bake: 128 samples and six diffuse bounces, with the main ceiling fixture off. Atlases are sized by texel density, about 1.5–3 mm per pixel on the frame, desk timber and equipment. Hidden faces are removed, islands are tightly packed, and margins are 16 px. The 18 atlases took 761 s to bake.
+- Atlases are baked in float and saved through the scene's AgX view transform (exposure +0.45). The browser renders them without tone mapping, so the colour matches the Blender poster.
+- KTX2 textures (UASTC + Zstandard; ETC1S for walls, ceiling, exterior and glass), mipmapped. The model is 13.5 MB, with about 77 MB of GPU texture memory, previously about 520 MB.
+- Inside the flat, the cutaway keeps walls, ceiling and outside view. The render loop sleeps when idle, follows pixel-density changes and pauses and recovers on WebGL context loss. The 3D viewers load on first use.
+- Eight viewer tests pass. Browser checks covered the overview, workstation, dimensions, two-click measure tool, assembly 3D view and a 390 px layout.
+
+Physical dimensions and hardware load ratings remain provisional. These checks do not certify structural safety or the physical installation sequence.

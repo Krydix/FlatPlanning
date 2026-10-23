@@ -1,6 +1,6 @@
 import unittest,math,copy,json
 from pathlib import Path
-from pipe_engine import build,PROFILE,STOCK,DesignError
+from pipe_engine import build,PROFILE,STOCK,DesignError,board_outline,point_in_board,room_geometry,WALL_X,EAR_MM
 class SharedDesk(unittest.TestCase):
  def setUp(self):self.a=build(shared_desk=True)
  def test_stock_mates_and_clearances(self):
@@ -49,6 +49,21 @@ class SharedDesk(unittest.TestCase):
  def test_entry_with_feet_retains_600(self):
   x0,x1,y0,y1=self.a.boards['Desk.top']['bounds'];self.assertGreaterEqual(math.hypot(x0-2410,y0-735),600)
   foot=self.a.columns['DF0'];self.assertGreaterEqual(math.hypot(foot['x']-2410,foot['y']-735)-35,600)
+ def test_entrance_corner_is_rounded_without_losing_supports(self):
+  b=self.a.boards['Desk.top'];x0,x1,y0,y1=b['bounds'];self.assertEqual(b['corner_radii'],[[x0,y0,100]])
+  self.assertGreaterEqual(min(math.hypot(x-2410,y-735) for x,y in board_outline(b)),670)
+  self.assertFalse(point_in_board(x0+5,y0+5,b));self.assertTrue(point_in_board(x0+5,y0+150,b))
+  for sid,x,y,z in b['supports']:self.assertTrue(point_in_board(x,y,b,-15),sid)
+ def test_speakers_aim_at_seated_ear(self):
+  for i in range(2):
+   b=self.a.boards[f'Speaker{i}.platform'];x0,x1,y0,y1=b['bounds'];cx=(x0+x1)/2;cy=(y0+y1)/2
+   aim=math.degrees(math.atan2(cy-(self.a.boards['Desk.top']['bounds'][2]+self.a.boards['Desk.top']['bounds'][3])/2,cx-EAR_MM[0]))
+   self.assertAlmostEqual(b['rotation_degrees'],aim,places=3);self.assertEqual(len(b['supports']),4)
+ def test_wall_plane_comes_from_room_file(self):
+  room=room_geometry();self.assertEqual(room['wall_x'],WALL_X)
+  if not room['wall_measured']:self.assertEqual(WALL_X,3450)
+  for id,surface in self.a.mounts.items():
+   if surface=='wall':self.assertEqual(self.a.parts[id].origin[0],WALL_X)
  def test_speakers_and_upper_shelves_preserved(self):
   before=build(side_speakers=True)
   for id in ('Speaker0.platform','Speaker1.platform','Desk.shelf0','Desk.shelf1','Desk.shelf2','Rack.top0','Rack.fold0'):

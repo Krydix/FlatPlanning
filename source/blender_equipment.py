@@ -1,14 +1,16 @@
 """Under-desk equipment envelopes and separate adjustable-holder concepts."""
 import bpy,json,math
 from pathlib import Path
-from mathutils import Vector
+from mathutils import Vector,Matrix
+# Hand-placed objects from earlier versions that are now generated from equipment-layout.json.
+REPLACED={'Audio interface','Computer keyboard','KRK monitor speaker reservation','KRK monitor speaker reservation.001','KRK tweeter','KRK tweeter.001','KRK yellow cone','KRK yellow cone.001','KRK dust cap','KRK dust cap.001'}
 
 def rebuild_equipment(root):
  cfg=json.loads((root/'source/equipment-layout.json').read_text())
  co=bpy.data.collections['04 Equipment - measured envelopes pending']
  # Remove the old tabletop interface and previous generated equipment only.
  for o in list(co.objects):
-  if o.name=='Audio interface' or o.get('service_equipment'):bpy.data.objects.remove(o,do_unlink=True)
+  if o.name in REPLACED or o.get('service_equipment'):bpy.data.objects.remove(o,do_unlink=True)
  def mat(name,color,metal=0):
   m=bpy.data.materials.get(name) or bpy.data.materials.new(name);m.use_nodes=True
   n=m.node_tree.nodes.get('Principled BSDF');n.inputs['Base Color'].default_value=(*color,1);n.inputs['Metallic'].default_value=metal;n.inputs['Roughness'].default_value=.45;return m
@@ -54,6 +56,37 @@ def rebuild_equipment(root):
     box(holder['id']+' side',(x,y+sign*1.5,(z+top)/2),(18,3,top-z),black,0)
     box(holder['id']+' fixing lip',(x,y+sign*10,top-1.5),(18,20,3),black,0)
     tube('Holder short screw to verify',(x,y+sign*11,top-3),(x,y+sign*11,top+12),1.5)
+ rubber=bpy.data.materials.get('Rubber and dark equipment') or black;cone=bpy.data.materials.get('KRK yellow cone') or mat('KRK yellow cone',(.9,.75,.05))
+ powder=bpy.data.materials.get('DOLLE PIPE black powdercoat') or black
+ for item in cfg['desk_items']:
+  if item.get('static'):continue
+  if 'pole' in item:
+   # Desk-clamp VESA arm on the rear edge: top plate, spine, lower jaw, pole and a short link to the panel.
+   x,y=item['pole'];r=item['pole_radius'];cx,cy=item['clamp'];top=732
+   box('Monitor arm clamp plate',(x,y,top+4),(cx,cy,8),powder,1);box('Monitor arm clamp spine',(3410,y,(650+top+8)/2),(10,cy,top+8-650),powder,1);box('Monitor arm clamp jaw',(x+5,y,659),(cx-10,cy,18),powder,1)
+   tube('Monitor arm pole',(x,y,top+8),(x,y,item['pole_top']),r,powder)
+   monitor=next(d for d in cfg['desk_items'] if d['id'].startswith('Single'));back=monitor['location'][0]+monitor['size'][0]/2;z=monitor['location'][2]
+   box('Monitor arm VESA link',((back+x-r)/2,y,z),(x-r-back,40,30),powder,1);box('Monitor arm VESA plate',(back+2.5,y,z),(5,item['vesa'],item['vesa']),powder,0)
+   continue
+  box(item['id'],item['location'],item['size'],powder,3)['space_status']=item['status']
+ # Studio monitors stand on their trays, aimed at the seated ear reference and tilted by angled pads.
+ sp=cfg['speakers'];depth,width,height=sp['size'];graph=json.loads((root/'source/assembly.json').read_text());parts={p['id']:p for p in graph['parts']}
+ for i,tray in enumerate(sp['trays']):
+  b=graph['boards'][tray];x0,x1,y0,y1=b['bounds'];cx,cy=(x0+x1)/2,(y0+y1)/2;base=b['bottom']+b['thickness']+sp['pad'];tx,ty,tz=parts[tray]['data']['speaker_target_mm']
+  yaw=math.atan2(ty-cy,tx-cx);front=Vector((cx,cy,base))+Vector((math.cos(yaw),math.sin(yaw),0))*depth/2
+  tilt=min(math.radians(sp['max_tilt_degrees']),max(0,math.atan2(base+sp['tweeter_above_base']-tz,(Vector((tx,ty,0))-front.xy.to_3d()).length)))
+  # Local +X faces the listener; rotate about the front-bottom edge so the pad lifts the rear.
+  frame=Matrix.Translation(Vector((cx,cy,base))/1000)@Matrix.Rotation(yaw,4,'Z')@Matrix.Translation((depth/2000,0,0))@Matrix.Rotation(tilt,4,'Y')@Matrix.Translation((-depth/2000,0,0))
+  suffix='' if i==0 else '.001'
+  def place(o):
+   o.matrix_world=frame@o.matrix_basis;o['speaker_tilt_degrees']=round(math.degrees(tilt),2);o['speaker_tray']=tray;return o
+  o=box('KRK monitor speaker reservation'+suffix,(0,0,height/2),(depth,width,height),rubber,4);place(o);o['space_status']=sp['status']
+  for name,z,radius,material,dz in (('KRK yellow cone',sp['woofer_above_base'],65,cone,2.5),('KRK dust cap',sp['woofer_above_base'],25,powder,4),('KRK tweeter',sp['tweeter_above_base'],26,powder,3.5)):
+   place(tube(name+suffix,(depth/2,0,z),(depth/2+dz,0,z),radius,material))
+  rise=depth*math.sin(tilt);verts=[(v[0]/1000,v[1]/1000,v[2]/1000) for v in ((-depth/2,-width/2,0),(depth/2,-width/2,0),(depth/2,width/2,0),(-depth/2,width/2,0),(-depth/2,-width/2,sp['pad']+rise),(depth/2,-width/2,sp['pad']),(depth/2,width/2,sp['pad']),(-depth/2,width/2,sp['pad']+rise))]
+  me=bpy.data.meshes.new('Angled isolation pad');me.from_pydata(verts,[],[(0,3,2,1),(4,5,6,7),(0,1,5,4),(1,2,6,5),(2,3,7,6),(3,0,4,7)]);me.update()
+  pad=link(bpy.data.objects.new('Angled isolation pad'+suffix,me));pad.data.materials.append(rubber)
+  pad.matrix_world=Matrix.Translation(Vector((cx,cy,base-sp['pad']))/1000)@Matrix.Rotation(yaw,4,'Z');pad['speaker_tilt_degrees']=round(math.degrees(tilt),2)
  # Cable paths hug the underside; their final bend radii are illustrative.
  for i,y in enumerate((1585,2660)):
   points=[(2853 if i==0 else 2803,y,657 if i==0 else 668),(2950,y,680),(3100,y,685),(3290+30*i,y,685),(3290+30*i,1740,538),(3290+30*i,1675,538)]

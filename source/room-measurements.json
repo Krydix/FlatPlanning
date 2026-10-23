@@ -1,0 +1,66 @@
+{
+  "units": "mm",
+  "instruction": "Replace null ONLY with a tape or laser measurement taken in the flat. Never copy an assumed value into a measured field. Re-run scripts/update-desk-joints.py and scripts/check-clearances.py with Blender afterwards; the architecture in source/flat-v18.blend is checked against these values and must be redrawn if they disagree.",
+  "origin": "x = 0 at the inside face of the left (kitchen/bed) wall, y = 0 at the room side of the kitchen partition, z = 0 at the finished floor. x grows toward the right (desk/wardrobe) wall, y toward the balcony.",
+  "assumed": {
+    "source": "CAD footprint carried since V8; never site-verified",
+    "room_width_x": 3450,
+    "room_length_y": 5300,
+    "ceiling_height": 2500,
+    "skirting": [25, 90]
+  },
+  "measured": {
+    "room_width_x_at_300": null,
+    "room_width_x_at_1200": null,
+    "room_width_x_at_2100": null,
+    "room_length_y_at_1000": null,
+    "room_length_y_at_3000": null,
+    "diagonal_kitchen_left_to_balcony_right": null,
+    "diagonal_kitchen_right_to_balcony_left": null,
+    "ceiling_reported": 2630,
+    "ceiling_at_entrance": null,
+    "ceiling_above_desk": null,
+    "ceiling_above_wardrobe_top": null,
+    "ceiling_at_balcony": null,
+    "right_wall_plumb_offset_at_2200": null,
+    "skirting_depth": null,
+    "skirting_height": null
+  },
+  "measurement_notes": {
+    "ceiling_reported": "2,630 mm floor to ceiling for the whole flat, reported by the occupant on 2026-10-23. Location and instrument not recorded; spot readings above the desk and wardrobe top are still worth taking."
+  },
+  "what_to_measure": {
+    "room_width_x_at_*": "Left wall to right wall, at the given distance from the kitchen partition, measured at 1 m height above the skirting",
+    "room_length_y_at_*": "Kitchen partition to the balcony wall, at the given distance from the left wall",
+    "diagonal_*": "Floor-level corner to corner; the two diagonals should agree if the room is rectangular",
+    "ceiling_*": "Finished floor to ceiling at that location; the wardrobe-top reading decides whether the top crates fit",
+    "right_wall_plumb_offset_at_2200": "Horizontal offset of the right wall at 2,200 mm height relative to its foot (positive = leaning into the room)",
+    "skirting_*": "Right-wall skirting board profile; the rear posts and wall flanges sit just above and beside it"
+  },
+  "services": {
+    "status": "not surveyed",
+    "note": "Sockets, switches, radiators, heating pipes, data points and window sills are not yet modelled. Record each with wall, centre position and size before drilling or finalising the desk/wardrobe run.",
+    "sockets": [],
+    "switches": [],
+    "radiators": [],
+    "pipes": []
+  },
+  "doors": {
+    "status": "swing directions assumed, not surveyed",
+    "leaves": [
+      {"id": "Room door", "hinge": [3350, 0], "closed_toward": [2450, 0], "swing": "into room", "status": "assumed", "open_toward": [3350, 900]},
+      {"id": "Bathroom door", "hinge": [2150, -850], "closed_toward": [2150, -1620], "swing": "into hall", "status": "assumed", "open_toward": [2920, -850]},
+      {"id": "Flat entrance door", "hinge": [3350, -3200], "closed_toward": [2350, -3200], "swing": "into flat", "status": "assumed", "open_toward": [3350, -2200]},
+      {"id": "Balcony left leaf", "hinge": [260, 5300], "closed_toward": [1420, 5300], "swing": "into room", "max_angle": 100, "status": "assumed", "open_toward": [260, 4140]},
+      {"id": "Balcony right leaf", "hinge": [2580, 5300], "closed_toward": [1420, 5300], "swing": "into room", "max_angle": 100, "status": "assumed", "open_toward": [2580, 4140]}
+    ]
+  },
+  "clearance_targets": {
+    "entry_passage_min": 600,
+    "entry_passage_comfortable": 800,
+    "storage_ceiling_gap_min": 30,
+    "under_bed_beam_gap_min": 15,
+    "door_sweep_gap_min": 20,
+    "aisle_min": 700
+  }
+}

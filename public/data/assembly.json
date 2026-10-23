@@ -119,8 +119,8 @@
       "source": "https://www.globus-baumarkt.de/p/dolle-plattenscheibe-fuer-pipe-regalsystem-oe-70-mm-20-mm-3-4-schwarz-matt-0763202822/"
     },
     "cross": {
-      "sku": "96384 / EAN 4007557096384",
-      "name": "DOLLE PIPE four-way threaded cross, four female sockets",
+      "sku": "96384 / EAN 4007557096384 — UNCONFIRMED: Bauhaus SE lists this EAN as a 4×3/4\" corner coupling",
+      "name": "DOLLE PIPE four-way threaded cross, four female sockets (article to confirm)",
       "source": "https://toom.de/p/kreuzverbinder-fuer-regalsystem-pipe-34-schwarz/7450886"
     },
     "slide_tee": {
@@ -189,7 +189,7 @@
       "source": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1000-mm-20-mm-3-4-schwarz-matt-0763202825/"
     },
     "tube_1200": {
-      "sku": "verify supplier",
+      "sku": "96322",
       "name": "DOLLE tube Ø25 × 1200 mm",
       "source": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1200-mm-20-mm-3-4-schwarz-matt-0763202841/"
     },
@@ -4779,7 +4779,7 @@
       "kind": "saddle",
       "origin": [
         3085.0,
-        1500.0,
+        1385.0,
         1085.0
       ],
       "axis": [
@@ -4794,7 +4794,7 @@
       ],
       "data": {
         "host": "Speaker0.arm0.tube",
-        "distance": 180
+        "distance": 65
       }
     },
     {
@@ -4891,7 +4891,7 @@
       "kind": "saddle",
       "origin": [
         3375.0,
-        1500.0,
+        1495.0,
         1085.0
       ],
       "axis": [
@@ -4906,7 +4906,7 @@
       ],
       "data": {
         "host": "Speaker0.arm1.tube",
-        "distance": 180
+        "distance": 175
       }
     },
     {
@@ -4937,7 +4937,7 @@
       "kind": "wood",
       "origin": [
         3175.0,
-        1550.1262561295077,
+        1552.4848700782989,
         1112.5
       ],
       "axis": [
@@ -4954,18 +4954,18 @@
         "bounds": [
           3000,
           3350,
-          1375.1262561295077,
-          1725.1262561295077
+          1377.4848700782989,
+          1727.4848700782989
         ],
         "bottom": 1100,
         "thickness": 25,
         "holes": [],
         "recess": null,
-        "rotation_degrees": -52.92074022002304,
+        "rotation_degrees": -45.25770398341364,
         "speaker_target_mm": [
-          2750,
+          2620,
           2112.5,
-          1250
+          1220
         ]
       }
     },
@@ -5040,7 +5040,7 @@
       "kind": "saddle",
       "origin": [
         3085.0,
-        2760.0,
+        2840.0,
         1085.0
       ],
       "axis": [
@@ -5055,7 +5055,7 @@
       ],
       "data": {
         "host": "Speaker1.arm0.tube",
-        "distance": 110
+        "distance": 30
       }
     },
     {
@@ -5063,7 +5063,7 @@
       "kind": "saddle",
       "origin": [
         3085.0,
-        2660.0,
+        2640.0,
         1085.0
       ],
       "axis": [
@@ -5078,7 +5078,7 @@
       ],
       "data": {
         "host": "Speaker1.arm0.tube",
-        "distance": 210
+        "distance": 230
       }
     },
     {
@@ -5152,7 +5152,7 @@
       "kind": "saddle",
       "origin": [
         3375.0,
-        2760.0,
+        2730.0,
         1085.0
       ],
       "axis": [
@@ -5167,7 +5167,7 @@
       ],
       "data": {
         "host": "Speaker1.arm1.tube",
-        "distance": 110
+        "distance": 140
       }
     },
     {
@@ -5175,7 +5175,7 @@
       "kind": "saddle",
       "origin": [
         3375.0,
-        2660.0,
+        2640.0,
         1085.0
       ],
       "axis": [
@@ -5190,7 +5190,7 @@
       ],
       "data": {
         "host": "Speaker1.arm1.tube",
-        "distance": 210
+        "distance": 230
       }
     },
     {
@@ -5198,7 +5198,7 @@
       "kind": "wood",
       "origin": [
         3175.0,
-        2674.873743870492,
+        2672.5151299217014,
         1112.5
       ],
       "axis": [
@@ -5215,18 +5215,18 @@
         "bounds": [
           3000,
           3350,
-          2499.873743870492,
-          2849.873743870492
+          2497.5151299217014,
+          2847.5151299217014
         ],
         "bottom": 1100,
         "thickness": 25,
         "holes": [],
         "recess": null,
-        "rotation_degrees": 52.92074022002304,
+        "rotation_degrees": 45.25770398341364,
         "speaker_target_mm": [
-          2750,
+          2620,
           2112.5,
-          1250
+          1220
         ]
       }
     },
@@ -6069,6 +6069,13 @@
         ],
         "recess": null,
         "rotation_degrees": 0,
+        "corner_radii": [
+          [
+            2703,
+            1305,
+            100
+          ]
+        ],
         "support_reliefs": [
           {
             "bounds": [
@@ -15817,8 +15824,8 @@
       "bounds": [
         3000,
         3350,
-        1375.1262561295077,
-        1725.1262561295077
+        1377.4848700782989,
+        1727.4848700782989
       ],
       "bottom": 1100,
       "thickness": 25,
@@ -15826,7 +15833,7 @@
         [
           "Speaker0.arm0.saddle0",
           3117.0,
-          1500.0,
+          1385.0,
           1100.0
         ],
         [
@@ -15838,7 +15845,7 @@
         [
           "Speaker0.arm1.saddle0",
           3343.0,
-          1500.0,
+          1495.0,
           1100.0
         ],
         [
@@ -15850,14 +15857,14 @@
       ],
       "holes": [],
       "recess": null,
-      "rotation_degrees": -52.92074022002304
+      "rotation_degrees": -45.25770398341364
     },
     "Speaker1.platform": {
       "bounds": [
         3000,
         3350,
-        2499.873743870492,
-        2849.873743870492
+        2497.5151299217014,
+        2847.5151299217014
       ],
       "bottom": 1100,
       "thickness": 25,
@@ -15865,31 +15872,31 @@
         [
           "Speaker1.arm0.saddle0",
           3117.0,
-          2760.0,
+          2840.0,
           1100.0
         ],
         [
           "Speaker1.arm0.saddle1",
           3117.0,
-          2660.0,
+          2640.0,
           1100.0
         ],
         [
           "Speaker1.arm1.saddle0",
           3343.0,
-          2760.0,
+          2730.0,
           1100.0
         ],
         [
           "Speaker1.arm1.saddle1",
           3343.0,
-          2660.0,
+          2640.0,
           1100.0
         ]
       ],
       "holes": [],
       "recess": null,
-      "rotation_degrees": 52.92074022002304
+      "rotation_degrees": 45.25770398341364
     },
     "Desk.top": {
       "bounds": [
@@ -15974,6 +15981,13 @@
       ],
       "recess": null,
       "rotation_degrees": 0,
+      "corner_radii": [
+        [
+          2703,
+          1305,
+          100
+        ]
+      ],
       "support_reliefs": [
         {
           "bounds": [
@@ -16244,8 +16258,8 @@
     "Wear-again item is restricted to a 200 mm entrance-side zone so the balcony handle sweep stays clear in the 100-degree proxy test. Ceiling and connector offsets remain unmeasured.",
     "V17 TV and all its custom support parts removed; the desktop TV bore is removed.",
     "Each speaker board is a 350 x 350 x 25 mm oak tray on two uncut 250 mm cantilever arms, each clamped to its own upright by a sliding T. Four one-sided saddle tabs screw each tray to the arms.",
-    "Near wall tie raised from 1100 to 1200 mm to clear speaker-arm tees. Tray underside 1100, top 1125 mm before thin isolation pads; no desktop speaker risers or flanges.",
-    "Trays rotate in the connection graph and their outside Y corners align with the two desktop ends. Speakers aim at the middle chair position. This wide stereo geometry is a visual arrangement, not a calibrated acoustic setup.",
+    "Near wall tie raised from 1100 to 1200 mm to clear speaker-arm tees. Tray underside 1100, top 1125 mm before angled isolation pads. The arm tees cannot drop lower while the 1000 + 1200 mm posts keep their coupling at 1015-1027 mm, so the downward tweeter aim comes from the pads. No desktop speaker risers or flanges.",
+    "Trays rotate in the connection graph and their outside Y corners align with the two desktop ends. Speakers aim at the seated ear reference (x 2620, z 1220 mm), not the seat centre; angled pads tilt the tweeters down to that height. This wide stereo geometry is a visual arrangement, not a calibrated acoustic setup.",
     "Cantilever capacity, clamp anti-rotation, saddle screw retention, speaker weight and fixing loads remain unverified. No positive manufacturer cantilever rating has been established.",
     "Derived desktop underside 704 mm / top 732 mm. Front support legs terminate under the tabletop through elbows: no front-leg bores or protrusions. Four 44 mm preview clearance bores remain only for the continuing rack posts, including near-edge notches.",
     "The desktop still measures 1615 x 702 x 28 mm in the same plan position. Main entry corner gap remains 640.9 mm. Closest modeled front foot clearance exceeds 600 mm.",

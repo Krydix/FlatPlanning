@@ -4,6 +4,10 @@
   "baked": true,
   "render_engine": "Cycles",
   "samples": 128,
+  "display_referred": true,
+  "view_transform": "AgX",
+  "exposure": 0.45,
+  "bake_margin_px": 16,
   "max_bounces": 12,
   "diffuse_bounces": 6,
   "bake_type": "COMBINED",
@@ -201,134 +205,337 @@
   "atlases": [
     {
       "category": "floor",
-      "atlas": 4096,
-      "bake_seconds": 137.3,
-      "vertices": 21912,
-      "polygons": 22362
+      "atlas": 2048,
+      "area_m2": 29.53,
+      "texels_per_m": 190,
+      "bake_seconds": 64.3,
+      "vertices": 7320,
+      "polygons": 5715
     },
     {
       "category": "shell",
       "atlas": 4096,
-      "bake_seconds": 339.3,
+      "area_m2": 151.81,
+      "texels_per_m": 150,
+      "bake_seconds": 301.1,
       "vertices": 72,
-      "polygons": 54
+      "polygons": 45
     },
     {
       "category": "trim",
-      "atlas": 1024,
-      "bake_seconds": 19.6,
+      "atlas": 2048,
+      "area_m2": 28.36,
+      "texels_per_m": 200,
+      "bake_seconds": 127.6,
       "vertices": 240,
-      "polygons": 232
+      "polygons": 228
     },
     {
       "category": "kitchen",
       "atlas": 2048,
-      "bake_seconds": 103.3,
+      "area_m2": 35.75,
+      "texels_per_m": 220,
+      "bake_seconds": 118.8,
       "vertices": 3136,
-      "polygons": 3014
+      "polygons": 3006
     },
     {
       "category": "equipment",
-      "atlas": 2048,
-      "bake_seconds": 33.8,
-      "vertices": 15896,
-      "polygons": 15568
+      "atlas": 1024,
+      "area_m2": 5.47,
+      "texels_per_m": 320,
+      "bake_seconds": 12.6,
+      "vertices": 16128,
+      "polygons": 15892
     },
     {
       "category": "chair",
-      "atlas": 2048,
-      "bake_seconds": 76.9,
+      "atlas": 512,
+      "area_m2": 1.26,
+      "texels_per_m": 200,
+      "bake_seconds": 4.1,
       "vertices": 632,
       "polygons": 438
     },
     {
       "category": "bed",
       "atlas": 2048,
-      "bake_seconds": 40,
+      "area_m2": 30.57,
+      "texels_per_m": 200,
+      "bake_seconds": 58.5,
       "vertices": 13312,
-      "polygons": 13514
+      "polygons": 13509
     },
     {
       "category": "curtains",
-      "atlas": 2048,
-      "bake_seconds": 73.5,
+      "atlas": 1024,
+      "area_m2": 7.65,
+      "texels_per_m": 200,
+      "bake_seconds": 15,
       "vertices": 384,
       "polygons": 224
     },
     {
       "category": "clothes",
       "atlas": 2048,
-      "bake_seconds": 23.4,
+      "area_m2": 21.29,
+      "texels_per_m": 200,
+      "bake_seconds": 29,
       "vertices": 10384,
       "polygons": 9632
     },
     {
       "category": "hall",
-      "atlas": 2048,
-      "bake_seconds": 96,
+      "atlas": 512,
+      "area_m2": 3.67,
+      "texels_per_m": 200,
+      "bake_seconds": 4.9,
       "vertices": 624,
-      "polygons": 550
+      "polygons": 549
     },
     {
       "category": "ceiling",
-      "atlas": 1024,
-      "bake_seconds": 57.8,
+      "atlas": 2048,
+      "area_m2": 60.35,
+      "texels_per_m": 120,
+      "bake_seconds": 68.3,
       "vertices": 88,
       "polygons": 48
     },
     {
       "category": "exterior",
       "atlas": 1024,
-      "bake_seconds": 30.5,
+      "area_m2": 36.61,
+      "texels_per_m": 80,
+      "bake_seconds": 10.1,
       "vertices": 8,
-      "polygons": 6
+      "polygons": 5
     },
     {
       "category": "doors",
-      "atlas": 2048,
-      "bake_seconds": 121.9,
+      "atlas": 1024,
+      "area_m2": 14.06,
+      "texels_per_m": 180,
+      "bake_seconds": 32.2,
       "vertices": 1568,
-      "polygons": 1588
+      "polygons": 1583
     },
     {
       "category": "glass",
-      "atlas": 1024,
-      "bake_seconds": 5.3,
+      "atlas": 512,
+      "area_m2": 12.81,
+      "texels_per_m": 60,
+      "bake_seconds": 2.3,
       "vertices": 128,
-      "polygons": 120
+      "polygons": 119
     },
     {
       "category": "pipes",
-      "atlas": 1024,
-      "bake_seconds": 5.2,
+      "atlas": 2048,
+      "area_m2": 7.3,
+      "texels_per_m": 330,
+      "bake_seconds": 32.5,
       "vertices": 66300,
-      "polygons": 39976
+      "polygons": 39928
     },
     {
       "category": "wood",
-      "atlas": 4096,
-      "bake_seconds": 361.5,
-      "vertices": 2454,
-      "polygons": 2237
+      "atlas": 2048,
+      "area_m2": 11.52,
+      "texels_per_m": 300,
+      "bake_seconds": 81.2,
+      "vertices": 2494,
+      "polygons": 2269
     },
     {
       "category": "lighting",
-      "atlas": 2048,
-      "bake_seconds": 24.6,
+      "atlas": 1024,
+      "area_m2": 2.61,
+      "texels_per_m": 300,
+      "bake_seconds": 9.9,
       "vertices": 12932,
       "polygons": 12504
     },
     {
       "category": "crates",
-      "atlas": 2048,
-      "bake_seconds": 36.8,
+      "atlas": 1024,
+      "area_m2": 6.71,
+      "texels_per_m": 240,
+      "bake_seconds": 16.5,
       "vertices": 16608,
       "polygons": 16212
     }
   ],
-  "model_bytes": 8274988,
+  "model_bytes": 13497912,
   "mesh_count": 18,
   "lights_exported": false,
-  "uncompressed_model_bytes": 27242268,
-  "mesh_compression": "EXT_meshopt_compression"
+  "uncompressed_model_bytes": 38636084,
+  "mesh_compression": "EXT_meshopt_compression",
+  "texture_compression": "KHR_texture_basisu: KTX2, mipmapped; UASTC (RDO λ2.0, Zstandard 18) for detail, ETC1S for shell, ceiling, exterior, glass",
+  "textures": [
+    {
+      "name": "bed",
+      "size": [
+        2048,
+        2048
+      ],
+      "codec": "UASTC",
+      "bytes": 1180536
+    },
+    {
+      "name": "ceiling",
+      "size": [
+        2048,
+        2048
+      ],
+      "codec": "ETC1S",
+      "bytes": 88106
+    },
+    {
+      "name": "chair",
+      "size": [
+        512,
+        512
+      ],
+      "codec": "UASTC",
+      "bytes": 86184
+    },
+    {
+      "name": "clothes",
+      "size": [
+        2048,
+        2048
+      ],
+      "codec": "UASTC",
+      "bytes": 707354
+    },
+    {
+      "name": "crates",
+      "size": [
+        1024,
+        1024
+      ],
+      "codec": "UASTC",
+      "bytes": 572500
+    },
+    {
+      "name": "curtains",
+      "size": [
+        1024,
+        1024
+      ],
+      "codec": "UASTC",
+      "bytes": 290373
+    },
+    {
+      "name": "doors",
+      "size": [
+        1024,
+        1024
+      ],
+      "codec": "UASTC",
+      "bytes": 371595
+    },
+    {
+      "name": "equipment",
+      "size": [
+        1024,
+        1024
+      ],
+      "codec": "UASTC",
+      "bytes": 501500
+    },
+    {
+      "name": "exterior",
+      "size": [
+        1024,
+        1024
+      ],
+      "codec": "ETC1S",
+      "bytes": 2509
+    },
+    {
+      "name": "floor",
+      "size": [
+        2048,
+        2048
+      ],
+      "codec": "UASTC",
+      "bytes": 1640582
+    },
+    {
+      "name": "glass",
+      "size": [
+        512,
+        512
+      ],
+      "codec": "ETC1S",
+      "bytes": 1871
+    },
+    {
+      "name": "hall",
+      "size": [
+        512,
+        512
+      ],
+      "codec": "UASTC",
+      "bytes": 68947
+    },
+    {
+      "name": "kitchen",
+      "size": [
+        2048,
+        2048
+      ],
+      "codec": "UASTC",
+      "bytes": 1361500
+    },
+    {
+      "name": "lighting",
+      "size": [
+        1024,
+        1024
+      ],
+      "codec": "UASTC",
+      "bytes": 735530
+    },
+    {
+      "name": "pipes",
+      "size": [
+        2048,
+        2048
+      ],
+      "codec": "UASTC",
+      "bytes": 1000467
+    },
+    {
+      "name": "shell",
+      "size": [
+        4096,
+        4096
+      ],
+      "codec": "ETC1S",
+      "bytes": 464800
+    },
+    {
+      "name": "trim",
+      "size": [
+        2048,
+        2048
+      ],
+      "codec": "UASTC",
+      "bytes": 553760
+    },
+    {
+      "name": "wood",
+      "size": [
+        2048,
+        2048
+      ],
+      "codec": "UASTC",
+      "bytes": 1928496
+    }
+  ],
+  "texture_count": 18,
+  "gpu_texture_bytes_estimate": 76546042
 }

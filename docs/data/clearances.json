@@ -1,0 +1,212 @@
+{
+  "generated_by": "scripts/check-clearances.py",
+  "basis": {
+    "wall": "assumed",
+    "ceiling": "measured",
+    "services": "not surveyed",
+    "doors": "swing directions assumed, not surveyed"
+  },
+  "ear_reference_mm": [
+    2620,
+    1220
+  ],
+  "speaker_tilt_degrees": 10.0,
+  "checks": [
+    {
+      "id": "architecture-wall",
+      "label": "Right wall plane vs room file",
+      "value": 0.0,
+      "target": 5,
+      "unit": "mm",
+      "status": "ok",
+      "detail": "Model 3450 mm, room file 3450 mm (assumed)",
+      "basis": "assumed"
+    },
+    {
+      "id": "architecture-ceiling",
+      "label": "Ceiling plane vs room file",
+      "value": 0.0,
+      "target": 5,
+      "unit": "mm",
+      "status": "ok",
+      "detail": "Model 2630 mm, room file 2630 mm",
+      "basis": "measured"
+    },
+    {
+      "id": "entry-passage",
+      "label": "Entrance passage, kitchen corner to desk",
+      "value": 665.5,
+      "target": 600,
+      "unit": "mm",
+      "status": "tight",
+      "detail": "Nearest: Desk.low_front0.t1. At floor level the nearest is DF0.foot at 649 mm. Comfortable two-way passage is about 800 mm.",
+      "basis": "assumed",
+      "points": [
+        [
+          2410.0,
+          735.0,
+          420.5
+        ],
+        [
+          2793.3,
+          1279.0,
+          420.5
+        ]
+      ]
+    },
+    {
+      "id": "equipment-clashes",
+      "label": "Desk equipment intersections",
+      "value": 0,
+      "target": 0,
+      "unit": "count",
+      "status": "ok",
+      "detail": "No equipment envelope intersects another device, the desk or the frame.",
+      "basis": "envelopes"
+    },
+    {
+      "id": "keyboard-midi",
+      "label": "Computer keyboard to MIDI controller",
+      "value": 20.0,
+      "target": 10,
+      "unit": "mm",
+      "status": "ok",
+      "detail": "Front-to-back gap on the desktop",
+      "basis": "envelopes"
+    },
+    {
+      "id": "knee-zone",
+      "label": "Central knee zone",
+      "value": 700,
+      "target": 700,
+      "unit": "mm",
+      "status": "ok",
+      "detail": "700 mm wide, 472 mm deep, 704 mm clear. Check against your own knee width with the chair arms.",
+      "basis": "envelopes"
+    },
+    {
+      "id": "speaker-aim-L",
+      "label": "Speaker L tweeter aim error",
+      "value": 5.7,
+      "target": 8,
+      "unit": "deg",
+      "status": "ok",
+      "detail": "Tweeter at 1389 mm, 624 mm from the ear reference; pad tilt 10.0°, capped at 10° for a stable wedge pad; under about 8° keeps the ear inside the tweeter on-axis window. Seated ear reference x 2620, z 1220 mm.",
+      "basis": "envelopes"
+    },
+    {
+      "id": "speaker-aim-R",
+      "label": "Speaker R tweeter aim error",
+      "value": 5.7,
+      "target": 8,
+      "unit": "deg",
+      "status": "ok",
+      "detail": "Tweeter at 1389 mm, 624 mm from the ear reference; pad tilt 10.0°, capped at 10° for a stable wedge pad; under about 8° keeps the ear inside the tweeter on-axis window. Seated ear reference x 2620, z 1220 mm.",
+      "basis": "envelopes"
+    },
+    {
+      "id": "ceiling-storage",
+      "label": "Highest storage to ceiling",
+      "value": 162.0,
+      "target": 30,
+      "unit": "mm",
+      "status": "ok",
+      "detail": "KNAGGLIG crate reaches 2468 mm; ceiling 2630 mm measured. Above the 2218 mm top boards there is 412 mm; a 310 × 250 mm crate needs 398 mm to tilt in, otherwise it must slide in flat.",
+      "basis": "measured",
+      "points": [
+        [
+          3385.0,
+          5123.0,
+          2468.0
+        ],
+        [
+          3385.0,
+          5123.0,
+          2630
+        ]
+      ]
+    },
+    {
+      "id": "under-bed",
+      "label": "Under-bed boxes below the side beam",
+      "value": 20.0,
+      "target": 15,
+      "unit": "mm",
+      "status": "ok",
+      "detail": "Box top 230 mm incl. casters; beam underside 250 mm. Boxes must stay at or below this height overall.",
+      "basis": "envelopes"
+    },
+    {
+      "id": "door-room-door",
+      "label": "Room door sweep",
+      "value": 27.5,
+      "target": 20,
+      "unit": "mm",
+      "status": "ok",
+      "detail": "Swing into room to 90°; nearest Fixed upper white cabinet.003",
+      "basis": "assumed"
+    },
+    {
+      "id": "door-bathroom-door",
+      "label": "Bathroom door sweep",
+      "value": 160.0,
+      "target": 20,
+      "unit": "mm",
+      "status": "ok",
+      "detail": "Swing into hall to 90°; nearest Hall mirror",
+      "basis": "assumed"
+    },
+    {
+      "id": "door-flat-entrance-door",
+      "label": "Flat entrance door sweep",
+      "value": 159.0,
+      "target": 20,
+      "unit": "mm",
+      "status": "ok",
+      "detail": "Swing into flat to 90°; nearest Entry shoe cabinet",
+      "basis": "assumed"
+    },
+    {
+      "id": "door-balcony-left-leaf",
+      "label": "Balcony left leaf sweep",
+      "value": 101.7,
+      "target": 20,
+      "unit": "mm",
+      "status": "ok",
+      "detail": "Swing into room to 100°; nearest Crate slat.007",
+      "basis": "assumed"
+    },
+    {
+      "id": "door-balcony-right-leaf",
+      "label": "Balcony right leaf sweep",
+      "value": 80.2,
+      "target": 20,
+      "unit": "mm",
+      "status": "ok",
+      "detail": "Swing into room to 100°; nearest V11 sweater over wear rail",
+      "basis": "assumed"
+    },
+    {
+      "id": "bed-aisle",
+      "label": "Bed to desk and wardrobe aisle",
+      "value": 673.0,
+      "target": 700,
+      "unit": "mm",
+      "status": "tight",
+      "detail": "Narrowest point beside the bed: Desk.top. Garments in front of the wardrobe are included.",
+      "basis": "envelopes",
+      "points": [
+        [
+          2030.0,
+          2919.7,
+          704.3
+        ],
+        [
+          2703.0,
+          2919.7,
+          704.3
+        ]
+      ]
+    }
+  ]
+}

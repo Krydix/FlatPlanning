@@ -3,7 +3,8 @@
   "sources": {
     "mac": "https://support.apple.com/en-gb/111894",
     "dock": "https://www.owc.com/solutions/thunderbolt-dock",
-    "focusrite": "https://userguides.focusrite.com/hc/en-gb/articles/23031328747026-2i2-3rd-Gen-specifications"
+    "focusrite": "https://userguides.focusrite.com/hc/en-gb/articles/23031328747026-2i2-3rd-Gen-specifications",
+    "mac_power": "https://support.apple.com/en-ca/100342"
   },
   "shelf": {
     "bounds": [
@@ -68,7 +69,8 @@
         160,
         40
       ],
-      "status": "Unmeasured power-brick allowance; separate and retain with removable straps"
+      "status": "OWC dock external power adapter; unmeasured allowance. Separate and retain with a removable strap",
+      "powers": "OWC Thunderbolt 4 dock"
     },
     {
       "id": "Power brick 2",
@@ -82,7 +84,8 @@
         160,
         40
       ],
-      "status": "Unmeasured power-brick allowance"
+      "status": "Router plug-in or in-line power supply; unmeasured allowance",
+      "powers": "Router"
     },
     {
       "id": "Power brick 3",
@@ -96,7 +99,8 @@
         160,
         40
       ],
-      "status": "Unmeasured power-brick allowance"
+      "status": "Spare bay, not tied to a device. The Mac mini M1 has an internal power supply (IEC C7 cord) and the Focusrite two-input interface is USB bus-powered; use for a light driver or remove",
+      "powers": null
     },
     {
       "id": "Focusrite two-input interface",
@@ -163,6 +167,89 @@
     "Rear shelf remains open at front/back. Route Mac ports along the shelf length; do not push its rear ports into the wall.",
     "Strap power bricks individually without covering vents; keep audio signal leads away from the power-brick bay.",
     "Use removable cable clips beneath the tabletop and service loops behind both front devices. Holder fasteners must be suitable for the 28 mm tabletop.",
-    "The drawn dock-to-Mac routing plus service slack requires a 2 m certified Thunderbolt lead. The OWC-supplied 0.8 m lead is too short for this path; \u20ac40 is a budget allowance, removable if already owned."
-  ]
+    "The drawn dock-to-Mac routing plus service slack requires a 2 m certified Thunderbolt lead. The OWC-supplied 0.8 m lead is too short for this path; €40 is a budget allowance, removable if already owned.",
+    "Seated ear reference for speaker aim and monitor distance: x 2620 mm, z 1220 mm, centred on the desk."
+  ],
+  "desk_items": [
+    {
+      "id": "Computer keyboard",
+      "location": [
+        2850,
+        2112.5,
+        744.5
+      ],
+      "size": [
+        150,
+        440,
+        25
+      ],
+      "status": "Full-size keyboard reservation, 150 mm deep; measure your keyboard. Keeps a 20 mm gap to the MIDI controller reservation"
+    },
+    {
+      "id": "Komplete Kontrol 61 reservation",
+      "location": [
+        3120,
+        2112.5,
+        777
+      ],
+      "size": [
+        350,
+        1100,
+        90
+      ],
+      "status": "Generous 61-key controller envelope, generation not confirmed; measure before fixing the layout",
+      "static": true
+    },
+    {
+      "id": "Single 28 inch monitor",
+      "location": [
+        3310,
+        2112.5,
+        1097
+      ],
+      "size": [
+        35,
+        650,
+        390
+      ],
+      "screen": [
+        6,
+        625,
+        365
+      ],
+      "status": "Existing monitor envelope; panel weight and VESA pattern unmeasured",
+      "static": true
+    },
+    {
+      "id": "Monitor desk-clamp arm",
+      "pole": [
+        3375,
+        2112.5
+      ],
+      "pole_radius": 17.5,
+      "pole_top": 1150,
+      "clamp": [
+        60,
+        70
+      ],
+      "vesa": 100,
+      "status": "Optional VESA arm allowance (BOM Optional). Clamps the desktop rear edge; check the 28 mm oak clamp range, arm payload and that the clamp jaw clears the router antennas"
+    }
+  ],
+  "speakers": {
+    "trays": [
+      "Speaker0.platform",
+      "Speaker1.platform"
+    ],
+    "size": [
+      280,
+      220,
+      330
+    ],
+    "tweeter_above_base": 265,
+    "woofer_above_base": 115,
+    "pad": 3,
+    "max_tilt_degrees": 10,
+    "status": "Studio monitor reservation, model not confirmed; the trays aim each speaker at the seated ear reference and angled isolation pads tilt it down (BOM Optional pads)"
+  }
 }

@@ -12,7 +12,7 @@
     "coreBudget": 2968.9,
     "withCrates": 3034.83,
     "optionalAccessories": 90.0,
-    "entryGap": 640.9,
+    "entryGap": 665.5,
     "desk": [
       1615,
       702,
@@ -21,14 +21,344 @@
     "room": [
       3450,
       5300,
-      2500
+      2630
     ],
-    "roomHeightMeasured": false,
+    "roomHeightMeasured": true,
+    "roomWidthMeasured": false,
+    "servicesSurveyed": false,
     "verification": [
-      "Room height and connector seating offsets not measured",
+      "Room width and length still the CAD assumption; ceiling measured at 2,630 mm",
+      "Sockets, switches, radiators and pipes are not surveyed",
+      "Connector seating offsets not measured",
       "Cantilever, clamp, wood screw and wall-fixing load capacities not certified",
       "Custom MITTLED recess and light-cover details remain provisional",
       "Bathroom fixtures unknown; shell only"
+    ]
+  },
+  "dimensions": [
+    {
+      "id": "room-width",
+      "label": "Room width",
+      "a": [
+        0,
+        5550,
+        50
+      ],
+      "b": [
+        3450,
+        5550,
+        50
+      ],
+      "value": 3450,
+      "basis": "assumed"
+    },
+    {
+      "id": "room-length",
+      "label": "Room length",
+      "a": [
+        -220,
+        0,
+        50
+      ],
+      "b": [
+        -220,
+        5300,
+        50
+      ],
+      "value": 5300,
+      "basis": "assumed"
+    },
+    {
+      "id": "ceiling",
+      "label": "Ceiling height",
+      "a": [
+        60,
+        5240,
+        0
+      ],
+      "b": [
+        60,
+        5240,
+        2630
+      ],
+      "value": 2630,
+      "basis": "measured"
+    },
+    {
+      "id": "entry",
+      "label": "Kitchen-corner passage",
+      "a": [
+        2410.0,
+        735.0,
+        420.5
+      ],
+      "b": [
+        2793.3,
+        1279.0,
+        420.5
+      ],
+      "value": 665.5,
+      "basis": "model"
+    },
+    {
+      "id": "desk-height",
+      "label": "Desktop height",
+      "a": [
+        2700,
+        2020,
+        0
+      ],
+      "b": [
+        2700,
+        2020,
+        732
+      ],
+      "value": 732,
+      "basis": "preview"
+    },
+    {
+      "id": "crate-ceiling",
+      "label": "Top crates to ceiling",
+      "a": [
+        3385.0,
+        5123.0,
+        2468.0
+      ],
+      "b": [
+        3385.0,
+        5123.0,
+        2630
+      ],
+      "value": 162.0,
+      "basis": "measured"
+    },
+    {
+      "id": "bed-aisle",
+      "label": "Bed to desk aisle",
+      "a": [
+        2030.0,
+        2919.7,
+        704.3
+      ],
+      "b": [
+        2703.0,
+        2919.7,
+        704.3
+      ],
+      "value": 673.0,
+      "basis": "model"
+    }
+  ],
+  "clearances": {
+    "generated_by": "scripts/check-clearances.py",
+    "basis": {
+      "wall": "assumed",
+      "ceiling": "measured",
+      "services": "not surveyed",
+      "doors": "swing directions assumed, not surveyed"
+    },
+    "ear_reference_mm": [
+      2620,
+      1220
+    ],
+    "speaker_tilt_degrees": 10.0,
+    "checks": [
+      {
+        "id": "architecture-wall",
+        "label": "Right wall plane vs room file",
+        "value": 0.0,
+        "target": 5,
+        "unit": "mm",
+        "status": "ok",
+        "detail": "Model 3450 mm, room file 3450 mm (assumed)",
+        "basis": "assumed"
+      },
+      {
+        "id": "architecture-ceiling",
+        "label": "Ceiling plane vs room file",
+        "value": 0.0,
+        "target": 5,
+        "unit": "mm",
+        "status": "ok",
+        "detail": "Model 2630 mm, room file 2630 mm",
+        "basis": "measured"
+      },
+      {
+        "id": "entry-passage",
+        "label": "Entrance passage, kitchen corner to desk",
+        "value": 665.5,
+        "target": 600,
+        "unit": "mm",
+        "status": "tight",
+        "detail": "Nearest: Desk.low_front0.t1. At floor level the nearest is DF0.foot at 649 mm. Comfortable two-way passage is about 800 mm.",
+        "basis": "assumed",
+        "points": [
+          [
+            2410.0,
+            735.0,
+            420.5
+          ],
+          [
+            2793.3,
+            1279.0,
+            420.5
+          ]
+        ]
+      },
+      {
+        "id": "equipment-clashes",
+        "label": "Desk equipment intersections",
+        "value": 0,
+        "target": 0,
+        "unit": "count",
+        "status": "ok",
+        "detail": "No equipment envelope intersects another device, the desk or the frame.",
+        "basis": "envelopes"
+      },
+      {
+        "id": "keyboard-midi",
+        "label": "Computer keyboard to MIDI controller",
+        "value": 20.0,
+        "target": 10,
+        "unit": "mm",
+        "status": "ok",
+        "detail": "Front-to-back gap on the desktop",
+        "basis": "envelopes"
+      },
+      {
+        "id": "knee-zone",
+        "label": "Central knee zone",
+        "value": 700,
+        "target": 700,
+        "unit": "mm",
+        "status": "ok",
+        "detail": "700 mm wide, 472 mm deep, 704 mm clear. Check against your own knee width with the chair arms.",
+        "basis": "envelopes"
+      },
+      {
+        "id": "speaker-aim-L",
+        "label": "Speaker L tweeter aim error",
+        "value": 5.7,
+        "target": 8,
+        "unit": "deg",
+        "status": "ok",
+        "detail": "Tweeter at 1389 mm, 624 mm from the ear reference; pad tilt 10.0°, capped at 10° for a stable wedge pad; under about 8° keeps the ear inside the tweeter on-axis window. Seated ear reference x 2620, z 1220 mm.",
+        "basis": "envelopes"
+      },
+      {
+        "id": "speaker-aim-R",
+        "label": "Speaker R tweeter aim error",
+        "value": 5.7,
+        "target": 8,
+        "unit": "deg",
+        "status": "ok",
+        "detail": "Tweeter at 1389 mm, 624 mm from the ear reference; pad tilt 10.0°, capped at 10° for a stable wedge pad; under about 8° keeps the ear inside the tweeter on-axis window. Seated ear reference x 2620, z 1220 mm.",
+        "basis": "envelopes"
+      },
+      {
+        "id": "ceiling-storage",
+        "label": "Highest storage to ceiling",
+        "value": 162.0,
+        "target": 30,
+        "unit": "mm",
+        "status": "ok",
+        "detail": "KNAGGLIG crate reaches 2468 mm; ceiling 2630 mm measured. Above the 2218 mm top boards there is 412 mm; a 310 × 250 mm crate needs 398 mm to tilt in, otherwise it must slide in flat.",
+        "basis": "measured",
+        "points": [
+          [
+            3385.0,
+            5123.0,
+            2468.0
+          ],
+          [
+            3385.0,
+            5123.0,
+            2630
+          ]
+        ]
+      },
+      {
+        "id": "under-bed",
+        "label": "Under-bed boxes below the side beam",
+        "value": 20.0,
+        "target": 15,
+        "unit": "mm",
+        "status": "ok",
+        "detail": "Box top 230 mm incl. casters; beam underside 250 mm. Boxes must stay at or below this height overall.",
+        "basis": "envelopes"
+      },
+      {
+        "id": "door-room-door",
+        "label": "Room door sweep",
+        "value": 27.5,
+        "target": 20,
+        "unit": "mm",
+        "status": "ok",
+        "detail": "Swing into room to 90°; nearest Fixed upper white cabinet.003",
+        "basis": "assumed"
+      },
+      {
+        "id": "door-bathroom-door",
+        "label": "Bathroom door sweep",
+        "value": 160.0,
+        "target": 20,
+        "unit": "mm",
+        "status": "ok",
+        "detail": "Swing into hall to 90°; nearest Hall mirror",
+        "basis": "assumed"
+      },
+      {
+        "id": "door-flat-entrance-door",
+        "label": "Flat entrance door sweep",
+        "value": 159.0,
+        "target": 20,
+        "unit": "mm",
+        "status": "ok",
+        "detail": "Swing into flat to 90°; nearest Entry shoe cabinet",
+        "basis": "assumed"
+      },
+      {
+        "id": "door-balcony-left-leaf",
+        "label": "Balcony left leaf sweep",
+        "value": 101.7,
+        "target": 20,
+        "unit": "mm",
+        "status": "ok",
+        "detail": "Swing into room to 100°; nearest Crate slat.007",
+        "basis": "assumed"
+      },
+      {
+        "id": "door-balcony-right-leaf",
+        "label": "Balcony right leaf sweep",
+        "value": 80.2,
+        "target": 20,
+        "unit": "mm",
+        "status": "ok",
+        "detail": "Swing into room to 100°; nearest V11 sweater over wear rail",
+        "basis": "assumed"
+      },
+      {
+        "id": "bed-aisle",
+        "label": "Bed to desk and wardrobe aisle",
+        "value": 673.0,
+        "target": 700,
+        "unit": "mm",
+        "status": "tight",
+        "detail": "Narrowest point beside the bed: Desk.top. Garments in front of the wardrobe are included.",
+        "basis": "envelopes",
+        "points": [
+          [
+            2030.0,
+            2919.7,
+            704.3
+          ],
+          [
+            2703.0,
+            2919.7,
+            704.3
+          ]
+        ]
+      }
     ]
   },
   "parts": [
@@ -44,7 +374,7 @@
       "unitPrice": 2.59,
       "total": 51.8,
       "url": "https://www.globus-baumarkt.de/p/dolle-plattenscheibe-fuer-pipe-regalsystem-oe-70-mm-20-mm-3-4-schwarz-matt-0763202822/",
-      "status": "Current public product price",
+      "status": "Last observed Globus price, 19 October 2026. On 21 October 2026 the Globus listing showed the item sold out with no price; recheck price and stock",
       "purchase": true
     },
     {
@@ -59,7 +389,7 @@
       "unitPrice": 9.99,
       "total": 99.9,
       "url": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1000-mm-20-mm-3-4-schwarz-matt-0763202825/",
-      "status": "Current public product price",
+      "status": "Last observed Globus price, 19 October 2026. On 21 October 2026 the Globus listing showed the item sold out with no price; recheck price and stock",
       "purchase": true
     },
     {
@@ -74,7 +404,7 @@
       "unitPrice": 1.59,
       "total": 22.26,
       "url": "https://www.obi.de/p/4978219/dolle-doppelmuffe-extension-fuer-pipe-regalsystem-20-mm-3-4-schwarz-matt",
-      "status": "Indicative indexed listing; current direct page unavailable; price/stock must be rechecked",
+      "status": "Indicative indexed listing; current direct page unavailable; price/stock must be rechecked. The OBI page returned 404 on 21 October 2026",
       "purchase": true
     },
     {
@@ -82,14 +412,14 @@
       "category": "Hardware",
       "name": "1,200 mm pipe",
       "description": "DOLLE tube Ø25 × 1200 mm",
-      "sku": "verify supplier",
+      "sku": "96322",
       "quantity": 8,
       "buyPacks": 8,
       "packSize": 1,
       "unitPrice": 10.99,
       "total": 87.92,
       "url": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1200-mm-20-mm-3-4-schwarz-matt-0763202841/",
-      "status": "Current public product price",
+      "status": "Last observed Globus price, 19 October 2026. On 21 October 2026 the Globus listing showed the item sold out with no price; recheck price and stock. DOLLE article 96322 (EAN 4007557096322); also listed by toom as 7450880",
       "purchase": true
     },
     {
@@ -104,7 +434,7 @@
       "unitPrice": 3.79,
       "total": 30.32,
       "url": "https://www.globus-baumarkt.de/p/dolle-abdeckstopfen-fuer-pipe-regalsystem-20-mm-3-4-schwarz-matt-2-stueck-0763202816/",
-      "status": "Current public product price",
+      "status": "Last observed Globus price, 19 October 2026. On 21 October 2026 the Globus listing showed the item sold out with no price; recheck price and stock",
       "purchase": true
     },
     {
@@ -119,7 +449,7 @@
       "unitPrice": 5.99,
       "total": 479.2,
       "url": "https://www.globus-baumarkt.de/p/dolle-t-verbinder-fuer-pipe-regalsystem-20-mm-3-4-verschiebbar-schwarz-matt-0763202823/",
-      "status": "Current public product price",
+      "status": "Last observed Globus price, 19 October 2026. On 21 October 2026 the Globus listing showed the item sold out with no price; recheck price and stock",
       "purchase": true
     },
     {
@@ -134,7 +464,7 @@
       "unitPrice": 1.19,
       "total": 16.66,
       "url": "https://www.obi.de/p/4964102/dolle-rohr-tube-fuer-pipe-regalsystem-25-mm-x-40-mm-schwarz-matt",
-      "status": "Indicative indexed listing; current direct page unavailable; price/stock must be rechecked",
+      "status": "Indicative indexed listing; current direct page unavailable; price/stock must be rechecked. The OBI page returned 404 on 21 October 2026",
       "purchase": true
     },
     {
@@ -149,7 +479,7 @@
       "unitPrice": 2.99,
       "total": 107.64,
       "url": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-250-mm-20-mm-3-4-schwarz-matt-0763202837/",
-      "status": "Current public product price",
+      "status": "Last observed Globus price, 19 October 2026. On 21 October 2026 the Globus listing showed the item sold out with no price; recheck price and stock",
       "purchase": true
     },
     {
@@ -179,7 +509,7 @@
       "unitPrice": 6.99,
       "total": 41.94,
       "url": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-602-mm-20-mm-3-4-schwarz-matt-0763202834/",
-      "status": "Current public product price",
+      "status": "Last observed Globus price, 19 October 2026. On 21 October 2026 the Globus listing showed the item sold out with no price; recheck price and stock",
       "purchase": true
     },
     {
@@ -194,7 +524,7 @@
       "unitPrice": 2.59,
       "total": 5.18,
       "url": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-200-mm-20-mm-3-4-schwarz-matt-0763202832/",
-      "status": "Current public product price",
+      "status": "Last observed Globus price, 19 October 2026. On 21 October 2026 the Globus listing showed the item sold out with no price; recheck price and stock",
       "purchase": true
     },
     {
@@ -209,7 +539,7 @@
       "unitPrice": 1.79,
       "total": 3.58,
       "url": "https://www.obi.de/p/4974440/dolle-90-eckverbinder-fuer-pipe-regalsystem-2-innengewinden-20-mm-3-4-schwarz",
-      "status": "€1.79 per elbow observed 20 October 2026; home delivery unavailable, local store stock not checked; DOLLE EAN 4007557096353",
+      "status": "€1.79 per elbow observed 20 October 2026; home delivery unavailable, local store stock not checked; DOLLE EAN 4007557096353. The OBI page returned 404 on 21 October 2026; find another stockist",
       "purchase": true
     },
     {
@@ -217,14 +547,14 @@
       "category": "Hardware",
       "name": "Four-way threaded cross",
       "description": "DOLLE PIPE four-way threaded cross, four female sockets · €4 each budget allowance; verify store price",
-      "sku": "96384 / EAN 4007557096384",
+      "sku": "96384 / EAN 4007557096384 — UNCONFIRMED: Bauhaus SE lists this EAN as a 4×3/4\" corner coupling",
       "quantity": 2,
       "buyPacks": 2,
       "packSize": 1,
       "unitPrice": 4.0,
       "total": 8.0,
       "url": "https://toom.de/p/kreuzverbinder-fuer-regalsystem-pipe-34-schwarz/7450886",
-      "status": "Budget allowance €4 per single fitting; DOLLE product confirmed at toom 7450886; current local price/stock not verified",
+      "status": "Budget allowance €4 per single fitting. toom 7450886 lists a four-connection DOLLE cross without EAN, price or thread gender; EAN 4007557096384 is listed by Bauhaus SE as a 4×3/4\" corner coupling. Confirm the four-female cross article before ordering",
       "purchase": true
     },
     {
@@ -836,7 +1166,8 @@
       "kicker": "Preparation",
       "description": "Lock the design; verify the real room and a sample connector before ordering wood or drilling.",
       "actions": [
-        "Measure the ceiling height. The top crate envelope reaches about 2,468 mm; 2,500 mm is only the current assumption.",
+        "Measure the ceiling height. The top crate envelope reaches about 2,468 mm; 2,630 mm is measured.",
+        "Measure the room width at three heights, both diagonals and the right-wall plumb. Record them, plus every socket, switch, radiator and pipe, in source/room-measurements.json.",
         "Measure seating stops, sleeve envelopes, saddle height and screw positions using the measurement fields supplied with the model.",
         "Check the independent right balcony leaf, gathered curtain, real clothes and the 600 mm minimum entrance with a physical mock-up.",
         "Confirm wall construction, anchors, clamp anti-rotation and desk/speaker load capacities. Choose fixings for the actual substrate."
@@ -1002,7 +1333,7 @@
           "kind": "cross",
           "name": "Four-way threaded cross",
           "quantity": 2,
-          "sku": "96384 / EAN 4007557096384",
+          "sku": "96384 / EAN 4007557096384 — UNCONFIRMED: Bauhaus SE lists this EAN as a 4×3/4\" corner coupling",
           "url": "https://toom.de/p/kreuzverbinder-fuer-regalsystem-pipe-34-schwarz/7450886"
         },
         {
@@ -1075,11 +1406,13 @@
         "While the upper frame is still open, fit the desktop around the continuing rack posts and support it safely during assembly.",
         "Transfer four post clearances from the measured frame. The preview uses Ø44 mm, including two open-edge notches at the near end.",
         "Transfer the shallow underside tee/elbow reliefs from real castings. Do not break through the top face.",
+        "Round the entrance-side front corner to R100 mm. It widens the kitchen-corner passage; the nearest saddle screw stays on full-width timber.",
         "Screw the desktop to its eight saddle tabs. Add the 1615 × 230 × 18 mm rear service shelf on two 250 mm T-connected pipes and four saddle tabs, at 500 mm underside / 518 mm top.",
         "The service shelf begins 472 mm behind the front edge. Transfer its two rear post clearances and shallow T-casting reliefs from actual parts. Keep the central knee area open."
       ],
       "notes": [
-        "Preview top height: 732 mm. This is derived from stock lengths and unmeasured socket offsets; it may change after calibration. Check the near foot and desk corner still clear the kitchen by at least 600 mm."
+        "Preview top height: 732 mm. This is derived from stock lengths and unmeasured socket offsets; it may change after calibration.",
+        "Kitchen-corner passage in the model: 666 mm, now limited by the low front brace on the near leg rather than the desk corner. Keep at least 600 mm."
       ],
       "parts": [
         "Desk.service0.saddle0",
@@ -1177,7 +1510,7 @@
           "kind": "tube_1200",
           "name": "1,200 mm pipe",
           "quantity": 8,
-          "sku": "verify supplier",
+          "sku": "96322",
           "url": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1200-mm-20-mm-3-4-schwarz-matt-0763202841/"
         },
         {
@@ -1208,7 +1541,7 @@
         "Install the upper wall ties at their model heights. The near desk ties are at 1,200 and 2,020 mm.",
         "Fit the wardrobe depth bars, including the low 200 mm bars and the 1,800 mm coat-end brace.",
         "Check verticals and diagonals, then secure the verified fasteners and clamp settings.",
-        "Keep the bar and kitchen fixed. Confirm the desktop corner gap is approximately 641 mm in the actual flat."
+        "Keep the bar and kitchen fixed. Confirm the kitchen-corner passage is about 666 mm in the actual flat."
       ],
       "notes": [
         "Wall material and permissible fixings remain to be verified. The model does not specify an anchor type or allowable structural load."
@@ -1511,7 +1844,7 @@
         "Fit the 1,004 mm top over short hanging and the two 606 mm tops over folds and long coats.",
         "Use four saddle tabs per board and preserve the stagger on shared support pipes.",
         "Keep the front edge clear for the removable light covers.",
-        "Confirm ceiling height before adding top crates: the model leaves only a small margin at an assumed 2,500 mm."
+        "Top crates reach about 2,468 mm, 162 mm below the measured 2,630 mm ceiling; check the actual top shelf with a crate before loading it."
       ],
       "notes": [],
       "parts": [
@@ -1649,7 +1982,8 @@
       "actions": [
         "Attach each tray to two uncut 250 mm arms, each on a sliding T at a separate upright.",
         "Fit four saddle holders per 350 × 350 × 25 mm tray, using the rotated screw layout from the model.",
-        "Tray top: 1,125 mm plus an illustrative 3 mm isolation pad. Aim both speakers about 52.9° toward the middle seat.",
+        "Tray top: 1,125 mm. Angle each tray about 45.3° so the speakers face the seated ear reference (x 2,620, z 1,220 mm), not the seat centre.",
+        "Tilt each speaker about 10° down on angled isolation pads; the arm tees cannot drop lower while the posts keep their coupling at 1,015–1,027 mm.",
         "Check real speaker weight, tweeter height, clamp anti-rotation and screw retention before loading."
       ],
       "notes": [
@@ -1826,7 +2160,7 @@
         "Route low-voltage leads away from clothes and sharp edges. Keep drivers accessible; do not enclose mains equipment in a routed pocket."
       ],
       "notes": [
-        "MITTLED load is 11 W on its own compatible driver. No LED strip is shortened."
+        "Two 5.5 W MITTLED bars draw 11 W together on their own compatible driver. No LED strip is shortened."
       ],
       "parts": [],
       "materials": [],
@@ -1870,7 +2204,8 @@
       "actions": [
         "Place four KNAGGLIG 460 × 310 × 250 mm crates on top and two stacked in the lower folded bay.",
         "Check that top crates can be lifted out below the measured ceiling and secure storage as appropriate.",
-        "Fit the reused monitor, 61-key controller and speakers. Put the M1 Mac mini, router and three separated power bricks on the rear service shelf; leave its front/back open and Mac ports facing along the shelf.",
+        "Fit the reused monitor on the optional desk-clamp VESA arm at the desktop rear edge; no monitor stand fits behind the 61-key controller. Keep the clamp jaw clear of the router antennas.",
+        "Put the M1 Mac mini, router, and the router and dock power supplies on the rear service shelf; leave its front/back open and Mac ports facing along the shelf. The Mac mini M1 has an internal power supply, so the third brick bay is spare.",
         "Fit the Focusrite and OWC dock beneath opposite front ends using adjustable open U holders. Keep front sockets/knobs accessible and preserve the central 700 mm knee width. Exact Focusrite generation and holder model remain unconfirmed.",
         "Secure individual bricks without covering vents; route audio away from the brick bay and retain cable service loops. Check plug bend space and short tabletop screw lengths.",
         "The shown dock-to-Mac route needs a 2 m certified Thunderbolt lead allowance; the supplied 0.8 m dock cable will not follow this route. Remove the cable allowance if you already own a suitable lead.",
@@ -1894,7 +2229,7 @@
       "kicker": "Final check",
       "description": "A physical fit check completes the concept review.",
       "actions": [
-        "Walk the entrance with the chair parked and in use. Preserve at least 600 mm; current modeled corner gap is 640.9 mm.",
+        "Walk the entrance with the chair parked and in use. Preserve at least 600 mm; the modelled kitchen-corner passage is 666 mm.",
         "Open the independent right balcony leaf and check its handle, curtains, coats and worn-clothes rail.",
         "Confirm all doors, drawers and the fixed bar remain usable. The bar has only 240 mm of leg recess.",
         "Test the dimmers and cable access. Check load-bearing fixings with the appropriate installer before loading storage or leaning on the desk."
@@ -2351,8 +2686,8 @@
       "bounds": [
         3000,
         3350,
-        1375.1262561295077,
-        1725.1262561295077
+        1377.4848700782989,
+        1727.4848700782989
       ],
       "bottom": 1100,
       "thickness": 25,
@@ -2360,7 +2695,7 @@
         [
           "Speaker0.arm0.saddle0",
           3117.0,
-          1500.0,
+          1385.0,
           1100.0
         ],
         [
@@ -2372,7 +2707,7 @@
         [
           "Speaker0.arm1.saddle0",
           3343.0,
-          1500.0,
+          1495.0,
           1100.0
         ],
         [
@@ -2384,14 +2719,14 @@
       ],
       "holes": [],
       "recess": null,
-      "rotation_degrees": -52.92074022002304
+      "rotation_degrees": -45.25770398341364
     },
     "Speaker1.platform": {
       "bounds": [
         3000,
         3350,
-        2499.873743870492,
-        2849.873743870492
+        2497.5151299217014,
+        2847.5151299217014
       ],
       "bottom": 1100,
       "thickness": 25,
@@ -2399,31 +2734,31 @@
         [
           "Speaker1.arm0.saddle0",
           3117.0,
-          2760.0,
+          2840.0,
           1100.0
         ],
         [
           "Speaker1.arm0.saddle1",
           3117.0,
-          2660.0,
+          2640.0,
           1100.0
         ],
         [
           "Speaker1.arm1.saddle0",
           3343.0,
-          2760.0,
+          2730.0,
           1100.0
         ],
         [
           "Speaker1.arm1.saddle1",
           3343.0,
-          2660.0,
+          2640.0,
           1100.0
         ]
       ],
       "holes": [],
       "recess": null,
-      "rotation_degrees": 52.92074022002304
+      "rotation_degrees": 45.25770398341364
     },
     "Desk.top": {
       "bounds": [
@@ -2508,6 +2843,13 @@
       ],
       "recess": null,
       "rotation_degrees": 0,
+      "corner_radii": [
+        [
+          2703,
+          1305,
+          100
+        ]
+      ],
       "support_reliefs": [
         {
           "bounds": [
@@ -7326,7 +7668,7 @@
       "kind": "saddle",
       "origin": [
         3085.0,
-        1500.0,
+        1385.0,
         1085.0
       ],
       "axis": [
@@ -7341,7 +7683,7 @@
       ],
       "data": {
         "host": "Speaker0.arm0.tube",
-        "distance": 180
+        "distance": 65
       }
     },
     {
@@ -7438,7 +7780,7 @@
       "kind": "saddle",
       "origin": [
         3375.0,
-        1500.0,
+        1495.0,
         1085.0
       ],
       "axis": [
@@ -7453,7 +7795,7 @@
       ],
       "data": {
         "host": "Speaker0.arm1.tube",
-        "distance": 180
+        "distance": 175
       }
     },
     {
@@ -7484,7 +7826,7 @@
       "kind": "wood",
       "origin": [
         3175.0,
-        1550.1262561295077,
+        1552.4848700782989,
         1112.5
       ],
       "axis": [
@@ -7501,18 +7843,18 @@
         "bounds": [
           3000,
           3350,
-          1375.1262561295077,
-          1725.1262561295077
+          1377.4848700782989,
+          1727.4848700782989
         ],
         "bottom": 1100,
         "thickness": 25,
         "holes": [],
         "recess": null,
-        "rotation_degrees": -52.92074022002304,
+        "rotation_degrees": -45.25770398341364,
         "speaker_target_mm": [
-          2750,
+          2620,
           2112.5,
-          1250
+          1220
         ]
       }
     },
@@ -7587,7 +7929,7 @@
       "kind": "saddle",
       "origin": [
         3085.0,
-        2760.0,
+        2840.0,
         1085.0
       ],
       "axis": [
@@ -7602,7 +7944,7 @@
       ],
       "data": {
         "host": "Speaker1.arm0.tube",
-        "distance": 110
+        "distance": 30
       }
     },
     {
@@ -7610,7 +7952,7 @@
       "kind": "saddle",
       "origin": [
         3085.0,
-        2660.0,
+        2640.0,
         1085.0
       ],
       "axis": [
@@ -7625,7 +7967,7 @@
       ],
       "data": {
         "host": "Speaker1.arm0.tube",
-        "distance": 210
+        "distance": 230
       }
     },
     {
@@ -7699,7 +8041,7 @@
       "kind": "saddle",
       "origin": [
         3375.0,
-        2760.0,
+        2730.0,
         1085.0
       ],
       "axis": [
@@ -7714,7 +8056,7 @@
       ],
       "data": {
         "host": "Speaker1.arm1.tube",
-        "distance": 110
+        "distance": 140
       }
     },
     {
@@ -7722,7 +8064,7 @@
       "kind": "saddle",
       "origin": [
         3375.0,
-        2660.0,
+        2640.0,
         1085.0
       ],
       "axis": [
@@ -7737,7 +8079,7 @@
       ],
       "data": {
         "host": "Speaker1.arm1.tube",
-        "distance": 210
+        "distance": 230
       }
     },
     {
@@ -7745,7 +8087,7 @@
       "kind": "wood",
       "origin": [
         3175.0,
-        2674.873743870492,
+        2672.5151299217014,
         1112.5
       ],
       "axis": [
@@ -7762,18 +8104,18 @@
         "bounds": [
           3000,
           3350,
-          2499.873743870492,
-          2849.873743870492
+          2497.5151299217014,
+          2847.5151299217014
         ],
         "bottom": 1100,
         "thickness": 25,
         "holes": [],
         "recess": null,
-        "rotation_degrees": 52.92074022002304,
+        "rotation_degrees": 45.25770398341364,
         "speaker_target_mm": [
-          2750,
+          2620,
           2112.5,
-          1250
+          1220
         ]
       }
     },
@@ -8616,6 +8958,13 @@
         ],
         "recess": null,
         "rotation_degrees": 0,
+        "corner_radii": [
+          [
+            2703,
+            1305,
+            100
+          ]
+        ],
         "support_reliefs": [
           {
             "bounds": [

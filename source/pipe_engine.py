@@ -8,7 +8,17 @@ from collections import Counter, defaultdict
 import math, json, copy
 from pathlib import Path
 FAMILY='DOLLE-current-25-metric-unconfirmed-pitch'
-STOCK={40:('96193','https://www.obi.de/p/4964102/dolle-rohr-tube-fuer-pipe-regalsystem-25-mm-x-40-mm-schwarz-matt'),200:('96247','https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-200-mm-20-mm-3-4-schwarz-matt-0763202832/'),250:('96254','https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-250-mm-20-mm-3-4-schwarz-matt-0763202837/'),602:('96599','https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-602-mm-20-mm-3-4-schwarz-matt-0763202834/'),802:('96605','https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-802-mm-20-mm-3-4-schwarz-matt-0763202835/'),1000:('96292','https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1000-mm-20-mm-3-4-schwarz-matt-0763202825/'),1200:('verify supplier','https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1200-mm-20-mm-3-4-schwarz-matt-0763202841/'),1500:('96339','https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1500-mm-20-mm-3-4-schwarz-matt-0763202820/')}
+def room_geometry(path=Path(__file__).parent/'room-measurements.json'):
+ """Right-wall plane and ceiling: measured readings win; otherwise the labelled CAD assumption."""
+ d=json.loads(Path(path).read_text());m=d['measured'];a=d['assumed']
+ widths=[v for k,v in m.items() if k.startswith('room_width_x') and v is not None];ceilings=[v for k,v in m.items() if k.startswith('ceiling') and v is not None]
+ return {'wall_x':sum(widths)/len(widths) if widths else a['room_width_x'],'wall_measured':bool(widths),'wall_spread':max(widths)-min(widths) if widths else None,
+  'ceiling':min(ceilings) if ceilings else a['ceiling_height'],'ceiling_measured':bool(ceilings)}
+ROOM=room_geometry();WALL_X=ROOM['wall_x']
+# Seated listening/viewing reference: ear above the rear third of the parked chair seat.
+EAR_MM=(2620,1220)
+ENTRY_CORNER_RADIUS=100
+STOCK={40:('96193','https://www.obi.de/p/4964102/dolle-rohr-tube-fuer-pipe-regalsystem-25-mm-x-40-mm-schwarz-matt'),200:('96247','https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-200-mm-20-mm-3-4-schwarz-matt-0763202832/'),250:('96254','https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-250-mm-20-mm-3-4-schwarz-matt-0763202837/'),602:('96599','https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-602-mm-20-mm-3-4-schwarz-matt-0763202834/'),802:('96605','https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-802-mm-20-mm-3-4-schwarz-matt-0763202835/'),1000:('96292','https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1000-mm-20-mm-3-4-schwarz-matt-0763202825/'),1200:('96322','https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1200-mm-20-mm-3-4-schwarz-matt-0763202841/'),1500:('96339','https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1500-mm-20-mm-3-4-schwarz-matt-0763202820/')}
 PROFILE={
  'saddle_rise':{'value':15,'status':'preview','measure':'Horizontal tube axis to wood underside at the saddle tab'},
  'saddle_tab_offset':{'value':32,'status':'preview','measure':'Tube axis to shelf screw hole, perpendicular to tube'},
@@ -35,7 +45,7 @@ PROFILE={
 CATALOG={
  'saddle':{'sku':'toom 7450897; DOLLE EAN unconfirmed','name':'DOLLE PIPE one-sided saddle shelf holder, 2 per Toom pack','source':'https://toom.de/p/regalbodenhalter-fuer-regalsystem-pipe-schwarz-2-stueck/7450897'},
  'flange':{'sku':'96483','name':'DOLLE plate / flange Ø70','source':'https://www.globus-baumarkt.de/p/dolle-plattenscheibe-fuer-pipe-regalsystem-oe-70-mm-20-mm-3-4-schwarz-matt-0763202822/'},
- 'cross':{'sku':'96384 / EAN 4007557096384','name':'DOLLE PIPE four-way threaded cross, four female sockets','source':'https://toom.de/p/kreuzverbinder-fuer-regalsystem-pipe-34-schwarz/7450886'},
+ 'cross':{'sku':'96384 / EAN 4007557096384 — UNCONFIRMED: Bauhaus SE lists this EAN as a 4×3/4" corner coupling','name':'DOLLE PIPE four-way threaded cross, four female sockets (article to confirm)','source':'https://toom.de/p/kreuzverbinder-fuer-regalsystem-pipe-34-schwarz/7450886'},
  'slide_tee':{'sku':'96544','name':'DOLLE sliding T, one female branch, Ø25 sleeve','source':'https://www.globus-baumarkt.de/p/dolle-t-verbinder-fuer-pipe-regalsystem-20-mm-3-4-verschiebbar-schwarz-matt-0763202823/'},
  'extension':{'sku':'96445','name':'DOLLE Extension, TWO FEMALE THREADS','source':'https://www.obi.de/p/4978219/dolle-doppelmuffe-extension-fuer-pipe-regalsystem-20-mm-3-4-schwarz-matt'},
  'elbow':{'sku':'96353','name':'DOLLE 90 degree elbow, two female threads','source':'https://www.obi.de/p/4974440/dolle-90-eckverbinder-fuer-pipe-regalsystem-2-innengewinden-20-mm-3-4-schwarz'},
@@ -55,9 +65,27 @@ def close(a,b,tol=.001):return norm(sub(a,b))<tol
 def board_corners(board):
  x0,x1,y0,y1=board['bounds'];cx=(x0+x1)/2;cy=(y0+y1)/2;theta=math.radians(board.get('rotation_degrees',0));c=math.cos(theta);s=math.sin(theta)
  return [(cx+c*(x-cx)-s*(y-cy),cy+s*(x-cx)+c*(y-cy)) for x,y in ((x0,y0),(x1,y0),(x1,y1),(x0,y1))]
+def corner_centres(board):
+ # Rounded plan corners: [corner x, corner y, radius] on an unrotated board.
+ x0,x1,y0,y1=board['bounds']
+ for x,y,r in board.get('corner_radii',[]):yield x,y,r,x+(r if x==x0 else -r),y+(r if y==y0 else -r)
 def point_in_board(x,y,board,margin=0):
  x0,x1,y0,y1=board['bounds'];cx=(x0+x1)/2;cy=(y0+y1)/2;theta=-math.radians(board.get('rotation_degrees',0));c=math.cos(theta);s=math.sin(theta);dx=x-cx;dy=y-cy
- return x0-margin<=cx+c*dx-s*dy<=x1+margin and y0-margin<=cy+s*dx+c*dy<=y1+margin
+ u,v=cx+c*dx-s*dy,cy+s*dx+c*dy
+ if not (x0-margin<=u<=x1+margin and y0-margin<=v<=y1+margin):return False
+ for x,y,r,ax,ay in corner_centres(board):
+  if (u-ax)*(x-ax)>0 and (v-ay)*(y-ay)>0 and math.hypot(u-ax,v-ay)>r+margin:return False
+ return True
+def board_outline(board,segments=12):
+ """Plan outline including rounded corners, counter-clockwise from (x0, y0)."""
+ x0,x1,y0,y1=board['bounds'];radii={(x,y):r for x,y,r in board.get('corner_radii',[])};pts=[]
+ for (x,y),start in (((x0,y0),180),((x1,y0),270),((x1,y1),0),((x0,y1),90)):
+  r=radii.get((x,y))
+  if not r:pts.append((x,y));continue
+  ax=x+(r if x==x0 else -r);ay=y+(r if y==y0 else -r)
+  pts+=[(ax+r*math.cos(math.radians(start+90*i/segments)),ay+r*math.sin(math.radians(start+90*i/segments))) for i in range(segments+1)]
+ cx=(x0+x1)/2;cy=(y0+y1)/2;theta=math.radians(board.get('rotation_degrees',0));c=math.cos(theta);s=math.sin(theta)
+ return [(cx+c*(x-cx)-s*(y-cy),cy+s*(x-cx)+c*(y-cy)) for x,y in pts]
 class DesignError(ValueError):pass
 @dataclass
 class Port:
@@ -95,7 +123,7 @@ class Assembly:
  def flange(self,id,p,n,surface):
   if surface not in ('floor','wall','wood'):raise DesignError('Flange must mount to floor, wall or wood')
   if surface=='floor' and (abs(p[2])>.001 or dot(n,(0,0,1))<.999):raise DesignError('Floor mounting plane wrong')
-  if surface=='wall' and (abs(p[0]-3450)>.001 or dot(n,(-1,0,0))<.999):raise DesignError('Right-wall mounting plane wrong')
+  if surface=='wall' and (abs(p[0]-WALL_X)>.001 or dot(n,(-1,0,0))<.999):raise DesignError('Right-wall mounting plane wrong')
   self.part(id,'flange',p,n);self.mounts[id]=surface
   self.port(id+'.socket',id,'female',add(p,mul(n,self.v('flange_stop'))),n);return id
  def cap(self,id,port):
@@ -154,7 +182,7 @@ class Assembly:
  def walltie(self,id,col,z,L=40):
   self.clamp(id+'.tee',col,z,(1,0,0));t=self.from_port(id+'.tube',L,id+'.tee.branch');p=self.ports[t+'.b'].p
   wall=add(p,(self.v('flange_stop'),0,0));self.flange(id+'.wall',wall,(-1,0,0),'wall');self.connect(t+'.b',id+'.wall.socket')
- def board(self,id,bounds,bottom,thickness,supports,holes=(),recess=None,rotation_degrees=0):
+ def board(self,id,bounds,bottom,thickness,supports,holes=(),recess=None,rotation_degrees=0,corner_radii=()):
   # supports: (component ID, x, y, support plane z); points must be on wood.
   x0,x1,y0,y1=bounds
   if x1<=x0 or y1<=y0 or thickness<=0:raise DesignError('Invalid board dimensions')
@@ -162,12 +190,13 @@ class Assembly:
   if len(supports)<minimum:raise DesignError('Each board requires four support points, or one three-hole flange')
   for sid,x,y,z in supports:
    if sid not in self.parts or self.parts[sid].kind not in ('end_holder','middle_holder','hook','flange','saddle'):raise DesignError('Wood needs catalog shelf hardware')
-   if not point_in_board(x,y,{'bounds':bounds,'rotation_degrees':rotation_degrees}) or abs(z-bottom)>.001:raise DesignError('Wood support outside board / wrong support plane')
+   if not point_in_board(x,y,{'bounds':bounds,'rotation_degrees':rotation_degrees,'corner_radii':[list(c) for c in corner_radii]}) or abs(z-bottom)>.001:raise DesignError('Wood support outside board / wrong support plane')
   for other in self.boards.values():
    a=other['bounds'];b=other['bottom'];t=other['thickness']
    if min(x1,a[1])-max(x0,a[0])>.01 and min(y1,a[3])-max(y0,a[2])>.01 and min(bottom+thickness,b+t)-max(bottom,b)>.01:raise DesignError('Boards overlap')
-  p=((x0+x1)/2,(y0+y1)/2,bottom+thickness/2);self.part(id,'wood',p,bounds=bounds,bottom=bottom,thickness=thickness,holes=list(holes),recess=recess,rotation_degrees=rotation_degrees)
-  data=dict(bounds=bounds,bottom=bottom,thickness=thickness,supports=supports,holes=list(holes),recess=recess,rotation_degrees=rotation_degrees);self.boards[id]=data
+  p=((x0+x1)/2,(y0+y1)/2,bottom+thickness/2);extra={'corner_radii':[list(c) for c in corner_radii]} if corner_radii else {}
+  self.part(id,'wood',p,bounds=bounds,bottom=bottom,thickness=thickness,holes=list(holes),recess=recess,rotation_degrees=rotation_degrees,**extra)
+  data=dict(bounds=bounds,bottom=bottom,thickness=thickness,supports=supports,holes=list(holes),recess=recess,rotation_degrees=rotation_degrees,**extra);self.boards[id]=data
   for s,*_ in supports:self.edges.append((s,id,'wood screw',None,None))
  def supported_board(self,id,cols,bounds,bottom,thickness,holes=()):
   supports=[];cy=(bounds[2]+bounds[3])/2
@@ -238,7 +267,7 @@ class Assembly:
    if p.kind=='flange':
     v=self.ports[p.id+'.socket']
     if not close(v.p,add(p.origin,mul(p.axis,self.v('flange_stop')))):errors.append(p.id+': flange port moved independently')
-    if self.mounts.get(p.id)=='wall' and abs(p.origin[0]-3450)>.001:errors.append(p.id+': flange detached from wall')
+    if self.mounts.get(p.id)=='wall' and abs(p.origin[0]-WALL_X)>.001:errors.append(p.id+': flange detached from wall')
     if self.mounts.get(p.id)=='floor' and abs(p.origin[2])>.001:errors.append(p.id+': flange detached from floor')
   for p in self.parts.values():
    if p.kind=='saddle':
@@ -275,6 +304,9 @@ class Assembly:
     x,y,z=t.origin;end=z+t.data['length']
     if point_in_board(x,y,b,12.5) and min(end,z1)>max(z,z0):
      if not any(math.hypot(x-h[0],y-h[1])<.01 and h[2]>=30 for h in b['holes']):errors.append('Unbored post through wood: '+id+' / '+t.id)
+  for p in self.parts.values():
+   top=p.origin[2]+(p.data['length'] if p.kind.startswith('tube_') and p.axis[2]>.99 else 0)
+   if top>ROOM['ceiling']-10:errors.append(p.id+': reaches the ceiling plane')
   unresolved=[k for k,v in self.profile.items() if v['status']!='measured']
   if fabrication:
    errors+=['Uncalibrated profile: '+k for k in unresolved]
@@ -336,7 +368,7 @@ def build(profile=None,close_gap=False,entry60=False,side_speakers=False,shared_
  if shared_desk:return build_shared_desk(profile)
  if side_speakers:entry60=True
  if entry60:close_gap=True
- a=Assembly(profile);s=a.v('tee_stop');f=a.v('flange_stop');back=3450-(40+s+f);front=back-(250+2*s);df=back-(602+2*s)
+ a=Assembly(profile);s=a.v('tee_stop');f=a.v('flange_stop');back=WALL_X-(40+s+f);front=back-(250+2*s);df=back-(602+2*s)
  shift=250 if entry60 else 0
  y0=(1100 if close_gap else 980)+shift;y1=980+1500+2*s+shift;dy=[2640+shift]
  coat_length=602 if entry60 else 802
@@ -408,7 +440,7 @@ def build(profile=None,close_gap=False,entry60=False,side_speakers=False,shared_
  a.from_port('Wear.rail',602,'Wear.return0.outer.branch');a.connect('Wear.rail.b','Wear.return1.outer.branch')
  # Floating speaker shelves: two 250 mm side arms and four saddles per tray.
  if side_speakers:
-  desktop=a.boards['Desk.top']['bounds'];middle=(desktop[2]+desktop[3])/2;listener_x=2750;cx=back-200;half=175
+  desktop=a.boards['Desk.top']['bounds'];middle=(desktop[2]+desktop[3])/2;listener_x=EAR_MM[0];cx=back-200;half=175
   cy=desktop[2]+half
   for _ in range(100):
    theta=math.atan2(middle-cy,cx-listener_x);cy=desktop[2]+half*(math.cos(theta)+math.sin(theta))
@@ -416,10 +448,14 @@ def build(profile=None,close_gap=False,entry60=False,side_speakers=False,shared_
    supports=[];bottom=1100;z=bottom-a.v('saddle_rise');id='Speaker'+str(i)
    for j,col in enumerate(cols):
     stem=id+'.arm'+str(j);a.clamp(stem+'.tee',col,z,(0,sign,0));a.from_port(stem+'.tube',250,stem+'.tee.branch');a.cap(stem+'.cap',stem+'.tube.b')
-    for k,offset in enumerate((180,230) if i==0 else (110,210)):
-     sid=stem+'.saddle'+str(k);point=a.saddle(sid,stem+'.tube',offset,(1 if j==0 else -1,0,0));supports.append((sid,*point))
+    # Spread the two saddle tabs as far apart as the rotated tray allows, 15 mm inside its edge.
+    tube=a.parts[stem+'.tube'];tab=(1 if j==0 else -1,0,0);tray={'bounds':(cx-half,cx+half,yy-half,yy+half),'rotation_degrees':angle}
+    fits=[o for o in range(20,231,5) if point_in_board(*add(add(tube.origin,mul(tube.axis,o)),mul(tab,a.v('saddle_tab_offset')))[:2],tray,-15)]
+    if len(fits)<2 or fits[-1]-fits[0]<40:raise DesignError(id+': speaker tray cannot reach two saddle stations on its arm')
+    for k,offset in enumerate((fits[0],fits[-1])):
+     sid=stem+'.saddle'+str(k);point=a.saddle(sid,stem+'.tube',offset,tab);supports.append((sid,*point))
    a.board(id+'.platform',(cx-half,cx+half,yy-half,yy+half),bottom,25,supports,rotation_degrees=angle)
-   a.parts[id+'.platform'].data['speaker_target_mm']=[listener_x,middle,1250]
+   a.parts[id+'.platform'].data['speaker_target_mm']=[listener_x,middle,EAR_MM[1]]
  else:
   for i,y in enumerate((1350+shift,2360+shift) if close_gap else ((y0+y1)/2-520,(y0+y1)/2+610)):
    id='Speaker'+str(i);x=back-195;a.flange(id+'.base',(x,y,740),(0,0,1),'wood');a.edges.append(('Desk.top',id+'.base','wood screw',None,None))
@@ -435,7 +471,7 @@ def build(profile=None,close_gap=False,entry60=False,side_speakers=False,shared_
   a.notes += ['V16: window-side coat bay uses the NEXT SMALLER uncut catalog tube: 602 mm, DOLLE 96599, replacing 802 mm 96605. No structural pipe is cut or stretched.', 'Desk and first three wardrobe post pairs move 250 mm toward balcony; last post pair moves only 50 mm because coat bay is 200 mm shorter.', 'Desktop remains 1615 x 702 mm with six saddle supports and explicit post holes. Modeled kitchen/desk corner gap 640.9 mm.', 'Four long-coat slots now use about 140 mm pitch each; bulky coats may require fewer slots. Hanging height remains unchanged.', 'Wear-again item is restricted to a 200 mm entrance-side zone so the balcony handle sweep stays clear in the 100-degree proxy test. Ceiling and connector offsets remain unmeasured.']
  if side_speakers:
   a.notes=[n for n in a.notes if not n.startswith(('DS0 is a stock 1500','A 70 mm desktop'))]
-  a.notes += ['V17 TV and all its custom support parts removed; the desktop TV bore is removed.', 'DS0 is now a floor-mounted 1000 + 1200 mm stock column with coupling, near support pair offset 50 mm from the desktop endframe to avoid crossing its pipes; eight 40 mm desktop holes include the two open-edge notches. Speaker shelves do not bear on the desktop.', 'Each speaker board is a 350 x 350 x 25 mm oak tray on two uncut 250 mm cantilever arms, each clamped to its own upright by a sliding T. Four one-sided saddle tabs screw each tray to the arms.', 'Near wall tie raised from 1100 to 1200 mm to clear speaker-arm tees. Tray underside 1100, top 1125 mm before thin isolation pads; no desktop speaker risers or flanges.', 'Trays rotate in the connection graph and their outside Y corners align with the two desktop ends. Speakers aim at the middle chair position. This wide stereo geometry is a visual arrangement, not a calibrated acoustic setup.', 'Cantilever capacity, clamp anti-rotation, saddle screw retention, speaker weight and fixing loads remain unverified. No positive manufacturer cantilever rating has been established.']
+  a.notes += ['V17 TV and all its custom support parts removed; the desktop TV bore is removed.', 'DS0 is now a floor-mounted 1000 + 1200 mm stock column with coupling, near support pair offset 50 mm from the desktop endframe to avoid crossing its pipes; eight 40 mm desktop holes include the two open-edge notches. Speaker shelves do not bear on the desktop.', 'Each speaker board is a 350 x 350 x 25 mm oak tray on two uncut 250 mm cantilever arms, each clamped to its own upright by a sliding T. Four one-sided saddle tabs screw each tray to the arms.', 'Near wall tie raised from 1100 to 1200 mm to clear speaker-arm tees. Tray underside 1100, top 1125 mm before angled isolation pads. The arm tees cannot drop lower while the 1000 + 1200 mm posts keep their coupling at 1015-1027 mm, so the downward tweeter aim comes from the pads. No desktop speaker risers or flanges.', 'Trays rotate in the connection graph and their outside Y corners align with the two desktop ends. Speakers aim at the seated ear reference (x 2620, z 1220 mm), not the seat centre; angled pads tilt the tweeters down to that height. This wide stereo geometry is a visual arrangement, not a calibrated acoustic setup.', 'Cantilever capacity, clamp anti-rotation, saddle screw retention, speaker weight and fixing loads remain unverified. No positive manufacturer cantilever rating has been established.']
  return a
 def build_shared_desk(profile=None):
  """Reuse four rack uprights; two elbow-return front legs, no separate rear legs."""
@@ -468,7 +504,9 @@ def build_shared_desk(profile=None):
   # Low stock braces keep the reused front/rear rack posts linked below the desk.
   a.bridge(f'Desk.low_depth{i}',front,back,300,250);a.walltie(f'Desk.low_wall{i}',back,450)
  holes=[(a.columns[c]['x'],a.columns[c]['y'],44) for c in ('DS0','SB0','RF0','RB0')]
- a.board('Desk.top',bounds,bottom,28,supports,holes)
+ # Round the entrance corner: the kitchen-corner pinch is the main circulation path.
+ # R100 keeps the nearest saddle screw (x 2860) on full-width timber.
+ a.board('Desk.top',bounds,bottom,28,supports,holes,corner_radii=[(bounds[0],bounds[2],ENTRY_CORNER_RADIUS)])
  # Preview underside reliefs for elbows and branch castings; the top face is continuous.
  reliefs=[]
  for c in ('DS0','SB0','RF0','RB0'):

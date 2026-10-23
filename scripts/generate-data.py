@@ -4,9 +4,13 @@ from pathlib import Path
 from collections import Counter
 ROOT=Path(__file__).resolve().parent.parent
 sys.path.insert(0,str(ROOT/'source'))
-from pipe_engine import board_corners,STOCK,CATALOG
+from pipe_engine import board_corners,board_outline,STOCK,CATALOG
 A=json.loads((ROOT/'source/assembly.json').read_text());P=json.loads((ROOT/'source/prices.json').read_text());parts={p['id']:p for p in A['parts']}
 OUT=ROOT/'public/data';OUT.mkdir(parents=True,exist_ok=True);DRAW=ROOT/'public/diagrams';DRAW.mkdir(exist_ok=True)
+# Room facts and Blender-derived clearances (scripts/check-clearances.py) keep every quoted distance traceable.
+ROOM=json.loads((ROOT/'source/room-measurements.json').read_text());CLEAR=json.loads((OUT/'clearances.json').read_text());check={c['id']:c for c in CLEAR['checks']}
+from pipe_engine import room_geometry,EAR_MM,ENTRY_CORNER_RADIUS
+GEO=room_geometry();entry=check['entry-passage']['value'];speaker_angle=abs(A['boards']['Speaker0.platform']['rotation_degrees']);tilt=CLEAR['speaker_tilt_degrees']
 labels={'tube_40':'40 mm pipe','tube_200':'200 mm pipe','tube_250':'250 mm pipe','tube_602':'602 mm pipe','tube_802':'802 mm pipe','tube_1000':'1,000 mm pipe','tube_1200':'1,200 mm pipe','tube_1500':'1,500 mm pipe','cross':'Four-way threaded cross','slide_tee':'Sliding T connector','flange':'Ø70 mm mounting flange','extension':'Female–female coupling','elbow':'90° elbow','saddle':'Saddle shelf holder','cap':'End cover'}
 def show(id):
  p=parts[id];return labels.get(p['kind'],id.replace('Rack.','Wardrobe · ').replace('Desk.','Desk · ').replace('Speaker0','Speaker L').replace('Speaker1','Speaker R'))
@@ -40,7 +44,8 @@ def stage(title,kicker,description,actions,selector=None,notes=None,focus='frame
  number=len(stages)+1
  stages.append({'id':number,'title':title,'kicker':kicker,'description':description,'actions':actions,'notes':notes or [],'parts':ids,'materials':[{'kind':k,'name':labels.get(k,k),'quantity':n,'sku':CATALOG.get(k,{}).get('sku'),'url':CATALOG.get(k,{}).get('source')} for k,n in sorted(Counter(parts[id]['kind'] for id in ids).items())],'focus':focus,'extra':extra or [],'diagram':f'diagrams/step-{number:02}.svg'})
 stage('Measure before making','Preparation','Lock the design; verify the real room and a sample connector before ordering wood or drilling.',[
- 'Measure the ceiling height. The top crate envelope reaches about 2,468 mm; 2,500 mm is only the current assumption.',
+ f'Measure the ceiling height. The top crate envelope reaches about 2,468 mm; {GEO["ceiling"]:,.0f} mm is '+('measured.' if GEO['ceiling_measured'] else 'only the current assumption.'),
+ 'Measure the room width at three heights, both diagonals and the right-wall plumb. Record them, plus every socket, switch, radiator and pipe, in source/room-measurements.json.',
  'Measure seating stops, sleeve envelopes, saddle height and screw positions using the measurement fields supplied with the model.',
  'Check the independent right balcony leaf, gathered curtain, real clothes and the 600 mm minimum entrance with a physical mock-up.',
  'Confirm wall construction, anchors, clamp anti-rotation and desk/speaker load capacities. Choose fixings for the actual substrate.'
@@ -67,9 +72,10 @@ stage('Fit the desktop and service shelf','Desk module','Keep the full 1,615 × 
  'While the upper frame is still open, fit the desktop around the continuing rack posts and support it safely during assembly.',
  'Transfer four post clearances from the measured frame. The preview uses Ø44 mm, including two open-edge notches at the near end.',
  'Transfer the shallow underside tee/elbow reliefs from real castings. Do not break through the top face.',
+ f'Round the entrance-side front corner to R{ENTRY_CORNER_RADIUS} mm. It widens the kitchen-corner passage; the nearest saddle screw stays on full-width timber.',
  'Screw the desktop to its eight saddle tabs. Add the 1615 × 230 × 18 mm rear service shelf on two 250 mm T-connected pipes and four saddle tabs, at 500 mm underside / 518 mm top.',
  'The service shelf begins 472 mm behind the front edge. Transfer its two rear post clearances and shallow T-casting reliefs from actual parts. Keep the central knee area open.'
-],lambda id,p:id=='Desk.top' or id.startswith('Desk.service'),notes=['Preview top height: 732 mm. This is derived from stock lengths and unmeasured socket offsets; it may change after calibration. Check the near foot and desk corner still clear the kitchen by at least 600 mm.'],focus='desk')
+],lambda id,p:id=='Desk.top' or id.startswith('Desk.service'),notes=['Preview top height: 732 mm. This is derived from stock lengths and unmeasured socket offsets; it may change after calibration.',f'Kitchen-corner passage in the model: {entry:.0f} mm, now limited by the low front brace on the near leg rather than the desk corner. Keep at least 600 mm.'],focus='desk')
 stage('Complete the upper posts','Frame','Feed the pre-staged upper sleeves before closing the upright sections.',[
  'Ordinary posts use 1000 + coupling + 1200 mm. The two cross-bearing desk posts instead use the separate 40 mm riser, coupling and 1500 mm upper tube above the cross; do not run a continuous pipe through the cross.',
  'Stage upper rail/cross-pipe subassemblies in height order before feeding the upper posts through their sleeves.',
@@ -80,7 +86,7 @@ stage('Square and brace the frame','Frame','Tie the frame back to the wall using
  'Install the upper wall ties at their model heights. The near desk ties are at 1,200 and 2,020 mm.',
  'Fit the wardrobe depth bars, including the low 200 mm bars and the 1,800 mm coat-end brace.',
  'Check verticals and diagonals, then secure the verified fasteners and clamp settings.',
- 'Keep the bar and kitchen fixed. Confirm the desktop corner gap is approximately 641 mm in the actual flat.'
+ f'Keep the bar and kitchen fixed. Confirm the kitchen-corner passage is about {entry:.0f} mm in the actual flat.'
 ],lambda id,p:id.startswith(('Desk.wall','Rack.wall','Rack.depth')),notes=['Wall material and permissible fixings remain to be verified. The model does not specify an anchor type or allowable structural load.'])
 stage('Add the two short-clothes rows','Hanging storage','The entrance-side wardrobe bay keeps two levels of short hanging storage.',[
  'Fit the 1,000 mm stock rails at 950 and 1,950 mm to their pre-staged sliding T connectors.',
@@ -110,7 +116,7 @@ stage('Cap the storage bays with wood','Shelves','The three top boards finish at
  'Fit the 1,004 mm top over short hanging and the two 606 mm tops over folds and long coats.',
  'Use four saddle tabs per board and preserve the stagger on shared support pipes.',
  'Keep the front edge clear for the removable light covers.',
- 'Confirm ceiling height before adding top crates: the model leaves only a small margin at an assumed 2,500 mm.'
+ f'Top crates reach about 2,468 mm, {check["ceiling-storage"]["value"]:.0f} mm below the '+('measured' if GEO['ceiling_measured'] else 'ASSUMED')+f' {GEO["ceiling"]:,.0f} mm ceiling; check the actual top shelf with a crate before loading it.'
 ],lambda id,p:id.startswith('Rack.top'),focus='wardrobe')
 stage('Fit the low coat-bay shelf','Shelves','The long coats retain a low shoe shelf rather than a second hanging row.',[
  'Fit the 606 × 350 × 28 mm board at 200 mm underside height.',
@@ -127,7 +133,8 @@ stage('Build the three desk shelves','Desk shelves','The overhead shelves reuse 
 stage('Float and angle the speakers','Speaker module','Two side arms per tray keep the desktop free of speaker legs.',[
  'Attach each tray to two uncut 250 mm arms, each on a sliding T at a separate upright.',
  'Fit four saddle holders per 350 × 350 × 25 mm tray, using the rotated screw layout from the model.',
- 'Tray top: 1,125 mm plus an illustrative 3 mm isolation pad. Aim both speakers about 52.9° toward the middle seat.',
+ f'Tray top: 1,125 mm. Angle each tray about {speaker_angle:.1f}° so the speakers face the seated ear reference (x {EAR_MM[0]:,}, z {EAR_MM[1]:,} mm), not the seat centre.',
+ f'Tilt each speaker about {tilt:g}° down on angled isolation pads; the arm tees cannot drop lower while the posts keep their coupling at 1,015–1,027 mm.',
  'Check real speaker weight, tweeter height, clamp anti-rotation and screw retention before loading.'
 ],lambda id,p:id.startswith('Speaker'),notes=['No load rating for this cantilever arrangement has been established. The desk-end placement gives a wide stereo angle, not a calibrated monitor triangle.'],focus='desk')
 stage('Give worn clothes their own rail','Hanging storage','The throw-over rail marks clothes that are worn but ready to wear again.',[
@@ -147,7 +154,7 @@ stage('Light the work surface','Lighting','Keep the two original MITTLED bars in
  'The proposed pocket must retain at least 20 mm timber above it, with access for clips and connectors.',
  'If recess suitability or service clearance cannot be verified, surface-mount behind a removable wood lip.',
  'Route low-voltage leads away from clothes and sharp edges. Keep drivers accessible; do not enclose mains equipment in a routed pocket.'
-],notes=['MITTLED load is 11 W on its own compatible driver. No LED strip is shortened.'],focus='desk',extra=['2 × MITTLED 600 mm','Compatible driver and leads','Custom pocket: verification required'])
+],notes=['Two 5.5 W MITTLED bars draw 11 W together on their own compatible driver. No LED strip is shortened.'],focus='desk',extra=['2 × MITTLED 600 mm','Compatible driver and leads','Custom pocket: verification required'])
 stage('Hide the upper shelf lighting','Lighting','Warm light comes from intact ÖVERSIDAN bars behind removable oak covers.',[
  'Use one 960 mm, two 460 mm and four 710 mm ÖVERSIDAN bars across the five upper lighting positions.',
  'Use original surface clips inside the open-back wood cover: 18 × 40 mm front lip, 37 × 12 mm return, and removable end cheeks.',
@@ -157,14 +164,15 @@ stage('Hide the upper shelf lighting','Lighting','Warm light comes from intact �
 stage('Add the six crates and equipment','Fit out','Finish the storage without changing the locked layout.',[
  'Place four KNAGGLIG 460 × 310 × 250 mm crates on top and two stacked in the lower folded bay.',
  'Check that top crates can be lifted out below the measured ceiling and secure storage as appropriate.',
- 'Fit the reused monitor, 61-key controller and speakers. Put the M1 Mac mini, router and three separated power bricks on the rear service shelf; leave its front/back open and Mac ports facing along the shelf.',
+ 'Fit the reused monitor on the optional desk-clamp VESA arm at the desktop rear edge; no monitor stand fits behind the 61-key controller. Keep the clamp jaw clear of the router antennas.',
+ 'Put the M1 Mac mini, router, and the router and dock power supplies on the rear service shelf; leave its front/back open and Mac ports facing along the shelf. The Mac mini M1 has an internal power supply, so the third brick bay is spare.',
  'Fit the Focusrite and OWC dock beneath opposite front ends using adjustable open U holders. Keep front sockets/knobs accessible and preserve the central 700 mm knee width. Exact Focusrite generation and holder model remain unconfirmed.',
  'Secure individual bricks without covering vents; route audio away from the brick bay and retain cable service loops. Check plug bend space and short tabletop screw lengths.',
  'The shown dock-to-Mac route needs a 2 m certified Thunderbolt lead allowance; the supplied 0.8 m dock cable will not follow this route. Remove the cable allowance if you already own a suitable lead.',
  'Keep the kitchen and bar fixed and use removable finishes. The TV is not part of this layout.'
 ],extra=['6 × KNAGGLIG crates','Reused M1 Mac mini, router, OWC dock and two-input Focusrite','Two adjustable under-desk device holder sets (allowance)','Removable equipment straps and cable clips'])
 stage('Walk through the real room','Final check','A physical fit check completes the concept review.',[
- 'Walk the entrance with the chair parked and in use. Preserve at least 600 mm; current modeled corner gap is 640.9 mm.',
+ f'Walk the entrance with the chair parked and in use. Preserve at least 600 mm; the modelled kitchen-corner passage is {entry:.0f} mm.',
  'Open the independent right balcony leaf and check its handle, curtains, coats and worn-clothes rail.',
  'Confirm all doors, drawers and the fixed bar remain usable. The bar has only 240 mm of leg recess.',
  'Test the dimmers and cable access. Check load-bearing fixings with the appropriate installer before loading storage or leaning on the desk.'
@@ -184,8 +192,8 @@ def draw_part(id,active=False):
  if kind.startswith('tube_'):
   s.append(line(project(o),project(add(o,mul(axis,p['data']['length']))),color,15 if active else 9))
  elif kind=='wood':
-  b=A['boards'][id];c=board_corners(b);z=b['bottom'];top=[project((x,y,z+b['thickness'])) for x,y in c];bottom=[project((x,y,z)) for x,y in c]
-  for i in (0,1,2,3):s.append(poly([bottom[i],bottom[(i+1)%4],top[(i+1)%4],top[i]],color,fill,3))
+  b=A['boards'][id];c=board_outline(b);z=b['bottom'];top=[project((x,y,z+b['thickness'])) for x,y in c];bottom=[project((x,y,z)) for x,y in c];n=len(c)
+  for i in range(n):s.append(poly([bottom[i],bottom[(i+1)%n],top[(i+1)%n],top[i]],color,fill,3 if n==4 else 1.5))
   s.append(poly(top,color,fill,4))
   for x,y,diam in b['holes']:
    ring=[project((x+diam/2*math.cos(t),y+diam/2*math.sin(t),z+b['thickness'])) for t in [j*math.tau/20 for j in range(20)]];s.append(poly(ring,color,'#fff',2.5))
@@ -226,17 +234,24 @@ import runpy
 runpy.run_path(str(ROOT/'scripts/equipment-diagram.py'))
 stages[19]['diagram']='diagrams/equipment.svg'
 # Purchase data, model graph and a printable CSV keep the guide independently usable.
-metadata={'design':'V18','locked':True,'updated':'2026-10-20','priceBasis':'19–20 October 2026','partCount':len(parts),'pipeCount':sum(n for k,n in counts.items() if k.startswith('tube_')),'boardCount':len(A['boards']),'hardwarePieces':sum(n for k,n in counts.items() if k!='wood'),'lightState':'Practical night lighting · ceiling fixture off','coreBudget':float(t['core_budget']),'withCrates':float(P['six_knagglig_crates']['core_plus_crates_including_contingency_eur']),'optionalAccessories':float(t['optional_accessories']),'entryGap':640.9,'desk':[1615,702,732],'room':[3450,5300,2500],'roomHeightMeasured':False,'verification':['Room height and connector seating offsets not measured','Cantilever, clamp, wood screw and wall-fixing load capacities not certified','Custom MITTLED recess and light-cover details remain provisional','Bathroom fixtures unknown; shell only']}
-jwrite(OUT/'project.json',{'meta':metadata,'parts':rows,'stages':stages,'boards':A['boards'],'columns':A['columns'],'graph':A['parts'],'checks':{'allAssignedExactlyOnce':True,'coreBudgetReconciled':round(core,2),'tubeLengths':sorted(STOCK)},'sources':{'repo':'https://github.com/Krydix/FlatPlanning','pages':'https://krydix.github.io/FlatPlanning/'}})
+metadata={'design':'V18','locked':True,'updated':'2026-10-20','priceBasis':'19–20 October 2026','partCount':len(parts),'pipeCount':sum(n for k,n in counts.items() if k.startswith('tube_')),'boardCount':len(A['boards']),'hardwarePieces':sum(n for k,n in counts.items() if k!='wood'),'lightState':'Practical night lighting · ceiling fixture off','coreBudget':float(t['core_budget']),'withCrates':float(P['six_knagglig_crates']['core_plus_crates_including_contingency_eur']),'optionalAccessories':float(t['optional_accessories']),'entryGap':entry,'desk':[1615,702,732],'room':[GEO['wall_x'],ROOM['assumed']['room_length_y'],GEO['ceiling']],'roomHeightMeasured':GEO['ceiling_measured'],'roomWidthMeasured':GEO['wall_measured'],'servicesSurveyed':ROOM['services']['status']!='not surveyed','verification':['Room '+' and '.join(x for x,m in (('width and length',GEO['wall_measured']),('height',GEO['ceiling_measured'])) if not m)+' still the CAD assumption'+(f'; ceiling measured at {GEO["ceiling"]:,.0f} mm' if GEO['ceiling_measured'] else '') if not (GEO['wall_measured'] and GEO['ceiling_measured']) else 'Room dimensions are measured','Sockets, switches, radiators and pipes are not surveyed','Connector seating offsets not measured','Cantilever, clamp, wood screw and wall-fixing load capacities not certified','Custom MITTLED recess and light-cover details remain provisional','Bathroom fixtures unknown; shell only']}
+def dim(id,label,a,b,value,basis):return {'id':id,'label':label,'a':a,'b':b,'value':round(value,1),'basis':basis}
+c=check['ceiling-storage']['points'];e=check['entry-passage']['points'];bed=check['bed-aisle']['points']
+room_basis='measured' if GEO['wall_measured'] else 'assumed';ceiling_basis='measured' if GEO['ceiling_measured'] else 'assumed'
+dimensions=[dim('room-width','Room width',[0,5550,50],[GEO['wall_x'],5550,50],GEO['wall_x'],room_basis),dim('room-length','Room length',[-220,0,50],[-220,5300,50],5300,'assumed'),
+ dim('ceiling','Ceiling height',[60,5240,0],[60,5240,GEO['ceiling']],GEO['ceiling'],ceiling_basis),dim('entry','Kitchen-corner passage',e[0],e[1],entry,'model'),
+ dim('desk-height','Desktop height',[2700,2020,0],[2700,2020,732],732,'preview'),dim('crate-ceiling','Top crates to ceiling',c[0],c[1],check['ceiling-storage']['value'],ceiling_basis),
+ dim('bed-aisle','Bed to desk aisle',bed[0],bed[1],check['bed-aisle']['value'],'model')]
+jwrite(OUT/'project.json',{'meta':metadata,'dimensions':dimensions,'clearances':CLEAR,'parts':rows,'stages':stages,'boards':A['boards'],'columns':A['columns'],'graph':A['parts'],'checks':{'allAssignedExactlyOnce':True,'coreBudgetReconciled':round(core,2),'tubeLengths':sorted(STOCK)},'sources':{'repo':'https://github.com/Krydix/FlatPlanning','pages':'https://krydix.github.io/FlatPlanning/'}})
 jwrite(OUT/'assembly.json',A)
 jwrite(OUT/'equipment.json',json.loads((ROOT/'source/equipment-layout.json').read_text()))
 with (ROOT/'public/downloads/bom.csv').open('w',newline='') as f:
  writer=csv.writer(f,lineterminator="\n");writer.writerow(['Category','Part','Description','SKU','Required pieces','Purchase packs','Pack size','Pack/unit price EUR','Line total EUR','Supplier URL','Price / verification note'])
  for r in rows:writer.writerow([r['category'],r['name'],r['description'],r.get('sku',''),r['quantity'],r.get('buyPacks',''),r.get('packSize',''),r.get('unitPrice',''),r['total'],r.get('url',''),r['status']])
 with (ROOT/'public/downloads/cut-list.csv').open('w',newline='') as f:
- w=csv.writer(f,lineterminator="\n");w.writerow(['Board ID','Length mm','Depth mm','Thickness mm','Underside mm','Rotation degrees','Post holes mm','Status'])
+ w=csv.writer(f,lineterminator="\n");w.writerow(['Board ID','Length mm','Depth mm','Thickness mm','Underside mm','Rotation degrees','Post holes mm','Corner radii mm','Status'])
  for id,b in A['boards'].items():
-  x0,x1,y0,y1=b['bounds'];w.writerow([id,y1-y0,x1-x0,b['thickness'],b['bottom'],b.get('rotation_degrees',0),json.dumps(b['holes']),'CONCEPT ONLY — calibrate fitting profile before cutting'])
+  x0,x1,y0,y1=b['bounds'];w.writerow([id,y1-y0,x1-x0,b['thickness'],b['bottom'],b.get('rotation_degrees',0),json.dumps(b['holes']),json.dumps(b.get('corner_radii',[])),'CONCEPT ONLY — calibrate fitting profile before cutting'])
 print('DATA_READY',json.dumps({'parts':len(parts),'stages':len(stages),'budget':round(core,2),'BOMlines':len(rows)}))
 
 md=['# Complete BOM — V18 connected desk joints','',f"Core estimate **€{metadata['coreBudget']:,.2f}** including 10% reserve. With six crates **€{metadata['withCrates']:,.2f}**.",'','The two cross joints use four female sockets. Rear support pipes now bridge to the middle posts. Low front braces at 400 mm use T fittings at both ends, staggered from the 300 mm rear braces. Cross-bearing posts use 602 + coupling + 40 mm below the cross, then 40 + coupling + 1500 mm above it. No structural stock pipe is cut or stretched.','', 'Crosses carry a €4.00 each budget allowance, not a confirmed shop quote. Other prices retain their dated 19–20 October 2026 basis.','', '| Part | Qty | Packs | Unit/pack € | Total € | Source |','|---|---:|---:|---:|---:|---|']
@@ -251,3 +266,8 @@ without_wood_reserve=round(without_wood_base*.1)
 md[4:4]=[f"Without wood: **€{(without_wood_base+without_wood_reserve)/100:,.2f}**, including a recalculated 10% reserve of €{without_wood_reserve/100:,.2f}. Excludes boards, timber waste and light covers; keeps machining and fixings. Add your reclaimed wood cost separately. Crates and optional accessories remain extra.", '', '| Category | Subtotal € |', '|---|---:|', *[f"| {c}{' (extra)' if c in ('Crates','Optional') else ''} | {v:.2f} |" for c,v in category_totals.items()], '', 'Allowances includes the core 10% reserve. Category subtotals reconcile to the listed rows.', '']
 md += ['', '## Connection and machining checks' ,'',*A['notes'][-8:],'','Cross seating offsets, exact physical assembly closure, fixings, clamp loads and room height require measurement. The current stock module only closes when measured cross/T/elbow stops match the profile constraints. No final drilling or routing template is supplied.']
 (ROOT/'public/downloads/complete-bom.md').write_text('\n'.join(md)+'\n')
+# The downloadable Blender add-on bundles the same engine, adapter and room/fitting sources.
+import zipfile
+with zipfile.ZipFile(ROOT/'public/downloads/dolle-editor-v18.zip','w',zipfile.ZIP_DEFLATED) as z:
+ for name,source in (('__init__.py','dolle_editor_addon.py'),('pipe_engine.py','pipe_engine.py'),('blender_components.py','blender_components.py'),('Measurements-v8.json','Measurements-v8.json'),('room-measurements.json','room-measurements.json')):
+  info=zipfile.ZipInfo('dolle_pipe_editor/'+name,date_time=(2026,10,21,0,0,0));info.compress_type=zipfile.ZIP_DEFLATED;z.writestr(info,(ROOT/'source'/source).read_bytes())
