@@ -250,6 +250,12 @@
     "woofer_above_base": 115,
     "pad": 3,
     "max_tilt_degrees": 10,
-    "status": "Studio monitor reservation, model not confirmed; the trays aim each speaker at the seated ear reference and angled isolation pads tilt it down (BOM Optional pads)"
+    "status": "Studio monitor reservation, model not confirmed. Each speaker sits at the rear-outer edge of its tray (mirrored left/right, fully on the tray, at least 15 mm from frame parts), faces the seated ear reference and is tilted down by angled pads (BOM Optional pads)",
+    "placement": {
+      "margin": 5,
+      "gap": 15,
+      "wall_gap": 20,
+      "step": 5
+    }
   }
 }

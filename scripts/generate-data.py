@@ -10,6 +10,8 @@ OUT=ROOT/'public/data';OUT.mkdir(parents=True,exist_ok=True);DRAW=ROOT/'public/d
 # Room facts and Blender-derived clearances (scripts/check-clearances.py) keep every quoted distance traceable.
 ROOM=json.loads((ROOT/'source/room-measurements.json').read_text());CLEAR=json.loads((OUT/'clearances.json').read_text());check={c['id']:c for c in CLEAR['checks']}
 from pipe_engine import room_geometry,EAR_MM,ENTRY_CORNER_RADIUS
+from speaker_placement import speaker_layout
+SPEAKERS=speaker_layout(ROOT);speaker_sep=math.dist(*(s['centre'] for s in SPEAKERS))
 GEO=room_geometry();entry=check['entry-passage']['value'];speaker_angle=abs(A['boards']['Speaker0.platform']['rotation_degrees']);tilt=CLEAR['speaker_tilt_degrees']
 labels={'tube_40':'40 mm pipe','tube_200':'200 mm pipe','tube_250':'250 mm pipe','tube_602':'602 mm pipe','tube_802':'802 mm pipe','tube_1000':'1,000 mm pipe','tube_1200':'1,200 mm pipe','tube_1500':'1,500 mm pipe','cross':'Four-way threaded cross','slide_tee':'Sliding T connector','flange':'Ø70 mm mounting flange','extension':'Female–female coupling','elbow':'90° elbow','saddle':'Saddle shelf holder','cap':'End cover'}
 def show(id):
@@ -133,7 +135,8 @@ stage('Build the three desk shelves','Desk shelves','The overhead shelves reuse 
 stage('Float and angle the speakers','Speaker module','Two side arms per tray keep the desktop free of speaker legs.',[
  'Attach each tray to two uncut 250 mm arms, each on a sliding T at a separate upright.',
  'Fit four saddle holders per 350 × 350 × 25 mm tray, using the rotated screw layout from the model.',
- f'Tray top: 1,125 mm. Angle each tray about {speaker_angle:.1f}° so the speakers face the seated ear reference (x {EAR_MM[0]:,}, z {EAR_MM[1]:,} mm), not the seat centre.',
+ f'Tray top: 1,125 mm. Angle each tray about {speaker_angle:.1f}° so the trays face the seated ear reference (x {EAR_MM[0]:,}, z {EAR_MM[1]:,} mm), not the seat centre; each speaker is then turned to face it exactly.',
+ f'Set each speaker at the rear-outer edge of its tray (toward the wall and the desk end), mirrored left and right: about {math.hypot(*SPEAKERS[0]["tray_offset"]):.0f} mm from the tray centre, fully supported, at least 15 mm from the nearest frame part. The speakers end up about {speaker_sep:,.0f} mm apart and {SPEAKERS[0]["wall_gap"]:.0f} mm from the wall.',
  f'Tilt each speaker about {tilt:g}° down on angled isolation pads; the arm tees cannot drop lower while the posts keep their coupling at 1,015–1,027 mm.',
  'Check real speaker weight, tweeter height, clamp anti-rotation and screw retention before loading.'
 ],lambda id,p:id.startswith('Speaker'),notes=['No load rating for this cantilever arrangement has been established. The desk-end placement gives a wide stereo angle, not a calibrated monitor triangle.'],focus='desk')

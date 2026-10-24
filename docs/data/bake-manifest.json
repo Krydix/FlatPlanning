@@ -217,7 +217,7 @@
       "atlas": 4096,
       "area_m2": 151.81,
       "texels_per_m": 150,
-      "bake_seconds": 301.1,
+      "bake_seconds": 247.2,
       "vertices": 72,
       "polygons": 45
     },
@@ -226,7 +226,7 @@
       "atlas": 2048,
       "area_m2": 28.36,
       "texels_per_m": 200,
-      "bake_seconds": 127.6,
+      "bake_seconds": 59.5,
       "vertices": 240,
       "polygons": 228
     },
@@ -235,7 +235,7 @@
       "atlas": 2048,
       "area_m2": 35.75,
       "texels_per_m": 220,
-      "bake_seconds": 118.8,
+      "bake_seconds": 120.4,
       "vertices": 3136,
       "polygons": 3006
     },
@@ -244,7 +244,7 @@
       "atlas": 1024,
       "area_m2": 5.47,
       "texels_per_m": 320,
-      "bake_seconds": 12.6,
+      "bake_seconds": 18.5,
       "vertices": 16128,
       "polygons": 15892
     },
@@ -253,7 +253,7 @@
       "atlas": 512,
       "area_m2": 1.26,
       "texels_per_m": 200,
-      "bake_seconds": 4.1,
+      "bake_seconds": 6.5,
       "vertices": 632,
       "polygons": 438
     },
@@ -262,7 +262,7 @@
       "atlas": 2048,
       "area_m2": 30.57,
       "texels_per_m": 200,
-      "bake_seconds": 58.5,
+      "bake_seconds": 84.4,
       "vertices": 13312,
       "polygons": 13509
     },
@@ -271,7 +271,7 @@
       "atlas": 1024,
       "area_m2": 7.65,
       "texels_per_m": 200,
-      "bake_seconds": 15,
+      "bake_seconds": 23.8,
       "vertices": 384,
       "polygons": 224
     },
@@ -280,7 +280,7 @@
       "atlas": 2048,
       "area_m2": 21.29,
       "texels_per_m": 200,
-      "bake_seconds": 29,
+      "bake_seconds": 41.9,
       "vertices": 10384,
       "polygons": 9632
     },
@@ -289,7 +289,7 @@
       "atlas": 512,
       "area_m2": 3.67,
       "texels_per_m": 200,
-      "bake_seconds": 4.9,
+      "bake_seconds": 7.1,
       "vertices": 624,
       "polygons": 549
     },
@@ -298,7 +298,7 @@
       "atlas": 2048,
       "area_m2": 60.35,
       "texels_per_m": 120,
-      "bake_seconds": 68.3,
+      "bake_seconds": 78.5,
       "vertices": 88,
       "polygons": 48
     },
@@ -307,7 +307,7 @@
       "atlas": 1024,
       "area_m2": 36.61,
       "texels_per_m": 80,
-      "bake_seconds": 10.1,
+      "bake_seconds": 9.7,
       "vertices": 8,
       "polygons": 5
     },
@@ -316,7 +316,7 @@
       "atlas": 1024,
       "area_m2": 14.06,
       "texels_per_m": 180,
-      "bake_seconds": 32.2,
+      "bake_seconds": 33,
       "vertices": 1568,
       "polygons": 1583
     },
@@ -325,7 +325,7 @@
       "atlas": 512,
       "area_m2": 12.81,
       "texels_per_m": 60,
-      "bake_seconds": 2.3,
+      "bake_seconds": 2.1,
       "vertices": 128,
       "polygons": 119
     },
@@ -334,7 +334,7 @@
       "atlas": 2048,
       "area_m2": 7.3,
       "texels_per_m": 330,
-      "bake_seconds": 32.5,
+      "bake_seconds": 30.3,
       "vertices": 66300,
       "polygons": 39928
     },
@@ -343,7 +343,7 @@
       "atlas": 2048,
       "area_m2": 11.52,
       "texels_per_m": 300,
-      "bake_seconds": 81.2,
+      "bake_seconds": 89.9,
       "vertices": 2494,
       "polygons": 2269
     },
@@ -352,7 +352,7 @@
       "atlas": 1024,
       "area_m2": 2.61,
       "texels_per_m": 300,
-      "bake_seconds": 9.9,
+      "bake_seconds": 12,
       "vertices": 12932,
       "polygons": 12504
     },
@@ -361,15 +361,15 @@
       "atlas": 1024,
       "area_m2": 6.71,
       "texels_per_m": 240,
-      "bake_seconds": 16.5,
+      "bake_seconds": 17.7,
       "vertices": 16608,
       "polygons": 16212
     }
   ],
-  "model_bytes": 13497912,
+  "model_bytes": 13490572,
   "mesh_count": 18,
   "lights_exported": false,
-  "uncompressed_model_bytes": 38636084,
+  "uncompressed_model_bytes": 38637088,
   "mesh_compression": "EXT_meshopt_compression",
   "texture_compression": "KHR_texture_basisu: KTX2, mipmapped; UASTC (RDO λ2.0, Zstandard 18) for detail, ETC1S for shell, ceiling, exterior, glass",
   "textures": [
@@ -380,7 +380,7 @@
         2048
       ],
       "codec": "UASTC",
-      "bytes": 1180536
+      "bytes": 1182529
     },
     {
       "name": "ceiling",
@@ -389,7 +389,7 @@
         2048
       ],
       "codec": "ETC1S",
-      "bytes": 88106
+      "bytes": 87844
     },
     {
       "name": "chair",
@@ -398,7 +398,7 @@
         512
       ],
       "codec": "UASTC",
-      "bytes": 86184
+      "bytes": 85963
     },
     {
       "name": "clothes",
@@ -407,7 +407,7 @@
         2048
       ],
       "codec": "UASTC",
-      "bytes": 707354
+      "bytes": 706416
     },
     {
       "name": "crates",
@@ -416,7 +416,7 @@
         1024
       ],
       "codec": "UASTC",
-      "bytes": 572500
+      "bytes": 571902
     },
     {
       "name": "curtains",
@@ -425,7 +425,7 @@
         1024
       ],
       "codec": "UASTC",
-      "bytes": 290373
+      "bytes": 290193
     },
     {
       "name": "doors",
@@ -434,7 +434,7 @@
         1024
       ],
       "codec": "UASTC",
-      "bytes": 371595
+      "bytes": 371412
     },
     {
       "name": "equipment",
@@ -443,7 +443,7 @@
         1024
       ],
       "codec": "UASTC",
-      "bytes": 501500
+      "bytes": 497104
     },
     {
       "name": "exterior",
@@ -452,7 +452,7 @@
         1024
       ],
       "codec": "ETC1S",
-      "bytes": 2509
+      "bytes": 2563
     },
     {
       "name": "floor",
@@ -461,7 +461,7 @@
         2048
       ],
       "codec": "UASTC",
-      "bytes": 1640582
+      "bytes": 1641634
     },
     {
       "name": "glass",
@@ -470,7 +470,7 @@
         512
       ],
       "codec": "ETC1S",
-      "bytes": 1871
+      "bytes": 1859
     },
     {
       "name": "hall",
@@ -479,7 +479,7 @@
         512
       ],
       "codec": "UASTC",
-      "bytes": 68947
+      "bytes": 68708
     },
     {
       "name": "kitchen",
@@ -488,7 +488,7 @@
         2048
       ],
       "codec": "UASTC",
-      "bytes": 1361500
+      "bytes": 1359154
     },
     {
       "name": "lighting",
@@ -497,7 +497,7 @@
         1024
       ],
       "codec": "UASTC",
-      "bytes": 735530
+      "bytes": 734115
     },
     {
       "name": "pipes",
@@ -506,7 +506,7 @@
         2048
       ],
       "codec": "UASTC",
-      "bytes": 1000467
+      "bytes": 998694
     },
     {
       "name": "shell",
@@ -515,7 +515,7 @@
         4096
       ],
       "codec": "ETC1S",
-      "bytes": 464800
+      "bytes": 465599
     },
     {
       "name": "trim",
@@ -524,7 +524,7 @@
         2048
       ],
       "codec": "UASTC",
-      "bytes": 553760
+      "bytes": 554198
     },
     {
       "name": "wood",
@@ -533,7 +533,7 @@
         2048
       ],
       "codec": "UASTC",
-      "bytes": 1928496
+      "bytes": 1928552
     }
   ],
   "texture_count": 18,

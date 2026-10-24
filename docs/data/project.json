@@ -238,21 +238,21 @@
       {
         "id": "speaker-aim-L",
         "label": "Speaker L tweeter aim error",
-        "value": 5.7,
+        "value": 5.0,
         "target": 8,
         "unit": "deg",
         "status": "ok",
-        "detail": "Tweeter at 1389 mm, 624 mm from the ear reference; pad tilt 10.0°, capped at 10° for a stable wedge pad; under about 8° keeps the ear inside the tweeter on-axis window. Seated ear reference x 2620, z 1220 mm.",
+        "detail": "Tweeter at 1389 mm, 653 mm from the ear reference; pad tilt 10.0°, capped at 10° for a stable wedge pad; under about 8° keeps the ear inside the tweeter on-axis window. Seated ear reference x 2620, z 1220 mm.",
         "basis": "envelopes"
       },
       {
         "id": "speaker-aim-R",
         "label": "Speaker R tweeter aim error",
-        "value": 5.7,
+        "value": 5.0,
         "target": 8,
         "unit": "deg",
         "status": "ok",
-        "detail": "Tweeter at 1389 mm, 624 mm from the ear reference; pad tilt 10.0°, capped at 10° for a stable wedge pad; under about 8° keeps the ear inside the tweeter on-axis window. Seated ear reference x 2620, z 1220 mm.",
+        "detail": "Tweeter at 1389 mm, 653 mm from the ear reference; pad tilt 10.0°, capped at 10° for a stable wedge pad; under about 8° keeps the ear inside the tweeter on-axis window. Seated ear reference x 2620, z 1220 mm.",
         "basis": "envelopes"
       },
       {
@@ -1982,7 +1982,8 @@
       "actions": [
         "Attach each tray to two uncut 250 mm arms, each on a sliding T at a separate upright.",
         "Fit four saddle holders per 350 × 350 × 25 mm tray, using the rotated screw layout from the model.",
-        "Tray top: 1,125 mm. Angle each tray about 45.3° so the speakers face the seated ear reference (x 2,620, z 1,220 mm), not the seat centre.",
+        "Tray top: 1,125 mm. Angle each tray about 45.3° so the trays face the seated ear reference (x 2,620, z 1,220 mm), not the seat centre; each speaker is then turned to face it exactly.",
+        "Set each speaker at the rear-outer edge of its tray (toward the wall and the desk end), mirrored left and right: about 30 mm from the tray centre, fully supported, at least 15 mm from the nearest frame part. The speakers end up about 1,163 mm apart and 77 mm from the wall.",
         "Tilt each speaker about 10° down on angled isolation pads; the arm tees cannot drop lower while the posts keep their coupling at 1,015–1,027 mm.",
         "Check real speaker weight, tweeter height, clamp anti-rotation and screw retention before loading."
       ],

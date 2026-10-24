@@ -87,21 +87,21 @@
     {
       "id": "speaker-aim-L",
       "label": "Speaker L tweeter aim error",
-      "value": 5.7,
+      "value": 5.0,
       "target": 8,
       "unit": "deg",
       "status": "ok",
-      "detail": "Tweeter at 1389 mm, 624 mm from the ear reference; pad tilt 10.0°, capped at 10° for a stable wedge pad; under about 8° keeps the ear inside the tweeter on-axis window. Seated ear reference x 2620, z 1220 mm.",
+      "detail": "Tweeter at 1389 mm, 653 mm from the ear reference; pad tilt 10.0°, capped at 10° for a stable wedge pad; under about 8° keeps the ear inside the tweeter on-axis window. Seated ear reference x 2620, z 1220 mm.",
       "basis": "envelopes"
     },
     {
       "id": "speaker-aim-R",
       "label": "Speaker R tweeter aim error",
-      "value": 5.7,
+      "value": 5.0,
       "target": 8,
       "unit": "deg",
       "status": "ok",
-      "detail": "Tweeter at 1389 mm, 624 mm from the ear reference; pad tilt 10.0°, capped at 10° for a stable wedge pad; under about 8° keeps the ear inside the tweeter on-axis window. Seated ear reference x 2620, z 1220 mm.",
+      "detail": "Tweeter at 1389 mm, 653 mm from the ear reference; pad tilt 10.0°, capped at 10° for a stable wedge pad; under about 8° keeps the ear inside the tweeter on-axis window. Seated ear reference x 2620, z 1220 mm.",
       "basis": "envelopes"
     },
     {

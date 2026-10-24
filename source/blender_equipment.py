@@ -71,15 +71,18 @@ def rebuild_equipment(root):
   box(item['id'],item['location'],item['size'],powder,3)['space_status']=item['status']
  # Studio monitors stand on their trays, aimed at the seated ear reference and tilted by angled pads.
  sp=cfg['speakers'];depth,width,height=sp['size'];graph=json.loads((root/'source/assembly.json').read_text());parts={p['id']:p for p in graph['parts']}
+ # Rear-outer-most mirrored position the tray, frame, wall and monitor allow (speaker_placement.py).
+ from speaker_placement import speaker_layout
+ layout=speaker_layout(root)
  for i,tray in enumerate(sp['trays']):
-  b=graph['boards'][tray];x0,x1,y0,y1=b['bounds'];cx,cy=(x0+x1)/2,(y0+y1)/2;base=b['bottom']+b['thickness']+sp['pad'];tx,ty,tz=parts[tray]['data']['speaker_target_mm']
-  yaw=math.atan2(ty-cy,tx-cx);front=Vector((cx,cy,base))+Vector((math.cos(yaw),math.sin(yaw),0))*depth/2
+  b=graph['boards'][tray];(cx,cy),yaw=layout[i]['centre'],layout[i]['yaw'];base=b['bottom']+b['thickness']+sp['pad'];tx,ty,tz=parts[tray]['data']['speaker_target_mm']
+  front=Vector((cx,cy,base))+Vector((math.cos(yaw),math.sin(yaw),0))*depth/2
   tilt=min(math.radians(sp['max_tilt_degrees']),max(0,math.atan2(base+sp['tweeter_above_base']-tz,(Vector((tx,ty,0))-front.xy.to_3d()).length)))
   # Local +X faces the listener; rotate about the front-bottom edge so the pad lifts the rear.
   frame=Matrix.Translation(Vector((cx,cy,base))/1000)@Matrix.Rotation(yaw,4,'Z')@Matrix.Translation((depth/2000,0,0))@Matrix.Rotation(tilt,4,'Y')@Matrix.Translation((-depth/2000,0,0))
   suffix='' if i==0 else '.001'
   def place(o):
-   o.matrix_world=frame@o.matrix_basis;o['speaker_tilt_degrees']=round(math.degrees(tilt),2);o['speaker_tray']=tray;return o
+   o.matrix_world=frame@o.matrix_basis;o['speaker_tilt_degrees']=round(math.degrees(tilt),2);o['speaker_tray']=tray;o['tray_offset_mm']=list(layout[i]['tray_offset']);return o
   o=box('KRK monitor speaker reservation'+suffix,(0,0,height/2),(depth,width,height),rubber,4);place(o);o['space_status']=sp['status']
   for name,z,radius,material,dz in (('KRK yellow cone',sp['woofer_above_base'],65,cone,2.5),('KRK dust cap',sp['woofer_above_base'],25,powder,4),('KRK tweeter',sp['tweeter_above_base'],26,powder,3.5)):
    place(tube(name+suffix,(depth/2,0,z),(depth/2+dz,0,z),radius,material))

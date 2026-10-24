@@ -17,13 +17,14 @@
 | Under-bed boxes below the 250 mm side beam (was a 5 mm overlap) | 20 mm | ok |
 | Computer keyboard to MIDI controller (was a 10 mm overlap) | 20 mm | ok |
 | Desk equipment intersections, including the new monitor arm | 0 | ok |
-| Speaker tweeter aim error at the seated ear reference (was about 17°) | 5.7° | ok |
+| Speakers at the rear-outer tray corner (30 mm from tray centre; the 5 mm tray edge margin is the limit, frame parts 90–115 mm away) | 77 mm to wall | ok |
+| Speaker tweeter aim error at the seated ear reference (was about 17°) | 5.0° | ok |
 | Room, bathroom, entrance and both balcony leaf sweeps (directions assumed) | 27–160 mm | ok |
 | Central knee zone | 700 mm wide | ok; check against your own knees and chair arms |
 
 ## Geometry and data
 
-- 50 source connection/geometry tests pass, including the R100 entrance corner, ear-aimed speaker trays and the wall plane read from the room file.
+- 54 source connection/geometry tests pass. They cover the R100 entrance corner, ear-aimed speaker trays, mirrored rear-outer speaker placement and the wall plane read from the room file.
 - All 291 frame/timber components are assigned exactly once across 21 planning stages. The BOM part counts are unchanged.
 - Data checks reconcile the core €2,968.90 estimate, pack quantities, KTX2 textures, the Basis transcoder version, the clearance report and the measured/assumed dimension labels.
 - Supplier status notes were rechecked on 21 October 2026. Globus listings were sold out without a price. Three OBI pages returned 404. The four-way cross EAN is listed elsewhere as a corner coupling and must be confirmed. The 1,200 mm tube is DOLLE 96322.

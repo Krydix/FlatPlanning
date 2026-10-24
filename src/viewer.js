@@ -54,7 +54,7 @@ export class RoomViewer {
   // KTX2 atlases stay GPU-compressed (UASTC/ETC1S → ASTC/BC7/ETC2), with full mip chains.
   this.ktx2=new KTX2Loader().setTranscoderPath(asset('basis/')).detectSupport(this.renderer);
   const loader=new GLTFLoader();loader.setMeshoptDecoder(MeshoptDecoder);loader.setKTX2Loader(this.ktx2);
-  loader.load(asset('models/flat-baked.glb?bake=v19-ceiling-2630'),gltf=>{
+  loader.load(asset('models/flat-baked.glb?bake=v19-speakers'),gltf=>{
    this.model=gltf.scene;this.scene.add(this.model);
    this.model.traverse(o=>{if(o.isMesh){o.castShadow=false;o.receiveShadow=false;const mats=Array.isArray(o.material)?o.material:[o.material];for(const m of mats){m.toneMapped=false;if(m.map)m.map.anisotropy=Math.min(8,this.renderer.capabilities.getMaxAnisotropy());if(o.name==='flat_glass'){m.transparent=true;m.opacity=.10;m.depthWrite=false;m.side=THREE.DoubleSide;}}}});
    this.setCutaway(this.cutaway);this.runner.draw();onReady?.();
@@ -119,7 +119,7 @@ export class AssemblyViewer {
   this.controls=new OrbitControls(this.camera,this.renderer.domElement);this.controls.enableDamping=true;this.controls.minDistance=.25;this.controls.maxDistance=12;this.runner=loopViewer(this.renderer,this.scene,this.camera,this.controls,container);
   this.materials={active:new THREE.MeshBasicMaterial({color:0x344b38}),wood:new THREE.MeshBasicMaterial({color:0xe2dfd0}),context:new THREE.MeshBasicMaterial({color:0xe4e8df}),initial:new THREE.MeshBasicMaterial({color:0xa6b69b})};
   this.edgeMaterial=new THREE.LineBasicMaterial({color:0x18281b});this.meshes=[];
-  const loader=new GLTFLoader();loader.setMeshoptDecoder(MeshoptDecoder);loader.load(asset('models/assembly.glb?design=v19-corner'),gltf=>{
+  const loader=new GLTFLoader();loader.setMeshoptDecoder(MeshoptDecoder);loader.load(asset('models/assembly.glb?design=v19-speakers'),gltf=>{
    this.model=gltf.scene;this.scene.add(this.model);this.model.traverse(o=>{if(!o.isMesh)return;let p=o;while(p&&!p.userData.part_id)p=p.parent;const id=p?.userData.part_id;if(!id)return;o.userData.componentId=id;o.userData.componentKind=p.userData.catalog_kind;const edge=new THREE.LineSegments(new THREE.EdgesGeometry(o.geometry,38),this.edgeMaterial);o.add(edge);o.userData.edge=edge;this.meshes.push(o);});this.ready=true;onReady?.();
   },undefined,e=>{console.error('Assembly model load failed',e);onError?.(e);});
  }
