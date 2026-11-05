@@ -77,12 +77,12 @@ stage('Lay out the kit','Preparation','Sort pipes by their printed lengths. Ther
  'Dry-fit one T/pipe/saddle/board connection, and measure the seating stops into the fitting profile.',
  'Assemble cross-pipe modules while the T sleeves are free, then feed the posts through. Do not try to screw a rigid closed frame together.'
 ],show_all=True)
-stage('Stage the divider posts','Divider','Eight posts stand on the floor at the same front and rear axes as the wardrobe.',[
- f'Set out post centres at x {xs[0]:,.0f}, {xs[1]:,.0f}, {xs[2]:,.0f} and {xs[3]:,.0f} mm, in two rows at y {yf:,.0f} and {yb:,.0f} mm.',
- 'Load every sleeve for the 1,500 mm lower section before closing it into its coupling.',
+stage('Stage the divider posts','Divider','Six new posts join the two near desk posts, which finish the rear row at the wall end.',[
+ f'Set out post centres at x {xs[0]:,.0f}, {xs[1]:,.0f}, {xs[2]:,.0f} and {xs[3]:,.0f} mm, in two rows at y {yf:,.0f} and {yb:,.0f} mm. The desk posts take the last two rear positions, so nothing is doubled.',
+ 'Load every sleeve for the 1,000 mm lower section before closing it into its coupling.',
  'Use floor protection under flanges. The frame is not self-supporting until it is tied to the wall and ceiling.',
 ],lambda id,p:bool(re.match(r'^P[FB][0-3]\.(foot|lower)$',id)))
-stage('Complete the divider posts','Divider','1,000 mm upper sections finish well below the ceiling, so the posts stay uncut stock.',[
+stage('Complete the divider posts','Divider','1,500 mm upper sections finish well below the ceiling, so the posts stay uncut stock.',[
  'Load the upper sleeves, then close each post through its coupling.',
  f'Posts top out at about {parts["PF0.upper"]["origin"][2]+1000:,.0f} mm. The gap to the ceiling is taken up by the sliding T ties, not by cutting a pipe.',
  'Keep the frame loosely propped until the ties are in.'
@@ -91,17 +91,18 @@ stage('Fit the tower cross-pipes','Divider','Each shelf level hangs on 250 mm cr
  f'Fit cross-pipes at {", ".join(f"{z-15:,}" for z in levels)} mm for the stepped shelves. Levels with a long overhang use arms instead on the inner posts.',
  f'Fit the lintel cross-pipes at {G["lintel"]-15:,.0f} and {G["upper"]-15:,.0f} mm on all four post pairs, and the tie cross-pipes at {G["tie_z"]:,.0f} mm.',
  'Each T has a single branch, so two pipes can never share one sleeve.'
-],lambda id,p:id.startswith('ShelfCross.PF'))
+],lambda id,p:id.startswith(('ShelfCross.PF','Portal.front')))
 stage('Tie it to the ceiling and wall','Divider','Four ceiling ties and four wall ties stop the divider from tipping.',[
  f'Slide a T onto each tie cross-pipe, fit the 200 mm pipe and bring its flange to the ceiling at {GEO["ceiling"]:,.0f} mm.',
  'Because the T slides, a slightly different ceiling moves the tie rather than changing a pipe.',
- f'Fit the wall ties on the two rear posts at {" and ".join(f"{z:,}" for z in L["frame"]["wall_tie_heights"])} mm.',
+ f'Fit the wall ties at {" and ".join(f"{z:,}" for z in L["frame"]["wall_tie_heights"])} mm on the front post and the rear desk post of the wall-side pair.',
  'Square the frame and check it is plumb before fitting any boards.'
 ],lambda id,p:id.startswith(('Portal.tie','Portal.wall')),notes=['Ceiling construction and fixings are unknown. No load capacity is implied by this model.'])
 stage('Hang the stepped shelves','Divider','This is where the door appears: each board stops at the curve.',[
- f'Fit the twelve boards at underside heights {", ".join(f"{z:,}" for z in levels)} mm, left and right.',
+ f'Fit the {2*len(levels)} boards at underside heights {", ".join(f"{z:,}" for z in levels)} mm, left and right.',
  'Transfer the 44 mm post bores and shallow T reliefs from the real frame. Do not trust the preview numbers.',
  'Cut the inner ends last, against a full-size template of the opening. Left and right mirror each other.',
+ 'At 315 mm the right-hand shelf reuses the desk\'s low brace as its rear support, so only a front pipe is added.',
  'The top level sits on capped arms. Keep it to light things: no books, no plants that need watering overhead.'
 ],lambda id,p:id.startswith('Portal.shelf'),notes=['The arms are cantilevers with no manufacturer rating, as on the speaker trays.'])
 stage('Close the crown','Divider','Two short floating steps finish the top of the circle.',[
@@ -116,8 +117,9 @@ stage('Build the crate band','Divider','Two continuous boards carry all six crat
  f'Check a real crate on the board: {crate[0]} × {crate[1]} × {crate[2]} mm between the inner posts, with {crate_gap:.0f} mm left above the top row.'
 ],lambda id,p:id.startswith(('Portal.lintel','Portal.rail')),notes=[f'The door head is {head:,.0f} mm, set by the oak light cover. A lower ceiling lowers it too.'])
 stage('Stage the desk and wardrobe posts','Frame','The whole desk module stands behind the divider, unchanged.',[
- f'The desk block moves {shift:,.0f} mm toward the balcony compared with V18, as one rigid unit.',
- f'Keep {L["desk_gap_behind_divider"]} mm between the rear divider posts and the near desk posts.',
+ f'The desk block moves {shift:,.0f} mm toward the balcony compared with V18, as one rigid unit, until its near posts are the rear divider row.',
+ 'Those two posts carry both sets of sleeves. Stage them from the full list; their lower parts are the crowded ones.',
+ 'Their wall ties move to the divider heights, and they run on above the desk to reach the ceiling ties.',
  'Stage the lower sleeves and braces before closing each lower post.'
 ],lambda id,p:bool(re.match(r'^(RF[0-2]|RB[0-2]|DS0|SB0)\.(foot|lower)$',id)),focus='desk')
 stage('Build the shared desk supports','Desk module','The same crosses, front returns and bridges as V18.',[
@@ -131,9 +133,9 @@ stage('Fit the desktop and service shelf','Desk module','The same 1,615 × 702 m
  f'The rounded corner sits on your way through the door. {exit_w:,.0f} mm is left between it and the left edge of the opening at the floor.'
 ],lambda id,p:id=='Desk.top' or id.startswith('Desk.service'),focus='desk')
 stage('Complete the upper posts','Frame','Feed the pre-staged sleeves before closing the desk and wardrobe posts.',[
- 'Ordinary posts use 1000 + coupling + 1200 mm. The two cross-bearing posts use a 40 mm riser, coupling and 1500 mm tube.',
+ 'Ordinary wardrobe posts use 1000 + coupling + 1200 mm. The rear wall-side desk post uses 1000 + coupling + 1500 mm. The near cross-bearing post continues with 602 + coupling + 1200 mm above its riser; the far one keeps its 1500 mm tube.',
  'Keep couplings fully seated; never leave a tube partly threaded to adjust the height.'
-],lambda id,p:bool(re.match(r'^(RF[0-2]|RB[0-2]|DS0|SB0)\.(extension|upper|top_stub|top_extension)$',id)))
+],lambda id,p:bool(re.match(r'^(RF[0-2]|RB[0-2]|DS0|SB0)\.(extension|upper|upper2|top_stub|top_extension|top_extension2)$',id)))
 stage('Square and brace the frame','Frame','Tie the desk and wardrobe back to the wall.',[
  'Install the upper wall ties at their model heights.',
  'Fit the wardrobe depth bars, including the 1,800 mm coat-end brace.',
@@ -187,7 +189,7 @@ dimensions=[dim('room-width','Room width',[0,5550,50],[GEO['wall_x'],5550,50],GE
  dim('ceiling','Ceiling height',[60,5240,0],[60,5240,GEO['ceiling']],GEO['ceiling'],ceiling_basis),dim('portal-width','Door, widest',[cx-hw,yf-45,G['centre_z']],[cx+hw,yf-45,G['centre_z']],2*hw,'model'),
  dim('portal-floor','Door at the floor',[cx-floor_w/2,yf-45,10],[cx+floor_w/2,yf-45,10],floor_w,'model'),dim('portal-head','Door height',[cx,yf-45,0],[cx,yf-45,head],head,'preview'),
  dim('crate-ceiling','Top crates to ceiling',c[0],c[1],crate_gap,ceiling_basis),dim('bed-aisle','Bed to parked chair',bed[0],bed[1],aisle,'model')]
-views={'overview':{'position':[8.0,7.2,4.8],'target':[1.7,.85,-1.6],'fov':43},'entrance':{'position':[2.36,1.42,-.42],'target':[2.36,1.38,-3.6],'fov':73},'desk':{'position':[1.58,1.43,-3.1425],'target':[3.20,1.35,-3.1425],'fov':62},'wardrobe':{'position':[1.32,1.55,-4.5],'target':[3.22,1.40,-4.62],'fov':65},'equipment':{'position':[2.00,.56,-3.1425],'target':[3.29,.56,-3.1425],'fov':90},'joints':{'position':[2.58,.50,-1.97],'target':[3.11,.48,-2.33],'fov':68},'plan':{'position':[1.72,10.8,-2.1],'target':[1.72,0,-2.1],'fov':49}}
+dz=-shift/1000;views={'overview':{'position':[8.0,7.2,4.8],'target':[1.7,.85,-1.6],'fov':43},'entrance':{'position':[2.36,1.42,-.42],'target':[2.36,1.38,-3.6],'fov':73},'desk':{'position':[1.58,1.43,-2.1125+dz],'target':[3.20,1.35,-2.1125+dz],'fov':62},'wardrobe':{'position':[1.32,1.55,-4.42],'target':[3.22,1.40,-4.54],'fov':65},'equipment':{'position':[2.00,.56,-2.1125+dz],'target':[3.29,.56,-2.1125+dz],'fov':90},'joints':{'position':[2.58,.50,-.94+dz],'target':[3.11,.48,-1.30+dz],'fov':68},'plan':{'position':[1.72,10.8,-2.1],'target':[1.72,0,-2.1],'fov':49}}
 n=len(stages);pipes=sum(v for k,v in counts.items() if k.startswith('tube_'))
 copy={
  '.header-status':'<span class="status-dot"></span> VARIANT <b>PORTAL</b>','.project-card .tiny-label':'THE PORTAL VARIANT','.version-token':'P',
@@ -204,7 +206,7 @@ copy={
  '.site-footer small':'Portal variant · Original planning guide · Updated 5 November 2026'}
 metadata={'design':'Portal','variant':'portal','locked':False,'updated':'2026-11-05','priceBasis':'19–20 October 2026','partCount':len(parts),'pipeCount':pipes,'boardCount':len(A['boards']),'hardwarePieces':sum(v for k,v in counts.items() if k!='wood'),'lightState':'Practical night lighting · ceiling fixture off','coreBudget':core,'withCrates':with_crates,'optionalAccessories':float(t['optional_accessories']),'entryGap':check['entry-passage']['value'],'desk':[1615,702,732],'room':[GEO['wall_x'],ROOM['assumed']['room_length_y'],GEO['ceiling']],'roomHeightMeasured':GEO['ceiling_measured'],'roomWidthMeasured':GEO['wall_measured'],'servicesSurveyed':ROOM['services']['status']!='not surveyed',
  'portal':{'width':2*hw,'floorWidth':floor_w,'head':head,'exitWidth':exit_w,'crates':6,'deskOffset':shift},'verification':['Room width and length still the CAD assumption; ceiling measured at '+f'{GEO["ceiling"]:,.0f} mm','Bar and bed positions come from the CAD model','Ceiling construction and tie fixings unknown','Sockets, switches, radiators and pipes are not surveyed','Connector seating offsets not measured','Cantilever, clamp, wood screw, wall and ceiling load capacities not certified','Bathroom fixtures unknown; shell only'],
- 'model':'models/flat-portal-baked.glb?bake=portal-1','assemblyModel':'models/assembly-portal.glb?design=portal-1','views':views,'copy':copy,
+ 'model':'models/flat-portal-baked.glb?bake=portal-2','assemblyModel':'models/assembly-portal.glb?design=portal-2','views':views,'copy':copy,
  'printTitle':'FLAT / PORTAL · ORIGINAL ASSEMBLY PLANNING GUIDE','printHeading':'A wall.<br>A door hinted in it.','printStatus':f'Portal variant · {n} stages · {len(parts)} frame/timber components','printFacts':f'Divider from the bar end to the right wall. Opening {2*hw:,} × {head:,.0f} mm, {floor_w:,.0f} mm at the floor. Six crates above the door. Desk moved {shift:,.0f} mm along the wall. Main ceiling light off. Existing kitchen and bar stay fixed.'}
 jwrite(OUT/'project-portal.json',{'meta':metadata,'dimensions':dimensions,'clearances':CLEAR,'parts':rows,'stages':stages,'boards':A['boards'],'columns':A['columns'],'graph':A['parts'],'checks':{'allAssignedExactlyOnce':True,'coreBudgetReconciled':core,'tubeLengths':sorted(STOCK)},'sources':{'repo':'https://github.com/Krydix/FlatPlanning','pages':'https://krydix.github.io/FlatPlanning/'}})
 jwrite(OUT/'assembly-portal.json',A)

@@ -141,15 +141,19 @@ if PORTAL:
  report('portal-bar-gap','Divider to bar end',gap,10,'clash' if gap<0 else 'tight' if gap<10 else 'ok','Lowest boards and foot flanges beside the bar end, including the optional oak skin.','assumed')
  # Nothing may enter the ellipse the shelves describe, at any depth through the divider.
  outside=lambda v:((v.x-cx)/hw)**2+((v.z-cz)/sh)**2;board_y=ASSEMBLY['boards']['Portal.lintel0']['bounds'][2:]
- intruders=sorted({part(o) for o in OBJECTS if not any(c.startswith(('01 ','05 ','02 ','09 ','10 ','12 ','04 ','07 ')) for c in collections(o)) for v in world(o)[0] if board_y[0]<=v.y<=board_y[1]-.5 and 0<v.z and outside(v)<.98})
- report('portal-outline','Parts inside the portal opening',len(intruders),0,'clash' if intruders else 'ok','; '.join(intruders) or f'Clear ellipse {2*hw:.0f} mm wide and {P["head"]:.0f} mm high, centred on x {cx:.0f}. Oak light cover included.','envelopes','count')
+ # The desk's near return stands on the rear post line by design, so it is measured separately below.
+ desk_end=('DF0','Desk.low_front0','Desk.shared0','Desk.top')
+ intruders=sorted({part(o) for o in OBJECTS if not any(c.startswith(('01 ','05 ','02 ','09 ','10 ','12 ','04 ','07 ')) for c in collections(o)) and not part(o).startswith(desk_end) for v in world(o)[0] if board_y[0]<=v.y<=board_y[1]-.5 and 0<v.z and outside(v)<.98})
+ report('portal-outline','Parts inside the portal opening',len(intruders),0,'clash' if intruders else 'ok','; '.join(intruders) or f'Clear ellipse {2*hw:.0f} mm wide and {P["head"]:.0f} mm high, centred on x {cx:.0f}, apart from the desk return checked below. Oak light cover included.','envelopes','count')
+ uprights=[(a,b,math.dist(A,B)) for i,(a,A) in enumerate(sorted((k,(v['x'],v['y'])) for k,v in ASSEMBLY['columns'].items())) for b,B in sorted((k,(v['x'],v['y'])) for k,v in ASSEMBLY['columns'].items())[i+1:]];near=min(uprights,key=lambda u:u[2])
+ report('portal-doubled-posts','Closest two uprights',near[2],200,'ok' if near[2]>=200 else 'clash',f'{near[0]} and {near[1]}. Below 200 mm two posts would be doing one job.','envelopes')
  floor_width=2*hw*math.sqrt(max(0,1-(cz/sh)**2));report('portal-floor-width','Portal width at the floor',floor_width,800,'ok' if floor_width>=800 else 'tight','Width of the ellipse at floor level; it widens with height.','envelopes')
  shoulder=2*hw*math.sqrt(max(0,1-((1500-cz)/sh)**2));report('portal-shoulder','Portal width at 1,500 mm height',shoulder,700,'ok' if shoulder>=700 else 'tight','Shoulder height of a tall adult walking through.','envelopes')
  # Bounds, not vertices: a long cover has no vertex near the centre line.
  spans=[bounds([o]) for o in OBJECTS if any(c.startswith(('13 ','15 ')) for c in collections(o))];hd=min(lo[2] for lo,hi in spans if lo[0]<cx+250 and hi[0]>cx-250 and lo[1]<board_y[1] and hi[1]>board_y[0] and lo[2]>1500)
  # Behind the opening the walkway is bounded by the door's kitchen-side edge and the desk's front corner.
  desk_x=ASSEMBLY['boards']['Desk.top']['bounds'][0];exit_width=desk_x-(cx-2*hw*math.sqrt(max(0,1-(cz/sh)**2))/2)
- report('portal-exit','Walkway through the door past the desk corner',exit_width,600,'clash' if exit_width<600 else 'tight' if exit_width<TARGET['entry_passage_comfortable'] else 'ok',f'Left edge of the opening at the floor to the desktop edge at x {desk_x:.0f}. The near desk leg foot stands just behind the right edge of the opening.','envelopes')
+ report('portal-exit','Walkway through the door past the desk corner',exit_width,600,'clash' if exit_width<600 else 'tight' if exit_width<TARGET['entry_passage_comfortable'] else 'ok',f'Left edge of the opening at the floor to the desktop edge at x {desk_x:.0f}. The near desk leg and its low brace stand on the rear post line, in the right-hand part of the opening.','envelopes')
  report('portal-head','Portal head height at the centre',hd,1950,'ok' if hd>=1950 else 'tight',f'Lowest part within 250 mm of the centre line: the oak light cover or lintel rail. Ceiling {GEO["ceiling"]:.0f} mm.','measured' if GEO['ceiling_measured'] else 'assumed')
  groups_=defaultdict(list)
  for i in dg.object_instances:

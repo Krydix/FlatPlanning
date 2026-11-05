@@ -53,8 +53,9 @@ Physical dimensions and hardware load ratings remain provisional. These checks d
 | Six crates: parts intersecting them / gap to the inner post / inside the board depth | 0 / 13.5 / 35 mm | ok |
 | Top crates to the measured ceiling | 32 mm | ok; they slide in flat, they cannot tilt in |
 | Divider to bar end | 16 mm | ok |
+| Closest two uprights (the divider shares the desk's near posts) | 290 mm | ok |
 | Fixed bar and bed positions against `source/portal-layout.json` | 0 mm | ok |
 
-16 graph tests in `source/test_portal.py` cover stock lengths, the crates, the opening, the ceiling-derived heights and the rigid desk move. One of them checks that V18's graph still rebuilds byte for byte.
+18 graph tests in `source/test_portal.py` cover stock lengths, the crates, the opening, the ceiling-derived heights and the rigid desk move. One of them checks that V18's graph still rebuilds byte for byte.
 
 Ceiling construction and tie fixings are unknown. The arms under the top shelves are cantilevers with no manufacturer rating. These checks do not certify structural safety, and the overhead crates make that matter more here than in V18.

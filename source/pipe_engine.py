@@ -368,7 +368,7 @@ def profile_from_measurements(path):
   if not isinstance(value,(int,float)) or isinstance(value,bool) or not math.isfinite(value) or value<=0:raise DesignError('Measurement must be a positive number: '+key)
   profile[key]['value']=value;profile[key]['status']='measured';profile[key]['measurement_note']=d.get('notes',{}).get(key,'Entered in Measurements-v8.json')
  return profile
-def build(profile=None,close_gap=False,entry60=False,side_speakers=False,shared_desk=False,portal=False,offset=0,rack=None):
+def build(profile=None,close_gap=False,entry60=False,side_speakers=False,shared_desk=False,portal=False,offset=0,rack=None,desk_walls=(1200,2020),rear_upper=1200):
  if portal:return build_portal(profile)
  if shared_desk:return build_shared_desk(profile)
  if side_speakers:entry60=True
@@ -411,11 +411,11 @@ def build(profile=None,close_gap=False,entry60=False,side_speakers=False,shared_
  a.parts['Desk.top'].data['support_reliefs']=reliefs;a.boards['Desk.top']['support_reliefs']=reliefs
  # New near shelf post is a stock 1500 mm riser anchored onto the desktop.
  if side_speakers:
-  a.column('DS0',front,y0-50);a.column('SB0',back,y0-50)
+  a.column('DS0',front,y0-50);a.column('SB0',back,y0-50,upper=rear_upper)
  else:
   a.flange('DS0.base',(front,y0,740),(0,0,1),'wood');a.edges.append(('Desk.top','DS0.base','wood screw',None,None))
   a.from_port('DS0.riser',1500,'DS0.base.socket');a.cap('DS0.cover','DS0.riser.b');a.columns['DS0']={'x':front,'y':y0,'tubes':['DS0.riser']}
- for z in ((1200,2020) if side_speakers else (1100,2020)):a.walltie(f'Desk.wall0.{z}','SB0' if side_speakers else 'DB0',z)
+ for z in (desk_walls if side_speakers else (1100,2020)):a.walltie(f'Desk.wall0.{z}','SB0' if side_speakers else 'DB0',z)
  # Lower rear stiffener retained, upper far-end post/brace removed.
  if close_gap:
   # The moved near frame no longer accepts the old uncut 1500 rear brace.
@@ -482,9 +482,9 @@ def build(profile=None,close_gap=False,entry60=False,side_speakers=False,shared_
   a.notes=[n for n in a.notes if not n.startswith(('DS0 is a stock 1500','A 70 mm desktop'))]
   a.notes += ['V17 TV and all its custom support parts removed; the desktop TV bore is removed.', 'DS0 is now a floor-mounted 1000 + 1200 mm stock column with coupling, near support pair offset 50 mm from the desktop endframe to avoid crossing its pipes; eight 40 mm desktop holes include the two open-edge notches. Speaker shelves do not bear on the desktop.', 'Each speaker board is a 350 x 350 x 25 mm oak tray on two uncut 250 mm cantilever arms, each clamped to its own upright by a sliding T. Four one-sided saddle tabs screw each tray to the arms.', 'Near wall tie raised from 1100 to 1200 mm to clear speaker-arm tees. Tray underside 1100, top 1125 mm before angled isolation pads. The arm tees cannot drop lower while the 1000 + 1200 mm posts keep their coupling at 1015-1027 mm, so the downward tweeter aim comes from the pads. No desktop speaker risers or flanges.', 'Trays rotate in the connection graph and their outside Y corners align with the two desktop ends. Speakers aim at the seated ear reference (x 2620, z 1220 mm), not the seat centre; angled pads tilt the tweeters down to that height. This wide stereo geometry is a visual arrangement, not a calibrated acoustic setup.', 'Cantilever capacity, clamp anti-rotation, saddle screw retention, speaker weight and fixing loads remain unverified. No positive manufacturer cantilever rating has been established.']
  return a
-def build_shared_desk(profile=None,desk_shift=0,rack=None):
+def build_shared_desk(profile=None,desk_shift=0,rack=None,desk_walls=(1200,2020),rear_upper=1200,near_upper=(1500,)):
  """Reuse four rack uprights; two elbow-return front legs, no separate rear legs."""
- a=build(profile,side_speakers=True,offset=desk_shift,rack=rack);bounds=a.boards['Desk.top']['bounds']
+ a=build(profile,side_speakers=True,offset=desk_shift,rack=rack,desk_walls=desk_walls,rear_upper=rear_upper);bounds=a.boards['Desk.top']['bounds']
  prefixes=('DF0','DF1','DB0','DB1','Desk.endframe','Desk.top','Desk.tail','Desk.lower_wall')
  removed={id for id in a.parts if id.startswith(prefixes)}
  a.parts={id:p for id,p in a.parts.items() if id not in removed};a.ports={id:p for id,p in a.ports.items() if p.owner not in removed}
@@ -525,8 +525,8 @@ def build_shared_desk(profile=None,desk_shift=0,rack=None):
  a.parts['Desk.top'].data['support_reliefs']=reliefs;a.boards['Desk.top']['support_reliefs']=reliefs
  a.notes=[n for n in a.notes if not n.startswith(('Desk far rear post','RF0/RB0 pass','Desktop remains 1615','DS0 is now'))]
  a.notes += ['V18: all four former short desktop columns and both 602 mm endframe cross-pipes removed. Existing DS0/SB0 and RF0/RB0 rack posts now support the desktop through sliding-T arms.', 'Each end uses one 250 mm outward arm from the front rack post, returned down through a stock elbow to a 40 + 602 mm front leg, plus one 200 mm inward arm from the rear rack post. Eight saddle holders support the desktop.', f'Derived desktop underside {bottom:g} mm / top {bottom+28:g} mm. Front support legs terminate under the tabletop through elbows: no front-leg bores or protrusions. Four 44 mm preview clearance bores remain only for the continuing rack posts, including near-edge notches.', 'Two 250 mm low depth ties and two 40 mm low wall ties brace the existing rack frame. Four old short desk legs are replaced by two front returns; no separate rear desk legs.', 'The desktop still measures 1615 x 702 x 28 mm in the same plan position. Main entry corner gap remains 640.9 mm. Closest modeled front foot clearance exceeds 600 mm.', 'Model connection and clearance checks are not a load certification. Verify desk saddle screws, clamp slip/rotation, wall anchorage and leaning loads before construction. Fully floating desk is not assumed approved.']
- return add_equipment_shelf(connect_desk_crosses(a),desk_shift)
-def connect_desk_crosses(a):
+ return add_equipment_shelf(connect_desk_crosses(a,near_upper),desk_shift)
+def connect_desk_crosses(a,near_upper=(1500,)):
  """Threaded four-way joints replace the two disconnected rear desktop arms.
 
  A cross cannot slide onto a continuous upright: rebuild those two posts from
@@ -557,8 +557,12 @@ def connect_desk_crosses(a):
   a.part(joint,'cross',centre,(0,0,1),(-1,0,0))
   for suffix,d in [('up',(0,0,1)),('down',(0,0,-1)),('out',(-1,0,0)),('in',(1,0,0))]:a.port(joint+'.'+suffix,joint,'female',add(centre,mul(d,a.v('cross_stop'))),d)
   a.connect(front+'.joint_riser.b',joint+'.down');a.connect(f'Desk.shared{i}.0.tube.a',joint+'.out');a.connect(rear+'.b',joint+'.in')
-  a.from_port(front+'.top_stub',40,joint+'.up');a.from_port(front+'.upper',1500,coupling(front+'.top_extension',front+'.top_stub.b'));a.cap(front+'.cover',front+'.upper.b')
-  a.columns[front]['tubes']=[front+'.lower',front+'.joint_riser',front+'.upper',front+'.top_stub']
+  # The near post can run on above the cross in more than one stock section.
+  a.from_port(front+'.top_stub',40,joint+'.up');a.from_port(front+'.upper',near_upper[0] if i==0 else 1500,coupling(front+'.top_extension',front+'.top_stub.b'));last=front+'.upper';tubes=[front+'.lower',front+'.joint_riser',front+'.upper',front+'.top_stub']
+  for k,L in enumerate(near_upper[1:] if i==0 else ()):
+   last=f'{front}.upper{k+2}';a.from_port(last,L,coupling(f'{front}.top_extension{k+2}',tubes[2+k*2 if k else 2]+'.b'));tubes.append(last)
+  a.cap(front+'.cover',last+'.b')
+  a.columns[front]['tubes']=tubes
   for c in retained:
    host,_=a.host_at(front,a.parts[c['id']].origin[2],c['half']);c['host']=host;a.parts[c['id']].data['host']=host;a.edges.append((host,c['id'],'clamp',None,None))
   # Brace the front return too. Offset from the 300 mm rear tie so two real
@@ -618,14 +622,18 @@ def portal_crates(a,layout=None):
 def add_portal(a,layout=None):
  """Floor-to-ceiling divider from the bar end to the right wall; stepped board ends hint a round door."""
  d=layout or portal_layout();g=portal_geometry(a,d);fr=d['frame'];o=d['opening'];s=a.v('tee_stop');rise=a.v('saddle_rise');t=fr['board_thickness'];bore=fr['post_bore'];xs=g['xs'];yf,yb=g['rows'];ymid=g['ymid'];by=g['board_y'];rows=(('F',yf),('B',yb))
+ # The desk's near posts stand in as the rear right pair, so no upright is doubled.
+ shared=d['shared_posts'];rear=shared['rear_columns']
+ def col(r,i):return rear[str(i)] if r=='B' and str(i) in rear else f'P{r}{i}'
  for i,x in enumerate(xs):
-  for r,y in rows:a.column(f'P{r}{i}',x,y,upper=fr['upper_post'],lower=fr['lower_post'])
+  for r,y in rows:
+   if col(r,i).startswith('P'):a.column(col(r,i),x,y,upper=fr['upper_post'],lower=fr['lower_post'])
  def holes(indices):return [(xs[i],y,bore) for i in indices for _,y in rows]
  def relief(x,y,direction,bottom):
   # Preview underside pocket for the T casting that sits just proud of the board underside.
   dx,dy=direction;x0,x1=(min(x,x+dx*31),max(x,x+dx*31)) if dx else (x-18,x+18);y0,y1=(min(y,y+dy*31),max(y,y+dy*31)) if dy else (y-18,y+18)
   return {'bounds':[x0,x1,y0,y1,bottom-1,bottom-rise+17.5]}
- def bar(i,z):return a.shelf_crossbar(f'PF{i}',f'PB{i}',z)
+ def bar(i,z):return a.shelf_crossbar(col('F',i),col('B',i),z)
  def tabs(stem,tube,toward,supports,stations=(45,205)):
   for j,offset in enumerate(stations):
    sid=f'{stem}.saddle{j}';supports.append((sid,*a.saddle(sid,tube,offset,toward)))
@@ -641,9 +649,13 @@ def add_portal(a,layout=None):
   outer,inner,sign=(0,1,1) if left else (3,2,-1);width=g['edge'](level,level+t);end=g['cx']-sign*width
   end=(max(end,xs[1]+o['post_web']) if left else min(end,xs[2]-o['post_web']))
   z=level-rise;supports=[];reliefs=[relief(xs[outer],y,(0,1 if y<ymid else -1),level) for _,y in rows];cantilever=abs(end-xs[inner])
-  tabs(id+'.outer',bar(outer,z),(sign,0,0),supports)
-  if cantilever>o['arm_above_cantilever']:
-   for r,y in rows:reliefs.append(arm(f'{id}.arm{r}',f'P{r}{inner}',y,z,sign,cantilever,supports))
+  pipe=None if left else shared['shared_pipes'].get(str(round(z)))
+  if pipe:
+   # A desk brace already crosses this tower here: reuse it and add only the front pipe.
+   stem=f'Portal.front{round(z)}';a.bridge(stem,col('F',2),col('F',3),z,250);reliefs=[relief(xs[2],yf,(1,0),level),relief(xs[3],yf,(-1,0),level),relief(xs[2],yb,(1,0),level),relief(xs[3],yb,(-1,0),level)]
+   tabs(id+'.front',stem+'.tube',(0,1,0),supports);tabs(id+'.rear',pipe,(0,-1,0),supports)
+  elif tabs(id+'.outer',bar(outer,z),(sign,0,0),supports) or cantilever>o['arm_above_cantilever']:
+   for r,y in rows:reliefs.append(arm(f'{id}.arm{r}',col(r,inner),y,z,sign,cantilever,supports))
   else:
    tabs(id+'.inner',bar(inner,z),(-sign,0,0),supports);reliefs+=[relief(xs[inner],y,(0,1 if y<ymid else -1),level) for _,y in rows]
   bounds=(xs[0]-30,end,*by) if left else (end,xs[3]+30,*by)
@@ -655,7 +667,7 @@ def add_portal(a,layout=None):
  for k,level in enumerate(d['cap_steps']):
   for left,side in ((True,'L'),(False,'R')):
    sign=1 if left else -1;inner=1 if left else 2;id=f'Portal.cap{side}{k}';z=level-rise;width=g['edge'](level,level+t);end=g['cx']-sign*width;supports=[];reliefs=[]
-   for r,y in rows:arm(f'{id}.arm{r}',f'P{r}{inner}',y,z,sign,abs(end-xs[inner]),supports)
+   for r,y in rows:arm(f'{id}.arm{r}',col(r,inner),y,z,sign,abs(end-xs[inner]),supports)
    bounds=(xs[1]+gap,end,*by) if left else (end,xs[2]-gap,*by);a.board(id,bounds,level,t,supports)
  # Lintel: lower board rests on the end bars and a central rail, upper board on the end bars only.
  for id,level,railed in (('Portal.lintel0',g['lintel'],True),('Portal.lintel1',g['upper'],False)):
@@ -676,18 +688,18 @@ def add_portal(a,layout=None):
  for i in range(4):
   id=f'Portal.tie{i}';tube=bar(i,z);a.body_tee(id+'.tee',tube,125,(0,0,1));a.from_port(id+'.tube',fr['ceiling_tie'],id+'.tee.branch')
   a.flange(id+'.ceiling',(xs[i],ymid,ROOM['ceiling']),(0,0,-1),'ceiling');a.connect(id+'.tube.b',id+'.ceiling.socket')
- for r,_ in rows:
-  for z in fr['wall_tie_heights']:a.walltie(f'Portal.wall{r}.{z}',f'P{r}3',z)
+ # The rear post keeps the desk's own wall ties, moved to the same heights in build_portal.
+ for z in fr['wall_tie_heights']:a.walltie(f'Portal.wallF.{z}','PF3',z)
  return a
 def build_portal(profile=None):
  """Portal variant: divider across the room, then the V18 desk module, then a shorter wardrobe."""
  d=portal_layout();probe=Assembly(profile);rows=portal_geometry(probe,d)['rows']
- # DS0 sits at y 1300 in V18; the rigid desk module moves to stand just behind the divider.
- offset=rows[1]+d['desk_gap_behind_divider']-1300;rack=tuple((b['role'],b['tube'],tuple(b['rails'])) for b in d['wardrobe'])
- a=add_portal(build_shared_desk(profile,offset,rack),d)
+ # DS0 sits at y 1300 in V18; the rigid desk module moves until its near posts are the rear divider row.
+ offset=rows[1]-1300;rack=tuple((b['role'],b['tube'],tuple(b['rails'])) for b in d['wardrobe']);sh=d['shared_posts']
+ a=add_portal(build_shared_desk(profile,offset,rack,tuple(d['frame']['wall_tie_heights']),sh['rear_upper_tube'],tuple(sh['near_upper_tubes'])),d)
  g=portal_geometry(a,d);a.portal={'desk_offset':offset,'xs':list(g['xs']),'rows':list(g['rows']),'cx':g['cx'],'ymid':g['ymid'],'head':g['head'],'lintel':g['lintel'],'upper':g['upper'],'crate_top':g['crate_top'],'half_width':d['opening']['half_width'],'centre_z':d['opening']['centre_z'],'semi_height':g['b'],'tie_z':g['tie_z'],'crates':portal_crates(a,d)}
  a.notes=[n for n in a.notes if not n.startswith(('V11','Four coat','Fold shelf','V16','Wear-again','Desk and first'))]
- a.notes+=['Portal variant: a floor-to-ceiling divider runs from the bar end to the right wall. Eight posts stand on the floor; four ceiling ties and four wall ties hold the frame.',f'Board ends step along an ellipse {2*d["opening"]["half_width"]} mm wide and {g["head"]:.0f} mm high above the floor, so the round door is hinted by the cut of the shelves. Nothing is curved.','Six KNAGGLIG crates sit 3 x 2 on the two lintel boards, long side across the room. Lintel heights are derived from the measured ceiling.','The desk module moves as one rigid block to stand behind the divider. The wardrobe becomes one 602 mm short bay and one 602 mm coat bay; folded clothes move onto the divider shelves and the wear-again rail is dropped.','Ceiling ties take up height through a sliding T, so a re-measured ceiling moves the tie and lintel without changing any stock pipe length.','Ceiling construction, anchors, cantilever arms and the 1,416 mm crate-loaded span are not load-certified; verify before building.']
+ a.notes+=['Portal variant: a floor-to-ceiling divider runs from the bar end to the right wall. Six new posts stand on the floor and the two near desk posts complete the frame, so no upright is doubled. Four ceiling ties and four wall ties hold it.',f'Board ends step along an ellipse {2*d["opening"]["half_width"]} mm wide and {g["head"]:.0f} mm high above the floor, so the round door is hinted by the cut of the shelves. Nothing is curved.','Six KNAGGLIG crates sit 3 x 2 on the two lintel boards, long side across the room. Lintel heights are derived from the measured ceiling.','The desk module moves as one rigid block to stand behind the divider. The wardrobe becomes one 602 mm short bay and one 602 mm coat bay; folded clothes move onto the divider shelves and the wear-again rail is dropped.','Ceiling ties take up height through a sliding T, so a re-measured ceiling moves the tie and lintel without changing any stock pipe length.','Ceiling construction, anchors, cantilever arms and the 1,416 mm crate-loaded span are not load-certified; verify before building.']
  return a
 if __name__=='__main__':
  out=Path(__file__).parent;a=build(profile_from_measurements(out/'Measurements-v8.json'));a.save(out/'Assembly-v8.json');(out/'Validation-v8.json').write_text(json.dumps(a.validate(),indent=2));print(json.dumps(a.validate(),indent=2));print(dict(a.bom()))

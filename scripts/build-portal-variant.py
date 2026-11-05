@@ -33,23 +33,25 @@ for o in list(collection('04 ').objects):
 for o in list(collection('14 ').objects):move(o,dy=DESK)
 bpy.context.view_layer.update()
 strip=[o for o in collection('15 ').objects if o.name.startswith('Rack.top0') and 'cable' not in o.name]
+# Wardrobe contents follow the graph: V18's first 606 mm top board started at y 3,948.
+RACK=(a.boards['Rack.top0']['bounds'][2]-3948)/1000;BAY=(a.columns['RF0']['y']+a.columns['RF1']['y'])/2000
 for o in list(collection('15 ').objects):
  n=o.name
  if n.startswith(('Desk.','V9 TRADFRI','V9 FORNIMMA')):move(o,dy=DESK)
  elif n.startswith('Rack.') and 'cable' in n:remove(o)
- elif n.startswith(('Rack.top1','Rack.top2')):move(o,dy=-.010)
+ elif n.startswith(('Rack.top1','Rack.top2')):move(o,dy=RACK)
 bpy.context.view_layer.update()
 # The 960 mm bar and its oak cover turn 90 degrees and light the lintel, cover flush with the kitchen-side edge.
 lintel=P['lintel']/1000;front=(P['rows'][0]-45)/1000;pivot=(3.055,3.410,2.190);target=(P['cx']/1000,front,lintel)
 for o in strip:turn(o,pivot,target)
 bpy.context.view_layer.update()
 # Two further 460 mm bars under the highest full shelves. Same housing, diffuser and light as the wardrobe bars.
-board=a.boards['Portal.shelfL5']['bounds'];right=a.boards['Portal.shelfR5']['bounds'];z5=LEVELS[5]/1000
+top=len(LEVELS)-1;board=a.boards[f'Portal.shelfL{top}']['bounds'];right=a.boards[f'Portal.shelfR{top}']['bounds'];z5=LEVELS[top]/1000
 for side,xc in (('L',(board[0]+board[1])/2000),('R',(right[0]+right[1])/2000)):
  for o in [o for o in collection('15 ').objects if o.name.startswith('Rack.top2 ÖVERSIDAN')]:
-  c=o.copy();c.name=f'Portal.shelf{side}5 '+o.name.split(' ',1)[1]
+  c=o.copy();c.name=f'Portal.shelf{side}{top} '+o.name.split(' ',1)[1]
   if o.data:c.data=o.data.copy()
-  collection('15 ').objects.link(c);turn(c,(3.055,4.883,2.190),(xc,front,z5))
+  collection('15 ').objects.link(c);turn(c,(3.055,4.883+RACK,2.190),(xc,front,z5))
 bpy.context.view_layer.update()
 # Clothes follow their bays. Seven short garments fit the 602 mm bay; coats rise with their rail.
 piles=[]
@@ -60,11 +62,12 @@ for o in list(collection('07 ').objects):
  if 'wear-again' in n or 'over wear rail' in n:remove(o);continue
  if c.y<3.95:
   if c.y>3.56:remove(o)
-  else:move(o,dy=.945)
- else:move(o,dy=-.010,dz=0 if hi.z<.40 else .080)
+  else:move(o,dy=BAY-3.296)
+ else:move(o,dy=RACK,dz=0 if hi.z<.40 else .080)
 bpy.context.view_layer.update()
 # Eight folded stacks, three pullovers each, stand across the tower bays between the bores.
-xs=P['xs'];ymid=P['ymid']/1000;piles.sort(key=lambda o:(bounds(o)[0].z,bounds(o)[0].y));stacks=[piles[i:i+3] for i in range(0,len(piles),3)]
+# They sit slightly forward: the desk's tower pipes cross the rear row at 485 and 689 mm.
+xs=P['xs'];ymid=P['ymid']/1000-.020;piles.sort(key=lambda o:(bounds(o)[0].z,bounds(o)[0].y));stacks=[piles[i:i+3] for i in range(0,len(piles),3)]
 stacks.sort(key=lambda s:(bounds(s[0])[0].z,bounds(s[0])[0].y))
 places=[((xs[0]+xs[1])/2000,LEVELS[k]/1000+t) for k in (1,2,3,4)]+[((xs[2]+xs[3])/2000,LEVELS[k]/1000+t) for k in (1,2,3,4)]
 for stack,(x,z) in zip(stacks,places):

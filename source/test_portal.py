@@ -15,8 +15,8 @@ class Portal(unittest.TestCase):
    path=Path(t)/'a.json';build(profile_from_measurements(HERE/'Measurements-v8.json'),shared_desk=True).save(path)
    self.assertEqual(path.read_text(),(HERE/'assembly.json').read_text())
  def test_posts_stand_on_the_floor_and_ties_reach_the_ceiling(self):
+  for c in ('PF0','PB0','PF1','PB1','PF2','PF3','DS0','SB0'):self.assertEqual(self.a.mounts[c+'.foot'],'floor')
   for i in range(4):
-   for r in 'FB':self.assertEqual(self.a.mounts[f'P{r}{i}.foot'],'floor')
    tie=self.a.parts[f'Portal.tie{i}.ceiling'];self.assertEqual(self.a.mounts[tie.id],'ceiling');self.assertEqual(tie.origin[2],ROOM['ceiling'])
    self.assertTrue(self.a.ports[f'Portal.tie{i}.tube.b'].used)
  def test_divider_spans_bar_end_to_wall_with_clearance(self):
@@ -75,12 +75,22 @@ class Portal(unittest.TestCase):
  def test_desk_module_moves_rigidly(self):
   v=build(shared_desk=True);o=self.p['desk_offset']
   self.assertEqual(self.a.boards['Desk.top']['bounds'][2]-v.boards['Desk.top']['bounds'][2],o)
+  self.assertEqual(o,self.p['rows'][1]-1300)
   for k in ('Desk.top','Desk.service_shelf','Desk.shelf0','Desk.shelf1','Desk.shelf2','Speaker0.platform','Speaker1.platform'):
    a,b=self.a.boards[k],v.boards[k];self.assertEqual(a['bounds'][1]-a['bounds'][0],b['bounds'][1]-b['bounds'][0],k);self.assertEqual(a['bottom'],b['bottom']);self.assertAlmostEqual(a['bounds'][3]-a['bounds'][2],b['bounds'][3]-b['bounds'][2])
    self.assertAlmostEqual(a['bounds'][2]-b['bounds'][2],o);self.assertAlmostEqual(a.get('rotation_degrees',0),b.get('rotation_degrees',0))
- def test_divider_does_not_touch_the_desk_frame(self):
-  for k,b in self.a.boards.items():
-   if k.startswith('Portal.'):self.assertLess(b['bounds'][3]+12.5,self.a.columns['DS0']['y'])
+ def test_no_upright_is_doubled(self):
+  cols=list(self.a.columns.values());self.assertNotIn('PB2',self.a.columns);self.assertNotIn('PB3',self.a.columns)
+  self.assertGreaterEqual(min(math.hypot(a['x']-b['x'],a['y']-b['y']) for i,a in enumerate(cols) for b in cols[i+1:]),200)
+ def test_desk_posts_are_the_rear_divider_row(self):
+  xs=self.p['xs'];yb=self.p['rows'][1]
+  self.assertEqual((self.a.columns['DS0']['x'],self.a.columns['DS0']['y']),(xs[2],yb));self.assertEqual((self.a.columns['SB0']['x'],self.a.columns['SB0']['y']),(xs[3],yb))
+  for c in ('DS0','SB0'):
+   tubes=[self.a.parts[t] for t in self.a.columns[c]['tubes']];self.assertGreaterEqual(max(t.origin[2]+t.data['length'] for t in tubes),self.g['tie_z']+45)
+   self.assertTrue(any(k.startswith('ShelfCross.') and c in k for k in self.a.parts))
+ def test_tower_reuses_the_desk_brace(self):
+  supports=[s[0] for s in self.a.boards['Portal.shelfR1']['supports']];self.assertTrue(all(s.startswith('Portal.shelfR1.') for s in supports))
+  self.assertEqual(self.a.parts['Portal.shelfR1.rear.saddle0'].data['host'],'Desk.low_depth0.tube')
  def test_wardrobe_stays_inside_the_room_and_drops_the_wear_rail(self):
   self.assertLessEqual(self.a.columns['RF2']['y'],5214);self.assertFalse(any(k.startswith('Wear.') for k in self.a.parts));self.assertFalse(any(k.startswith('Rack.fold') for k in self.a.boards))
 if __name__=='__main__':unittest.main()

@@ -10,7 +10,11 @@
   },
   "crate": {
     "article": "IKEA KNAGGLIG 702.923.59",
-    "size": [460, 310, 250],
+    "size": [
+      460,
+      310,
+      250
+    ],
     "per_row": 3,
     "rows": 2,
     "side_gap": 10,
@@ -21,11 +25,17 @@
     "board_thickness": 28,
     "board_overhang": 45,
     "post_bore": 44,
-    "span_tubes": [1200, 200],
-    "upper_post": 1000,
-    "lower_post": 1500,
+    "span_tubes": [
+      1200,
+      200
+    ],
+    "upper_post": 1500,
+    "lower_post": 1000,
     "ceiling_tie": 200,
-    "wall_tie_heights": [890, 1860]
+    "wall_tie_heights": [
+      940,
+      1760
+    ]
   },
   "opening": {
     "half_width": 680,
@@ -35,11 +45,48 @@
     "arm_above_cantilever": 240,
     "arm_tip_clearance": 20
   },
-  "levels": [100, 422, 744, 1066, 1388, 1710],
-  "cap_steps": [1870],
-  "desk_gap_behind_divider": 80,
+  "levels": [
+    100,
+    315,
+    580,
+    880,
+    1190,
+    1445,
+    1670
+  ],
+  "cap_steps": [
+    1805
+  ],
   "wardrobe": [
-    {"role": "short", "tube": 602, "rails": [950, 1950]},
-    {"role": "coat", "tube": 602, "rails": [2030]}
-  ]
+    {
+      "role": "short",
+      "tube": 602,
+      "rails": [
+        950,
+        1950
+      ]
+    },
+    {
+      "role": "coat",
+      "tube": 602,
+      "rails": [
+        2030
+      ]
+    }
+  ],
+  "shared_posts": {
+    "note": "The desk's near posts are the divider's rear right posts, so they carry both sets of sleeves.",
+    "rear_columns": {
+      "2": "DS0",
+      "3": "SB0"
+    },
+    "near_upper_tubes": [
+      602,
+      1200
+    ],
+    "rear_upper_tube": 1500,
+    "shared_pipes": {
+      "300": "Desk.low_depth0.tube"
+    }
+  }
 }

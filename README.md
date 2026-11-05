@@ -27,7 +27,7 @@ A second layout sits alongside V18: pick **Portal** in the layout bar, or open `
 A floor-to-ceiling divider runs from the bar end to the right wall. Nothing in it is curved: straight shelves stop along an ellipse, so the Star Wars-style round door is only hinted at by where they end. Six KNAGGLIG crates sit three across and two high in the band above the door, with their heights derived from the measured ceiling.
 
 - The opening is 1,360 mm wide and 1,990 mm high, and 869 mm wide at the floor.
-- The desk module moves 1,030 mm along the wall as one rigid block, so its joints, speakers and equipment are exactly as in V18.
+- The desk module moves 950 mm along the wall as one rigid block, so its joints, speakers and equipment are exactly as in V18. Its two near posts are also the divider's rear right posts, so no upright is doubled. Those two posts run on higher than in V18, and their wall ties move to suit the divider.
 - The wardrobe drops to one 602 mm short bay and one 602 mm coat bay. Folded clothes move onto the divider shelves, and the wear-again rail is gone.
 - Posts stay uncut stock and stop short of the ceiling. Four sliding-T ties take up the height, so a re-measured ceiling moves the ties, crates and lintel without changing a pipe.
 

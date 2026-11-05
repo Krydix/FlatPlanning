@@ -4,7 +4,7 @@ import { budgetSummary } from './budget.mjs';
 const viewers=()=>import('./viewer.js');
 // The URL picks the layout, so a variant can be shared and switching starts from a clean state.
 const VARIANT=new URLSearchParams(location.search).get('variant')==='portal'?'portal':'v18';
-const SOURCE=VARIANT==='portal'?{data:'data/project-portal.json?design=portal-1',poster:'images/room-portal.jpg?design=portal-1',store:'flat-portal',title:'Flat / Portal — A wall you walk through.'}:{data:'data/project.json?design=v19-speakers',store:'flat18'};
+const SOURCE=VARIANT==='portal'?{data:'data/project-portal.json?design=portal-2',poster:'images/room-portal.jpg?design=portal-2',store:'flat-portal',title:'Flat / Portal — A wall you walk through.'}:{data:'data/project.json?design=v19-speakers',store:'flat18'};
 const $=(selector,root=document)=>root.querySelector(selector);
 const $$=(selector,root=document)=>[...root.querySelectorAll(selector)];
 const euro=value=>new Intl.NumberFormat('en-IE',{style:'currency',currency:'EUR'}).format(value);
