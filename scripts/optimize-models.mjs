@@ -15,13 +15,15 @@ const KTX=process.env.KTX_BIN||'ktx';const RDO=process.env.KTX_RDO||'2.0';
 const SMOOTH=new Set((process.env.KTX_ETC1S??'shell,ceiling,exterior,glass').split(',').filter(Boolean));
 await MeshoptEncoder.ready;await MeshoptDecoder.ready;
 const io=new NodeIO().registerExtensions(ALL_EXTENSIONS).registerDependencies({'meshopt.encoder':MeshoptEncoder,'meshopt.decoder':MeshoptDecoder});
-for(const path of ['public/models/flat-baked.glb']){
+// FLAT_VARIANT=portal optimises the portal bake and its manifest; the default stays V18.
+const TAG=process.env.FLAT_VARIANT==='portal'?'-portal':'';
+for(const path of [`public/models/flat${TAG}-baked.glb`]){
  const before=(await stat(path)).size;const document=await io.read(path);await document.transform(dedup(),prune(),weld(),meshopt({encoder:MeshoptEncoder,level:'high'}));
  const work=await mkdtemp(join(tmpdir(),'flat-ktx-'));const textures=[];let gpuBytes=0;
  document.createExtension(KHRTextureBasisu).setRequired(true);
  for(const [i,texture] of document.getRoot().listTextures().entries()){
   // Prefer the lossless graded bake from .cache so re-encoding never compounds compression loss.
-  const key=(texture.getName()||'').replace(/^baked[-_]/,'').replace(/_graded$/,'');const cached=`.cache/bake/baked-${key}.png`;
+  const key=(texture.getName()||'').replace(/^baked[-_]/,'').replace(/_graded$/,'');const cached=`.cache/bake${TAG}/baked-${key}.png`;
   const source=existsSync(cached)?await readFile(cached):texture.getMimeType()==='image/ktx2'?null:texture.getImage();if(!source)continue;
   const input=join(work,`${i}.png`),output=join(work,`${i}.ktx2`);await writeFile(input,source);
   const smooth=SMOOTH.has(key);
@@ -30,7 +32,7 @@ for(const path of ['public/models/flat-baked.glb']){
   texture.setImage(await readFile(output)).setMimeType('image/ktx2').setURI('');textures.push({name:key,size:[width,height],codec:smooth?'ETC1S':'UASTC',bytes:(await stat(output)).size});
  }
  await rm(work,{recursive:true,force:true});await io.write(path,document);const after=(await stat(path)).size;
- const manifestPath='public/data/bake-manifest.json';const manifest=JSON.parse(await readFile(manifestPath,'utf8'));manifest.uncompressed_model_bytes=manifest.uncompressed_model_bytes||before;manifest.model_bytes=after;manifest.mesh_compression='EXT_meshopt_compression';
+ const manifestPath=`public/data/bake-manifest${TAG}.json`;const manifest=JSON.parse(await readFile(manifestPath,'utf8'));manifest.uncompressed_model_bytes=manifest.uncompressed_model_bytes||before;manifest.model_bytes=after;manifest.mesh_compression='EXT_meshopt_compression';
  manifest.texture_compression=`KHR_texture_basisu: KTX2, mipmapped; UASTC (RDO λ${RDO}, Zstandard 18) for detail, ETC1S for ${[...SMOOTH].join(', ')}`;manifest.textures=textures;manifest.texture_count=textures.length;manifest.gpu_texture_bytes_estimate=gpuBytes;
  await writeFile(manifestPath,JSON.stringify(manifest,null,2)+'\n');console.log(`${path}: ${(before/1e6).toFixed(2)} MB → ${(after/1e6).toFixed(2)} MB; ${textures.length} KTX2 atlases ≈ ${(gpuBytes/1e6).toFixed(0)} MB GPU`);
 }

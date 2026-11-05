@@ -20,6 +20,28 @@ The desktop's entrance-side front corner is rounded to R100. The kitchen-corner 
 
 The rear equipment shelf holds the M1 Mac mini, the router, and the router and dock power supplies. The Mac mini M1 has an internal power supply, so the third brick bay is spare. The monitor hangs on the optional desk-clamp VESA arm at the rear edge, because no stand fits behind the 61-key controller. The speaker trays aim at a seated ear reference (x 2,620, z 1,220 mm). Each speaker sits at the rear-outer corner of its tray, toward the wall and desk end, mirrored left and right (`source/speaker_placement.py`). Angled pads tilt the speakers down. The OWC Thunderbolt 4 dock and Focusrite mount under opposite front ends with exposed controls; the 700 mm central knee width stays clear. The Equipment camera hides the chair for inspection only. Holder designs and router/brick envelopes remain provisional; their costs are allowances. A €40 allowance covers a 2 m certified Thunderbolt lead for the shown routing; reuse a suitable existing lead if available.
 
+## Portal variant
+
+A second layout sits alongside V18: pick **Portal** in the layout bar, or open `?variant=portal`. V18's model, data and guide are unchanged.
+
+A floor-to-ceiling divider runs from the bar end to the right wall. Nothing in it is curved: straight shelves stop along an ellipse, so the Star Wars-style round door is only hinted at by where they end. Six KNAGGLIG crates sit three across and two high in the band above the door, with their heights derived from the measured ceiling.
+
+- The opening is 1,360 mm wide and 1,990 mm high, and 869 mm wide at the floor.
+- The desk module moves 1,030 mm along the wall as one rigid block, so its joints, speakers and equipment are exactly as in V18.
+- The wardrobe drops to one 602 mm short bay and one 602 mm coat bay. Folded clothes move onto the divider shelves, and the wear-again rail is gone.
+- Posts stay uncut stock and stop short of the ceiling. Four sliding-T ties take up the height, so a re-measured ceiling moves the ties, crates and lintel without changing a pipe.
+
+Inputs live in `source/portal-layout.json`. The engine reads them in `pipe_engine.build(portal=True)`. To rebuild, run these in order:
+
+```sh
+blender -b --python scripts/build-portal-variant.py
+FLAT_VARIANT=portal blender -b --python scripts/check-clearances.py
+python3 scripts/generate-portal-data.py
+FLAT_VARIANT=portal blender -b --python scripts/bake-room.py
+FLAT_VARIANT=portal node scripts/optimize-models.mjs
+FLAT_VARIANT=portal blender -b --python scripts/render-room-poster.py
+```
+
 ## Development
 
 Requires Node.js 22.12+ (or a compatible newer version) and Python 3 for data generation/tests.

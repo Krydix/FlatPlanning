@@ -41,20 +41,20 @@ export function loopViewer(renderer,scene,camera,controls,container,labels,onRes
 }
 function watchContext(renderer,onLost,onRestored){const canvas=renderer.domElement;canvas.addEventListener('webglcontextlost',()=>onLost?.());canvas.addEventListener('webglcontextrestored',()=>onRestored?.());}
 export class RoomViewer {
- constructor(container,{onProgress,onReady,onError,onCutaway,onContextLost,onContextRestored,onMeasure,dimensions=[],ceiling}={}){
-  this.container=container;this.onCutaway=onCutaway;this.onError=onError;this.onMeasure=onMeasure;this.cutaway=true;this.currentView='overview';this.scene=new THREE.Scene();this.interior=ceiling?interiorFor(ceiling):INTERIOR;
+ constructor(container,{onProgress,onReady,onError,onCutaway,onContextLost,onContextRestored,onMeasure,dimensions=[],ceiling,model='models/flat-baked.glb?bake=v19-speakers',views}={}){
+  this.views={...VIEWS,...views};this.container=container;this.onCutaway=onCutaway;this.onError=onError;this.onMeasure=onMeasure;this.cutaway=true;this.currentView='overview';this.scene=new THREE.Scene();this.interior=ceiling?interiorFor(ceiling):INTERIOR;
   this.camera=new THREE.PerspectiveCamera(43,1,.02,100);this.renderer=rendererFor(container,0xe8eadf);watchContext(this.renderer,onContextLost,()=>{onContextRestored?.();this.runner.draw();});
   this.controls=new OrbitControls(this.camera,this.renderer.domElement);this.controls.enableDamping=true;this.controls.dampingFactor=.1;this.controls.minDistance=.35;this.controls.maxDistance=21;this.controls.maxPolarAngle=Math.PI*.52;
   this.controls.addEventListener('start',()=>{this.animation=null;});
   this.controls.addEventListener('change',()=>this.updateCutaway());
   this.labels=new CSS2DRenderer();this.labels.domElement.style.cssText='position:absolute;inset:0;pointer-events:none;z-index:2';container.appendChild(this.labels.domElement);
-  this.runner=loopViewer(this.renderer,this.scene,this.camera,this.controls,container,this.labels,()=>{this.camera.fov=this.responsiveFov(VIEWS[this.currentView]?.fov||43);});
+  this.runner=loopViewer(this.renderer,this.scene,this.camera,this.controls,container,this.labels,()=>{this.camera.fov=this.responsiveFov(this.views[this.currentView]?.fov||43);});
   this.dimensionGroup=new THREE.Group();this.dimensionGroup.visible=false;this.scene.add(this.dimensionGroup);this.addDimensions(dimensions);this.setView('overview',true);
   this.measureGroup=new THREE.Group();this.scene.add(this.measureGroup);this.measurePoints=[];this.measuring=false;this.bindMeasure();
   // KTX2 atlases stay GPU-compressed (UASTC/ETC1S → ASTC/BC7/ETC2), with full mip chains.
   this.ktx2=new KTX2Loader().setTranscoderPath(asset('basis/')).detectSupport(this.renderer);
   const loader=new GLTFLoader();loader.setMeshoptDecoder(MeshoptDecoder);loader.setKTX2Loader(this.ktx2);
-  loader.load(asset('models/flat-baked.glb?bake=v19-speakers'),gltf=>{
+  loader.load(asset(model),gltf=>{
    this.model=gltf.scene;this.scene.add(this.model);
    this.model.traverse(o=>{if(o.isMesh){o.castShadow=false;o.receiveShadow=false;const mats=Array.isArray(o.material)?o.material:[o.material];for(const m of mats){m.toneMapped=false;if(m.map)m.map.anisotropy=Math.min(8,this.renderer.capabilities.getMaxAnisotropy());if(o.name==='flat_glass'){m.transparent=true;m.opacity=.10;m.depthWrite=false;m.side=THREE.DoubleSide;}}}});
    this.setCutaway(this.cutaway);this.runner.draw();onReady?.();
@@ -105,7 +105,7 @@ export class RoomViewer {
  setView(name,immediate=false){
   // Presets move the same camera through the same baked model. Preserve the
   // cutaway preference and never change materials or lights here.
-  const view=VIEWS[name]||VIEWS.overview;this.currentView=name;this.controls.enablePan=true;
+  const view=(this.views||VIEWS)[name]||VIEWS.overview;this.currentView=name;this.controls.enablePan=true;
   const from=this.camera.position.clone(),fromTarget=this.controls.target.clone(),to=new THREE.Vector3(...view.position),toTarget=new THREE.Vector3(...view.target),oldFov=this.camera.fov;
   const token={};this.animation=token;const start=performance.now();
   const move=time=>{if(this.animation!==token)return;const t=(immediate||reduced)?1:Math.min((time-start)/750,1);const k=1-Math.pow(1-t,3);this.camera.position.lerpVectors(from,to,k);this.controls.target.lerpVectors(fromTarget,toTarget,k);this.camera.fov=THREE.MathUtils.lerp(oldFov,this.responsiveFov(view.fov),k);this.camera.updateProjectionMatrix();this.controls.update();this.updateCutaway();this.runner.draw();if(t<1)requestAnimationFrame(move);};move(start);
@@ -114,16 +114,16 @@ export class RoomViewer {
  setEnabled(value){this.runner.enable(value);}
 }
 export class AssemblyViewer {
- constructor(container,onReady,onError){
+ constructor(container,onReady,onError,model='models/assembly.glb?design=v19-speakers'){
   this.container=container;this.scene=new THREE.Scene();this.camera=new THREE.PerspectiveCamera(39,1,.02,70);this.renderer=rendererFor(container,0xfbfcf7);this.renderer.toneMapping=THREE.NoToneMapping;
   this.controls=new OrbitControls(this.camera,this.renderer.domElement);this.controls.enableDamping=true;this.controls.minDistance=.25;this.controls.maxDistance=12;this.runner=loopViewer(this.renderer,this.scene,this.camera,this.controls,container);
   this.materials={active:new THREE.MeshBasicMaterial({color:0x344b38}),wood:new THREE.MeshBasicMaterial({color:0xe2dfd0}),context:new THREE.MeshBasicMaterial({color:0xe4e8df}),initial:new THREE.MeshBasicMaterial({color:0xa6b69b})};
   this.edgeMaterial=new THREE.LineBasicMaterial({color:0x18281b});this.meshes=[];
-  const loader=new GLTFLoader();loader.setMeshoptDecoder(MeshoptDecoder);loader.load(asset('models/assembly.glb?design=v19-speakers'),gltf=>{
+  const loader=new GLTFLoader();loader.setMeshoptDecoder(MeshoptDecoder);loader.load(asset(model),gltf=>{
    this.model=gltf.scene;this.scene.add(this.model);this.model.traverse(o=>{if(!o.isMesh)return;let p=o;while(p&&!p.userData.part_id)p=p.parent;const id=p?.userData.part_id;if(!id)return;o.userData.componentId=id;o.userData.componentKind=p.userData.catalog_kind;const edge=new THREE.LineSegments(new THREE.EdgesGeometry(o.geometry,38),this.edgeMaterial);o.add(edge);o.userData.edge=edge;this.meshes.push(o);});this.ready=true;onReady?.();
   },undefined,e=>{console.error('Assembly model load failed',e);onError?.(e);});
  }
- select(stage,stages){if(!this.ready){this.pending={stage,stages};return;}const active=new Set(stage.parts),seen=new Set(stages.filter(s=>s.id<=stage.id).flatMap(s=>s.parts));const showAll=stage.id<=2||stage.id>=18;const box=new THREE.Box3();let hasFocus=false;
+ select(stage,stages){if(!this.ready){this.pending={stage,stages};return;}const active=new Set(stage.parts),seen=new Set(stages.filter(s=>s.id<=stage.id).flatMap(s=>s.parts));const showAll=stage.showAll??(stage.id<=2||stage.id>=18);const box=new THREE.Box3();let hasFocus=false;
   for(const mesh of this.meshes){const id=mesh.userData.componentId;const selected=active.has(id);mesh.visible=showAll||seen.has(id);mesh.material=selected?(mesh.userData.componentKind==='wood'?this.materials.wood:this.materials.active):showAll?this.materials.initial:this.materials.context;mesh.userData.edge.visible=selected||showAll;if(selected){box.expandByObject(mesh);hasFocus=true;}}
   if(!hasFocus)box.setFromObject(this.model);const centre=box.getCenter(new THREE.Vector3());const size=box.getSize(new THREE.Vector3());const distance=Math.max(size.x,size.y,size.z,1.15)*1.55*Math.max(1,1.2/this.camera.aspect);this.controls.target.copy(centre);this.camera.position.copy(centre).add(new THREE.Vector3(-1.5,.9,1.15).normalize().multiplyScalar(distance));this.controls.update();this.runner.size();this.runner.draw();
  }

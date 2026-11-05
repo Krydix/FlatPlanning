@@ -11,8 +11,10 @@ from pathlib import Path
 from collections import defaultdict
 from mathutils import Vector
 ROOT=Path(__file__).resolve().parent.parent
-BASE=ROOT/'source/flat-v18.blend';OUT=ROOT/'public/models';OUT.mkdir(parents=True,exist_ok=True);LIGHTMAPS=ROOT/'source/lightmaps';LIGHTMAPS.mkdir(parents=True,exist_ok=True)
-CACHE=ROOT/'.cache/bake';CACHE.mkdir(parents=True,exist_ok=True);DRY=os.environ.get('BAKE_DRY_RUN')=='1'
+# FLAT_VARIANT=portal bakes source/flat-portal.blend into its own files; the default stays V18.
+PORTAL=os.environ.get('FLAT_VARIANT')=='portal';TAG='-portal' if PORTAL else ''
+BASE=ROOT/('source/flat-portal.blend' if PORTAL else 'source/flat-v18.blend');OUT=ROOT/'public/models';OUT.mkdir(parents=True,exist_ok=True);LIGHTMAPS=ROOT/('source/lightmaps'+TAG);LIGHTMAPS.mkdir(parents=True,exist_ok=True)
+CACHE=ROOT/('.cache/bake'+TAG);CACHE.mkdir(parents=True,exist_ok=True);DRY=os.environ.get('BAKE_DRY_RUN')=='1'
 # Target texels per metre. The frame, desk timber and equipment carry the detail people inspect.
 DENSITY={'pipes':330,'wood':300,'equipment':320,'lighting':300,'chair':200,'crates':240,'kitchen':220,'doors':180,'floor':190,'shell':150,'ceiling':120,'exterior':80,'glass':60}
 MARGIN_PX=16
@@ -60,7 +62,7 @@ for o in assembly.objects:
  for key in list(o.keys()):
   if key not in ('part_id','catalog_kind','catalog_sku'):del o[key]
  o.select_set(True)
-bpy.ops.export_scene.gltf(filepath=str(OUT/'assembly.glb'),export_format='GLB',use_selection=True,export_extras=True,export_cameras=False,export_lights=False,export_animations=False)
+bpy.ops.export_scene.gltf(filepath=str(OUT/('assembly'+TAG+'.glb')),export_format='GLB',use_selection=True,export_extras=True,export_cameras=False,export_lights=False,export_animations=False)
 print('ASSEMBLY_EXPORTED',flush=True)
 # Convert evaluated geometry, including the six collection-instance crates.
 dg=bpy.context.evaluated_depsgraph_get();co=bpy.data.collections.new('WEB baked geometry');scene.collection.children.link(co);groups=defaultdict(list)
@@ -92,6 +94,8 @@ for index,(orig,matrix,is_instance,parent) in enumerate(instances):
  o=bpy.data.objects.new('WEB_'+key+'_'+str(index),me);co.objects.link(o);o.matrix_world=matrix;groups[key].append(o)
 for o in list(scene.objects):
  if o.type in ('MESH','CURVE','SURFACE','FONT') and o.name not in {v.name for values in groups.values() for v in values}:o.hide_render=True
+ # Collection instancers are empties: left on, each crate is traced twice and its faces z-fight black.
+ if o.instance_type=='COLLECTION':o.hide_render=True
 print('GROUP_COUNTS',json.dumps({k:len(v) for k,v in groups.items()}),flush=True)
 # Join within categories: small draw-call count with independent shell/ceiling visibility.
 merged=[]
@@ -162,13 +166,13 @@ for o,image,key,size in prepared:
 # Avoid re-lighting already baked textures at runtime.
 bpy.ops.object.select_all(action='DESELECT')
 for o in merged:o.select_set(True)
-file=OUT/'flat-baked.glb';bpy.ops.export_scene.gltf(filepath=str(file),export_format='GLB',use_selection=True,export_extras=True,export_cameras=False,export_lights=False,export_animations=False,export_image_format='AUTO')
+file=OUT/('flat'+TAG+'-baked.glb');bpy.ops.export_scene.gltf(filepath=str(file),export_format='GLB',use_selection=True,export_extras=True,export_cameras=False,export_lights=False,export_animations=False,export_image_format='AUTO')
 data=file.read_bytes();length,kind=struct.unpack_from('<II',data,12);gltf=json.loads(data[20:20+length]);binary=data[20+length:]
 used=set(gltf.get('extensionsUsed',[]));used.add('KHR_materials_unlit');gltf['extensionsUsed']=sorted(used)
 for m in gltf.get('materials',[]):m.setdefault('extensions',{})['KHR_materials_unlit']={}
 view=scene.view_settings
-gltf.setdefault('asset',{})['extras']={'design':'V18 locked','lighting':'Baked practical lights; main ceiling light OFF','bake':f'Cycles combined diffuse/indirect/emission, {SAMPLES} samples, density-sized UV atlases up to 4096px','colour':f'Display-referred: {view.view_transform} view transform, exposure {view.exposure:+.2f}, applied at bake time; render without tone mapping','geometry':'Approved model; connector profiles and structural load capacities remain unverified'}
+gltf.setdefault('asset',{})['extras']={'design':'Portal divider variant' if PORTAL else 'V18 locked','lighting':'Baked practical lights; main ceiling light OFF','bake':f'Cycles combined diffuse/indirect/emission, {SAMPLES} samples, density-sized UV atlases up to 4096px','colour':f'Display-referred: {view.view_transform} view transform, exposure {view.exposure:+.2f}, applied at bake time; render without tone mapping','geometry':'Approved model; connector profiles and structural load capacities remain unverified'}
 encoded=json.dumps(gltf,separators=(',',':')).encode();encoded+=b' '*((-len(encoded))%4)
 file.write_bytes(struct.pack('<III',0x46546c67,2,12+8+len(encoded)+len(binary))+struct.pack('<II',len(encoded),0x4e4f534a)+encoded+binary)
-manifest={'design':'V18','ceiling_light_on':False,'baked':True,'render_engine':'Cycles','samples':SAMPLES,'display_referred':True,'view_transform':view.view_transform,'exposure':round(view.exposure,3),'bake_margin_px':MARGIN_PX,'max_bounces':scene.cycles.max_bounces,'diffuse_bounces':scene.cycles.diffuse_bounces,'bake_type':'COMBINED','passes':['DIFFUSE','DIRECT','INDIRECT','EMIT','COLOR'],'view_independent':True,'max_atlas_size':max(r['atlas'] for r in records),'baked_lights':light_records,'atlases':records,'model_bytes':file.stat().st_size,'mesh_count':len(merged),'lights_exported':False}
-(ROOT/'public/data/bake-manifest.json').write_text(json.dumps(manifest,indent=2)+'\n');print('BAKE_COMPLETE',json.dumps(manifest),flush=True)
+manifest={'design':'Portal' if PORTAL else 'V18','ceiling_light_on':False,'baked':True,'render_engine':'Cycles','samples':SAMPLES,'display_referred':True,'view_transform':view.view_transform,'exposure':round(view.exposure,3),'bake_margin_px':MARGIN_PX,'max_bounces':scene.cycles.max_bounces,'diffuse_bounces':scene.cycles.diffuse_bounces,'bake_type':'COMBINED','passes':['DIFFUSE','DIRECT','INDIRECT','EMIT','COLOR'],'view_independent':True,'max_atlas_size':max(r['atlas'] for r in records),'baked_lights':light_records,'atlases':records,'model_bytes':file.stat().st_size,'mesh_count':len(merged),'lights_exported':False}
+(ROOT/'public/data'/('bake-manifest'+TAG+'.json')).write_text(json.dumps(manifest,indent=2)+'\n');print('BAKE_COMPLETE',json.dumps(manifest),flush=True)

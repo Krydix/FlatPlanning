@@ -1,0 +1,561 @@
+{
+  "design": "Portal",
+  "ceiling_light_on": false,
+  "baked": true,
+  "render_engine": "Cycles",
+  "samples": 128,
+  "display_referred": true,
+  "view_transform": "AgX",
+  "exposure": 0.45,
+  "bake_margin_px": 16,
+  "max_bounces": 12,
+  "diffuse_bounces": 6,
+  "bake_type": "COMBINED",
+  "passes": [
+    "DIFFUSE",
+    "DIRECT",
+    "INDIRECT",
+    "EMIT",
+    "COLOR"
+  ],
+  "view_independent": true,
+  "max_atlas_size": 4096,
+  "baked_lights": [
+    {
+      "name": "Balcony daylight",
+      "type": "AREA",
+      "watts": 0,
+      "color": [
+        0.8399999737739563,
+        0.9100000262260437,
+        1
+      ]
+    },
+    {
+      "name": "Soft room bounce",
+      "type": "AREA",
+      "watts": 0,
+      "color": [
+        1,
+        0.8799999952316284,
+        0.7200000286102295
+      ]
+    },
+    {
+      "name": "Kitchen wash",
+      "type": "AREA",
+      "watts": 0,
+      "color": [
+        1,
+        0.9100000262260437,
+        0.7900000214576721
+      ]
+    },
+    {
+      "name": "Pendant practical",
+      "type": "AREA",
+      "watts": 16,
+      "color": [
+        1,
+        0.7200000286102295,
+        0.4399999976158142
+      ]
+    },
+    {
+      "name": "Pendant practical.001",
+      "type": "AREA",
+      "watts": 16,
+      "color": [
+        1,
+        0.7200000286102295,
+        0.4399999976158142
+      ]
+    },
+    {
+      "name": "MITTLED desk task light",
+      "type": "AREA",
+      "watts": 14,
+      "color": [
+        1,
+        0.7200000286102295,
+        0.4399999976158142
+      ]
+    },
+    {
+      "name": "MITTLED desk task light.001",
+      "type": "AREA",
+      "watts": 14,
+      "color": [
+        1,
+        0.7200000286102295,
+        0.4399999976158142
+      ]
+    },
+    {
+      "name": "V9 existing ceiling fixture - on",
+      "type": "AREA",
+      "watts": 0,
+      "color": [
+        1,
+        0.7200000286102295,
+        0.4399999976158142
+      ]
+    },
+    {
+      "name": "V9 ceiling diffuser side spill",
+      "type": "AREA",
+      "watts": 0,
+      "color": [
+        1,
+        0.7200000286102295,
+        0.4399999976158142
+      ]
+    },
+    {
+      "name": "V9 existing undercab task light",
+      "type": "AREA",
+      "watts": 12,
+      "color": [
+        1,
+        0.7200000286102295,
+        0.4399999976158142
+      ]
+    },
+    {
+      "name": "V9 existing undercab task light.001",
+      "type": "AREA",
+      "watts": 12,
+      "color": [
+        1,
+        0.7200000286102295,
+        0.4399999976158142
+      ]
+    },
+    {
+      "name": "Rack.top0 ÖVERSIDAN 1 light",
+      "type": "AREA",
+      "watts": 9.666666984558105,
+      "color": [
+        1,
+        0.7200000286102295,
+        0.4399999976158142
+      ]
+    },
+    {
+      "name": "Rack.top1 ÖVERSIDAN 1 light",
+      "type": "AREA",
+      "watts": 4.666666507720947,
+      "color": [
+        1,
+        0.7200000286102295,
+        0.4399999976158142
+      ]
+    },
+    {
+      "name": "Rack.top2 ÖVERSIDAN 1 light",
+      "type": "AREA",
+      "watts": 4.666666507720947,
+      "color": [
+        1,
+        0.7200000286102295,
+        0.4399999976158142
+      ]
+    },
+    {
+      "name": "Desk.shelf1 ÖVERSIDAN 1 light",
+      "type": "AREA",
+      "watts": 7.333333492279053,
+      "color": [
+        1,
+        0.7200000286102295,
+        0.4399999976158142
+      ]
+    },
+    {
+      "name": "Desk.shelf1 ÖVERSIDAN 2 light",
+      "type": "AREA",
+      "watts": 7.333333492279053,
+      "color": [
+        1,
+        0.7200000286102295,
+        0.4399999976158142
+      ]
+    },
+    {
+      "name": "Desk.shelf2 ÖVERSIDAN 1 light",
+      "type": "AREA",
+      "watts": 7.333333492279053,
+      "color": [
+        1,
+        0.7200000286102295,
+        0.4399999976158142
+      ]
+    },
+    {
+      "name": "Desk.shelf2 ÖVERSIDAN 2 light",
+      "type": "AREA",
+      "watts": 7.333333492279053,
+      "color": [
+        1,
+        0.7200000286102295,
+        0.4399999976158142
+      ]
+    },
+    {
+      "name": "Portal.shelfL5 ÖVERSIDAN 1 light",
+      "type": "AREA",
+      "watts": 4.666666507720947,
+      "color": [
+        1,
+        0.7200000286102295,
+        0.4399999976158142
+      ]
+    },
+    {
+      "name": "Portal.shelfR5 ÖVERSIDAN 1 light",
+      "type": "AREA",
+      "watts": 4.666666507720947,
+      "color": [
+        1,
+        0.7200000286102295,
+        0.4399999976158142
+      ]
+    }
+  ],
+  "atlases": [
+    {
+      "category": "floor",
+      "atlas": 2048,
+      "area_m2": 29.53,
+      "texels_per_m": 190,
+      "bake_seconds": 141.4,
+      "vertices": 7320,
+      "polygons": 5715
+    },
+    {
+      "category": "shell",
+      "atlas": 4096,
+      "area_m2": 151.81,
+      "texels_per_m": 150,
+      "bake_seconds": 459.8,
+      "vertices": 72,
+      "polygons": 45
+    },
+    {
+      "category": "trim",
+      "atlas": 2048,
+      "area_m2": 28.36,
+      "texels_per_m": 200,
+      "bake_seconds": 93.9,
+      "vertices": 240,
+      "polygons": 228
+    },
+    {
+      "category": "kitchen",
+      "atlas": 2048,
+      "area_m2": 35.75,
+      "texels_per_m": 220,
+      "bake_seconds": 136.3,
+      "vertices": 3136,
+      "polygons": 3006
+    },
+    {
+      "category": "equipment",
+      "atlas": 1024,
+      "area_m2": 5.47,
+      "texels_per_m": 320,
+      "bake_seconds": 20.4,
+      "vertices": 16128,
+      "polygons": 15892
+    },
+    {
+      "category": "chair",
+      "atlas": 512,
+      "area_m2": 1.26,
+      "texels_per_m": 200,
+      "bake_seconds": 5.7,
+      "vertices": 632,
+      "polygons": 438
+    },
+    {
+      "category": "bed",
+      "atlas": 2048,
+      "area_m2": 30.57,
+      "texels_per_m": 200,
+      "bake_seconds": 81,
+      "vertices": 13312,
+      "polygons": 13509
+    },
+    {
+      "category": "curtains",
+      "atlas": 1024,
+      "area_m2": 7.65,
+      "texels_per_m": 200,
+      "bake_seconds": 27.9,
+      "vertices": 384,
+      "polygons": 224
+    },
+    {
+      "category": "clothes",
+      "atlas": 2048,
+      "area_m2": 17.4,
+      "texels_per_m": 200,
+      "bake_seconds": 45.8,
+      "vertices": 8656,
+      "polygons": 8068
+    },
+    {
+      "category": "hall",
+      "atlas": 512,
+      "area_m2": 3.67,
+      "texels_per_m": 200,
+      "bake_seconds": 8.1,
+      "vertices": 624,
+      "polygons": 549
+    },
+    {
+      "category": "ceiling",
+      "atlas": 2048,
+      "area_m2": 60.35,
+      "texels_per_m": 120,
+      "bake_seconds": 102.3,
+      "vertices": 88,
+      "polygons": 48
+    },
+    {
+      "category": "exterior",
+      "atlas": 1024,
+      "area_m2": 36.61,
+      "texels_per_m": 80,
+      "bake_seconds": 10.6,
+      "vertices": 8,
+      "polygons": 5
+    },
+    {
+      "category": "doors",
+      "atlas": 1024,
+      "area_m2": 14.06,
+      "texels_per_m": 180,
+      "bake_seconds": 34.5,
+      "vertices": 1568,
+      "polygons": 1583
+    },
+    {
+      "category": "glass",
+      "atlas": 512,
+      "area_m2": 12.81,
+      "texels_per_m": 60,
+      "bake_seconds": 1.6,
+      "vertices": 128,
+      "polygons": 119
+    },
+    {
+      "category": "pipes",
+      "atlas": 4096,
+      "area_m2": 12.26,
+      "texels_per_m": 330,
+      "bake_seconds": 82,
+      "vertices": 114386,
+      "polygons": 69454
+    },
+    {
+      "category": "wood",
+      "atlas": 2048,
+      "area_m2": 17.76,
+      "texels_per_m": 300,
+      "bake_seconds": 116.7,
+      "vertices": 19373,
+      "polygons": 16848
+    },
+    {
+      "category": "lighting",
+      "atlas": 1024,
+      "area_m2": 2.62,
+      "texels_per_m": 300,
+      "bake_seconds": 17.1,
+      "vertices": 13076,
+      "polygons": 12704
+    },
+    {
+      "category": "crates",
+      "atlas": 1024,
+      "area_m2": 6.71,
+      "texels_per_m": 240,
+      "bake_seconds": 27.1,
+      "vertices": 16608,
+      "polygons": 16212
+    }
+  ],
+  "model_bytes": 16894488,
+  "mesh_count": 18,
+  "lights_exported": false,
+  "uncompressed_model_bytes": 50438944,
+  "mesh_compression": "EXT_meshopt_compression",
+  "texture_compression": "KHR_texture_basisu: KTX2, mipmapped; UASTC (RDO λ2.0, Zstandard 18) for detail, ETC1S for shell, ceiling, exterior, glass",
+  "textures": [
+    {
+      "name": "bed",
+      "size": [
+        2048,
+        2048
+      ],
+      "codec": "UASTC",
+      "bytes": 1229033
+    },
+    {
+      "name": "ceiling",
+      "size": [
+        2048,
+        2048
+      ],
+      "codec": "ETC1S",
+      "bytes": 91567
+    },
+    {
+      "name": "chair",
+      "size": [
+        512,
+        512
+      ],
+      "codec": "UASTC",
+      "bytes": 72067
+    },
+    {
+      "name": "clothes",
+      "size": [
+        2048,
+        2048
+      ],
+      "codec": "UASTC",
+      "bytes": 865540
+    },
+    {
+      "name": "crates",
+      "size": [
+        1024,
+        1024
+      ],
+      "codec": "UASTC",
+      "bytes": 575248
+    },
+    {
+      "name": "curtains",
+      "size": [
+        1024,
+        1024
+      ],
+      "codec": "UASTC",
+      "bytes": 297504
+    },
+    {
+      "name": "doors",
+      "size": [
+        1024,
+        1024
+      ],
+      "codec": "UASTC",
+      "bytes": 373750
+    },
+    {
+      "name": "equipment",
+      "size": [
+        1024,
+        1024
+      ],
+      "codec": "UASTC",
+      "bytes": 492537
+    },
+    {
+      "name": "exterior",
+      "size": [
+        1024,
+        1024
+      ],
+      "codec": "ETC1S",
+      "bytes": 2437
+    },
+    {
+      "name": "floor",
+      "size": [
+        2048,
+        2048
+      ],
+      "codec": "UASTC",
+      "bytes": 1653825
+    },
+    {
+      "name": "glass",
+      "size": [
+        512,
+        512
+      ],
+      "codec": "ETC1S",
+      "bytes": 1874
+    },
+    {
+      "name": "hall",
+      "size": [
+        512,
+        512
+      ],
+      "codec": "UASTC",
+      "bytes": 65710
+    },
+    {
+      "name": "kitchen",
+      "size": [
+        2048,
+        2048
+      ],
+      "codec": "UASTC",
+      "bytes": 1366015
+    },
+    {
+      "name": "lighting",
+      "size": [
+        1024,
+        1024
+      ],
+      "codec": "UASTC",
+      "bytes": 666595
+    },
+    {
+      "name": "pipes",
+      "size": [
+        4096,
+        4096
+      ],
+      "codec": "UASTC",
+      "bytes": 3042701
+    },
+    {
+      "name": "shell",
+      "size": [
+        4096,
+        4096
+      ],
+      "codec": "ETC1S",
+      "bytes": 452714
+    },
+    {
+      "name": "trim",
+      "size": [
+        2048,
+        2048
+      ],
+      "codec": "UASTC",
+      "bytes": 567893
+    },
+    {
+      "name": "wood",
+      "size": [
+        2048,
+        2048
+      ],
+      "codec": "UASTC",
+      "bytes": 2351430
+    }
+  ],
+  "texture_count": 18,
+  "gpu_texture_bytes_estimate": 93323258
+}

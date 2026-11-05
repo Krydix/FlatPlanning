@@ -2,16 +2,18 @@
 Writes public/data/clearances.json. Distances are model distances in mm: they are only as true
 as source/room-measurements.json and the equipment envelopes, and each check records its basis.
 """
-import bpy,sys,json,math
+import bpy,sys,json,math,os
 from pathlib import Path
 from collections import defaultdict
 from mathutils import Vector
 from mathutils.bvhtree import BVHTree
 ROOT=Path(__file__).resolve().parent.parent;sys.path.insert(0,str(ROOT/'source'))
 from pipe_engine import room_geometry,EAR_MM
-bpy.ops.wm.open_mainfile(filepath=str(ROOT/'source/flat-v18.blend'));scene=bpy.context.scene;scene.frame_set(1)
+# FLAT_VARIANT=portal checks source/flat-portal.blend; the default keeps V18's own report.
+PORTAL=os.environ.get('FLAT_VARIANT')=='portal';SCENE,GRAPH,REPORT=('flat-portal.blend','assembly-portal.json','clearances-portal.json') if PORTAL else ('flat-v18.blend','assembly.json','clearances.json')
+bpy.ops.wm.open_mainfile(filepath=str(ROOT/'source'/SCENE));scene=bpy.context.scene;scene.frame_set(1)
 ROOM=json.loads((ROOT/'source/room-measurements.json').read_text());GEO=room_geometry();TARGET=ROOM['clearance_targets']
-EQUIPMENT=json.loads((ROOT/'source/equipment-layout.json').read_text())
+EQUIPMENT=json.loads((ROOT/'source/equipment-layout.json').read_text());ASSEMBLY=json.loads((ROOT/'source'/GRAPH).read_text());DESK=ASSEMBLY['boards']['Desk.top']['bounds']
 dg=bpy.context.evaluated_depsgraph_get()
 def collections(o):return [c.name for c in o.users_collection]
 def rendered(o):
@@ -58,7 +60,7 @@ for o in assembly+named('Chair',collection='04 '):
    if d<best[0]:best=(d,part(o),v.copy())
 floor=min((math.hypot(max(0,v.x-kx),max(0,v.y-ky)),part(o)) for o in assembly for v in world(o)[0] if v.z<100 and v.x>kx-1 and v.y>ky-1)
 status='clash' if best[0]<TARGET['entry_passage_min'] else 'tight' if best[0]<TARGET['entry_passage_comfortable'] else 'ok'
-report('entry-passage','Entrance passage, kitchen corner to desk',best[0],TARGET['entry_passage_min'],status,f'Nearest: {best[1]}. At floor level the nearest is {floor[1]} at {floor[0]:.0f} mm. Comfortable two-way passage is about {TARGET["entry_passage_comfortable"]} mm.','assumed' if not GEO['wall_measured'] else 'measured',points=[(kx,ky,best[2].z),tuple(best[2])])
+report('entry-passage','Entrance passage, kitchen corner to '+('divider' if PORTAL else 'desk'),best[0],TARGET['entry_passage_min'],status,f'Nearest: {best[1]}. At floor level the nearest is {floor[1]} at {floor[0]:.0f} mm. Comfortable two-way passage is about {TARGET["entry_passage_comfortable"]} mm.','assumed' if not GEO['wall_measured'] else 'measured',points=[(kx,ky,best[2].z),tuple(best[2])])
 # 3. Equipment must not intersect each other or the frame (resting contact allowed).
 groups=defaultdict(list)
 for o in OBJECTS:
@@ -86,21 +88,22 @@ report('equipment-clashes','Desk equipment intersections',len(clashes),0,'clash'
 kb=boxes['Computer keyboard'];midi=bounds([o for o in groups['MIDI controller'] if o.name.startswith('Komplete')])
 report('keyboard-midi','Computer keyboard to MIDI controller',midi[0][0]-kb[1][0],10,'ok' if midi[0][0]-kb[1][0]>=10 else 'clash','Front-to-back gap on the desktop','envelopes')
 # 4. Knee zone stays open (the chair is the occupant).
-kz=EQUIPMENT['knee_zone'];x0,x1,y0,y1=kz['bounds'];top=kz['clear_height'];intruders=sorted({part(o) for o in OBJECTS if not o.name.startswith('Chair') and any(x0+1<v.x<x1-1 and y0+1<v.y<y1-1 and 60<v.z<top-1 for v in world(o)[0])})
+kz=EQUIPMENT['knee_zone'];x0,x1,y0,y1=kz['bounds'];y0+=DESK[2]-1305;y1+=DESK[2]-1305;top=kz['clear_height'];intruders=sorted({part(o) for o in OBJECTS if not o.name.startswith('Chair') and any(x0+1<v.x<x1-1 and y0+1<v.y<y1-1 and 60<v.z<top-1 for v in world(o)[0])})
 report('knee-zone','Central knee zone',y1-y0,700,'clash' if intruders else 'ok',('Intrudes: '+', '.join(intruders)) if intruders else f'{y1-y0:.0f} mm wide, {x1-x0:.0f} mm deep, {top} mm clear. Check against your own knee width with the chair arms.','envelopes')
 # 5. Speaker aim: tweeter axis versus the seated ear reference.
 for side,suffix in (('L',''),('R','.001')):
  body=bpy.data.objects.get('KRK monitor speaker reservation'+suffix);tw=bpy.data.objects.get('KRK tweeter'+suffix)
  if not body or not tw:continue
  axis=(body.matrix_world.to_3x3()@Vector((1,0,0))).normalized();t=tw.matrix_world.translation*1000;tray=body.get('speaker_tray')
- ear=Vector((EAR_MM[0],(2920+1305)/2,EAR_MM[1]));to_ear=(ear-t).normalized();error=math.degrees(axis.angle(to_ear))
+ ear=Vector((EAR_MM[0],(DESK[2]+DESK[3])/2,EAR_MM[1]));to_ear=(ear-t).normalized();error=math.degrees(axis.angle(to_ear))
  report('speaker-aim-'+side,f'Speaker {side} tweeter aim error',error,8,'ok' if error<=8 else 'tight',f'Tweeter at {t.z:.0f} mm, {(ear-t).length:.0f} mm from the ear reference; pad tilt {body.get("speaker_tilt_degrees",0)}°, capped at 10° for a stable wedge pad; under about 8° keeps the ear inside the tweeter on-axis window. Seated ear reference x {EAR_MM[0]}, z {EAR_MM[1]} mm.','envelopes','deg')
 # 6. Storage below the ceiling.
-storage=[o for o in OBJECTS if any(c.startswith(('13 ','15 ','18 ','07 ')) for c in collections(o)) or 'KNAGGLIG' in o.name]
+# Ceiling ties reach the slab by design; they are fixings, not storage.
+storage=[o for o in OBJECTS if (any(c.startswith(('13 ','15 ','18 ','07 ')) for c in collections(o)) or 'KNAGGLIG' in o.name) and not part(o).startswith('Portal.tie')]
 instances=[(i.object.original,i.matrix_world.copy()) for i in dg.object_instances if i.is_instance and i.parent and 'KNAGGLIG' in i.parent.original.name]
 tops=[max(((m@Vector(c))*1000).to_tuple()[::-1] for c in o.bound_box)[::-1]+('KNAGGLIG crate',) for o,m in instances]
 tops=[(t[2],t[3],t[:3]) for t in tops]+[(v.z,part(o),tuple(v)) for o in storage for v in [max(world(o)[0],key=lambda v:v.z)]]
-high=max(tops);gap=GEO['ceiling']-high[0];top_board=max(b['bottom']+b['thickness'] for k,b in json.loads((ROOT/'source/assembly.json').read_text())['boards'].items() if k.startswith('Rack.top'))
+high=max(tops);gap=GEO['ceiling']-high[0];top_board=max(b['bottom']+b['thickness'] for k,b in ASSEMBLY['boards'].items() if k.startswith('Portal.lintel1' if PORTAL else 'Rack.top'))
 report('ceiling-storage','Highest storage to ceiling',gap,TARGET['storage_ceiling_gap_min'],'clash' if gap<0 else 'tight' if gap<TARGET['storage_ceiling_gap_min'] or not GEO['ceiling_measured'] else 'ok',f'{high[1]} reaches {high[0]:.0f} mm; ceiling {GEO["ceiling"]:.0f} mm'+(' measured' if GEO['ceiling_measured'] else ' ASSUMED — measure before buying the top crates')+f'. Above the {top_board:.0f} mm top boards there is {GEO["ceiling"]-top_board:.0f} mm; a 310 × 250 mm crate needs {math.hypot(310,250):.0f} mm to tilt in, otherwise it must slide in flat.','measured' if GEO['ceiling_measured'] else 'assumed',points=[high[2],(high[2][0],high[2][1],GEO['ceiling'])])
 # 7. Under-bed boxes slide out under the side beam.
 beams=named('Bed side beam',collection='05 ');beam_low=min(bounds([b])[0][2] for b in beams);boxes_top=max(bounds(named('Crate slat','Crate end slat',collection='05 '))[1][2],0)
@@ -127,8 +130,49 @@ for leaf in ROOM['doors']['leaves']:
 # 9. Aisle between the bed and the wardrobe clothes.
 bed=bounds(named('1400 x 2000 mattress',collection='05 '));aisle,who,at=min((v.x-bed[1][0],part(o),tuple(v)) for o in OBJECTS if any(c.startswith(('04 ','07 ','13 ')) for c in collections(o)) and 'curtain' not in o.name.lower() for v in world(o)[0] if bed[0][1]<v.y<bed[1][1] and v.z<1900 and v.x>bed[1][0])
 report('bed-aisle','Bed to desk and wardrobe aisle',aisle,TARGET['aisle_min'],'ok' if aisle>=TARGET['aisle_min'] else 'tight',f'Narrowest point beside the bed: {who}. Garments in front of the wardrobe are included.','envelopes',points=[(bed[1][0],at[1],at[2]),at])
+# 10. Portal divider: fixed furniture agrees with the layout file, the door stays open, the crates really fit.
+if PORTAL:
+ L=json.loads((ROOT/'source/portal-layout.json').read_text());F=L['fixed'];P=ASSEMBLY['portal'];C=L['crate']['size'];xs=P['xs'];yf,yb=P['rows'];cx=P['cx'];cz=P['centre_z'];sh=P['semi_height'];hw=P['half_width']
+ frame_parts=[o for o in OBJECTS if any(c.startswith(('13 ','15 ','18 ')) for c in collections(o)) and yf-60<bounds([o])[1][1] and bounds([o])[0][1]<yb+60]
+ bar=bounds(named('FIXED bar worktop','OPTIONAL removable oak bar end skin'));bed=bounds(named('Bed side beam','Solid left-wall headboard',collection='05 '))
+ for id,label,model,value in (('bar-end','Bar end vs portal layout',bar[1][0],F['bar_end_x']),('bar-back','Bar back vs portal layout',bar[1][1],F['bar_back_y']),('bed-near','Bed near side vs portal layout',bed[0][1],F['bed_near_y']),('bed-right','Bed foot vs portal layout',bed[1][0],F['bed_right_x'])):
+  delta=abs(model-value);report('portal-fixed-'+id,label,delta,5,'clash' if delta>5 else 'ok',f'Model {model:.0f} mm, layout file {value:.0f} mm','assumed')
+ left=min(v.x for o in assembly if part(o).startswith(('PF0','PB0','Portal')) for v in world(o)[0]);gap=left-F['bar_end_x']
+ report('portal-bar-gap','Divider to bar end',gap,10,'clash' if gap<0 else 'tight' if gap<10 else 'ok','Lowest boards and foot flanges beside the bar end, including the optional oak skin.','assumed')
+ # Nothing may enter the ellipse the shelves describe, at any depth through the divider.
+ outside=lambda v:((v.x-cx)/hw)**2+((v.z-cz)/sh)**2;board_y=ASSEMBLY['boards']['Portal.lintel0']['bounds'][2:]
+ intruders=sorted({part(o) for o in OBJECTS if not any(c.startswith(('01 ','05 ','02 ','09 ','10 ','12 ','04 ','07 ')) for c in collections(o)) for v in world(o)[0] if board_y[0]<=v.y<=board_y[1]-.5 and 0<v.z and outside(v)<.98})
+ report('portal-outline','Parts inside the portal opening',len(intruders),0,'clash' if intruders else 'ok','; '.join(intruders) or f'Clear ellipse {2*hw:.0f} mm wide and {P["head"]:.0f} mm high, centred on x {cx:.0f}. Oak light cover included.','envelopes','count')
+ floor_width=2*hw*math.sqrt(max(0,1-(cz/sh)**2));report('portal-floor-width','Portal width at the floor',floor_width,800,'ok' if floor_width>=800 else 'tight','Width of the ellipse at floor level; it widens with height.','envelopes')
+ shoulder=2*hw*math.sqrt(max(0,1-((1500-cz)/sh)**2));report('portal-shoulder','Portal width at 1,500 mm height',shoulder,700,'ok' if shoulder>=700 else 'tight','Shoulder height of a tall adult walking through.','envelopes')
+ # Bounds, not vertices: a long cover has no vertex near the centre line.
+ spans=[bounds([o]) for o in OBJECTS if any(c.startswith(('13 ','15 ')) for c in collections(o))];hd=min(lo[2] for lo,hi in spans if lo[0]<cx+250 and hi[0]>cx-250 and lo[1]<board_y[1] and hi[1]>board_y[0] and lo[2]>1500)
+ # Behind the opening the walkway is bounded by the door's kitchen-side edge and the desk's front corner.
+ desk_x=ASSEMBLY['boards']['Desk.top']['bounds'][0];exit_width=desk_x-(cx-2*hw*math.sqrt(max(0,1-(cz/sh)**2))/2)
+ report('portal-exit','Walkway through the door past the desk corner',exit_width,600,'clash' if exit_width<600 else 'tight' if exit_width<TARGET['entry_passage_comfortable'] else 'ok',f'Left edge of the opening at the floor to the desktop edge at x {desk_x:.0f}. The near desk leg foot stands just behind the right edge of the opening.','envelopes')
+ report('portal-head','Portal head height at the centre',hd,1950,'ok' if hd>=1950 else 'tight',f'Lowest part within 250 mm of the centre line: the oak light cover or lintel rail. Ceiling {GEO["ceiling"]:.0f} mm.','measured' if GEO['ceiling_measured'] else 'assumed')
+ groups_=defaultdict(list)
+ for i in dg.object_instances:
+  if i.is_instance and i.parent and 'KNAGGLIG' in i.parent.original.name:groups_[i.parent.original.name].append((i.object.original,i.matrix_world.copy()))
+ boxes_=[]
+ for key,items in groups_.items():
+  pts=[(m@Vector(c))*1000 for o,m in items for c in o.bound_box];boxes_.append(([min(p[i] for p in pts) for i in range(3)],[max(p[i] for p in pts) for i in range(3)]))
+ boards=ASSEMBLY['boards'];hit=[];side=[];depth=[]
+ for lo,hi in boxes_:
+  size=[hi[i]-lo[i] for i in range(3)]
+  if abs(size[0]-C[0])>12 or abs(size[1]-C[1])>12 or abs(size[2]-C[2])>12:hit.append(f'wrong crate envelope {size}')
+  depth.append(min(lo[1]-boards['Portal.lintel0']['bounds'][2],boards['Portal.lintel0']['bounds'][3]-hi[1]))
+  side.append(min(lo[0]-xs[1],xs[2]-hi[0])-12.5)
+  for o in OBJECTS:
+   if any(c.startswith(('13 ','15 ')) for c in collections(o)) and not (part(o).startswith('Portal.lintel')):
+    b=bounds([o])
+    if all(lo[i]+1<b[1][i] and b[0][i]<hi[i]-1 for i in range(3)):hit.append(part(o))
+ hit=sorted(set(hit));report('portal-crate-count','KNAGGLIG crates on the lintel boards',len(boxes_),6,'ok' if len(boxes_)==6 else 'clash',f'{len(boxes_)} crates of {C[0]} x {C[1]} x {C[2]} mm, long side across the room.','envelopes','count')
+ report('portal-crate-clash','Parts intersecting a crate',len(hit),0,'clash' if hit else 'ok','; '.join(hit) or 'No frame, hanger or light part intersects any crate envelope.','envelopes','count')
+ report('portal-crate-side','Crate to inner post',min(side),5,'clash' if min(side)<0 else 'tight' if min(side)<5 else 'ok','Tightest end of the three-crate row between the inner posts.','envelopes')
+ report('portal-crate-depth','Crate inside board depth',min(depth),20,'clash' if min(depth)<0 else 'ok',f'Boards are {boards["Portal.lintel0"]["bounds"][3]-boards["Portal.lintel0"]["bounds"][2]:.0f} mm deep; crates are {C[1]} mm deep.','envelopes')
 basis={'wall':'measured' if GEO['wall_measured'] else 'assumed','ceiling':'measured' if GEO['ceiling_measured'] else 'assumed','services':ROOM['services']['status'],'doors':ROOM['doors']['status']}
 tilts={o.get('speaker_tilt_degrees') for o in OBJECTS if o.name.startswith('KRK monitor speaker reservation')}
 out={'generated_by':'scripts/check-clearances.py','basis':basis,'ear_reference_mm':list(EAR_MM),'speaker_tilt_degrees':max(tilts),'checks':checks}
-(ROOT/'public/data/clearances.json').write_text(json.dumps(out,indent=2,ensure_ascii=False)+'\n')
+(ROOT/'public/data'/REPORT).write_text(json.dumps(out,indent=2,ensure_ascii=False)+'\n')
 for c in checks:print('CLEARANCE',c['status'].upper().ljust(6),c['label'],c['value'],c['unit'],'|',c['detail'],flush=True)

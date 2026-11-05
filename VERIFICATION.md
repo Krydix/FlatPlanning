@@ -38,3 +38,23 @@
 - Eight viewer tests pass. Browser checks covered the overview, workstation, dimensions, two-click measure tool, assembly 3D view and a 390 px layout.
 
 Physical dimensions and hardware load ratings remain provisional. These checks do not certify structural safety or the physical installation sequence.
+
+## Portal variant
+
+`public/data/clearances-portal.json` is the same report run on `source/flat-portal.blend`, plus divider checks. It has no clashes.
+
+| Check | Model value | Status |
+|---|---|---|
+| Parts inside the door ellipse | 0 | ok |
+| Door width: at the floor / at 1,500 mm height | 869 / 1,122 mm | ok |
+| Door head at the centre, set by the oak light cover | 1,990 mm | ok |
+| Walkway from the left edge of the door to the desk corner | 779 mm | tight; at least 600, about 800 is comfortable |
+| Bed to parked chair (V18 was 673 mm to the desk corner) | 623 mm | tight; less when seated |
+| Six crates: parts intersecting them / gap to the inner post / inside the board depth | 0 / 13.5 / 35 mm | ok |
+| Top crates to the measured ceiling | 32 mm | ok; they slide in flat, they cannot tilt in |
+| Divider to bar end | 16 mm | ok |
+| Fixed bar and bed positions against `source/portal-layout.json` | 0 mm | ok |
+
+16 graph tests in `source/test_portal.py` cover stock lengths, the crates, the opening, the ceiling-derived heights and the rigid desk move. One of them checks that V18's graph still rebuilds byte for byte.
+
+Ceiling construction and tie fixings are unknown. The arms under the top shelves are cantilevers with no manufacturer rating. These checks do not certify structural safety, and the overhead crates make that matter more here than in V18.

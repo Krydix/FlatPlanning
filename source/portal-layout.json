@@ -1,0 +1,45 @@
+{
+  "units": "mm",
+  "instruction": "Design inputs for the portal divider variant. Heights above the top shelf band are derived from the ceiling in room-measurements.json, so a new ceiling reading moves the crates, lintel and ceiling ties without editing this file. The 'fixed' block mirrors the Blender CAD model; scripts/check-clearances.py fails the portal variant if they disagree by more than 5 mm.",
+  "fixed": {
+    "basis": "Blender CAD footprint, not site-measured",
+    "bar_end_x": 1292,
+    "bar_back_y": 2280,
+    "bed_near_y": 2620,
+    "bed_right_x": 2030
+  },
+  "crate": {
+    "article": "IKEA KNAGGLIG 702.923.59",
+    "size": [460, 310, 250],
+    "per_row": 3,
+    "rows": 2,
+    "side_gap": 10,
+    "row_gap": 12,
+    "ceiling_gap": 32
+  },
+  "frame": {
+    "board_thickness": 28,
+    "board_overhang": 45,
+    "post_bore": 44,
+    "span_tubes": [1200, 200],
+    "upper_post": 1000,
+    "lower_post": 1500,
+    "ceiling_tie": 200,
+    "wall_tie_heights": [890, 1860]
+  },
+  "opening": {
+    "half_width": 680,
+    "centre_z": 865,
+    "head_margin": 10,
+    "post_web": 40,
+    "arm_above_cantilever": 240,
+    "arm_tip_clearance": 20
+  },
+  "levels": [100, 422, 744, 1066, 1388, 1710],
+  "cap_steps": [1870],
+  "desk_gap_behind_divider": 80,
+  "wardrobe": [
+    {"role": "short", "tube": 602, "rails": [950, 1950]},
+    {"role": "coat", "tube": 602, "rails": [2030]}
+  ]
+}

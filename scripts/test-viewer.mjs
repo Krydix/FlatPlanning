@@ -91,6 +91,13 @@ test('the render loop sleeps when idle and wakes for changes, resize and context
  runner.enable(false);runner.draw();assert.equal(queue.length,0,'disabled viewers request no frames');
 });
 
+test('a variant replaces camera presets without losing the rest',()=>{
+ const queue=[];globalThis.requestAnimationFrame=callback=>queue.push(callback);
+ const viewer={camera:new THREE.PerspectiveCamera(),controls:{target:new THREE.Vector3(),update(){}},runner:{draw(){}},updateCutaway(){},responsiveFov:RoomViewer.prototype.responsiveFov,views:{desk:{position:[9,1,-3],target:[3,1,-3],fov:60}}};
+ RoomViewer.prototype.setView.call(viewer,'desk',true);assert.equal(viewer.camera.position.x,9);
+ RoomViewer.prototype.setView.call(viewer,'missing',true);assert.equal(viewer.currentView,'missing');assert.ok(viewer.camera.position.x!==9,'An unknown preset falls back to the overview');
+});
+
 test('dimensions are dashed unless measured on site',()=>{
  globalThis.document={createElement:()=>({className:'',textContent:'',style:{},setAttribute(){}})};
  const viewer={dimensionGroup:new THREE.Group()};
