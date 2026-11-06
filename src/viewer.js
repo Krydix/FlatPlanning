@@ -11,6 +11,7 @@ const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 export const interiorFor=(ceiling=2.63)=>[[[0,0,-5.3],[3.45,ceiling,0]],[[2.2,0,.1],[3.45,ceiling,3.2]],[[0,0,.3],[2.1,ceiling,3.05]]].map(([a,b])=>new THREE.Box3(new THREE.Vector3(...a),new THREE.Vector3(...b)));
 export const INTERIOR=interiorFor();
 const pixelRatio=()=>Math.min(window.devicePixelRatio||1,1.75);
+export const FOV_RANGE=[20,110];
 const formatLength=mm=>mm>=1000?`${(mm/1000).toFixed(2)} m`:`${(mm/10).toFixed(1)} cm`;
 const BASIS={measured:'measured',assumed:'assumed',preview:'preview fitting profile',model:'model, from assumed room'};
 const VIEWS = {
@@ -41,14 +42,14 @@ export function loopViewer(renderer,scene,camera,controls,container,labels,onRes
 }
 function watchContext(renderer,onLost,onRestored){const canvas=renderer.domElement;canvas.addEventListener('webglcontextlost',()=>onLost?.());canvas.addEventListener('webglcontextrestored',()=>onRestored?.());}
 export class RoomViewer {
- constructor(container,{onProgress,onReady,onError,onCutaway,onContextLost,onContextRestored,onMeasure,dimensions=[],ceiling,model='models/flat-baked.glb?bake=v19-speakers',views}={}){
-  this.views={...VIEWS,...views};this.container=container;this.onCutaway=onCutaway;this.onError=onError;this.onMeasure=onMeasure;this.cutaway=true;this.currentView='overview';this.scene=new THREE.Scene();this.interior=ceiling?interiorFor(ceiling):INTERIOR;
+ constructor(container,{onProgress,onReady,onError,onCutaway,onContextLost,onContextRestored,onMeasure,onFov,dimensions=[],ceiling,model='models/flat-baked.glb?bake=v19-speakers',views}={}){
+  this.views={...VIEWS,...views};this.onFov=onFov;this.userFov=null;this.container=container;this.onCutaway=onCutaway;this.onError=onError;this.onMeasure=onMeasure;this.cutaway=true;this.currentView='overview';this.scene=new THREE.Scene();this.interior=ceiling?interiorFor(ceiling):INTERIOR;
   this.camera=new THREE.PerspectiveCamera(43,1,.02,100);this.renderer=rendererFor(container,0xe8eadf);watchContext(this.renderer,onContextLost,()=>{onContextRestored?.();this.runner.draw();});
   this.controls=new OrbitControls(this.camera,this.renderer.domElement);this.controls.enableDamping=true;this.controls.dampingFactor=.1;this.controls.minDistance=.35;this.controls.maxDistance=21;this.controls.maxPolarAngle=Math.PI*.52;
   this.controls.addEventListener('start',()=>{this.animation=null;});
   this.controls.addEventListener('change',()=>this.updateCutaway());
   this.labels=new CSS2DRenderer();this.labels.domElement.style.cssText='position:absolute;inset:0;pointer-events:none;z-index:2';container.appendChild(this.labels.domElement);
-  this.runner=loopViewer(this.renderer,this.scene,this.camera,this.controls,container,this.labels,()=>{this.camera.fov=this.responsiveFov(this.views[this.currentView]?.fov||43);});
+  this.runner=loopViewer(this.renderer,this.scene,this.camera,this.controls,container,this.labels,()=>{this.camera.fov=this.fovGoal();this.onFov?.(this.camera.fov);});
   this.dimensionGroup=new THREE.Group();this.dimensionGroup.visible=false;this.scene.add(this.dimensionGroup);this.addDimensions(dimensions);this.setView('overview',true);
   this.measureGroup=new THREE.Group();this.scene.add(this.measureGroup);this.measurePoints=[];this.measuring=false;this.bindMeasure();
   // KTX2 atlases stay GPU-compressed (UASTC/ETC1S → ASTC/BC7/ETC2), with full mip chains.
@@ -60,6 +61,9 @@ export class RoomViewer {
    this.setCutaway(this.cutaway);this.runner.draw();onReady?.();
   },event=>{if(event.total)onProgress?.(Math.round(event.loaded/event.total*100));},error=>{console.error('Room model load failed',error);onError?.(error);});
  }
+ // A hand-set FOV wins over the preset until the next preset is chosen, including across resizes.
+ fovGoal(){return this.userFov??this.responsiveFov(this.views[this.currentView]?.fov||43);}
+ setFov(value){this.userFov=THREE.MathUtils.clamp(value,...FOV_RANGE);this.camera.fov=this.userFov;this.camera.updateProjectionMatrix();this.onFov?.(this.camera.fov);this.runner.draw();}
  responsiveFov(fov){return Math.min(105,2*Math.atan(Math.tan(fov*Math.PI/360)*Math.max(1,1.25/this.camera.aspect))*180/Math.PI);}
  addDimensions(dimensions){
   // Solid green only for site measurements; everything assumed or derived is dashed amber.
@@ -105,10 +109,10 @@ export class RoomViewer {
  setView(name,immediate=false){
   // Presets move the same camera through the same baked model. Preserve the
   // cutaway preference and never change materials or lights here.
-  const view=(this.views||VIEWS)[name]||VIEWS.overview;this.currentView=name;this.controls.enablePan=true;
+  const view=(this.views||VIEWS)[name]||VIEWS.overview;this.currentView=name;this.userFov=null;this.controls.enablePan=true;
   const from=this.camera.position.clone(),fromTarget=this.controls.target.clone(),to=new THREE.Vector3(...view.position),toTarget=new THREE.Vector3(...view.target),oldFov=this.camera.fov;
   const token={};this.animation=token;const start=performance.now();
-  const move=time=>{if(this.animation!==token)return;const t=(immediate||reduced)?1:Math.min((time-start)/750,1);const k=1-Math.pow(1-t,3);this.camera.position.lerpVectors(from,to,k);this.controls.target.lerpVectors(fromTarget,toTarget,k);this.camera.fov=THREE.MathUtils.lerp(oldFov,this.responsiveFov(view.fov),k);this.camera.updateProjectionMatrix();this.controls.update();this.updateCutaway();this.runner.draw();if(t<1)requestAnimationFrame(move);};move(start);
+  const move=time=>{if(this.animation!==token)return;const t=(immediate||reduced)?1:Math.min((time-start)/750,1);const k=1-Math.pow(1-t,3);this.camera.position.lerpVectors(from,to,k);this.controls.target.lerpVectors(fromTarget,toTarget,k);this.camera.fov=THREE.MathUtils.lerp(oldFov,this.userFov??this.responsiveFov(view.fov),k);this.camera.updateProjectionMatrix();this.controls.update();this.updateCutaway();this.runner.draw();if(t<1)requestAnimationFrame(move);else this.onFov?.(this.camera.fov);};move(start);
  }
  resize(){this.runner.size();}
  setEnabled(value){this.runner.enable(value);}

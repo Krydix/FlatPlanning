@@ -12,3 +12,6 @@
 .dimension-legend span.unverified{color:#8a5a12}.dimension-legend span.measured{color:#3f6a2e}.dimension-legend em{font-style:normal;font-size:8px;opacity:.75;margin-left:4px}
 .canvas-wrap.measuring canvas{cursor:crosshair}#context-lost{inset:auto 22px 130px}#context-lost[hidden]{display:none}
 @media(max-width:540px){#room-tools .icon-button span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}#room-tools .icon-button{font-size:14px;padding:7px 9px}}
+.fov-control{display:flex;align-items:center;gap:6px;padding:0 9px;border-radius:7px;background:#f8faf0ed;border:1px solid #dce5d0;color:#6f845f;font-size:8px;backdrop-filter:blur(9px)}.fov-control input{width:92px;height:32px;margin:0;accent-color:#496937;cursor:pointer}.fov-control output{min-width:24px;text-align:right;font-variant-numeric:tabular-nums}
+@media(max-width:800px){.fov-control input{width:64px}}
+@media(max-width:540px){.scene-bottom{flex-wrap:wrap;justify-content:flex-end;row-gap:5px}.fov-control{padding:0 7px;gap:4px;font-size:7px}.fov-control input{width:72px;height:30px}}

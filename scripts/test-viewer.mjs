@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import * as THREE from 'three';
 
 globalThis.window={matchMedia:()=>({matches:false}),devicePixelRatio:2,addEventListener(){},removeEventListener(){}};
-const {RoomViewer,loopViewer,INTERIOR}=await import('../src/viewer.js');
+const {RoomViewer,loopViewer,INTERIOR,FOV_RANGE}=await import('../src/viewer.js');
 
 test('camera presets preserve baked materials and the chosen cutaway throughout each transition',()=>{
  const queue=[];
@@ -96,6 +96,17 @@ test('a variant replaces camera presets without losing the rest',()=>{
  const viewer={camera:new THREE.PerspectiveCamera(),controls:{target:new THREE.Vector3(),update(){}},runner:{draw(){}},updateCutaway(){},responsiveFov:RoomViewer.prototype.responsiveFov,views:{desk:{position:[9,1,-3],target:[3,1,-3],fov:60}}};
  RoomViewer.prototype.setView.call(viewer,'desk',true);assert.equal(viewer.camera.position.x,9);
  RoomViewer.prototype.setView.call(viewer,'missing',true);assert.equal(viewer.currentView,'missing');assert.ok(viewer.camera.position.x!==9,'An unknown preset falls back to the overview');
+});
+
+test('a hand-set FOV survives a resize, stays in range and yields to the next preset',()=>{
+ const queue=[];globalThis.requestAnimationFrame=callback=>queue.push(callback);const seen=[];
+ const viewer=Object.create(RoomViewer.prototype);Object.assign(viewer,{camera:new THREE.PerspectiveCamera(43,2),controls:{target:new THREE.Vector3(),update(){}},runner:{draw(){}},updateCutaway(){},views:{desk:{position:[1,1,1],target:[0,0,0],fov:62}},userFov:null,onFov:fov=>seen.push(fov)});
+ RoomViewer.prototype.setView.call(viewer,'desk',true);assert.equal(viewer.camera.fov,62);assert.equal(seen.at(-1),62);
+ viewer.setFov(35);assert.equal(viewer.camera.fov,35);assert.equal(seen.at(-1),35);
+ viewer.camera.aspect=.5;assert.equal(viewer.fovGoal(),35,'A resize must not overwrite a hand-set FOV');
+ viewer.setFov(500);assert.equal(viewer.camera.fov,FOV_RANGE[1]);viewer.setFov(1);assert.equal(viewer.camera.fov,FOV_RANGE[0]);
+ viewer.camera.aspect=2;RoomViewer.prototype.setView.call(viewer,'desk',true);assert.equal(viewer.userFov,null);assert.equal(viewer.camera.fov,62);
+ RoomViewer.prototype.setView.call(viewer,'desk');viewer.setFov(50);for(const callback of queue.splice(0))callback(performance.now()+1000);assert.equal(viewer.camera.fov,50,'A drag during a preset move must win');
 });
 
 test('dimensions are dashed unless measured on site',()=>{
