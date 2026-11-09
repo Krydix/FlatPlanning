@@ -7,7 +7,7 @@
 - The site labels each dimension with its basis. Solid green is shown only for site measurements: currently the ceiling and the crate-to-ceiling gap. Everything else is dashed amber (assumed, preview profile or model-derived).
 - `scripts/check-clearances.py` checks that the Blender architecture agrees with the room file. If a measured value differs by more than 5 mm, the check fails until the architecture is redrawn.
 
-## Clearance report (`public/data/clearances.json`, 16 checks, no clashes)
+## Clearance report (`public/data/clearances.json`, 17 checks, no clashes)
 
 | Check | Model value | Status |
 |---|---|---|
@@ -21,6 +21,7 @@
 | Speaker tweeter aim error at the seated ear reference (was about 17°) | 5.0° | ok |
 | Room, bathroom, entrance and both balcony leaf sweeps (directions assumed) | 27–160 mm | ok |
 | Central knee zone | 700 mm wide | ok; check against your own knees and chair arms |
+| Rays escaping through the floor, cast down from the room air in 49 directions (was 767) | 0 of about 241,000 | ok |
 
 ## Geometry and data
 

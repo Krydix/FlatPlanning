@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import * as THREE from 'three';
 
 globalThis.window={matchMedia:()=>({matches:false}),devicePixelRatio:2,addEventListener(){},removeEventListener(){}};
-const {RoomViewer,loopViewer,INTERIOR,FOV_RANGE}=await import('../src/viewer.js');
+const {RoomViewer,loopViewer,watchContext,INTERIOR,FOV_RANGE,horizontalFov,verticalFov}=await import('../src/viewer.js');
 
 test('camera presets preserve baked materials and the chosen cutaway throughout each transition',()=>{
  const queue=[];
@@ -98,15 +98,43 @@ test('a variant replaces camera presets without losing the rest',()=>{
  RoomViewer.prototype.setView.call(viewer,'missing',true);assert.equal(viewer.currentView,'missing');assert.ok(viewer.camera.position.x!==9,'An unknown preset falls back to the overview');
 });
 
-test('a hand-set FOV survives a resize, stays in range and yields to the next preset',()=>{
+test('FOV changes the perspective while the orbit target keeps its size on screen',()=>{
  const queue=[];globalThis.requestAnimationFrame=callback=>queue.push(callback);const seen=[];
- const viewer=Object.create(RoomViewer.prototype);Object.assign(viewer,{camera:new THREE.PerspectiveCamera(43,2),controls:{target:new THREE.Vector3(),update(){}},runner:{draw(){}},updateCutaway(){},views:{desk:{position:[1,1,1],target:[0,0,0],fov:62}},userFov:null,onFov:fov=>seen.push(fov)});
- RoomViewer.prototype.setView.call(viewer,'desk',true);assert.equal(viewer.camera.fov,62);assert.equal(seen.at(-1),62);
- viewer.setFov(35);assert.equal(viewer.camera.fov,35);assert.equal(seen.at(-1),35);
- viewer.camera.aspect=.5;assert.equal(viewer.fovGoal(),35,'A resize must not overwrite a hand-set FOV');
- viewer.setFov(500);assert.equal(viewer.camera.fov,FOV_RANGE[1]);viewer.setFov(1);assert.equal(viewer.camera.fov,FOV_RANGE[0]);
- viewer.camera.aspect=2;RoomViewer.prototype.setView.call(viewer,'desk',true);assert.equal(viewer.userFov,null);assert.equal(viewer.camera.fov,62);
- RoomViewer.prototype.setView.call(viewer,'desk');viewer.setFov(50);for(const callback of queue.splice(0))callback(performance.now()+1000);assert.equal(viewer.camera.fov,50,'A drag during a preset move must win');
+ const viewer=Object.create(RoomViewer.prototype);Object.assign(viewer,{camera:new THREE.PerspectiveCamera(43,2),controls:{target:new THREE.Vector3(),update(){},minDistance:.35,maxDistance:21},runner:{draw(){}},updateCutaway(){},views:{desk:{position:[1,2,3],target:[0,0,0],fov:62}},userFov:null,onFov:fov=>seen.push(fov)});
+ RoomViewer.prototype.setView.call(viewer,'desk',true);assert.equal(viewer.camera.fov,62);assert.ok(Math.abs(seen.at(-1)-horizontalFov(62,2))<1e-9);
+ const apparent=()=>viewer.camera.position.distanceTo(viewer.controls.target)*Math.tan(viewer.camera.fov*Math.PI/360);const size=apparent(),direction=viewer.camera.position.clone().normalize(),aim=viewer.controls.target.clone();
+ for(const fov of [60,120,75]){viewer.setFov(fov);assert.ok(Math.abs(seen.at(-1)-fov)<1e-9);assert.ok(Math.abs(apparent()-size)<1e-9,'The target must not grow or shrink');assert.ok(viewer.camera.position.clone().normalize().distanceTo(direction)<1e-9,'The view direction must not change');assert.ok(viewer.controls.target.equals(aim));}
+ viewer.setFov(90);viewer.camera.aspect=1;assert.ok(Math.abs(horizontalFov(viewer.fovGoal(),1)-90)<1e-9,'A resize keeps the horizontal setting');viewer.camera.aspect=2;
+ viewer.setFov(500);assert.ok(Math.abs(seen.at(-1)-FOV_RANGE[1])<1e-9);viewer.setFov(1);assert.ok(Math.abs(seen.at(-1)-FOV_RANGE[0])<1e-9);assert.ok(viewer.camera.position.length()<=21,'The camera stays inside the orbit limits');
+ RoomViewer.prototype.setView.call(viewer,'desk',true);assert.equal(viewer.userFov,null);assert.equal(viewer.camera.fov,62);
+ RoomViewer.prototype.setView.call(viewer,'desk');viewer.setFov(70);for(const callback of queue.splice(0))callback(performance.now()+1000);assert.ok(Math.abs(horizontalFov(viewer.camera.fov,2)-70)<1e-9,'A drag stops a preset move');
+ assert.ok(verticalFov(130,.5)<=140,'Portrait windows stay away from a degenerate projection');
+});
+
+test('a resize redraws at once, and an unchanged size leaves the canvas alone',()=>{
+ const queue=[];globalThis.requestAnimationFrame=callback=>{queue.push(callback);return queue.length;};globalThis.cancelAnimationFrame=()=>{};globalThis.ResizeObserver=class{observe(){}disconnect(){}};
+ let box={width:400,height:300},sets=0,renders=0;
+ const renderer={domElement:{addEventListener(){}},setPixelRatio(){},setSize(){sets++;},render(){renders++;},dispose(){}};
+ const runner=loopViewer(renderer,new THREE.Scene(),new THREE.PerspectiveCamera(),{update:()=>false,addEventListener(){}},{getBoundingClientRect:()=>box});
+ assert.equal(sets,1);assert.equal(renders,1,'Drawn in the resize callback, without waiting a frame');
+ runner.size();runner.size();assert.equal(sets,1,'Same size must not wipe the canvas');assert.equal(renders,1);
+ box={width:500,height:300};runner.size();assert.equal(sets,2);assert.equal(renders,2);assert.equal(queue.length,0);
+ runner.enable(false);box={width:600,height:300};runner.size();assert.equal(renders,2,'A hidden viewer does not draw');runner.enable(true);for(const callback of queue.splice(0))callback(0);assert.equal(renders,3);
+});
+
+test('FOV compensation keeps the camera inside the room',()=>{
+ globalThis.requestAnimationFrame=()=>0;
+ const viewer=Object.create(RoomViewer.prototype);Object.assign(viewer,{camera:new THREE.PerspectiveCamera(70,1.3),controls:{target:new THREE.Vector3(2.36,1.4,-3.6),update(){},minDistance:.35,maxDistance:21},runner:{draw(){}},updateCutaway(){},interior:INTERIOR,userFov:null});
+ viewer.camera.position.set(2.36,1.4,-.42);viewer.setFov(50);assert.ok(viewer.camera.position.z<=-.12+1e-9,'Stops short of the kitchen wall');assert.ok(viewer.camera.position.z>-.42,'Still backs up as far as it can');
+ viewer.setFov(120);const inside=INTERIOR.some(box=>box.containsPoint(viewer.camera.position));assert.ok(inside);
+});
+
+test('repeated context losses end the attempt instead of flickering, and single ones recover',()=>{
+ const handlers={};const canvas={addEventListener:(type,fn)=>{handlers[type]=fn;}};let clock=0,lost=0,restored=0,failed=0;
+ watchContext(canvas,{onLost:()=>lost++,onRestored:()=>restored++,onFailed:()=>failed++},()=>clock);
+ const cycle=()=>{handlers.webglcontextlost();handlers.webglcontextrestored();};
+ cycle();clock=20000;cycle();clock=40000;cycle();assert.equal(failed,0,'Spaced-out losses are ordinary recoveries');assert.equal(lost,3);assert.equal(restored,3);
+ clock=41000;cycle();clock=42000;cycle();assert.equal(failed,1);for(let i=0;i<50;i++)cycle();assert.equal(failed,1,'Failing happens once');assert.equal(lost,4);assert.equal(restored,4);
 });
 
 test('dimensions are dashed unless measured on site',()=>{

@@ -16,7 +16,7 @@ PORTAL=os.environ.get('FLAT_VARIANT')=='portal';TAG='-portal' if PORTAL else ''
 BASE=ROOT/('source/flat-portal.blend' if PORTAL else 'source/flat-v18.blend');OUT=ROOT/'public/models';OUT.mkdir(parents=True,exist_ok=True);LIGHTMAPS=ROOT/('source/lightmaps'+TAG);LIGHTMAPS.mkdir(parents=True,exist_ok=True)
 CACHE=ROOT/('.cache/bake'+TAG);CACHE.mkdir(parents=True,exist_ok=True);DRY=os.environ.get('BAKE_DRY_RUN')=='1'
 # Target texels per metre. The frame, desk timber and equipment carry the detail people inspect.
-DENSITY={'pipes':330,'wood':300,'equipment':320,'lighting':300,'chair':200,'crates':240,'kitchen':220,'doors':180,'floor':190,'shell':150,'ceiling':120,'exterior':80,'glass':60}
+DENSITY={'pipes':200,'wood':300,'equipment':320,'lighting':300,'chair':200,'crates':240,'kitchen':220,'doors':180,'floor':300,'balcony':190,'shell':150,'ceiling':120,'exterior':80,'glass':60}
 MARGIN_PX=16
 bpy.ops.wm.open_mainfile(filepath=str(BASE));scene=bpy.context.scene;scene.frame_set(1)
 SAMPLES=128
@@ -51,6 +51,7 @@ def category(o,inst):
  if any(c.startswith('08 ') for c in cols):return 'hall'
  if any(c.startswith('09 ') for c in cols):return 'ceiling'
  if any(c.startswith('10 ') for c in cols):return 'exterior'
+ if any(c.startswith('19 ') for c in cols):return 'balcony'
  if any(c.startswith('12 ') for c in cols):return 'glass' if 'glass' in n.lower() else 'doors'
  if any(c.startswith('13 ') for c in cols):return 'wood' if o.parent and o.parent.get('catalog_kind')=='wood' else 'pipes'
  if any(c.startswith(('14 ','15 ')) for c in cols):return 'lighting'
@@ -171,7 +172,7 @@ data=file.read_bytes();length,kind=struct.unpack_from('<II',data,12);gltf=json.l
 used=set(gltf.get('extensionsUsed',[]));used.add('KHR_materials_unlit');gltf['extensionsUsed']=sorted(used)
 for m in gltf.get('materials',[]):m.setdefault('extensions',{})['KHR_materials_unlit']={}
 view=scene.view_settings
-gltf.setdefault('asset',{})['extras']={'design':'Portal divider variant' if PORTAL else 'V18 locked','lighting':'Baked practical lights; main ceiling light OFF','bake':f'Cycles combined diffuse/indirect/emission, {SAMPLES} samples, density-sized UV atlases up to 4096px','colour':f'Display-referred: {view.view_transform} view transform, exposure {view.exposure:+.2f}, applied at bake time; render without tone mapping','geometry':'Approved model; connector profiles and structural load capacities remain unverified'}
+gltf.setdefault('asset',{})['extras']={'design':'Portal divider variant' if PORTAL else 'V18 locked','lighting':'Baked afternoon daylight with fixtures dimmed; main ceiling light OFF','bake':f'Cycles combined diffuse/indirect/emission, {SAMPLES} samples, density-sized UV atlases up to 4096px','colour':f'Display-referred: {view.view_transform} view transform, exposure {view.exposure:+.2f}, applied at bake time; render without tone mapping','geometry':'Approved model; connector profiles and structural load capacities remain unverified'}
 encoded=json.dumps(gltf,separators=(',',':')).encode();encoded+=b' '*((-len(encoded))%4)
 file.write_bytes(struct.pack('<III',0x46546c67,2,12+8+len(encoded)+len(binary))+struct.pack('<II',len(encoded),0x4e4f534a)+encoded+binary)
 manifest={'design':'Portal' if PORTAL else 'V18','ceiling_light_on':False,'baked':True,'render_engine':'Cycles','samples':SAMPLES,'display_referred':True,'view_transform':view.view_transform,'exposure':round(view.exposure,3),'bake_margin_px':MARGIN_PX,'max_bounces':scene.cycles.max_bounces,'diffuse_bounces':scene.cycles.diffuse_bounces,'bake_type':'COMBINED','passes':['DIFFUSE','DIRECT','INDIRECT','EMIT','COLOR'],'view_independent':True,'max_atlas_size':max(r['atlas'] for r in records),'baked_lights':light_records,'atlases':records,'model_bytes':file.stat().st_size,'mesh_count':len(merged),'lights_exported':False}

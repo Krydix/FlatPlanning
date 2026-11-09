@@ -2,7 +2,7 @@
 
 **Live GitHub Pages site: https://krydix.github.io/FlatPlanning/**
 
-An interactive Three.js model of the approved studio apartment, with baked practical night lighting (main ceiling fixture off), an original illustrated assembly planning guide and a complete linked, priced bill of materials.
+An interactive Three.js model of the approved studio apartment, with baked afternoon daylight (main ceiling fixture off, fixtures dimmed), an original illustrated assembly planning guide and a complete linked, priced bill of materials.
 
 ## On the site
 
@@ -14,7 +14,7 @@ An interactive Three.js model of the approved studio apartment, with baked pract
 
 The freely movable room uses a **128-sample Cycles bake**. Each atlas is sized from its surface area to a target texel density (about 1.5–3 mm per pixel on the frame, desk timber and equipment) and tightly packed; buried faces such as plank undersides are removed first. Atlases are baked in float and saved through the scene's own AgX view transform, so the browser shows the same graded colour as a Blender render and applies no second tone mapping. They ship as **KTX2 (UASTC + Zstandard, mipmapped)** textures, which stay GPU-compressed, with Meshopt-compressed geometry. Camera presets and hand orbit use exactly the same model, materials and cutaway rule. Inside the flat the cutaway keeps walls, ceiling and the outside view.
 
-**Dimensions** are drawn from the data with their evidence: solid green only for site measurements, dashed amber for assumed or model-derived values. **Measure** lets you click two surfaces for a model distance. The **FOV** slider sets the camera's field of view from 20° to 110°; choosing a view returns to that view's framing.
+**Dimensions** are drawn from the data with their evidence: solid green only for site measurements, dashed amber for assumed or model-derived values. **Measure** lets you click two surfaces for a model distance. The **FOV** slider sets the horizontal field of view from 40° to 130°. The room keeps its size on screen and only the perspective changes, because the camera slides along its line of sight to compensate. Choosing a view returns to that view's framing.
 
 The desktop's entrance-side front corner is rounded to R100. The kitchen-corner passage is now limited by the near leg's low brace, not the desk corner. The desktop uses two DOLLE four-way threaded crosses, fully connected rear bridges and offset low front T braces. The cross-bearing uprights are split into catalog stock sections; the €4 per-cross price is a budget allowance. Shelf positions and the 64.1 cm entrance gap remain unchanged.
 
@@ -42,6 +42,19 @@ FLAT_VARIANT=portal node scripts/optimize-models.mjs
 FLAT_VARIANT=portal blender -b --python scripts/render-room-poster.py
 ```
 
+## Daylight, balcony and materials
+
+The balcony comes from a photo and its size is assumed (`balcony` in `source/room-measurements.json`). Daylight comes from a 2K CC0 HDRI plus a sun lamp and is baked in, so sunlight and shadows do not change at runtime. The viewer shows the sky as a compressed 1.1 MB texture on a dome. Textures in `source/textures` are projected in world space, and their relief is baked through a height-based bump.
+
+```sh
+blender -b --python scripts/update-exterior.py
+blender -b --python scripts/apply-materials.py
+blender -b --python scripts/make-sky.py
+blender -b --python scripts/build-portal-variant.py
+```
+
+Then compress `.cache/sky.png` to `public/models/sky.ktx2` with `ktx create` and rerun the bake steps for both layouts.
+
 ## Development
 
 Requires Node.js 22.12+ (or a compatible newer version) and Python 3 for data generation/tests.
@@ -62,7 +75,7 @@ npm run build
 
 ## Source of truth
 
-- `source/room-measurements.json`: room width, length, ceiling, services and door swings. **Only the ceiling is measured (2,630 mm, reported 23 October 2026); width, length, services and door swings are still the CAD assumption.** `scripts/update-architecture.py` fits the Blender walls and ceiling to it. The pipe engine takes the right-wall plane and ceiling from here, and the clearance check flags the Blender architecture if it disagrees with a measurement.
+- `source/room-measurements.json`: room width, length, ceiling, services and door swings. **Only the ceiling is measured (2,630 mm, reported 23 October 2026); width, length, services and door swings are still the CAD assumption.** `scripts/update-architecture.py` fits the Blender walls and ceiling to it, and runs the floors under the walls and through the door openings. The pipe engine takes the right-wall plane and ceiling from here, and the clearance check flags the Blender architecture if it disagrees with a measurement.
 - `source/flat-v18.blend`: the locked apartment model.
 - `source/assembly.json`: checked component graph, stock lengths and preview fitting profile.
 - `source/pipe_engine.py`: connection rules and shared desk-frame design.

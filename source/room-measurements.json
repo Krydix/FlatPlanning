@@ -7,7 +7,10 @@
     "room_width_x": 3450,
     "room_length_y": 5300,
     "ceiling_height": 2500,
-    "skirting": [25, 90]
+    "skirting": [
+      25,
+      90
+    ]
   },
   "measured": {
     "room_width_x_at_300": null,
@@ -48,11 +51,93 @@
   "doors": {
     "status": "swing directions assumed, not surveyed",
     "leaves": [
-      {"id": "Room door", "hinge": [3350, 0], "closed_toward": [2450, 0], "swing": "into room", "status": "assumed", "open_toward": [3350, 900]},
-      {"id": "Bathroom door", "hinge": [2150, -850], "closed_toward": [2150, -1620], "swing": "into hall", "status": "assumed", "open_toward": [2920, -850]},
-      {"id": "Flat entrance door", "hinge": [3350, -3200], "closed_toward": [2350, -3200], "swing": "into flat", "status": "assumed", "open_toward": [3350, -2200]},
-      {"id": "Balcony left leaf", "hinge": [260, 5300], "closed_toward": [1420, 5300], "swing": "into room", "max_angle": 100, "status": "assumed", "open_toward": [260, 4140]},
-      {"id": "Balcony right leaf", "hinge": [2580, 5300], "closed_toward": [1420, 5300], "swing": "into room", "max_angle": 100, "status": "assumed", "open_toward": [2580, 4140]}
+      {
+        "id": "Room door",
+        "hinge": [
+          3350,
+          0
+        ],
+        "closed_toward": [
+          2450,
+          0
+        ],
+        "swing": "into room",
+        "status": "assumed",
+        "open_toward": [
+          3350,
+          900
+        ]
+      },
+      {
+        "id": "Bathroom door",
+        "hinge": [
+          2150,
+          -850
+        ],
+        "closed_toward": [
+          2150,
+          -1620
+        ],
+        "swing": "into hall",
+        "status": "assumed",
+        "open_toward": [
+          2920,
+          -850
+        ]
+      },
+      {
+        "id": "Flat entrance door",
+        "hinge": [
+          3350,
+          -3200
+        ],
+        "closed_toward": [
+          2350,
+          -3200
+        ],
+        "swing": "into flat",
+        "status": "assumed",
+        "open_toward": [
+          3350,
+          -2200
+        ]
+      },
+      {
+        "id": "Balcony left leaf",
+        "hinge": [
+          260,
+          5300
+        ],
+        "closed_toward": [
+          1420,
+          5300
+        ],
+        "swing": "into room",
+        "max_angle": 100,
+        "status": "assumed",
+        "open_toward": [
+          260,
+          4140
+        ]
+      },
+      {
+        "id": "Balcony right leaf",
+        "hinge": [
+          2580,
+          5300
+        ],
+        "closed_toward": [
+          1420,
+          5300
+        ],
+        "swing": "into room",
+        "max_angle": 100,
+        "status": "assumed",
+        "open_toward": [
+          2580,
+          4140
+        ]
+      }
     ]
   },
   "clearance_targets": {
@@ -62,5 +147,18 @@
     "under_bed_beam_gap_min": 15,
     "door_sweep_gap_min": 20,
     "aisle_min": 700
+  },
+  "balcony": {
+    "status": "assumed from one photo, not measured",
+    "note": "Corrected by the occupant on 2026-11-07: steel bar railing on all three open sides, with no brick or upstand. The bars run down to the bottom of the slab. Composite decking. Size still unmeasured.",
+    "x": [
+      0,
+      2900
+    ],
+    "outer_y": 7000,
+    "deck_top_z": 0,
+    "railing_top_z": 1060,
+    "bar_pitch": 110,
+    "slab_bottom_z": -200
   }
 }

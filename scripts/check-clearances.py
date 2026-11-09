@@ -175,6 +175,20 @@ if PORTAL:
  report('portal-crate-clash','Parts intersecting a crate',len(hit),0,'clash' if hit else 'ok','; '.join(hit) or 'No frame, hanger or light part intersects any crate envelope.','envelopes','count')
  report('portal-crate-side','Crate to inner post',min(side),5,'clash' if min(side)<0 else 'tight' if min(side)<5 else 'ok','Tightest end of the three-crate row between the inner posts.','envelopes')
  report('portal-crate-depth','Crate inside board depth',min(depth),20,'clash' if min(depth)<0 else 'ok',f'Boards are {boards["Portal.lintel0"]["bounds"][3]-boards["Portal.lintel0"]["bounds"][2]:.0f} mm deep; crates are {C[1]} mm deep.','envelopes')
+# 11. Floors: rays cast downward from the room air must never leave the flat through the floor line.
+for o in scene.objects:
+ cols=collections(o)
+ if any(c.startswith(('06 ','11 ')) for c in cols) and not any(c.startswith('01 ') for c in cols):o.hide_viewport=True
+bpy.context.view_layer.update();rays=bpy.context.evaluated_depsgraph_get();down=[Vector((math.cos(a)*c,math.sin(a)*c,-math.sqrt(1-c*c))).normalized() for a in [i*math.tau/16 for i in range(16)] for c in (.5,.9,.985)];gaps=[];cast=0
+for x0,x1,y0,y1 in ((0,3450,0,5300),(2200,3450,-3200,-100),(0,2100,-3050,-300),(2450,3350,-100,0),(2100,2200,-1620,-850)):
+ for x in range(x0+25,x1,75):
+  for y in range(y0+25,y1,75):
+   o=Vector((x,y,40))/1000
+   if scene.ray_cast(rays,o,Vector((0,0,1)),distance=.0005)[0]:continue
+   for d in down:
+    cast+=1;hit=scene.ray_cast(rays,o,d,distance=9)[0];foot=o+d*((o.z+.01)/-d.z)
+    if not hit and 0<=foot.x<=GEO['wall_x']/1000 and -3.2<=foot.y<=5.3:gaps.append((round(foot.x*1000),round(foot.y*1000)))
+report('floor-gaps','Rays escaping through the floor',len(gaps),0,'clash' if gaps else 'ok',f'{cast} rays cast down from the room air.'+(f' First escapes at {gaps[:4]}.' if gaps else ' None leave the flat through the floor line.'),'envelopes','count')
 basis={'wall':'measured' if GEO['wall_measured'] else 'assumed','ceiling':'measured' if GEO['ceiling_measured'] else 'assumed','services':ROOM['services']['status'],'doors':ROOM['doors']['status']}
 tilts={o.get('speaker_tilt_degrees') for o in OBJECTS if o.name.startswith('KRK monitor speaker reservation')}
 out={'generated_by':'scripts/check-clearances.py','basis':basis,'ear_reference_mm':list(EAR_MM),'speaker_tilt_degrees':max(tilts),'checks':checks}

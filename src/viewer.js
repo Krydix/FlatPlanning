@@ -11,7 +11,10 @@ const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 export const interiorFor=(ceiling=2.63)=>[[[0,0,-5.3],[3.45,ceiling,0]],[[2.2,0,.1],[3.45,ceiling,3.2]],[[0,0,.3],[2.1,ceiling,3.05]]].map(([a,b])=>new THREE.Box3(new THREE.Vector3(...a),new THREE.Vector3(...b)));
 export const INTERIOR=interiorFor();
 const pixelRatio=()=>Math.min(window.devicePixelRatio||1,1.75);
-export const FOV_RANGE=[20,110];
+// Slider values are horizontal degrees, as in games, so window shape never changes the setting.
+export const FOV_RANGE=[40,130];
+export const horizontalFov=(vertical,aspect)=>2*Math.atan(Math.tan(vertical*Math.PI/360)*aspect)*180/Math.PI;
+export const verticalFov=(horizontal,aspect)=>Math.min(140,2*Math.atan(Math.tan(horizontal*Math.PI/360)/aspect)*180/Math.PI);
 const formatLength=mm=>mm>=1000?`${(mm/1000).toFixed(2)} m`:`${(mm/10).toFixed(1)} cm`;
 const BASIS={measured:'measured',assumed:'assumed',preview:'preview fitting profile',model:'model, from assumed room'};
 const VIEWS = {
@@ -27,43 +30,71 @@ export function rendererFor(element,background){
  // Baked atlases are already display-referred (Blender view transform applied at bake time).
  const renderer=new THREE.WebGLRenderer({antialias:true,alpha:false,powerPreference:'high-performance'});
  renderer.setPixelRatio(pixelRatio());renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.NoToneMapping;
- renderer.setClearColor(background);renderer.domElement.tabIndex=0;element.appendChild(renderer.domElement);return renderer;
+ renderer.setClearColor(background);renderer.domElement.tabIndex=0;element.appendChild(renderer.domElement);
+ // Safari holds a closed page's graphics memory until collection, so reloads pile up until contexts
+ // start failing. Release it explicitly, and rebuild if the page comes back from the back/forward cache.
+ window.addEventListener('pagehide',()=>{renderer.dispose();renderer.forceContextLoss();});window.addEventListener('pageshow',event=>{if(event.persisted)location.reload();});
+ return renderer;
 }
 export function loopViewer(renderer,scene,camera,controls,container,labels,onResize){
  // Frames are requested only while something changes: damping, a preset move or a redraw.
- let dirty=true;let enabled=true;let lost=false;let frame=0;
- const size=()=>{const box=container.getBoundingClientRect();if(box.width<1||box.height<1)return;renderer.setPixelRatio(pixelRatio());renderer.setSize(box.width,box.height);if(labels)labels.setSize(box.width,box.height);camera.aspect=box.width/box.height;onResize?.();camera.updateProjectionMatrix();wake();};
+ let dirty=true;let enabled=true;let lost=false;let frame=0;let drawn='';
+ // Resizing wipes the canvas, so redraw in the same callback: waiting a frame shows it blank.
+ const size=()=>{const box=container.getBoundingClientRect();if(box.width<1||box.height<1)return;const key=[box.width,box.height,pixelRatio()].join();if(key===drawn)return;drawn=key;renderer.setPixelRatio(pixelRatio());renderer.setSize(box.width,box.height);if(labels)labels.setSize(box.width,box.height);camera.aspect=box.width/box.height;onResize?.();camera.updateProjectionMatrix();if(enabled&&!lost){renderer.render(scene,camera);if(labels)labels.render(scene,camera);dirty=false;}else dirty=true;};
  const tick=()=>{frame=0;if(!enabled||lost)return;const moving=controls.update();if(moving||dirty){renderer.render(scene,camera);if(labels)labels.render(scene,camera);dirty=false;}if(moving)wake(false);};
  function wake(redraw=true){if(redraw)dirty=true;if(!frame&&enabled&&!lost)frame=requestAnimationFrame(tick);}
  const ro=new ResizeObserver(size);ro.observe(container);window.addEventListener('resize',size);controls.addEventListener('change',()=>wake());controls.addEventListener('start',()=>wake());
  const canvas=renderer.domElement;canvas.addEventListener('webglcontextlost',event=>{event.preventDefault();lost=true;if(frame)cancelAnimationFrame(frame);frame=0;});canvas.addEventListener('webglcontextrestored',()=>{lost=false;wake();});
  size();
- return {size,draw(){wake();},enable(value){enabled=value;if(value)size();else if(frame){cancelAnimationFrame(frame);frame=0;}},dispose(){if(frame)cancelAnimationFrame(frame);ro.disconnect();window.removeEventListener('resize',size);renderer.dispose();}};
+ return {size,draw(){wake();},enable(value){enabled=value;if(value){size();wake();}else if(frame){cancelAnimationFrame(frame);frame=0;}},dispose(){if(frame)cancelAnimationFrame(frame);ro.disconnect();window.removeEventListener('resize',size);renderer.dispose();}};
 }
-function watchContext(renderer,onLost,onRestored){const canvas=renderer.domElement;canvas.addEventListener('webglcontextlost',()=>onLost?.());canvas.addEventListener('webglcontextrestored',()=>onRestored?.());}
+// Under memory pressure Safari can lose and restore a context thousands of times, which shows as
+// flicker. Repeated losses within a few seconds end the attempt instead.
+export function watchContext(canvas,{onLost,onRestored,onFailed},now=()=>performance.now()){let recent=[];let failed=false;
+ canvas.addEventListener('webglcontextlost',()=>{if(failed)return;const time=now();recent=[...recent.filter(t=>time-t<8000),time];if(recent.length>=3){failed=true;onFailed?.();}else onLost?.();});
+ canvas.addEventListener('webglcontextrestored',()=>{if(!failed)onRestored?.();});}
 export class RoomViewer {
- constructor(container,{onProgress,onReady,onError,onCutaway,onContextLost,onContextRestored,onMeasure,onFov,dimensions=[],ceiling,model='models/flat-baked.glb?bake=v19-speakers',views}={}){
+ constructor(container,{onProgress,onReady,onError,onCutaway,onContextLost,onContextRestored,onContextFailed,onMeasure,onFov,dimensions=[],ceiling,model='models/flat-baked.glb?bake=v22-day',sky='models/sky.ktx2?v=2',views}={}){
   this.views={...VIEWS,...views};this.onFov=onFov;this.userFov=null;this.container=container;this.onCutaway=onCutaway;this.onError=onError;this.onMeasure=onMeasure;this.cutaway=true;this.currentView='overview';this.scene=new THREE.Scene();this.interior=ceiling?interiorFor(ceiling):INTERIOR;
-  this.camera=new THREE.PerspectiveCamera(43,1,.02,100);this.renderer=rendererFor(container,0xe8eadf);watchContext(this.renderer,onContextLost,()=>{onContextRestored?.();this.runner.draw();});
+  this.camera=new THREE.PerspectiveCamera(43,1,.02,100);this.renderer=rendererFor(container,0xe8eadf);watchContext(this.renderer.domElement,{onLost:onContextLost,onRestored:()=>{onContextRestored?.();this.runner.draw();},onFailed:()=>{this.runner.enable(false);this.renderer.dispose();this.renderer.forceContextLoss();this.renderer.domElement.remove();onContextFailed?.();}});
   this.controls=new OrbitControls(this.camera,this.renderer.domElement);this.controls.enableDamping=true;this.controls.dampingFactor=.1;this.controls.minDistance=.35;this.controls.maxDistance=21;this.controls.maxPolarAngle=Math.PI*.52;
   this.controls.addEventListener('start',()=>{this.animation=null;});
   this.controls.addEventListener('change',()=>this.updateCutaway());
   this.labels=new CSS2DRenderer();this.labels.domElement.style.cssText='position:absolute;inset:0;pointer-events:none;z-index:2';container.appendChild(this.labels.domElement);
-  this.runner=loopViewer(this.renderer,this.scene,this.camera,this.controls,container,this.labels,()=>{this.camera.fov=this.fovGoal();this.onFov?.(this.camera.fov);});
+  this.runner=loopViewer(this.renderer,this.scene,this.camera,this.controls,container,this.labels,()=>{this.camera.fov=this.fovGoal();this.reportFov();});
   this.dimensionGroup=new THREE.Group();this.dimensionGroup.visible=false;this.scene.add(this.dimensionGroup);this.addDimensions(dimensions);this.setView('overview',true);
   this.measureGroup=new THREE.Group();this.scene.add(this.measureGroup);this.measurePoints=[];this.measuring=false;this.bindMeasure();
   // KTX2 atlases stay GPU-compressed (UASTC/ETC1S → ASTC/BC7/ETC2), with full mip chains.
   this.ktx2=new KTX2Loader().setTranscoderPath(asset('basis/')).detectSupport(this.renderer);
-  const loader=new GLTFLoader();loader.setMeshoptDecoder(MeshoptDecoder);loader.setKTX2Loader(this.ktx2);
+  const loader=new GLTFLoader();loader.setMeshoptDecoder(MeshoptDecoder);loader.setKTX2Loader(this.ktx2);const ktx2Sky=sky;
   loader.load(asset(model),gltf=>{
-   this.model=gltf.scene;this.scene.add(this.model);
+   this.model=gltf.scene;this.scene.add(this.model);this.addSky(ktx2Sky);
    this.model.traverse(o=>{if(o.isMesh){o.castShadow=false;o.receiveShadow=false;const mats=Array.isArray(o.material)?o.material:[o.material];for(const m of mats){m.toneMapped=false;if(m.map)m.map.anisotropy=Math.min(8,this.renderer.capabilities.getMaxAnisotropy());if(o.name==='flat_glass'){m.transparent=true;m.opacity=.10;m.depthWrite=false;m.side=THREE.DoubleSide;}}}});
    this.setCutaway(this.cutaway);this.runner.draw();onReady?.();
   },event=>{if(event.total)onProgress?.(Math.round(event.loaded/event.total*100));},error=>{console.error('Room model load failed',error);onError?.(error);});
  }
  // A hand-set FOV wins over the preset until the next preset is chosen, including across resizes.
- fovGoal(){return this.userFov??this.responsiveFov(this.views[this.currentView]?.fov||43);}
- setFov(value){this.userFov=THREE.MathUtils.clamp(value,...FOV_RANGE);this.camera.fov=this.userFov;this.camera.updateProjectionMatrix();this.onFov?.(this.camera.fov);this.runner.draw();}
+ fovGoal(){return this.userFov==null?this.responsiveFov(this.views[this.currentView]?.fov||43):verticalFov(this.userFov,this.camera.aspect);}
+ reportFov(){this.onFov?.(horizontalFov(this.camera.fov,this.camera.aspect));}
+ // The orbit target keeps its size on screen: the camera slides along its line of sight to
+ // cancel the magnification, so only the perspective changes.
+ setFov(value){
+  this.animation=null;this.userFov=THREE.MathUtils.clamp(value,...FOV_RANGE);const fov=verticalFov(this.userFov,this.camera.aspect),half=degrees=>Math.tan(degrees*Math.PI/360);
+  const {target,minDistance=0,maxDistance=Infinity}=this.controls,offset=this.camera.position.clone().sub(target);let length=THREE.MathUtils.clamp(offset.length()*half(this.camera.fov)/half(fov),minDistance,maxDistance);
+  // Inside the flat the camera stops short of the walls; past that point the view has to scale.
+  const room=this.interior?.find(box=>box.containsPoint(this.camera.position)&&box.containsPoint(target));
+  if(room){const wall=new THREE.Ray(target,offset.clone().normalize()).intersectBox(room,new THREE.Vector3());if(wall)length=Math.min(length,Math.max(minDistance,wall.distanceTo(target)-.12));}
+  offset.setLength(length);
+  this.camera.position.copy(target).add(offset);this.camera.fov=fov;this.camera.updateProjectionMatrix();this.controls.update();this.updateCutaway();this.reportFov();this.runner.draw();
+ }
+ // A plain textured dome: a three.js equirect background would expand into a huge cube map.
+ addSky(url){
+  this.ktx2.load(asset(url),texture=>{
+   const geometry=new THREE.SphereGeometry(60,48,32);const uv=geometry.attributes.uv;for(let i=0;i<uv.count;i++)uv.setY(i,1-uv.getY(i));
+   const sky=new THREE.Mesh(geometry,new THREE.MeshBasicMaterial({map:texture,side:THREE.BackSide,depthWrite:false,toneMapped:false}));sky.scale.x=-1;sky.rotation.y=-Math.PI/2;sky.renderOrder=-1;sky.frustumCulled=false;
+   sky.onBeforeRender=(renderer,scene,camera)=>{sky.position.copy(camera.position);sky.updateMatrixWorld();};this.sky=sky;this.scene.add(sky);this.updateCutaway();this.runner.draw();
+  },undefined,error=>console.warn('Sky unavailable',error));
+ }
  responsiveFov(fov){return Math.min(105,2*Math.atan(Math.tan(fov*Math.PI/360)*Math.max(1,1.25/this.camera.aspect))*180/Math.PI);}
  addDimensions(dimensions){
   // Solid green only for site measurements; everything assumed or derived is dashed amber.
@@ -99,7 +130,7 @@ export class RoomViewer {
   if(!this.model)return;
   // The same rule runs during hand orbit and preset motion. Inside the flat,
   // retain the baked walls, ceiling and outside view; only outside views remove the shell.
-  const inside=(this.interior||INTERIOR).some(box=>box.containsPoint(this.camera.position));
+  const inside=(this.interior||INTERIOR).some(box=>box.containsPoint(this.camera.position));if(this.sky)this.sky.visible=!this.cutaway||inside;
   this.model.traverse(o=>{const category=o.userData.category;
    if(['shell','ceiling','glass','exterior'].includes(category))o.visible=!this.cutaway||inside;
    if(category==='chair')o.visible=this.currentView!=='equipment';
@@ -112,7 +143,7 @@ export class RoomViewer {
   const view=(this.views||VIEWS)[name]||VIEWS.overview;this.currentView=name;this.userFov=null;this.controls.enablePan=true;
   const from=this.camera.position.clone(),fromTarget=this.controls.target.clone(),to=new THREE.Vector3(...view.position),toTarget=new THREE.Vector3(...view.target),oldFov=this.camera.fov;
   const token={};this.animation=token;const start=performance.now();
-  const move=time=>{if(this.animation!==token)return;const t=(immediate||reduced)?1:Math.min((time-start)/750,1);const k=1-Math.pow(1-t,3);this.camera.position.lerpVectors(from,to,k);this.controls.target.lerpVectors(fromTarget,toTarget,k);this.camera.fov=THREE.MathUtils.lerp(oldFov,this.userFov??this.responsiveFov(view.fov),k);this.camera.updateProjectionMatrix();this.controls.update();this.updateCutaway();this.runner.draw();if(t<1)requestAnimationFrame(move);else this.onFov?.(this.camera.fov);};move(start);
+  const move=time=>{if(this.animation!==token)return;const t=(immediate||reduced)?1:Math.min((time-start)/750,1);const k=1-Math.pow(1-t,3);this.camera.position.lerpVectors(from,to,k);this.controls.target.lerpVectors(fromTarget,toTarget,k);this.camera.fov=THREE.MathUtils.lerp(oldFov,this.userFov==null?this.responsiveFov(view.fov):verticalFov(this.userFov,this.camera.aspect),k);this.camera.updateProjectionMatrix();this.controls.update();this.updateCutaway();this.runner.draw();if(t<1)requestAnimationFrame(move);else this.reportFov?.();};move(start);
  }
  resize(){this.runner.size();}
  setEnabled(value){this.runner.enable(value);}

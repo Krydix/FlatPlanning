@@ -207,6 +207,16 @@
           704.3
         ]
       ]
+    },
+    {
+      "id": "floor-gaps",
+      "label": "Rays escaping through the floor",
+      "value": 0,
+      "target": 0,
+      "unit": "count",
+      "status": "ok",
+      "detail": "241008 rays cast down from the room air. None leave the flat through the floor line.",
+      "basis": "envelopes"
     }
   ]
 }

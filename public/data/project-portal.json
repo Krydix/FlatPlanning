@@ -9,7 +9,7 @@
     "pipeCount": 126,
     "boardCount": 28,
     "hardwarePieces": 480,
-    "lightState": "Practical night lighting · ceiling fixture off",
+    "lightState": "Afternoon daylight · ceiling fixture off",
     "coreBudget": 4563.28,
     "withCrates": 4629.21,
     "optionalAccessories": 90.0,
@@ -44,7 +44,7 @@
       "Cantilever, clamp, wood screw, wall and ceiling load capacities not certified",
       "Bathroom fixtures unknown; shell only"
     ],
-    "model": "models/flat-portal-baked.glb?bake=portal-2",
+    "model": "models/flat-portal-baked.glb?bake=portal-5",
     "assemblyModel": "models/assembly-portal.glb?design=portal-2",
     "views": {
       "overview": {
@@ -652,6 +652,16 @@
         "unit": "mm",
         "status": "ok",
         "detail": "Boards are 380 mm deep; crates are 310 mm deep.",
+        "basis": "envelopes"
+      },
+      {
+        "id": "floor-gaps",
+        "label": "Rays escaping through the floor",
+        "value": 0,
+        "target": 0,
+        "unit": "count",
+        "status": "ok",
+        "detail": "241008 rays cast down from the room air. None leave the flat through the floor line.",
         "basis": "envelopes"
       }
     ]

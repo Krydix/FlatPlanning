@@ -25,6 +25,11 @@ def move(o,dx=0,dy=0,dz=0):
 def remove(o):bpy.data.objects.remove(o,do_unlink=True)
 def turn(o,pivot,target,angle=math.pi/2):
  o.matrix_world=Matrix.Translation(target)@Matrix.Rotation(angle,4,'Z')@Matrix.Translation(-Vector(pivot))@o.matrix_world
+# Divider boards run across the room, so they take the grain-turned oak.
+across=bpy.data.materials.get('Oak across the room')
+if across:
+ for o in bpy.data.objects:
+  if o.name.startswith('Portal.') and ' / ' in o.name and o.data and hasattr(o.data,'materials') and o.parent and o.parent.get('catalog_kind')=='wood':o.data.materials[0]=across
 # The desk module is a rigid block in the graph, so its contents follow by the same offset.
 for o in list(collection('04 ').objects):
  move(o,dy=DESK)
