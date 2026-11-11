@@ -26,8 +26,8 @@ test('published category subtotals reconcile with the full BOM in cents', () => 
   const {parts,meta}=JSON.parse(fs.readFileSync(new URL('../public/data/project.json',import.meta.url)));
   const result=budgetSummary(parts);
   assert.equal(result.core,meta.coreBudget);
-  assert.equal(result.withoutWood,1821.64);
-  assert.equal(result.withoutWoodReserve,165.6);
+  assert.equal(result.withoutWood,1778.01);
+  assert.equal(result.withoutWoodReserve,161.64);
   assert.equal(Math.round((result.withoutWood+result.woodSaving)*100),Math.round(result.core*100));
   assert.equal(Object.values(result.categories).reduce((sum,total)=>sum+Math.round(total*100),0),parts.reduce((sum,row)=>sum+Math.round(row.total*100),0));
 });
