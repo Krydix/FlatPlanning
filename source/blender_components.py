@@ -46,6 +46,7 @@ def rebuild(a,collection=MANAGED):
    elif p.kind in ('slide_tee','cross'):
     xx,zz=Vector(p.direction),Vector(p.axis);rot=Matrix((xx,zz.cross(xx),zz)).transposed()
    elif p.kind in ('end_holder','middle_holder'):rot=Matrix.Rotation(math.atan2(p.direction[1],p.direction[0])-math.pi/2,3,'Z')
+   elif p.kind=='bracket':rot=Matrix.Rotation(math.atan2(p.direction[1],p.direction[0])-math.pi,3,'Z')
    elif p.kind=='elbow':
     xx,yy=Vector(p.axis),Vector(p.direction);rot=Matrix((xx,yy,xx.cross(yy))).transposed()
    else:rot=Matrix.Identity(3)
@@ -96,6 +97,11 @@ def rebuild(a,collection=MANAGED):
     bore=cylinder('socket',(0,0,0),q,12.6);boolean(o,bore)
    # local X maps to p.axis; local Y to p.direction, local Z to cross.
    xx,yy=Vector(p.axis),Vector(p.direction);rot=Matrix((xx,yy,xx.cross(yy))).transposed()
+  elif p.kind=='bracket':
+   # Generic wall L bracket allowance: 4 mm plate on the wall, arm under the board, 30 mm wide, two wall screws. Local -X is the arm.
+   reach=p.data['reach'];b('Wall plate',(-2,0,-60),(4,30,120),black);b('Shelf arm',(-reach/2,0,-2),(reach,30,4),black);b('Gusset',(-reach/4,0,-reach/4-4),(reach/2,4,reach/2),black)
+   for zz in (-25,-100):c('Wall screw',(-6,0,zz),(1,0,zz),2,silver)
+   rot=Matrix.Rotation(math.atan2(p.direction[1],p.direction[0])-math.pi,3,'Z')
   elif p.kind=='hook':
    # A U-shaped strap below a horizontal X-axis tube; two screw tabs meet wood underside.
    data=bpy.data.curves.new('Hook strap','CURVE');data.dimensions='3D';data.bevel_depth=.0015;data.bevel_resolution=2;sp=data.splines.new('POLY');pts=[(0,-25,12.5),(0,-14,12.5)]+[(0,14*math.cos(t),14*math.sin(t)) for t in [math.pi+i*math.pi/16 for i in range(17)]]+[(0,14,12.5),(0,25,12.5)];sp.points.add(len(pts)-1)

@@ -17,11 +17,11 @@
     {
       "kind": "tube_1000",
       "name": "DOLLE tube \u00d825 \u00d7 1000 mm",
-      "quantity": 10,
-      "buy_packs": 10,
+      "quantity": 12,
+      "buy_packs": 12,
       "units_per_pack": 1,
       "unit_eur": "9.99",
-      "total_eur": "99.90",
+      "total_eur": "119.88",
       "source": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1000-mm-20-mm-3-4-schwarz-matt-0763202825/",
       "status": "Last observed Globus price, 19 October 2026. On 21 October 2026 the Globus listing showed the item sold out with no price; recheck price and stock"
     },
@@ -39,11 +39,11 @@
     {
       "kind": "tube_1200",
       "name": "DOLLE tube \u00d825 \u00d7 1200 mm",
-      "quantity": 8,
-      "buy_packs": 8,
+      "quantity": 6,
+      "buy_packs": 6,
       "units_per_pack": 1,
       "unit_eur": "10.99",
-      "total_eur": "87.92",
+      "total_eur": "65.94",
       "source": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1200-mm-20-mm-3-4-schwarz-matt-0763202841/",
       "status": "Last observed Globus price, 19 October 2026. On 21 October 2026 the Globus listing showed the item sold out with no price; recheck price and stock. DOLLE article 96322 (EAN 4007557096322); also listed by toom as 7450880"
     },
@@ -61,11 +61,11 @@
     {
       "kind": "slide_tee",
       "name": "DOLLE sliding T, one female branch, \u00d825 sleeve",
-      "quantity": 80,
-      "buy_packs": 80,
+      "quantity": 70,
+      "buy_packs": 70,
       "units_per_pack": 1,
       "unit_eur": "5.99",
-      "total_eur": "479.20",
+      "total_eur": "419.30",
       "source": "https://www.globus-baumarkt.de/p/dolle-t-verbinder-fuer-pipe-regalsystem-20-mm-3-4-verschiebbar-schwarz-matt-0763202823/",
       "status": "Last observed Globus price, 19 October 2026. On 21 October 2026 the Globus listing showed the item sold out with no price; recheck price and stock"
     },
@@ -83,22 +83,22 @@
     {
       "kind": "tube_250",
       "name": "DOLLE tube \u00d825 \u00d7 250 mm",
-      "quantity": 36,
-      "buy_packs": 36,
+      "quantity": 33,
+      "buy_packs": 33,
       "units_per_pack": 1,
       "unit_eur": "2.99",
-      "total_eur": "107.64",
+      "total_eur": "98.67",
       "source": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-250-mm-20-mm-3-4-schwarz-matt-0763202837/",
       "status": "Last observed Globus price, 19 October 2026. On 21 October 2026 the Globus listing showed the item sold out with no price; recheck price and stock"
     },
     {
       "kind": "saddle",
       "name": "DOLLE PIPE one-sided saddle shelf holder, 2 per Toom pack",
-      "quantity": 64,
-      "buy_packs": 32,
+      "quantity": 60,
+      "buy_packs": 30,
       "units_per_pack": 2,
       "unit_eur": "2.99",
-      "total_eur": "95.68",
+      "total_eur": "89.70",
       "source": "https://toom.de/p/regalbodenhalter-fuer-regalsystem-pipe-schwarz-2-stueck/7450897",
       "status": "\u20ac2.99 / 2 holders observed on toom product page 19 Oct; delivery unavailable, store pickup shown; screws not promised"
     },
@@ -116,11 +116,11 @@
     {
       "kind": "tube_200",
       "name": "DOLLE tube \u00d825 \u00d7 200 mm",
-      "quantity": 2,
-      "buy_packs": 2,
+      "quantity": 4,
+      "buy_packs": 4,
       "units_per_pack": 1,
       "unit_eur": "2.59",
-      "total_eur": "5.18",
+      "total_eur": "10.36",
       "source": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-200-mm-20-mm-3-4-schwarz-matt-0763202832/",
       "status": "Last observed Globus price, 19 October 2026. On 21 October 2026 the Globus listing showed the item sold out with no price; recheck price and stock"
     },
@@ -142,9 +142,9 @@
       "unit_eur": "4.00",
       "source": "https://toom.de/p/kreuzverbinder-fuer-regalsystem-pipe-34-schwarz/7450886",
       "status": "Budget allowance \u20ac4 per single fitting. toom 7450886 lists a four-connection DOLLE cross without EAN, price or thread gender; EAN 4007557096384 is listed by Bauhaus SE as a 4\u00d73/4\" corner coupling. Confirm the four-female cross article before ordering",
-      "quantity": 2,
-      "buy_packs": 2,
-      "total_eur": "8.00"
+      "quantity": 4,
+      "buy_packs": 4,
+      "total_eur": "16.00"
     },
     {
       "kind": "tube_1500",
@@ -156,6 +156,17 @@
       "quantity": 2,
       "buy_packs": 2,
       "total_eur": "25.98"
+    },
+    {
+      "kind": "bracket",
+      "name": "Separate wall shelf bracket for the rear service shelf (allowance)",
+      "quantity": 4,
+      "buy_packs": 4,
+      "units_per_pack": 1,
+      "unit_eur": "6.00",
+      "total_eur": "24.00",
+      "source": null,
+      "status": "Budget allowance of EUR 6 per bracket, four for the 1,615 mm rear service shelf (about 200 mm reach). Bracket type, size and wall fixings are not selected; this is not a DOLLE part"
     }
   ],
   "wood": [
@@ -315,28 +326,28 @@
     },
     {
       "id": "Speaker0.platform",
-      "length_mm": 350.0,
-      "depth_mm": 350,
+      "length_mm": 370.0,
+      "depth_mm": 370.0,
       "thickness_mm": 25,
-      "area_m2": "0.1225",
+      "area_m2": "0.1369",
       "net_eur": {
-        "low": "13.48",
-        "base": "18.38",
-        "high": "26.95"
+        "low": "15.06",
+        "base": "20.54",
+        "high": "30.12"
       },
       "holes": [],
       "reliefs": []
     },
     {
       "id": "Speaker1.platform",
-      "length_mm": 350.0,
-      "depth_mm": 350,
+      "length_mm": 370.0,
+      "depth_mm": 370.0,
       "thickness_mm": 25,
-      "area_m2": "0.1225",
+      "area_m2": "0.1369",
       "net_eur": {
-        "low": "13.48",
-        "base": "18.38",
-        "high": "26.95"
+        "low": "15.06",
+        "base": "20.54",
+        "high": "30.12"
       },
       "holes": [],
       "reliefs": []
@@ -378,7 +389,7 @@
         {
           "bounds": [
             3054,
-            3116.0,
+            3116,
             1282,
             1318,
             703,
@@ -398,7 +409,7 @@
         {
           "bounds": [
             3054,
-            3116.0,
+            3116,
             2872,
             2908,
             703,
@@ -460,28 +471,7 @@
           44
         ]
       ],
-      "reliefs": [
-        {
-          "bounds": [
-            3344,
-            3375,
-            1282,
-            1318,
-            499,
-            502.5
-          ]
-        },
-        {
-          "bounds": [
-            3344,
-            3375,
-            2872,
-            2908,
-            499,
-            502.5
-          ]
-        }
-      ]
+      "reliefs": []
     }
   ],
   "lighting": [
@@ -551,43 +541,43 @@
   ],
   "totals": {
     "low": {
-      "hardware": "1076.06",
-      "timber_net": "597.19",
-      "timber_with_waste": "686.77",
+      "hardware": "1036.39",
+      "timber_net": "600.35",
+      "timber_with_waste": "690.40",
       "lip_with_waste": "42.86",
       "lighting": "207.98",
       "other_allowances": "182.00",
-      "core_before_contingency": "2195.67",
-      "contingency": "219.57",
-      "core_budget": "2415.24",
+      "core_before_contingency": "2159.63",
+      "contingency": "215.96",
+      "core_budget": "2375.59",
       "optional_accessories": "57.00",
-      "with_optional_accessories": "2477.940"
+      "with_optional_accessories": "2432.590"
     },
     "base": {
-      "hardware": "1076.06",
-      "timber_net": "853.68",
-      "timber_with_waste": "981.73",
+      "hardware": "1036.39",
+      "timber_net": "858.00",
+      "timber_with_waste": "986.70",
       "lip_with_waste": "61.23",
       "lighting": "207.98",
       "other_allowances": "372.00",
-      "core_before_contingency": "2699.00",
-      "contingency": "269.90",
-      "core_budget": "2968.90",
+      "core_before_contingency": "2664.30",
+      "contingency": "266.43",
+      "core_budget": "2930.73",
       "optional_accessories": "90.00",
-      "with_optional_accessories": "3067.900"
+      "with_optional_accessories": "3020.730"
     },
     "high": {
-      "hardware": "1076.06",
-      "timber_net": "1249.54",
-      "timber_with_waste": "1436.97",
+      "hardware": "1036.39",
+      "timber_net": "1255.88",
+      "timber_with_waste": "1444.26",
       "lip_with_waste": "91.84",
       "lighting": "207.98",
       "other_allowances": "705.00",
-      "core_before_contingency": "3517.85",
-      "contingency": "351.78",
-      "core_budget": "3869.63",
+      "core_before_contingency": "3485.47",
+      "contingency": "348.55",
+      "core_budget": "3834.02",
       "optional_accessories": "155.00",
-      "with_optional_accessories": "4040.130"
+      "with_optional_accessories": "3989.020"
     }
   },
   "base_allowances": [
@@ -708,8 +698,8 @@
     "unit_eur": "9.99",
     "total_eur": "59.94",
     "price_date": "2026-10-20",
-    "core_plus_crates_including_contingency_eur": "3034.83"
+    "core_plus_crates_including_contingency_eur": "2996.66"
   },
-  "joint_revision": "Four-way desk crosses and low front T braces; cross price is an allowance",
+  "joint_revision": "Four four-way desk crosses: desk-height joints plus a rear cross line at 235 mm into the wall; front legs braced by sliding Ts at 400 mm; rear service shelf on separate wall brackets; cross and bracket prices are allowances",
   "source_check": "Supplier links audited 21 October 2026; see each hardware status"
 }

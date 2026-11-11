@@ -105,11 +105,13 @@ tops=[max(((m@Vector(c))*1000).to_tuple()[::-1] for c in o.bound_box)[::-1]+('KN
 tops=[(t[2],t[3],t[:3]) for t in tops]+[(v.z,part(o),tuple(v)) for o in storage for v in [max(world(o)[0],key=lambda v:v.z)]]
 high=max(tops);gap=GEO['ceiling']-high[0];top_board=max(b['bottom']+b['thickness'] for k,b in ASSEMBLY['boards'].items() if k.startswith('Portal.lintel1' if PORTAL else 'Rack.top'))
 report('ceiling-storage','Highest storage to ceiling',gap,TARGET['storage_ceiling_gap_min'],'clash' if gap<0 else 'tight' if gap<TARGET['storage_ceiling_gap_min'] or not GEO['ceiling_measured'] else 'ok',f'{high[1]} reaches {high[0]:.0f} mm; ceiling {GEO["ceiling"]:.0f} mm'+(' measured' if GEO['ceiling_measured'] else ' ASSUMED — measure before buying the top crates')+f'. Above the {top_board:.0f} mm top boards there is {GEO["ceiling"]-top_board:.0f} mm; a 310 × 250 mm crate needs {math.hypot(310,250):.0f} mm to tilt in, otherwise it must slide in flat.','measured' if GEO['ceiling_measured'] else 'assumed',points=[high[2],(high[2][0],high[2][1],GEO['ceiling'])])
-# 7. Under-bed boxes slide out under the side beam.
-beams=named('Bed side beam',collection='05 ');beam_low=min(bounds([b])[0][2] for b in beams);boxes_top=max(bounds(named('Crate slat','Crate end slat',collection='05 '))[1][2],0)
-bed_frame=named('Bed side beam','Bed loadbearing leg','Bed longitudinal support',collection='05 ');crates=named('Crate',collection='05 ')
-blocked=tree(crates).overlap(tree(bed_frame))
-report('under-bed','Under-bed boxes below the side beam',beam_low-boxes_top,TARGET['under_bed_beam_gap_min'],'clash' if blocked or beam_low-boxes_top<0 else 'tight' if beam_low-boxes_top<TARGET['under_bed_beam_gap_min'] else 'ok',f'Box top {boxes_top:.0f} mm incl. casters; beam underside {beam_low:.0f} mm. Boxes must stay at or below this height overall.','envelopes')
+# 7. The daybed's pull-out slides out under the front rail and the fixed slats.
+bed_parts=lambda kind:[o for o in OBJECTS if o.get('bed_part')==kind]
+STROKE,LIFT=(v*1000 for v in scene.get('bed_extend_m',(0,0)))
+pullout=bed_parts('pullout');fixed_bed=[o for o in bed_parts('fixed') if not o.name.startswith(('ÅGOTNES','Folded'))]
+pull_top=bounds(pullout)[1][2];over=[o for o in fixed_bed if bounds([o])[0][0]>bounds(pullout)[0][0] and bounds([o])[0][2]>pull_top-5];over_low=min(bounds([o])[0][2] for o in over)
+blocked=tree(pullout).overlap(tree(fixed_bed))
+report('under-bed','Pull-out below the front rail and slats',over_low-pull_top,TARGET['under_bed_beam_gap_min'],'clash' if blocked or over_low<pull_top else 'tight' if over_low-pull_top<TARGET['under_bed_beam_gap_min'] else 'ok',f'Closed pull-out top {pull_top:.0f} mm; lowest rail or slat above it {over_low:.0f} mm. Board sizes are read from IKEA photos.','envelopes')
 # 8. Door sweeps (directions assumed unless surveyed).
 obstacles=[o for o in OBJECTS if not any(c.startswith(('01 ','09 ','10 ','12 ')) for c in collections(o)) and 'curtain' not in o.name.lower()]
 def segment(px,py,ax,ay,bx,by):
@@ -126,23 +128,29 @@ def sweep_gap(leaf):
  return best
 for leaf in ROOM['doors']['leaves']:
  gap,who=sweep_gap(leaf)
+ # A leaf the layout deliberately lets stop against furniture reports how far it still opens.
+ if gap<0 and leaf.get('accepted_stop'):
+  lo,hi=0.,float(leaf.get('max_angle',90))
+  for _ in range(14):
+   mid=(lo+hi)/2;lo,hi=(mid,hi) if sweep_gap({**leaf,'max_angle':mid})[0]>=0 else (lo,mid)
+  report('door-'+leaf['id'].lower().replace(' ','-'),leaf['id']+' sweep',round(lo),leaf.get('max_angle',90),'tight',f'Opens to about {lo:.0f}° of {leaf.get("max_angle",90)}°, then stops against {who}. Accepted: {leaf["accepted_stop"]}','assumed' if leaf['status']!='measured' else 'measured',unit='deg');continue
  report('door-'+leaf['id'].lower().replace(' ','-'),leaf['id']+' sweep',max(gap,0) if gap<1e8 else None,TARGET['door_sweep_gap_min'],'clash' if gap<0 else 'tight' if gap<TARGET['door_sweep_gap_min'] else 'ok',f'Swing {leaf["swing"]} to {leaf.get("max_angle",90)}°; nearest {who}' if gap<1e8 else f'Swing {leaf["swing"]}; nothing within reach','assumed' if leaf['status']!='measured' else 'measured')
-# 9. Aisle between the bed and the wardrobe clothes.
-bed=bounds(named('1400 x 2000 mattress',collection='05 '));aisle,who,at=min((v.x-bed[1][0],part(o),tuple(v)) for o in OBJECTS if any(c.startswith(('04 ','07 ','13 ')) for c in collections(o)) and 'curtain' not in o.name.lower() for v in world(o)[0] if bed[0][1]<v.y<bed[1][1] and v.z<1900 and v.x>bed[1][0])
-report('bed-aisle','Bed to desk and wardrobe aisle',aisle,TARGET['aisle_min'],'ok' if aisle>=TARGET['aisle_min'] else 'tight',f'Narrowest point beside the bed: {who}. Garments in front of the wardrobe are included.','envelopes',points=[(bed[1][0],at[1],at[2]),at])
+# 9. Aisle between the bed and the wardrobe clothes, with the daybed pulled out to a double.
+lo,hi=bounds(bed_parts('fixed')+pullout);bed=([lo[0],lo[1],lo[2]],[bounds(pullout)[1][0]+STROKE,hi[1],hi[2]+LIFT]);aisle,who,at=min((v.x-bed[1][0],part(o),tuple(v)) for o in OBJECTS if any(c.startswith(('04 ','07 ','13 ')) for c in collections(o)) and 'curtain' not in o.name.lower() for v in world(o)[0] if bed[0][1]<v.y<bed[1][1] and v.z<1900 and v.x>bed[1][0])
+report('bed-aisle','Extended bed to desk and wardrobe aisle',aisle,TARGET['aisle_min'],'ok' if aisle>=TARGET['aisle_min'] else 'tight',f'Narrowest point beside the pulled-out bed: {who}. Garments in front of the wardrobe are included.','envelopes',points=[(bed[1][0],at[1],at[2]),at])
 # 10. Portal divider: fixed furniture agrees with the layout file, the door stays open, the crates really fit.
 if PORTAL:
  L=json.loads((ROOT/'source/portal-layout.json').read_text());F=L['fixed'];P=ASSEMBLY['portal'];C=L['crate']['size'];xs=P['xs'];yf,yb=P['rows'];cx=P['cx'];cz=P['centre_z'];sh=P['semi_height'];hw=P['half_width']
  frame_parts=[o for o in OBJECTS if any(c.startswith(('13 ','15 ','18 ')) for c in collections(o)) and yf-60<bounds([o])[1][1] and bounds([o])[0][1]<yb+60]
- bar=bounds(named('FIXED bar worktop','OPTIONAL removable oak bar end skin'));bed=bounds(named('Bed side beam','Solid left-wall headboard',collection='05 '))
- for id,label,model,value in (('bar-end','Bar end vs portal layout',bar[1][0],F['bar_end_x']),('bar-back','Bar back vs portal layout',bar[1][1],F['bar_back_y']),('bed-near','Bed near side vs portal layout',bed[0][1],F['bed_near_y']),('bed-right','Bed foot vs portal layout',bed[1][0],F['bed_right_x'])):
+ bar=bounds(named('FIXED bar worktop','OPTIONAL removable oak bar end skin'));bed=([*bounds(bed_parts('fixed'))[0]],[bounds(pullout)[1][0]+STROKE,0,0])
+ for id,label,model,value in (('bar-end','Bar end vs portal layout',bar[1][0],F['bar_end_x']),('bar-back','Bar back vs portal layout',bar[1][1],F['bar_back_y']),('bed-near','Bed near side vs portal layout',bed[0][1],F['bed_near_y']),('bed-right','Extended bed front vs portal layout',bed[1][0],F['bed_right_x'])):
   delta=abs(model-value);report('portal-fixed-'+id,label,delta,5,'clash' if delta>5 else 'ok',f'Model {model:.0f} mm, layout file {value:.0f} mm','assumed')
  left=min(v.x for o in assembly if part(o).startswith(('PF0','PB0','Portal')) for v in world(o)[0]);gap=left-F['bar_end_x']
  report('portal-bar-gap','Divider to bar end',gap,10,'clash' if gap<0 else 'tight' if gap<10 else 'ok','Lowest boards and foot flanges beside the bar end, including the optional oak skin.','assumed')
  # Nothing may enter the ellipse the shelves describe, at any depth through the divider.
  outside=lambda v:((v.x-cx)/hw)**2+((v.z-cz)/sh)**2;board_y=ASSEMBLY['boards']['Portal.lintel0']['bounds'][2:]
  # The desk's near return stands on the rear post line by design, so it is measured separately below.
- desk_end=('DF0','Desk.low_front0','Desk.shared0','Desk.top')
+ desk_end=('DF0','Desk.low0','Desk.shared0','Desk.top')
  intruders=sorted({part(o) for o in OBJECTS if not any(c.startswith(('01 ','05 ','02 ','09 ','10 ','12 ','04 ','07 ')) for c in collections(o)) and not part(o).startswith(desk_end) for v in world(o)[0] if board_y[0]<=v.y<=board_y[1]-.5 and 0<v.z and outside(v)<.98})
  report('portal-outline','Parts inside the portal opening',len(intruders),0,'clash' if intruders else 'ok','; '.join(intruders) or f'Clear ellipse {2*hw:.0f} mm wide and {P["head"]:.0f} mm high, centred on x {cx:.0f}, apart from the desk return checked below. Oak light cover included.','envelopes','count')
  uprights=[(a,b,math.dist(A,B)) for i,(a,A) in enumerate(sorted((k,(v['x'],v['y'])) for k,v in ASSEMBLY['columns'].items())) for b,B in sorted((k,(v['x'],v['y'])) for k,v in ASSEMBLY['columns'].items())[i+1:]];near=min(uprights,key=lambda u:u[2])
@@ -189,8 +197,38 @@ for x0,x1,y0,y1 in ((0,3450,0,5300),(2200,3450,-3200,-100),(0,2100,-3050,-300),(
     cast+=1;hit=scene.ray_cast(rays,o,d,distance=9)[0];foot=o+d*((o.z+.01)/-d.z)
     if not hit and 0<=foot.x<=GEO['wall_x']/1000 and -3.2<=foot.y<=5.3:gaps.append((round(foot.x*1000),round(foot.y*1000)))
 report('floor-gaps','Rays escaping through the floor',len(gaps),0,'clash' if gaps else 'ok',f'{cast} rays cast down from the room air.'+(f' First escapes at {gaps[:4]}.' if gaps else ' None leave the flat through the floor line.'),'envelopes','count')
+# Balcony leaves: how far each opens with the daybed closed and pulled out. The viewer opens
+# them this far and closes the left leaf down before the bed extends.
+def free_angle(leaf):
+ top=float(leaf.get('max_angle',90))
+ if sweep_gap(leaf)[0]>=0:return top
+ lo,hi=0.,top
+ for _ in range(14):
+  mid=(lo+hi)/2;lo,hi=(mid,hi) if sweep_gap({**leaf,'max_angle':mid})[0]>=0 else (lo,mid)
+ return lo
+# The sweep test looks at vertices, and a long mattress edge can cross the leaf between its
+# corners. Bed parts are sampled every 25 mm along their edges for this test only.
+def dense(o):
+ vs,ps=world(o);pts=list(vs)
+ for poly in ps:
+  for a,b in zip(poly,poly[1:]+poly[:1]):
+   n=int((vs[b]-vs[a]).length//25)
+   pts+=[vs[a].lerp(vs[b],k/(n+1)) for k in range(1,n+1)]
+ return pts,ps
+saved={o.name:cache[o.name] if o.name in cache else world(o) for o in bed_parts('fixed')+bed_parts('pullout')+bed_parts('legs')}
+for o in bed_parts('fixed')+bed_parts('pullout')+bed_parts('legs'):cache[o.name]=dense(o)
+def bed_extended(on):
+ for o in bed_parts('pullout')+bed_parts('legs'):
+  shift=Vector((STROKE,0,LIFT if o.get('bed_part')=='pullout' else 0))*(1 if on else -1);vs,ps=world(o);cache[o.name]=([v+shift for v in vs],ps)
+balcony=[]
+for leaf in ROOM['doors']['leaves']:
+ if not leaf['id'].startswith('Balcony'):continue
+ daybed=free_angle(leaf);bed_extended(True);extended=free_angle(leaf);bed_extended(False)
+ balcony.append({'id':leaf['id'],'side':'left' if 'left' in leaf['id'].lower() else 'right','hinge_mm':leaf['hinge'],'closed_toward_mm':leaf['closed_toward'],'open_toward_mm':leaf['open_toward'],'max_angle':leaf.get('max_angle',90),'angle_daybed':round(daybed,1),'angle_bed_extended':round(extended,1),'basis':'assumed' if leaf['status']!='measured' else 'measured'})
+print('BALCONY',json.dumps(balcony),flush=True)
+cache.update(saved)
 basis={'wall':'measured' if GEO['wall_measured'] else 'assumed','ceiling':'measured' if GEO['ceiling_measured'] else 'assumed','services':ROOM['services']['status'],'doors':ROOM['doors']['status']}
 tilts={o.get('speaker_tilt_degrees') for o in OBJECTS if o.name.startswith('KRK monitor speaker reservation')}
-out={'generated_by':'scripts/check-clearances.py','basis':basis,'ear_reference_mm':list(EAR_MM),'speaker_tilt_degrees':max(tilts),'checks':checks}
+out={'generated_by':'scripts/check-clearances.py','basis':basis,'ear_reference_mm':list(EAR_MM),'speaker_tilt_degrees':max(tilts),'balcony':balcony,'checks':checks}
 (ROOT/'public/data'/REPORT).write_text(json.dumps(out,indent=2,ensure_ascii=False)+'\n')
 for c in checks:print('CLEARANCE',c['status'].upper().ljust(6),c['label'],c['value'],c['unit'],'|',c['detail'],flush=True)

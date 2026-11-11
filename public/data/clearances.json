@@ -11,6 +11,48 @@
     1220
   ],
   "speaker_tilt_degrees": 10.0,
+  "balcony": [
+    {
+      "id": "Balcony left leaf",
+      "side": "left",
+      "hinge_mm": [
+        260,
+        5300
+      ],
+      "closed_toward_mm": [
+        1420,
+        5300
+      ],
+      "open_toward_mm": [
+        260,
+        4140
+      ],
+      "max_angle": 100,
+      "angle_daybed": 41.9,
+      "angle_bed_extended": 33.4,
+      "basis": "assumed"
+    },
+    {
+      "id": "Balcony right leaf",
+      "side": "right",
+      "hinge_mm": [
+        2580,
+        5300
+      ],
+      "closed_toward_mm": [
+        1420,
+        5300
+      ],
+      "open_toward_mm": [
+        2580,
+        4140
+      ],
+      "max_angle": 100,
+      "angle_daybed": 100.0,
+      "angle_bed_extended": 33.3,
+      "basis": "assumed"
+    }
+  ],
   "checks": [
     {
       "id": "architecture-wall",
@@ -39,7 +81,7 @@
       "target": 600,
       "unit": "mm",
       "status": "tight",
-      "detail": "Nearest: Desk.low_front0.t1. At floor level the nearest is DF0.foot at 649 mm. Comfortable two-way passage is about 800 mm.",
+      "detail": "Nearest: Desk.low0.front.t1. At floor level the nearest is DF0.foot at 649 mm. Comfortable two-way passage is about 800 mm.",
       "basis": "assumed",
       "points": [
         [
@@ -87,21 +129,21 @@
     {
       "id": "speaker-aim-L",
       "label": "Speaker L tweeter aim error",
-      "value": 5.0,
+      "value": 4.4,
       "target": 8,
       "unit": "deg",
       "status": "ok",
-      "detail": "Tweeter at 1389 mm, 653 mm from the ear reference; pad tilt 10.0°, capped at 10° for a stable wedge pad; under about 8° keeps the ear inside the tweeter on-axis window. Seated ear reference x 2620, z 1220 mm.",
+      "detail": "Tweeter at 1389 mm, 679 mm from the ear reference; pad tilt 10.0°, capped at 10° for a stable wedge pad; under about 8° keeps the ear inside the tweeter on-axis window. Seated ear reference x 2620, z 1220 mm.",
       "basis": "envelopes"
     },
     {
       "id": "speaker-aim-R",
       "label": "Speaker R tweeter aim error",
-      "value": 5.0,
+      "value": 4.4,
       "target": 8,
       "unit": "deg",
       "status": "ok",
-      "detail": "Tweeter at 1389 mm, 653 mm from the ear reference; pad tilt 10.0°, capped at 10° for a stable wedge pad; under about 8° keeps the ear inside the tweeter on-axis window. Seated ear reference x 2620, z 1220 mm.",
+      "detail": "Tweeter at 1389 mm, 679 mm from the ear reference; pad tilt 10.0°, capped at 10° for a stable wedge pad; under about 8° keeps the ear inside the tweeter on-axis window. Seated ear reference x 2620, z 1220 mm.",
       "basis": "envelopes"
     },
     {
@@ -128,12 +170,12 @@
     },
     {
       "id": "under-bed",
-      "label": "Under-bed boxes below the side beam",
-      "value": 20.0,
+      "label": "Pull-out below the front rail and slats",
+      "value": 15.0,
       "target": 15,
       "unit": "mm",
       "status": "ok",
-      "detail": "Box top 230 mm incl. casters; beam underside 250 mm. Boxes must stay at or below this height overall.",
+      "detail": "Closed pull-out top 220 mm; lowest rail or slat above it 235 mm. Board sizes are read from IKEA photos.",
       "basis": "envelopes"
     },
     {
@@ -169,11 +211,11 @@
     {
       "id": "door-balcony-left-leaf",
       "label": "Balcony left leaf sweep",
-      "value": 101.7,
-      "target": 20,
-      "unit": "mm",
-      "status": "ok",
-      "detail": "Swing into room to 100°; nearest Crate slat.007",
+      "value": 42,
+      "target": 100,
+      "unit": "deg",
+      "status": "tight",
+      "detail": "Opens to about 42° of 100°, then stops against GLAMBERGET post.003. Accepted: the GLAMBERGET daybed runs along the left wall (chosen 2026-11-11); the leaf stops at its foot end.",
       "basis": "assumed"
     },
     {
@@ -188,16 +230,16 @@
     },
     {
       "id": "bed-aisle",
-      "label": "Bed to desk and wardrobe aisle",
-      "value": 673.0,
+      "label": "Extended bed to desk and wardrobe aisle",
+      "value": 980.0,
       "target": 700,
       "unit": "mm",
-      "status": "tight",
-      "detail": "Narrowest point beside the bed: Desk.top. Garments in front of the wardrobe are included.",
+      "status": "ok",
+      "detail": "Narrowest point beside the pulled-out bed: Desk.top. Garments in front of the wardrobe are included.",
       "basis": "envelopes",
       "points": [
         [
-          2030.0,
+          1723.0,
           2919.7,
           704.3
         ],
@@ -215,7 +257,7 @@
       "target": 0,
       "unit": "count",
       "status": "ok",
-      "detail": "241008 rays cast down from the room air. None leave the flat through the floor line.",
+      "detail": "240576 rays cast down from the room air. None leave the flat through the floor line.",
       "basis": "envelopes"
     }
   ]

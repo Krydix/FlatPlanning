@@ -228,7 +228,7 @@
       "atlas": 4096,
       "area_m2": 30.61,
       "texels_per_m": 300,
-      "bake_seconds": 352.4,
+      "bake_seconds": 583,
       "vertices": 7320,
       "polygons": 5715
     },
@@ -237,7 +237,7 @@
       "atlas": 4096,
       "area_m2": 151.81,
       "texels_per_m": 150,
-      "bake_seconds": 406.6,
+      "bake_seconds": 487.6,
       "vertices": 72,
       "polygons": 45
     },
@@ -246,7 +246,7 @@
       "atlas": 2048,
       "area_m2": 28.36,
       "texels_per_m": 200,
-      "bake_seconds": 79.7,
+      "bake_seconds": 100.2,
       "vertices": 240,
       "polygons": 228
     },
@@ -255,7 +255,7 @@
       "atlas": 2048,
       "area_m2": 35.75,
       "texels_per_m": 220,
-      "bake_seconds": 114.2,
+      "bake_seconds": 160.9,
       "vertices": 3136,
       "polygons": 3006
     },
@@ -264,7 +264,7 @@
       "atlas": 1024,
       "area_m2": 5.47,
       "texels_per_m": 320,
-      "bake_seconds": 13.5,
+      "bake_seconds": 15.7,
       "vertices": 16128,
       "polygons": 15892
     },
@@ -273,25 +273,88 @@
       "atlas": 512,
       "area_m2": 1.26,
       "texels_per_m": 200,
-      "bake_seconds": 4.5,
+      "bake_seconds": 5.9,
       "vertices": 632,
       "polygons": 438
     },
     {
       "category": "bed",
-      "atlas": 2048,
-      "area_m2": 30.57,
+      "atlas": 1024,
+      "area_m2": 10.36,
       "texels_per_m": 200,
-      "bake_seconds": 91.4,
-      "vertices": 13312,
-      "polygons": 13509
+      "bake_seconds": 31.4,
+      "vertices": 1016,
+      "polygons": 1076
+    },
+    {
+      "category": "bed_pullout",
+      "atlas": 1024,
+      "area_m2": 6.99,
+      "texels_per_m": 200,
+      "bake_seconds": 34.3,
+      "vertices": 824,
+      "polygons": 866
+    },
+    {
+      "category": "bed_legs",
+      "atlas": 256,
+      "area_m2": 0.15,
+      "texels_per_m": 200,
+      "bake_seconds": 3.3,
+      "vertices": 96,
+      "polygons": 100
+    },
+    {
+      "category": "bed_cushion_0",
+      "atlas": 1024,
+      "area_m2": 0.93,
+      "texels_per_m": 420,
+      "bake_seconds": 28.7,
+      "vertices": 4706,
+      "polygons": 4704
+    },
+    {
+      "category": "bed_cushion_1",
+      "atlas": 1024,
+      "area_m2": 0.93,
+      "texels_per_m": 420,
+      "bake_seconds": 18.9,
+      "vertices": 4706,
+      "polygons": 4704
+    },
+    {
+      "category": "bed_cushion_2",
+      "atlas": 1024,
+      "area_m2": 0.93,
+      "texels_per_m": 420,
+      "bake_seconds": 31,
+      "vertices": 4706,
+      "polygons": 4704
+    },
+    {
+      "category": "bed_cushion_3",
+      "atlas": 512,
+      "area_m2": 0.5,
+      "texels_per_m": 420,
+      "bake_seconds": 9.2,
+      "vertices": 4706,
+      "polygons": 4704
+    },
+    {
+      "category": "bed_cushion_4",
+      "atlas": 512,
+      "area_m2": 0.5,
+      "texels_per_m": 420,
+      "bake_seconds": 8,
+      "vertices": 4706,
+      "polygons": 4704
     },
     {
       "category": "curtains",
       "atlas": 1024,
       "area_m2": 7.65,
       "texels_per_m": 200,
-      "bake_seconds": 16.7,
+      "bake_seconds": 29.6,
       "vertices": 384,
       "polygons": 224
     },
@@ -300,7 +363,7 @@
       "atlas": 2048,
       "area_m2": 21.29,
       "texels_per_m": 200,
-      "bake_seconds": 30.9,
+      "bake_seconds": 66.6,
       "vertices": 10384,
       "polygons": 9632
     },
@@ -309,7 +372,7 @@
       "atlas": 512,
       "area_m2": 3.67,
       "texels_per_m": 200,
-      "bake_seconds": 6.7,
+      "bake_seconds": 8.1,
       "vertices": 624,
       "polygons": 549
     },
@@ -318,52 +381,88 @@
       "atlas": 2048,
       "area_m2": 60.35,
       "texels_per_m": 120,
-      "bake_seconds": 76.3,
+      "bake_seconds": 116.3,
       "vertices": 88,
       "polygons": 48
     },
     {
       "category": "doors",
       "atlas": 1024,
-      "area_m2": 14.06,
+      "area_m2": 10.59,
       "texels_per_m": 180,
-      "bake_seconds": 28.4,
-      "vertices": 1568,
-      "polygons": 1583
+      "bake_seconds": 33.5,
+      "vertices": 608,
+      "polygons": 603
+    },
+    {
+      "category": "balcony_left",
+      "atlas": 512,
+      "area_m2": 1.74,
+      "texels_per_m": 200,
+      "bake_seconds": 8.7,
+      "vertices": 480,
+      "polygons": 490
+    },
+    {
+      "category": "balcony_left_glass",
+      "atlas": 1024,
+      "area_m2": 4.46,
+      "texels_per_m": 200,
+      "bake_seconds": 11.7,
+      "vertices": 8,
+      "polygons": 6
+    },
+    {
+      "category": "balcony_right",
+      "atlas": 512,
+      "area_m2": 1.74,
+      "texels_per_m": 200,
+      "bake_seconds": 10.3,
+      "vertices": 480,
+      "polygons": 490
+    },
+    {
+      "category": "balcony_right_glass",
+      "atlas": 1024,
+      "area_m2": 4.46,
+      "texels_per_m": 200,
+      "bake_seconds": 21.4,
+      "vertices": 8,
+      "polygons": 6
     },
     {
       "category": "glass",
-      "atlas": 512,
-      "area_m2": 12.81,
+      "atlas": 256,
+      "area_m2": 3.9,
       "texels_per_m": 60,
-      "bake_seconds": 1.7,
-      "vertices": 128,
-      "polygons": 119
+      "bake_seconds": 3.3,
+      "vertices": 112,
+      "polygons": 107
     },
     {
       "category": "pipes",
       "atlas": 2048,
-      "area_m2": 7.3,
+      "area_m2": 7.22,
       "texels_per_m": 200,
-      "bake_seconds": 22.5,
-      "vertices": 66300,
-      "polygons": 39928
+      "bake_seconds": 49,
+      "vertices": 63032,
+      "polygons": 37904
     },
     {
       "category": "wood",
       "atlas": 2048,
-      "area_m2": 11.52,
+      "area_m2": 11.58,
       "texels_per_m": 300,
-      "bake_seconds": 102.5,
-      "vertices": 2494,
-      "polygons": 2269
+      "bake_seconds": 140.7,
+      "vertices": 2393,
+      "polygons": 2176
     },
     {
       "category": "lighting",
       "atlas": 1024,
       "area_m2": 2.61,
       "texels_per_m": 300,
-      "bake_seconds": 14.7,
+      "bake_seconds": 15.2,
       "vertices": 12932,
       "polygons": 12504
     },
@@ -372,7 +471,7 @@
       "atlas": 1024,
       "area_m2": 6.71,
       "texels_per_m": 240,
-      "bake_seconds": 35.3,
+      "bake_seconds": 29.1,
       "vertices": 16608,
       "polygons": 16212
     },
@@ -381,15 +480,15 @@
       "atlas": 2048,
       "area_m2": 18.66,
       "texels_per_m": 190,
-      "bake_seconds": 74.3,
+      "bake_seconds": 59.5,
       "vertices": 448,
       "polygons": 283
     }
   ],
-  "model_bytes": 22973168,
-  "mesh_count": 18,
+  "model_bytes": 23792696,
+  "mesh_count": 29,
   "lights_exported": false,
-  "uncompressed_model_bytes": 63902812,
+  "uncompressed_model_bytes": 63897260,
   "mesh_compression": "EXT_meshopt_compression",
   "texture_compression": "KHR_texture_basisu: KTX2, mipmapped; UASTC (RDO λ2.0, Zstandard 18) for detail, ETC1S for shell, ceiling, exterior, glass",
   "textures": [
@@ -400,16 +499,97 @@
         2048
       ],
       "codec": "UASTC",
-      "bytes": 1789209
+      "bytes": 1791347
+    },
+    {
+      "name": "balcony_left",
+      "size": [
+        512,
+        512
+      ],
+      "codec": "UASTC",
+      "bytes": 65868
+    },
+    {
+      "name": "balcony_right",
+      "size": [
+        512,
+        512
+      ],
+      "codec": "UASTC",
+      "bytes": 70222
     },
     {
       "name": "bed",
       "size": [
-        2048,
-        2048
+        1024,
+        1024
       ],
       "codec": "UASTC",
-      "bytes": 2000065
+      "bytes": 623123
+    },
+    {
+      "name": "bed_cushion_0",
+      "size": [
+        1024,
+        1024
+      ],
+      "codec": "UASTC",
+      "bytes": 329628
+    },
+    {
+      "name": "bed_cushion_1",
+      "size": [
+        1024,
+        1024
+      ],
+      "codec": "UASTC",
+      "bytes": 340546
+    },
+    {
+      "name": "bed_cushion_2",
+      "size": [
+        1024,
+        1024
+      ],
+      "codec": "UASTC",
+      "bytes": 331277
+    },
+    {
+      "name": "bed_cushion_3",
+      "size": [
+        512,
+        512
+      ],
+      "codec": "UASTC",
+      "bytes": 134054
+    },
+    {
+      "name": "bed_cushion_4",
+      "size": [
+        512,
+        512
+      ],
+      "codec": "UASTC",
+      "bytes": 78099
+    },
+    {
+      "name": "bed_legs",
+      "size": [
+        256,
+        256
+      ],
+      "codec": "UASTC",
+      "bytes": 50741
+    },
+    {
+      "name": "bed_pullout",
+      "size": [
+        1024,
+        1024
+      ],
+      "codec": "UASTC",
+      "bytes": 592379
     },
     {
       "name": "ceiling",
@@ -418,7 +598,7 @@
         2048
       ],
       "codec": "ETC1S",
-      "bytes": 140221
+      "bytes": 137750
     },
     {
       "name": "chair",
@@ -427,7 +607,7 @@
         512
       ],
       "codec": "UASTC",
-      "bytes": 69630
+      "bytes": 82460
     },
     {
       "name": "clothes",
@@ -436,7 +616,7 @@
         2048
       ],
       "codec": "UASTC",
-      "bytes": 682042
+      "bytes": 694122
     },
     {
       "name": "crates",
@@ -445,7 +625,7 @@
         1024
       ],
       "codec": "UASTC",
-      "bytes": 732387
+      "bytes": 736656
     },
     {
       "name": "curtains",
@@ -454,7 +634,7 @@
         1024
       ],
       "codec": "UASTC",
-      "bytes": 445902
+      "bytes": 444354
     },
     {
       "name": "doors",
@@ -463,7 +643,7 @@
         1024
       ],
       "codec": "UASTC",
-      "bytes": 471109
+      "bytes": 311123
     },
     {
       "name": "equipment",
@@ -472,7 +652,7 @@
         1024
       ],
       "codec": "UASTC",
-      "bytes": 392370
+      "bytes": 410952
     },
     {
       "name": "floor",
@@ -481,16 +661,16 @@
         4096
       ],
       "codec": "UASTC",
-      "bytes": 6969668
+      "bytes": 7092910
     },
     {
       "name": "glass",
       "size": [
-        512,
-        512
+        256,
+        256
       ],
       "codec": "ETC1S",
-      "bytes": 1790
+      "bytes": 2025
     },
     {
       "name": "hall",
@@ -499,7 +679,7 @@
         512
       ],
       "codec": "UASTC",
-      "bytes": 84206
+      "bytes": 88378
     },
     {
       "name": "kitchen",
@@ -508,7 +688,7 @@
         2048
       ],
       "codec": "UASTC",
-      "bytes": 1540668
+      "bytes": 1564754
     },
     {
       "name": "lighting",
@@ -517,7 +697,7 @@
         1024
       ],
       "codec": "UASTC",
-      "bytes": 738032
+      "bytes": 742884
     },
     {
       "name": "pipes",
@@ -526,7 +706,7 @@
         2048
       ],
       "codec": "UASTC",
-      "bytes": 906586
+      "bytes": 966971
     },
     {
       "name": "shell",
@@ -535,7 +715,7 @@
         4096
       ],
       "codec": "ETC1S",
-      "bytes": 733400
+      "bytes": 754513
     },
     {
       "name": "trim",
@@ -544,7 +724,7 @@
         2048
       ],
       "codec": "UASTC",
-      "bytes": 1152090
+      "bytes": 1159702
     },
     {
       "name": "wood",
@@ -553,9 +733,9 @@
         2048
       ],
       "codec": "UASTC",
-      "bytes": 2178521
+      "bytes": 2204571
     }
   ],
-  "texture_count": 18,
-  "gpu_texture_bytes_estimate": 97517562
+  "texture_count": 27,
+  "gpu_texture_bytes_estimate": 100138999
 }

@@ -14,11 +14,14 @@ class SpeakerPlacement(unittest.TestCase):
   for side,tray in zip((self.left,self.right),self.cfg['speakers']['trays']):
    b=self.graph['boards'][tray];self.assertTrue(all(point_in_board(x,y,b,-5) for x,y in side['footprint']))
    self.assertGreaterEqual(side['nearest'][0],15)
- def test_pushed_rear_and_outward_from_tray_centre(self):
+ def test_speaker_stays_inside_the_shelf_column(self):
+  shelf=self.graph['boards']['Desk.shelf0']['bounds'];wall=self.graph['columns']['SB0']['x']+75
   for side,tray in zip((self.left,self.right),self.cfg['speakers']['trays']):
-   b=self.graph['boards'][tray];cx=(b['bounds'][0]+b['bounds'][1])/2;cy=(b['bounds'][2]+b['bounds'][3])/2;mid=sum(self.graph['boards']['Desk.top']['bounds'][2:])/2
-   self.assertGreater(side['centre'][0],cx);self.assertGreater(abs(side['centre'][1]-mid),abs(cy-mid))
-   self.assertGreaterEqual(math.dist(side['centre'],(cx,cy)),25)
+   b=self.graph['boards'][tray];xs=[x for x,_ in side['footprint']];ys=[y for _,y in side['footprint']]
+   # Nothing in front of the shelf line or closer than 20 mm to the wall; the tray is the smallest board that takes the aimed speaker.
+   self.assertGreaterEqual(min(xs),shelf[0]);self.assertLessEqual(max(xs),wall-20)
+   self.assertLessEqual(b['bounds'][1]-b['bounds'][0]-(max(xs)-min(xs)),2*self.cfg['speakers']['placement']['margin']+10)
+   self.assertGreaterEqual(min(ys),b['bounds'][2]+5);self.assertLessEqual(max(ys),b['bounds'][3]-5)
  def test_clearance_detects_overlap(self):
   square=[(0,0),(10,0),(10,10),(0,10)];self.assertEqual(clearance(square,(5,5),(5,5)),-1);self.assertAlmostEqual(clearance(square,(13,5),(13,5)),3)
 if __name__=='__main__':unittest.main()

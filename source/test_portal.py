@@ -88,9 +88,11 @@ class Portal(unittest.TestCase):
   for c in ('DS0','SB0'):
    tubes=[self.a.parts[t] for t in self.a.columns[c]['tubes']];self.assertGreaterEqual(max(t.origin[2]+t.data['length'] for t in tubes),self.g['tie_z']+45)
    self.assertTrue(any(k.startswith('ShelfCross.') and c in k for k in self.a.parts))
- def test_tower_reuses_the_desk_brace(self):
+ def test_tower_sleeves_clear_the_desk_low_cross(self):
   supports=[s[0] for s in self.a.boards['Portal.shelfR1']['supports']];self.assertTrue(all(s.startswith('Portal.shelfR1.') for s in supports))
-  self.assertEqual(self.a.parts['Portal.shelfR1.rear.saddle0'].data['host'],'Desk.low_depth0.tube')
+  for c in self.a.clamps:
+   if c['host'].split('.')[0]=='SB0' or (c['host'].split('.')[0]=='DS0' and c['id']!='Desk.low0.tee'):self.assertGreaterEqual(abs(c['z']-235)-c['half'],30,c['id'])
+  self.assertLessEqual(self.a.parts['SB0.upper'].origin[2]+self.a.parts['SB0.upper'].data['length'],ROOM['ceiling']-100)
  def test_wardrobe_stays_inside_the_room_and_drops_the_wear_rail(self):
   self.assertLessEqual(self.a.columns['RF2']['y'],5214);self.assertFalse(any(k.startswith('Wear.') for k in self.a.parts));self.assertFalse(any(k.startswith('Rack.fold') for k in self.a.boards))
 if __name__=='__main__':unittest.main()

@@ -1,10 +1,10 @@
 import fs from 'node:fs';import assert from 'node:assert/strict';
 const project=JSON.parse(fs.readFileSync('public/data/project.json'));const bake=JSON.parse(fs.readFileSync('public/data/bake-manifest.json'));const graph=JSON.parse(fs.readFileSync('public/data/assembly.json'));
-assert.equal(project.meta.design,'V18');assert.equal(project.meta.locked,true);assert.equal(project.meta.partCount,291);assert.equal(project.stages.length,21);assert.equal(bake.ceiling_light_on,false);assert.equal(bake.baked,true);
-const ids=project.stages.flatMap(s=>s.parts);assert.equal(ids.length,291);assert.equal(new Set(ids).size,291);assert.equal(graph.validation.geometry_errors.length,0);
+assert.equal(project.meta.design,'V18');assert.equal(project.meta.locked,true);assert.equal(project.meta.partCount,282);assert.equal(project.stages.length,21);assert.equal(bake.ceiling_light_on,false);assert.equal(bake.baked,true);
+const ids=project.stages.flatMap(s=>s.parts);assert.equal(ids.length,282);assert.equal(new Set(ids).size,282);assert.equal(graph.validation.geometry_errors.length,0);
 assert.equal(bake.render_engine,'Cycles');assert.ok(bake.samples>=128);assert.equal(bake.view_independent,true);assert.ok(bake.max_atlas_size<=4096);assert.equal(bake.display_referred,true);
 const ceilingLights=bake.baked_lights.filter(l=>l.name.toLowerCase().includes('ceiling'));assert.ok(ceilingLights.length>0);assert.ok(ceilingLights.every(l=>l.watts===0));
-const core=project.parts.filter(r=>!r.optional).reduce((n,r)=>n+r.total,0);assert.ok(Math.abs(core-project.meta.coreBudget)<.02);assert.equal(project.meta.coreBudget,2968.90);
+const core=project.parts.filter(r=>!r.optional).reduce((n,r)=>n+r.total,0);assert.ok(Math.abs(core-project.meta.coreBudget)<.02);assert.equal(project.meta.coreBudget,2930.73);
 for(const r of project.parts){if(r.url)assert.ok(r.url.startsWith('https://'));if(r.buyPacks)assert.ok(r.buyPacks*r.packSize>=r.quantity);assert.ok(Number.isFinite(r.total));}
 for(const s of project.stages){assert.ok(fs.statSync(`public/${s.diagram}`).size>100);for(const id of s.parts)assert.ok(graph.parts.find(p=>p.id===id));}
 for(const file of ['models/flat-baked.glb','models/assembly.glb','downloads/bom.csv','downloads/cut-list.csv','downloads/flat-v18.dxf','downloads/frame-elevations-v18.dxf'])assert.ok(fs.statSync('public/'+file).size>100);

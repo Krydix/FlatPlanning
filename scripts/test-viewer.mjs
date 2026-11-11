@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import * as THREE from 'three';
 
 globalThis.window={matchMedia:()=>({matches:false}),devicePixelRatio:2,addEventListener(){},removeEventListener(){}};
-const {RoomViewer,loopViewer,watchContext,INTERIOR,FOV_RANGE,horizontalFov,verticalFov}=await import('../src/viewer.js');
+const {RoomViewer,bedPose,BED_TIMING,hingeSign,leafAngle,loopViewer,watchContext,INTERIOR,FOV_RANGE,horizontalFov,verticalFov}=await import('../src/viewer.js');
 
 test('camera presets preserve baked materials and the chosen cutaway throughout each transition',()=>{
  const queue=[];
@@ -145,4 +145,31 @@ test('dimensions are dashed unless measured on site',()=>{
  assert.equal(lines[0].material.type,'LineDashedMaterial');assert.equal(lines[1].material.type,'LineBasicMaterial');
  const labels=viewer.dimensionGroup.children.filter(o=>o.element);assert.match(labels[0].element.textContent,/3\.45 m · assumed/);assert.match(labels[1].element.textContent,/2\.48 m$/);
  assert.ok(INTERIOR.length===3);
+});
+
+test('the daybed opens to a flat double and closes with every cushion back in place',()=>{
+ const start=bedPose(0,true);assert.equal(start.slide,0);assert.equal(start.lift,0);for(const c of start.cushions){assert.equal(c.sx,1);assert.equal(c.y,0);}
+ const open=bedPose(BED_TIMING.open,true);assert.equal(open.slide,1);assert.equal(open.lift,1);assert.ok(open.cushions.every(c=>c.hidden));
+ // The pull-out only rises once it has cleared the fixed frame, and drops before it rolls home.
+ for(let t=0;t<BED_TIMING.open;t+=.05){const p=bedPose(t,true);if(p.lift>0)assert.equal(p.slide,1,`lifting at ${t}s before fully out`);}
+ for(let t=0;t<BED_TIMING.close;t+=.05){const p=bedPose(t,false);if(p.slide<1)assert.equal(p.lift,0,`rolling in at ${t}s while still raised`);
+  // Cushions only fall onto the closed daybed.
+  if(p.cushions.some(c=>!c.hidden))assert.equal(p.slide,0,`cushion visible at ${t}s with the bed out`);}
+ const closed=bedPose(BED_TIMING.close,false);assert.equal(closed.slide,0);assert.equal(closed.lift,0);for(const c of closed.cushions)assert.deepEqual(c,{y:0,sx:1,sy:1});
+ // A cushion lands from above and squashes: wider and flatter just after touchdown.
+ const landed=bedPose(1.38+.32+.01,false).cushions[0];assert.equal(landed.y,0);assert.ok(landed.sx>1&&landed.sy<1);
+});
+
+test('balcony leaves swing into the room and never past what the bed leaves free',()=>{
+ // Turning a closed leaf by sign × a small angle must move its free edge toward the open side.
+ for(const [hinge,closed,open] of [[[260,5300],[1420,5300],[260,4140]],[[2580,5300],[1420,5300],[2580,4140]]]){
+  const sign=hingeSign(hinge,closed,open),a=sign*.1;const x=closed[0]-hinge[0],z=-(closed[1]-hinge[1]);
+  const turned=[x*Math.cos(a)+z*Math.sin(a),-x*Math.sin(a)+z*Math.cos(a)];assert.ok(turned[1]>0,'the free edge moves toward the room (+z)');
+ }
+ const leaf={angle_daybed:42,angle_bed_extended:33};
+ assert.equal(leafAngle(leaf,false,false),0);assert.equal(leafAngle(leaf,false,true),0);
+ assert.equal(leafAngle(leaf,true,false),42);assert.equal(leafAngle(leaf,true,true),33);
+ // The leaves only move while the pull-out is still: in before it rolls out, out after it is home.
+ assert.equal(bedPose(BED_TIMING.slideOut,true).slide,0);
+ assert.equal(bedPose(BED_TIMING.home,false).slide,0);
 });

@@ -16,7 +16,8 @@
     "bottom": 500,
     "thickness": 18,
     "clear_height": 186,
-    "knee_depth": 472
+    "knee_depth": 472,
+    "support": "Four separate wall shelf brackets, 200 mm reach, at y 1425 / 1885 / 2340 / 2800 (allowance: bracket type and wall fixings not selected). The shelf is not part of the pipe frame."
   },
   "knee_zone": {
     "bounds": [
@@ -164,7 +165,7 @@
   "cable_reserve_mm": 60,
   "notes": [
     "Focusrite and dock fronts stay visible beneath the front edge at opposite ends, outside the central 700 mm knee width.",
-    "Rear shelf remains open at front/back. Route Mac ports along the shelf length; do not push its rear ports into the wall.",
+    "Rear shelf remains open at front/back and hangs on four separate wall brackets, not on the pipe frame. Route Mac ports along the shelf length; do not push its rear ports into the wall.",
     "Strap power bricks individually without covering vents; keep audio signal leads away from the power-brick bay.",
     "Use removable cable clips beneath the tabletop and service loops behind both front devices. Holder fasteners must be suitable for the 28 mm tabletop.",
     "The drawn dock-to-Mac routing plus service slack requires a 2 m certified Thunderbolt lead. The OWC-supplied 0.8 m lead is too short for this path; €40 is a budget allowance, removable if already owned.",
@@ -250,7 +251,7 @@
     "woofer_above_base": 115,
     "pad": 3,
     "max_tilt_degrees": 10,
-    "status": "Studio monitor reservation, model not confirmed. Each speaker sits at the rear-outer edge of its tray (mirrored left/right, fully on the tray, at least 15 mm from frame parts), faces the seated ear reference and is tilted down by angled pads (BOM Optional pads)",
+    "status": "Studio monitor reservation, model not confirmed. Each speaker sits on a 370 mm square tray inside the shelf column between the middle and rear posts, mirrored left/right about the desk centre, fully on the tray with at least 15 mm to frame parts, faces the seated ear reference and is tilted down by angled pads (BOM Optional pads). Nothing overhangs the desktop.",
     "placement": {
       "margin": 5,
       "gap": 15,

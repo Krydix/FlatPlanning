@@ -104,6 +104,7 @@
       },
       {
         "id": "Balcony left leaf",
+        "accepted_stop": "the GLAMBERGET daybed runs along the left wall (chosen 2026-11-11); the leaf stops at its foot end.",
         "hinge": [
           260,
           5300

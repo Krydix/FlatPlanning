@@ -1,37 +1,38 @@
 # Complete BOM — Portal divider variant
 
-Core estimate **€4,563.28** including 10% reserve. With six crates **€4,629.21**. Prices keep V18's 19–20 October 2026 basis; timber is priced by area at V18's rate per thickness, and the divider's extra machining and fixings are allowances.
+Core estimate **€4,539.77** including 10% reserve. With six crates **€4,605.70**. Prices keep V18's 19–20 October 2026 basis; timber is priced by area at V18's rate per thickness, and the divider's extra machining and fixings are allowances.
 
 | Part | Qty | Packs | Unit/pack € | Total € | Source |
 |---|---:|---:|---:|---:|---|
 | Ø70 mm mounting flange · DOLLE plate / flange Ø70 | 29 | 29 | 2.59 | 75.11 | https://www.globus-baumarkt.de/p/dolle-plattenscheibe-fuer-pipe-regalsystem-oe-70-mm-20-mm-3-4-schwarz-matt-0763202822/ |
-| 1,000 mm pipe · DOLLE tube Ø25 × 1000 mm | 12 | 12 | 9.99 | 119.88 | https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1000-mm-20-mm-3-4-schwarz-matt-0763202825/ |
+| 1,000 mm pipe · DOLLE tube Ø25 × 1000 mm | 13 | 13 | 9.99 | 129.87 | https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1000-mm-20-mm-3-4-schwarz-matt-0763202825/ |
 | Female–female coupling · DOLLE Extension, TWO FEMALE THREADS | 20 | 20 | 1.59 | 31.80 | https://www.obi.de/p/4978219/dolle-doppelmuffe-extension-fuer-pipe-regalsystem-20-mm-3-4-schwarz-matt |
 | 1,200 mm pipe · DOLLE tube Ø25 × 1200 mm | 7 | 7 | 10.99 | 76.93 | https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1200-mm-20-mm-3-4-schwarz-matt-0763202841/ |
 | End cover · DOLLE end stopper, fit to verify, 2 per pack | 26 | 13 | 3.79 | 49.27 | https://www.globus-baumarkt.de/p/dolle-abdeckstopfen-fuer-pipe-regalsystem-20-mm-3-4-schwarz-matt-2-stueck-0763202816/ |
-| Sliding T connector · DOLLE sliding T, one female branch, Ø25 sleeve | 145 | 145 | 5.99 | 868.55 | https://www.globus-baumarkt.de/p/dolle-t-verbinder-fuer-pipe-regalsystem-20-mm-3-4-verschiebbar-schwarz-matt-0763202823/ |
+| Sliding T connector · DOLLE sliding T, one female branch, Ø25 sleeve | 137 | 137 | 5.99 | 820.63 | https://www.globus-baumarkt.de/p/dolle-t-verbinder-fuer-pipe-regalsystem-20-mm-3-4-verschiebbar-schwarz-matt-0763202823/ |
 | 40 mm pipe · DOLLE tube Ø25 × 40 mm | 15 | 15 | 1.19 | 17.85 | https://www.obi.de/p/4964102/dolle-rohr-tube-fuer-pipe-regalsystem-25-mm-x-40-mm-schwarz-matt |
-| 250 mm pipe · DOLLE tube Ø25 × 250 mm | 67 | 67 | 2.99 | 200.33 | https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-250-mm-20-mm-3-4-schwarz-matt-0763202837/ |
-| Saddle shelf holder · DOLLE PIPE one-sided saddle shelf holder, 2 per Toom pack | 130 | 65 | 2.99 | 194.35 | https://toom.de/p/regalbodenhalter-fuer-regalsystem-pipe-schwarz-2-stueck/7450897 |
+| 250 mm pipe · DOLLE tube Ø25 × 250 mm | 65 | 65 | 2.99 | 194.35 | https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-250-mm-20-mm-3-4-schwarz-matt-0763202837/ |
+| Saddle shelf holder · DOLLE PIPE one-sided saddle shelf holder, 2 per Toom pack | 126 | 63 | 2.99 | 188.37 | https://toom.de/p/regalbodenhalter-fuer-regalsystem-pipe-schwarz-2-stueck/7450897 |
 | 602 mm pipe · DOLLE tube Ø25 × 602 mm | 8 | 8 | 6.99 | 55.92 | https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-602-mm-20-mm-3-4-schwarz-matt-0763202834/ |
-| 200 mm pipe · DOLLE tube Ø25 × 200 mm | 9 | 9 | 2.59 | 23.31 | https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-200-mm-20-mm-3-4-schwarz-matt-0763202832/ |
+| 200 mm pipe · DOLLE tube Ø25 × 200 mm | 11 | 11 | 2.59 | 28.49 | https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-200-mm-20-mm-3-4-schwarz-matt-0763202832/ |
 | 90° elbow · DOLLE 90 degree elbow, two female threads | 2 | 2 | 1.79 | 3.58 | https://www.obi.de/p/4974440/dolle-90-eckverbinder-fuer-pipe-regalsystem-2-innengewinden-20-mm-3-4-schwarz |
-| Four-way threaded cross · DOLLE PIPE four-way threaded cross, four female sockets · €4 each budget allowance; verify store price | 2 | 2 | 4.0 | 8.00 | https://toom.de/p/kreuzverbinder-fuer-regalsystem-pipe-34-schwarz/7450886 |
-| 1,500 mm pipe · DOLLE tube Ø25 × 1500 mm | 8 | 8 | 12.99 | 103.92 | https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1500-mm-20-mm-3-4-schwarz-matt-0763202820/ |
+| Four-way threaded cross · DOLLE PIPE four-way threaded cross, four female sockets · €4 each budget allowance; verify store price | 4 | 4 | 4.0 | 16.00 | https://toom.de/p/kreuzverbinder-fuer-regalsystem-pipe-34-schwarz/7450886 |
+| 1,500 mm pipe · DOLLE tube Ø25 × 1500 mm | 7 | 7 | 12.99 | 90.93 | https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1500-mm-20-mm-3-4-schwarz-matt-0763202820/ |
+| Separate wall shelf bracket for the rear service shelf (allowance) · Separate wall shelf bracket for the rear service shelf (allowance) | 4 | 4 | 6.0 | 24.00 | Allowance |
 | Desk · shelf0 · 1554 × 350 × 40 mm · oak allowance | 1 | 1 | 130.54 | 130.54 | Allowance |
 | Desk · shelf1 · 1554 × 350 × 28 mm · oak allowance | 1 | 1 | 87.03 | 87.03 | Allowance |
 | Desk · shelf2 · 1554 × 350 × 28 mm · oak allowance | 1 | 1 | 87.03 | 87.03 | Allowance |
 | Wardrobe · top0 · 606 × 350 × 28 mm · oak allowance | 1 | 1 | 33.94 | 33.94 | Allowance |
 | Wardrobe · top1 · 606 × 350 × 28 mm · oak allowance | 1 | 1 | 33.94 | 33.94 | Allowance |
 | Wardrobe · coat_shoes · 606 × 350 × 28 mm · oak allowance | 1 | 1 | 33.94 | 33.94 | Allowance |
-| Speaker L.platform · 350 × 350 × 25 mm · oak allowance | 1 | 1 | 18.38 | 18.38 | Allowance |
-| Speaker R.platform · 350 × 350 × 25 mm · oak allowance | 1 | 1 | 18.38 | 18.38 | Allowance |
+| Speaker L.platform · 370 × 370 × 25 mm · oak allowance | 1 | 1 | 20.54 | 20.54 | Allowance |
+| Speaker R.platform · 370 × 370 × 25 mm · oak allowance | 1 | 1 | 20.54 | 20.54 | Allowance |
 | Desk · top · 1615 × 702 × 28 mm · oak allowance | 1 | 1 | 181.42 | 181.42 | Allowance |
 | Desk · service_shelf · 1615 × 230 × 18 mm · oak allowance | 1 | 1 | 37.14 | 37.14 | Allowance |
 | Divider · left shelf 1 · 532.41 × 380 × 28 mm · oak allowance | 1 | 1 | 32.37 | 32.37 | Allowance |
 | Divider · right shelf 1 · 532.41 × 380 × 28 mm · oak allowance | 1 | 1 | 32.37 | 32.37 | Allowance |
-| Divider · left shelf 2 · 443.706 × 380 × 28 mm · oak allowance | 1 | 1 | 26.98 | 26.98 | Allowance |
-| Divider · right shelf 2 · 443.706 × 380 × 28 mm · oak allowance | 1 | 1 | 26.98 | 26.98 | Allowance |
+| Divider · left shelf 2 · 439.038 × 380 × 28 mm · oak allowance | 1 | 1 | 26.7 | 26.70 | Allowance |
+| Divider · right shelf 2 · 439.038 × 380 × 28 mm · oak allowance | 1 | 1 | 26.7 | 26.70 | Allowance |
 | Divider · left shelf 3 · 383.997 × 380 × 28 mm · oak allowance | 1 | 1 | 23.35 | 23.35 | Allowance |
 | Divider · right shelf 3 · 383.997 × 380 × 28 mm · oak allowance | 1 | 1 | 23.35 | 23.35 | Allowance |
 | Divider · left shelf 4 · 380 × 366.061 × 28 mm · oak allowance | 1 | 1 | 22.26 | 22.26 | Allowance |
@@ -46,7 +47,7 @@ Core estimate **€4,563.28** including 10% reserve. With six crates **€4,629.
 | Divider · right crown step · 380 × 334.788 × 28 mm · oak allowance | 1 | 1 | 20.36 | 20.36 | Allowance |
 | Divider · lower lintel · 2092 × 380 × 28 mm · oak allowance | 1 | 1 | 127.21 | 127.21 | Allowance |
 | Divider · upper lintel · 2092 × 380 × 28 mm · oak allowance | 1 | 1 | 127.21 | 127.21 | Allowance |
-| Timber yield allowance · 15% material waste on the structural oak panels | 1 | — | — | 201.10 | Allowance |
+| Timber yield allowance · 15% material waste on the structural oak panels | 1 | — | — | 201.66 | Allowance |
 | Five removable oak light covers · Same five covers as V18: two desk, two wardrobe, one turned to the lintel | 5 | — | — | 61.23 | Allowance |
 | MITTLED · Intact original IKEA fixture or driver/lead | 2 | 2 | 22.0 | 44.00 | https://www.ikea.com/de/de/p/mittled-led-lichtleiste-fuer-arbeitsplatte-dimmbar-weiss-60528584/ |
 | TRADFRI · Intact original IKEA fixture or driver/lead | 1 | 1 | 25.0 | 25.00 | https://www.ikea.com/de/de/p/tradfri-treiber-fuer-kabellose-steuerung-smart-grau-60342656/ |
@@ -69,7 +70,7 @@ Core estimate **€4,563.28** including 10% reserve. With six crates **€4,629.
 | Light-cover fixings and extra cuts · Small brackets, short wood screws and removable-cover joinery | 1 | — | — | 25.00 | Allowance |
 | Divider board machining · 13 extra boards at V18's rate per board, 72 post bores and shallow T reliefs | 1 | — | — | 86.67 | Allowance |
 | Ceiling and extra wall fixings · Four ceiling ties and four divider wall ties; choose after checking the ceiling and wall construction | 1 | — | — | 30.00 | Allowance |
-| Contingency · 10% · Reserve on the core frame, wood, lights and allowances | 1 | — | — | 414.84 | Allowance |
+| Contingency · 10% · Reserve on the core frame, wood, lights and allowances | 1 | — | — | 412.71 | Allowance |
 | KNAGGLIG · pine crate · 460 × 310 × 250 mm · six in the band above the door, three across and two high | 6 | 6 | 9.99 | 59.94 | https://www.ikea.com/de/de/p/knagglig-kasten-kiefer-70292359/ |
 | VESA monitor arm, if the existing mount cannot be reused · Optional accessory allowance; no exact product selected | 1 | — | — | 60.00 | Allowance |
 | Speaker isolation pads, if needed · Optional accessory allowance; no exact product selected | 1 | — | — | 20.00 | Allowance |

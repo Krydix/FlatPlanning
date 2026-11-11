@@ -15,7 +15,7 @@ for d in cfg['devices']:
 for m in cfg['mounts']:rect(m['bounds'],'none','#626c66',True)
 s.append('</g>');text(70,42,'20 / EQUIPMENT UNDER THE DESK',22);text(70,76,'TOP VIEW THROUGH THE TABLETOP · CONCEPT CLEARANCES',15)
 text(90,511,'FRONT / SEATED SIDE',16);text(342,455,'700 mm central knee width',16)
-text(70,550,'Rear shelf: 1615 × 230 × 18 mm · top 518 mm · 186 mm clear above',16)
+text(70,550,'Rear shelf: 1615 × 230 × 18 mm · top 518 mm · 186 mm clear above · four separate wall brackets',16)
 text(70,580,'472 mm knee depth before the rear shelf; keep the middle open.',16)
 text(70,610,'Front holders: controls face the room. Check case, plugs, vents and short screws.',15)
 text(70,640,'Mac ports face along shelf. Strap bricks separately and retain service loops.',15)

@@ -58,12 +58,13 @@ def rebuild_equipment(root):
     tube('Holder short screw to verify',(x,y+sign*11,top-3),(x,y+sign*11,top+12),1.5)
  rubber=bpy.data.materials.get('Rubber and dark equipment') or black;cone=bpy.data.materials.get('KRK yellow cone') or mat('KRK yellow cone',(.9,.75,.05))
  powder=bpy.data.materials.get('DOLLE PIPE black powdercoat') or black
+ graph=json.loads((root/'source/assembly.json').read_text());desk=graph['boards']['Desk.top'];top=desk['bottom']+desk['thickness']
  for item in cfg['desk_items']:
   if item.get('static'):continue
   if 'pole' in item:
-   # Desk-clamp VESA arm on the rear edge: top plate, spine, lower jaw, pole and a short link to the panel.
-   x,y=item['pole'];r=item['pole_radius'];cx,cy=item['clamp'];top=732
-   box('Monitor arm clamp plate',(x,y,top+4),(cx,cy,8),powder,1);box('Monitor arm clamp spine',(3410,y,(650+top+8)/2),(10,cy,top+8-650),powder,1);box('Monitor arm clamp jaw',(x+5,y,659),(cx-10,cy,18),powder,1)
+   # Desk-clamp VESA arm on the rear edge: top plate, spine, lower jaw, pole and a short link to the panel. Heights follow the graph's desktop.
+   x,y=item['pole'];r=item['pole_radius'];cx,cy=item['clamp']
+   box('Monitor arm clamp plate',(x,y,top+4),(cx,cy,8),powder,1);box('Monitor arm clamp spine',(3410,y,top-37),(10,cy,90),powder,1);box('Monitor arm clamp jaw',(x+5,y,top-73),(cx-10,cy,18),powder,1)
    tube('Monitor arm pole',(x,y,top+8),(x,y,item['pole_top']),r,powder)
    monitor=next(d for d in cfg['desk_items'] if d['id'].startswith('Single'));back=monitor['location'][0]+monitor['size'][0]/2;z=monitor['location'][2]
    box('Monitor arm VESA link',((back+x-r)/2,y,z),(x-r-back,40,30),powder,1);box('Monitor arm VESA plate',(back+2.5,y,z),(5,item['vesa'],item['vesa']),powder,0)

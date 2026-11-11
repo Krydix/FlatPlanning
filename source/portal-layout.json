@@ -6,7 +6,7 @@
     "bar_end_x": 1292,
     "bar_back_y": 2280,
     "bed_near_y": 2620,
-    "bed_right_x": 2030
+    "bed_right_x": 1722
   },
   "crate": {
     "article": "IKEA KNAGGLIG 702.923.59",
@@ -47,7 +47,7 @@
   },
   "levels": [
     100,
-    315,
+    330,
     580,
     880,
     1190,
@@ -75,7 +75,7 @@
     }
   ],
   "shared_posts": {
-    "note": "The desk's near posts are the divider's rear right posts, so they carry both sets of sleeves.",
+    "note": "The desk's near posts are the divider's rear right posts, so they carry both sets of sleeves. The desk's low cross row sits at 235 mm on them, so the second shelf level stays 15 mm clear above the cross bodies.",
     "rear_columns": {
       "2": "DS0",
       "3": "SB0"
@@ -84,9 +84,7 @@
       602,
       1200
     ],
-    "rear_upper_tube": 1500,
-    "shared_pipes": {
-      "300": "Desk.low_depth0.tube"
-    }
+    "rear_upper_tube": 1200,
+    "shared_pipes": {}
   }
 }

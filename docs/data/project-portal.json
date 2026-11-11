@@ -5,13 +5,13 @@
     "locked": false,
     "updated": "2026-11-05",
     "priceBasis": "19–20 October 2026",
-    "partCount": 508,
+    "partCount": 502,
     "pipeCount": 126,
     "boardCount": 28,
-    "hardwarePieces": 480,
+    "hardwarePieces": 474,
     "lightState": "Afternoon daylight · ceiling fixture off",
-    "coreBudget": 4563.28,
-    "withCrates": 4629.21,
+    "coreBudget": 4539.77,
+    "withCrates": 4605.7,
     "optionalAccessories": 90.0,
     "entryGap": 1253.8,
     "desk": [
@@ -44,7 +44,7 @@
       "Cantilever, clamp, wood screw, wall and ceiling load capacities not certified",
       "Bathroom fixtures unknown; shell only"
     ],
-    "model": "models/flat-portal-baked.glb?bake=portal-5",
+    "model": "models/flat-portal-baked.glb?bake=portal-6",
     "assemblyModel": "models/assembly-portal.glb?design=portal-2",
     "views": {
       "overview": {
@@ -146,7 +146,7 @@
       ".project-card h2": "A wall you<br>walk through.",
       ".feature-list": "<button data-view=\"entrance\"><span class=\"feature-icon\">01</span><span><b>A door hinted, not built</b><small>1,360 × 1,990 mm, drawn by the shelf ends</small></span><span>↗</span></button><button data-view=\"desk\"><span class=\"feature-icon\">02</span><span><b>The same desk, behind it</b><small>The whole module moved 950 mm along the wall</small></span><span>↗</span></button><button data-view=\"plan\"><span class=\"feature-icon\">03</span><span><b>Six crates over your head</b><small>Three across, two high, in the band above the door</small></span><span>↗</span></button>",
       ".project-note": "A second option, alongside V18. Fixed kitchen and bar retained.<br>Less hanging space; folded clothes move to the divider.",
-      ".spec-strip": "<div><strong>1,360 × 1,990</strong><span>mm door opening · 869 at the floor</span></div><div><strong>32</strong><span>mm above the top crates · measured ceiling</span></div><div><strong>508</strong><span>frame & timber components</span></div><div><strong>28</strong><span>oak boards, 18 in the divider</span></div>",
+      ".spec-strip": "<div><strong>1,360 × 1,990</strong><span>mm door opening · 869 at the floor</span></div><div><strong>32</strong><span>mm above the top crates · measured ceiling</span></div><div><strong>502</strong><span>frame & timber components</span></div><div><strong>28</strong><span>oak boards, 18 in the divider</span></div>",
       ".editorial-card h2": "A room inside<br>a room.",
       ".editorial-card p": "The divider runs from the bar end to the right wall. Nothing in it is curved: 16 straight boards simply stop where the circle would be, and the eye does the rest.",
       ".detail-tags": "<span>Stock pipe lengths</span><span>Ceiling heights derived</span><span>Six KNAGGLIG crates</span><span>Bar stays fixed</span>",
@@ -161,7 +161,7 @@
     },
     "printTitle": "FLAT / PORTAL · ORIGINAL ASSEMBLY PLANNING GUIDE",
     "printHeading": "A wall.<br>A door hinted in it.",
-    "printStatus": "Portal variant · 21 stages · 508 frame/timber components",
+    "printStatus": "Portal variant · 21 stages · 502 frame/timber components",
     "printFacts": "Divider from the bar end to the right wall. Opening 1,360 × 1,990 mm, 869 mm at the floor. Six crates above the door. Desk moved 950 mm along the wall. Main ceiling light off. Existing kitchen and bar stay fixed."
   },
   "dimensions": [
@@ -281,7 +281,7 @@
       "id": "bed-aisle",
       "label": "Bed to parked chair",
       "a": [
-        2030.0,
+        1723.0,
         2857.5,
         475.0
       ],
@@ -290,7 +290,7 @@
         2857.5,
         475.0
       ],
-      "value": 622.5,
+      "value": 929.5,
       "basis": "model"
     }
   ],
@@ -383,21 +383,21 @@
       {
         "id": "speaker-aim-L",
         "label": "Speaker L tweeter aim error",
-        "value": 5.0,
+        "value": 4.4,
         "target": 8,
         "unit": "deg",
         "status": "ok",
-        "detail": "Tweeter at 1389 mm, 653 mm from the ear reference; pad tilt 10.0°, capped at 10° for a stable wedge pad; under about 8° keeps the ear inside the tweeter on-axis window. Seated ear reference x 2620, z 1220 mm.",
+        "detail": "Tweeter at 1389 mm, 679 mm from the ear reference; pad tilt 10.0°, capped at 10° for a stable wedge pad; under about 8° keeps the ear inside the tweeter on-axis window. Seated ear reference x 2620, z 1220 mm.",
         "basis": "envelopes"
       },
       {
         "id": "speaker-aim-R",
         "label": "Speaker R tweeter aim error",
-        "value": 5.0,
+        "value": 4.4,
         "target": 8,
         "unit": "deg",
         "status": "ok",
-        "detail": "Tweeter at 1389 mm, 653 mm from the ear reference; pad tilt 10.0°, capped at 10° for a stable wedge pad; under about 8° keeps the ear inside the tweeter on-axis window. Seated ear reference x 2620, z 1220 mm.",
+        "detail": "Tweeter at 1389 mm, 679 mm from the ear reference; pad tilt 10.0°, capped at 10° for a stable wedge pad; under about 8° keeps the ear inside the tweeter on-axis window. Seated ear reference x 2620, z 1220 mm.",
         "basis": "envelopes"
       },
       {
@@ -424,12 +424,12 @@
       },
       {
         "id": "under-bed",
-        "label": "Under-bed boxes below the side beam",
-        "value": 20.0,
+        "label": "Pull-out below the front rail and slats",
+        "value": 15.0,
         "target": 15,
         "unit": "mm",
         "status": "ok",
-        "detail": "Box top 230 mm incl. casters; beam underside 250 mm. Boxes must stay at or below this height overall.",
+        "detail": "Closed pull-out top 220 mm; lowest rail or slat above it 235 mm. Board sizes are read from IKEA photos.",
         "basis": "envelopes"
       },
       {
@@ -465,11 +465,11 @@
       {
         "id": "door-balcony-left-leaf",
         "label": "Balcony left leaf sweep",
-        "value": 101.7,
-        "target": 20,
-        "unit": "mm",
-        "status": "ok",
-        "detail": "Swing into room to 100°; nearest Crate slat.007",
+        "value": 42,
+        "target": 100,
+        "unit": "deg",
+        "status": "tight",
+        "detail": "Opens to about 42° of 100°, then stops against GLAMBERGET post.003. Accepted: the GLAMBERGET daybed runs along the left wall (chosen 2026-11-11); the leaf stops at its foot end.",
         "basis": "assumed"
       },
       {
@@ -484,16 +484,16 @@
       },
       {
         "id": "bed-aisle",
-        "label": "Bed to desk and wardrobe aisle",
-        "value": 622.5,
+        "label": "Extended bed to desk and wardrobe aisle",
+        "value": 929.5,
         "target": 700,
         "unit": "mm",
-        "status": "tight",
-        "detail": "Narrowest point beside the bed: Chair back. Garments in front of the wardrobe are included.",
+        "status": "ok",
+        "detail": "Narrowest point beside the pulled-out bed: Chair back. Garments in front of the wardrobe are included.",
         "basis": "envelopes",
         "points": [
           [
-            2030.0,
+            1723.0,
             2857.5,
             475.0
           ],
@@ -536,12 +536,12 @@
       },
       {
         "id": "portal-fixed-bed-right",
-        "label": "Bed foot vs portal layout",
-        "value": 0.0,
+        "label": "Extended bed front vs portal layout",
+        "value": 1.0,
         "target": 5,
         "unit": "mm",
         "status": "ok",
-        "detail": "Model 2030 mm, layout file 2030 mm",
+        "detail": "Model 1723 mm, layout file 1722 mm",
         "basis": "assumed"
       },
       {
@@ -661,7 +661,7 @@
         "target": 0,
         "unit": "count",
         "status": "ok",
-        "detail": "241008 rays cast down from the room air. None leave the flat through the floor line.",
+        "detail": "240576 rays cast down from the room air. None leave the flat through the floor line.",
         "basis": "envelopes"
       }
     ]
@@ -688,11 +688,11 @@
       "name": "1,000 mm pipe",
       "description": "DOLLE tube Ø25 × 1000 mm",
       "sku": "96292",
-      "quantity": 12,
-      "buyPacks": 12,
+      "quantity": 13,
+      "buyPacks": 13,
       "packSize": 1,
       "unitPrice": 9.99,
-      "total": 119.88,
+      "total": 129.87,
       "url": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1000-mm-20-mm-3-4-schwarz-matt-0763202825/",
       "status": "Last observed Globus price, 19 October 2026. On 21 October 2026 the Globus listing showed the item sold out with no price; recheck price and stock",
       "purchase": true
@@ -748,11 +748,11 @@
       "name": "Sliding T connector",
       "description": "DOLLE sliding T, one female branch, Ø25 sleeve",
       "sku": "96544",
-      "quantity": 145,
-      "buyPacks": 145,
+      "quantity": 137,
+      "buyPacks": 137,
       "packSize": 1,
       "unitPrice": 5.99,
-      "total": 868.55,
+      "total": 820.63,
       "url": "https://www.globus-baumarkt.de/p/dolle-t-verbinder-fuer-pipe-regalsystem-20-mm-3-4-verschiebbar-schwarz-matt-0763202823/",
       "status": "Last observed Globus price, 19 October 2026. On 21 October 2026 the Globus listing showed the item sold out with no price; recheck price and stock",
       "purchase": true
@@ -778,11 +778,11 @@
       "name": "250 mm pipe",
       "description": "DOLLE tube Ø25 × 250 mm",
       "sku": "96254",
-      "quantity": 67,
-      "buyPacks": 67,
+      "quantity": 65,
+      "buyPacks": 65,
       "packSize": 1,
       "unitPrice": 2.99,
-      "total": 200.33,
+      "total": 194.35,
       "url": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-250-mm-20-mm-3-4-schwarz-matt-0763202837/",
       "status": "Last observed Globus price, 19 October 2026. On 21 October 2026 the Globus listing showed the item sold out with no price; recheck price and stock",
       "purchase": true
@@ -793,11 +793,11 @@
       "name": "Saddle shelf holder",
       "description": "DOLLE PIPE one-sided saddle shelf holder, 2 per Toom pack",
       "sku": "toom 7450897; DOLLE EAN unconfirmed",
-      "quantity": 130,
-      "buyPacks": 65,
+      "quantity": 126,
+      "buyPacks": 63,
       "packSize": 2,
       "unitPrice": 2.99,
-      "total": 194.35,
+      "total": 188.37,
       "url": "https://toom.de/p/regalbodenhalter-fuer-regalsystem-pipe-schwarz-2-stueck/7450897",
       "status": "€2.99 / 2 holders observed on toom product page 19 Oct; delivery unavailable, store pickup shown; screws not promised",
       "purchase": true
@@ -823,11 +823,11 @@
       "name": "200 mm pipe",
       "description": "DOLLE tube Ø25 × 200 mm",
       "sku": "96247",
-      "quantity": 9,
-      "buyPacks": 9,
+      "quantity": 11,
+      "buyPacks": 11,
       "packSize": 1,
       "unitPrice": 2.59,
-      "total": 23.31,
+      "total": 28.49,
       "url": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-200-mm-20-mm-3-4-schwarz-matt-0763202832/",
       "status": "Last observed Globus price, 19 October 2026. On 21 October 2026 the Globus listing showed the item sold out with no price; recheck price and stock",
       "purchase": true
@@ -853,11 +853,11 @@
       "name": "Four-way threaded cross",
       "description": "DOLLE PIPE four-way threaded cross, four female sockets · €4 each budget allowance; verify store price",
       "sku": "96384 / EAN 4007557096384 — UNCONFIRMED: Bauhaus SE lists this EAN as a 4×3/4\" corner coupling",
-      "quantity": 2,
-      "buyPacks": 2,
+      "quantity": 4,
+      "buyPacks": 4,
       "packSize": 1,
       "unitPrice": 4.0,
-      "total": 8.0,
+      "total": 16.0,
       "url": "https://toom.de/p/kreuzverbinder-fuer-regalsystem-pipe-34-schwarz/7450886",
       "status": "Budget allowance €4 per single fitting. toom 7450886 lists a four-connection DOLLE cross without EAN, price or thread gender; EAN 4007557096384 is listed by Bauhaus SE as a 4×3/4\" corner coupling. Confirm the four-female cross article before ordering",
       "purchase": true
@@ -868,13 +868,28 @@
       "name": "1,500 mm pipe",
       "description": "DOLLE tube Ø25 × 1500 mm",
       "sku": "96339",
-      "quantity": 8,
-      "buyPacks": 8,
+      "quantity": 7,
+      "buyPacks": 7,
       "packSize": 1,
       "unitPrice": 12.99,
-      "total": 103.92,
+      "total": 90.93,
       "url": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1500-mm-20-mm-3-4-schwarz-matt-0763202820/",
       "status": "Retained 19 October 2026 Globus price input; verify local stock",
+      "purchase": true
+    },
+    {
+      "id": "bracket",
+      "category": "Hardware",
+      "name": "Separate wall shelf bracket for the rear service shelf (allowance)",
+      "description": "Separate wall shelf bracket for the rear service shelf (allowance)",
+      "sku": "allowance; bracket type not selected",
+      "quantity": 4,
+      "buyPacks": 4,
+      "packSize": 1,
+      "unitPrice": 6.0,
+      "total": 24.0,
+      "url": null,
+      "status": "Budget allowance of EUR 6 per bracket, four for the 1,615 mm rear service shelf (about 200 mm reach). Bracket type, size and wall fixings are not selected; this is not a DOLLE part",
       "purchase": true
     },
     {
@@ -971,12 +986,12 @@
       "id": "wood:Speaker0.platform",
       "category": "Wood",
       "name": "Speaker L.platform",
-      "description": "350 × 350 × 25 mm · oak allowance",
+      "description": "370 × 370 × 25 mm · oak allowance",
       "quantity": 1,
       "buyPacks": 1,
       "packSize": 1,
-      "unitPrice": 18.38,
-      "total": 18.38,
+      "unitPrice": 20.54,
+      "total": 20.54,
       "url": null,
       "status": "Concept dimensions, not final machining sizes. Timber supplier not selected.",
       "holes": 0,
@@ -986,12 +1001,12 @@
       "id": "wood:Speaker1.platform",
       "category": "Wood",
       "name": "Speaker R.platform",
-      "description": "350 × 350 × 25 mm · oak allowance",
+      "description": "370 × 370 × 25 mm · oak allowance",
       "quantity": 1,
       "buyPacks": 1,
       "packSize": 1,
-      "unitPrice": 18.38,
-      "total": 18.38,
+      "unitPrice": 20.54,
+      "total": 20.54,
       "url": null,
       "status": "Concept dimensions, not final machining sizes. Timber supplier not selected.",
       "holes": 0,
@@ -1061,12 +1076,12 @@
       "id": "wood:Portal.shelfL1",
       "category": "Wood",
       "name": "Divider · left shelf 2",
-      "description": "443.706 × 380 × 28 mm · oak allowance",
+      "description": "439.038 × 380 × 28 mm · oak allowance",
       "quantity": 1,
       "buyPacks": 1,
       "packSize": 1,
-      "unitPrice": 26.98,
-      "total": 26.98,
+      "unitPrice": 26.7,
+      "total": 26.7,
       "url": null,
       "status": "Concept dimensions, not final machining sizes. Timber supplier not selected.",
       "holes": 4,
@@ -1076,12 +1091,12 @@
       "id": "wood:Portal.shelfR1",
       "category": "Wood",
       "name": "Divider · right shelf 2",
-      "description": "443.706 × 380 × 28 mm · oak allowance",
+      "description": "439.038 × 380 × 28 mm · oak allowance",
       "quantity": 1,
       "buyPacks": 1,
       "packSize": 1,
-      "unitPrice": 26.98,
-      "total": 26.98,
+      "unitPrice": 26.7,
+      "total": 26.7,
       "url": null,
       "status": "Concept dimensions, not final machining sizes. Timber supplier not selected.",
       "holes": 4,
@@ -1303,7 +1318,7 @@
       "name": "Timber yield allowance",
       "description": "15% material waste on the structural oak panels",
       "quantity": 1,
-      "total": 201.1,
+      "total": 201.66,
       "url": null,
       "status": "Budget allowance",
       "purchase": false
@@ -1592,7 +1607,7 @@
       "name": "Contingency · 10%",
       "description": "Reserve on the core frame, wood, lights and allowances",
       "quantity": 1,
-      "total": 414.84,
+      "total": 412.71,
       "url": null,
       "status": "Budget reserve",
       "purchase": false
@@ -1679,7 +1694,7 @@
       "description": "Sort pipes by their printed lengths. There are many more T connectors than in V18.",
       "actions": [
         "Use only the listed DOLLE PIPE family; do not mix generic plumbing threads or change a stock pipe length.",
-        "Sort 145 sliding T connectors by post before starting. Each post carries its own stack.",
+        "Sort 137 sliding T connectors by post before starting. Each post carries its own stack.",
         "Dry-fit one T/pipe/saddle/board connection, and measure the seating stops into the fitting profile.",
         "Assemble cross-pipe modules while the T sleeves are free, then feed the posts through. Do not try to screw a rigid closed frame together."
       ],
@@ -1789,15 +1804,12 @@
       "kicker": "Divider",
       "description": "Each shelf level hangs on 250 mm cross-pipes between the front and rear posts.",
       "actions": [
-        "Fit cross-pipes at 85, 300, 565, 865, 1,175, 1,430, 1,655 mm for the stepped shelves. Levels with a long overhang use arms instead on the inner posts.",
+        "Fit cross-pipes at 85, 315, 565, 865, 1,175, 1,430, 1,655 mm for the stepped shelves. Levels with a long overhang use arms instead on the inner posts.",
         "Fit the lintel cross-pipes at 2,015 and 2,305 mm on all four post pairs, and the tie cross-pipes at 2,395 mm.",
         "Each T has a single branch, so two pipes can never share one sleeve."
       ],
       "notes": [],
       "parts": [
-        "Portal.front300.t1",
-        "Portal.front300.t2",
-        "Portal.front300.tube",
         "ShelfCross.PF0.PB0.1175.t1",
         "ShelfCross.PF0.PB0.1175.t2",
         "ShelfCross.PF0.PB0.1175.tube",
@@ -1816,9 +1828,9 @@
         "ShelfCross.PF0.PB0.2395.t1",
         "ShelfCross.PF0.PB0.2395.t2",
         "ShelfCross.PF0.PB0.2395.tube",
-        "ShelfCross.PF0.PB0.300.t1",
-        "ShelfCross.PF0.PB0.300.t2",
-        "ShelfCross.PF0.PB0.300.tube",
+        "ShelfCross.PF0.PB0.315.t1",
+        "ShelfCross.PF0.PB0.315.t2",
+        "ShelfCross.PF0.PB0.315.tube",
         "ShelfCross.PF0.PB0.565.t1",
         "ShelfCross.PF0.PB0.565.t2",
         "ShelfCross.PF0.PB0.565.tube",
@@ -1843,9 +1855,9 @@
         "ShelfCross.PF1.PB1.2395.t1",
         "ShelfCross.PF1.PB1.2395.t2",
         "ShelfCross.PF1.PB1.2395.tube",
-        "ShelfCross.PF1.PB1.300.t1",
-        "ShelfCross.PF1.PB1.300.t2",
-        "ShelfCross.PF1.PB1.300.tube",
+        "ShelfCross.PF1.PB1.315.t1",
+        "ShelfCross.PF1.PB1.315.t2",
+        "ShelfCross.PF1.PB1.315.tube",
         "ShelfCross.PF1.PB1.565.t1",
         "ShelfCross.PF1.PB1.565.t2",
         "ShelfCross.PF1.PB1.565.tube",
@@ -1870,6 +1882,9 @@
         "ShelfCross.PF2.DS0.2395.t1",
         "ShelfCross.PF2.DS0.2395.t2",
         "ShelfCross.PF2.DS0.2395.tube",
+        "ShelfCross.PF2.DS0.315.t1",
+        "ShelfCross.PF2.DS0.315.t2",
+        "ShelfCross.PF2.DS0.315.tube",
         "ShelfCross.PF2.DS0.565.t1",
         "ShelfCross.PF2.DS0.565.t2",
         "ShelfCross.PF2.DS0.565.tube",
@@ -1897,6 +1912,9 @@
         "ShelfCross.PF3.SB0.2395.t1",
         "ShelfCross.PF3.SB0.2395.t2",
         "ShelfCross.PF3.SB0.2395.tube",
+        "ShelfCross.PF3.SB0.315.t1",
+        "ShelfCross.PF3.SB0.315.t2",
+        "ShelfCross.PF3.SB0.315.tube",
         "ShelfCross.PF3.SB0.565.t1",
         "ShelfCross.PF3.SB0.565.t2",
         "ShelfCross.PF3.SB0.565.tube",
@@ -1911,14 +1929,14 @@
         {
           "kind": "slide_tee",
           "name": "Sliding T connector",
-          "quantity": 74,
+          "quantity": 76,
           "sku": "96544",
           "url": "https://www.globus-baumarkt.de/p/dolle-t-verbinder-fuer-pipe-regalsystem-20-mm-3-4-verschiebbar-schwarz-matt-0763202823/"
         },
         {
           "kind": "tube_250",
           "name": "250 mm pipe",
-          "quantity": 37,
+          "quantity": 38,
           "sku": "96254",
           "url": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-250-mm-20-mm-3-4-schwarz-matt-0763202837/"
         }
@@ -2003,7 +2021,7 @@
       "kicker": "Divider",
       "description": "This is where the door appears: each board stops at the curve.",
       "actions": [
-        "Fit the 14 boards at underside heights 100, 315, 580, 880, 1,190, 1,445, 1,670 mm, left and right.",
+        "Fit the 14 boards at underside heights 100, 330, 580, 880, 1,190, 1,445, 1,670 mm, left and right.",
         "Transfer the 44 mm post bores and shallow T reliefs from the real frame. Do not trust the preview numbers.",
         "Cut the inner ends last, against a full-size template of the opening. Left and right mirror each other.",
         "At 315 mm the right-hand shelf reuses the desk's low brace as its rear support, so only a front pipe is added.",
@@ -2062,10 +2080,10 @@
         "Portal.shelfR0.outer.saddle0",
         "Portal.shelfR0.outer.saddle1",
         "Portal.shelfR1",
-        "Portal.shelfR1.front.saddle0",
-        "Portal.shelfR1.front.saddle1",
-        "Portal.shelfR1.rear.saddle0",
-        "Portal.shelfR1.rear.saddle1",
+        "Portal.shelfR1.inner.saddle0",
+        "Portal.shelfR1.inner.saddle1",
+        "Portal.shelfR1.outer.saddle0",
+        "Portal.shelfR1.outer.saddle1",
         "Portal.shelfR2",
         "Portal.shelfR2.inner.saddle0",
         "Portal.shelfR2.inner.saddle1",
@@ -2350,9 +2368,16 @@
         {
           "kind": "tube_1000",
           "name": "1,000 mm pipe",
-          "quantity": 6,
+          "quantity": 4,
           "sku": "96292",
           "url": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1000-mm-20-mm-3-4-schwarz-matt-0763202825/"
+        },
+        {
+          "kind": "tube_200",
+          "name": "200 mm pipe",
+          "quantity": 2,
+          "sku": "96247",
+          "url": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-200-mm-20-mm-3-4-schwarz-matt-0763202832/"
         },
         {
           "kind": "tube_602",
@@ -2371,11 +2396,11 @@
       "id": 11,
       "title": "Build the shared desk supports",
       "kicker": "Desk module",
-      "description": "The same crosses, front returns and bridges as V18.",
+      "description": "The same joints as V18: a rear cross line at 235 mm, a front brace at 400 mm and the desk-height crosses.",
       "actions": [
-        "Preassemble each free cross/front-arm/elbow module, with 40 mm pipe, coupling and 602 mm front leg.",
-        "Fit a four-female DOLLE cross at each middle upright with its 250 mm front arm and rear bridge.",
-        "Use the low 250 mm braces at 300 and 400 mm, staggered so two T sleeves cannot overlap."
+        "Low line first: a 200 mm tube and a four-female cross at 235 mm on each rear post, with a 250 mm pipe to a sliding T on the middle post and a 40 mm pipe into a wall flange. The rear posts continue with a 1,000 mm tube.",
+        "Preassemble each cross/front-arm/elbow module with its 40 mm pipe, coupling and 602 mm front leg, and brace the leg to the middle post with a 250 mm sliding-T bridge at 400 mm.",
+        "Fit the desk-height cross at each middle upright with its 250 mm front arm and rear bridge."
       ],
       "notes": [],
       "parts": [
@@ -2393,24 +2418,22 @@
         "DS0.joint_riser",
         "Desk.cross0",
         "Desk.cross1",
-        "Desk.low_depth0.t1",
-        "Desk.low_depth0.t2",
-        "Desk.low_depth0.tube",
-        "Desk.low_depth1.t1",
-        "Desk.low_depth1.t2",
-        "Desk.low_depth1.tube",
-        "Desk.low_front0.t1",
-        "Desk.low_front0.t2",
-        "Desk.low_front0.tube",
-        "Desk.low_front1.t1",
-        "Desk.low_front1.t2",
-        "Desk.low_front1.tube",
-        "Desk.low_wall0.tee",
-        "Desk.low_wall0.tube",
-        "Desk.low_wall0.wall",
-        "Desk.low_wall1.tee",
-        "Desk.low_wall1.tube",
-        "Desk.low_wall1.wall",
+        "Desk.low0.cross_rear",
+        "Desk.low0.front.t1",
+        "Desk.low0.front.t2",
+        "Desk.low0.front.tube",
+        "Desk.low0.rear",
+        "Desk.low0.tee",
+        "Desk.low0.wall",
+        "Desk.low0.wall_flange",
+        "Desk.low1.cross_rear",
+        "Desk.low1.front.t1",
+        "Desk.low1.front.t2",
+        "Desk.low1.front.tube",
+        "Desk.low1.rear",
+        "Desk.low1.tee",
+        "Desk.low1.wall",
+        "Desk.low1.wall_flange",
         "Desk.shared0.0.saddle0",
         "Desk.shared0.0.saddle1",
         "Desk.shared0.0.tube",
@@ -2425,14 +2448,16 @@
         "Desk.shared1.1.saddle1",
         "Desk.shared1.1.tee",
         "Desk.shared1.1.tube",
+        "RB0.mid",
         "RF0.extension",
-        "RF0.joint_riser"
+        "RF0.joint_riser",
+        "SB0.mid"
       ],
       "materials": [
         {
           "kind": "cross",
           "name": "Four-way threaded cross",
-          "quantity": 2,
+          "quantity": 4,
           "sku": "96384 / EAN 4007557096384 — UNCONFIRMED: Bauhaus SE lists this EAN as a 4×3/4\" corner coupling",
           "url": "https://toom.de/p/kreuzverbinder-fuer-regalsystem-pipe-34-schwarz/7450886"
         },
@@ -2467,9 +2492,16 @@
         {
           "kind": "slide_tee",
           "name": "Sliding T connector",
-          "quantity": 12,
+          "quantity": 8,
           "sku": "96544",
           "url": "https://www.globus-baumarkt.de/p/dolle-t-verbinder-fuer-pipe-regalsystem-20-mm-3-4-verschiebbar-schwarz-matt-0763202823/"
+        },
+        {
+          "kind": "tube_1000",
+          "name": "1,000 mm pipe",
+          "quantity": 2,
+          "sku": "96292",
+          "url": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1000-mm-20-mm-3-4-schwarz-matt-0763202825/"
         },
         {
           "kind": "tube_250",
@@ -2505,45 +2537,25 @@
       "description": "The same 1,615 × 702 mm surface, with its R100 corner now facing the door.",
       "actions": [
         "Fit the desktop around the continuing posts and screw it to its eight saddle tabs.",
-        "Add the rear service shelf on its two 250 mm pipes and four saddle tabs.",
+        "Hang the rear service shelf on four separate wall shelf brackets (allowance); it is not part of the pipe frame.",
         "The rounded corner sits on your way through the door. 778 mm is left between it and the left edge of the opening at the floor."
       ],
       "notes": [],
       "parts": [
-        "Desk.service0.saddle0",
-        "Desk.service0.saddle1",
-        "Desk.service0.t1",
-        "Desk.service0.t2",
-        "Desk.service0.tube",
-        "Desk.service1.saddle0",
-        "Desk.service1.saddle1",
-        "Desk.service1.t1",
-        "Desk.service1.t2",
-        "Desk.service1.tube",
+        "Desk.service_bracket0",
+        "Desk.service_bracket1",
+        "Desk.service_bracket2",
+        "Desk.service_bracket3",
         "Desk.service_shelf",
         "Desk.top"
       ],
       "materials": [
         {
-          "kind": "saddle",
-          "name": "Saddle shelf holder",
+          "kind": "bracket",
+          "name": "bracket",
           "quantity": 4,
-          "sku": "toom 7450897; DOLLE EAN unconfirmed",
-          "url": "https://toom.de/p/regalbodenhalter-fuer-regalsystem-pipe-schwarz-2-stueck/7450897"
-        },
-        {
-          "kind": "slide_tee",
-          "name": "Sliding T connector",
-          "quantity": 4,
-          "sku": "96544",
-          "url": "https://www.globus-baumarkt.de/p/dolle-t-verbinder-fuer-pipe-regalsystem-20-mm-3-4-verschiebbar-schwarz-matt-0763202823/"
-        },
-        {
-          "kind": "tube_250",
-          "name": "250 mm pipe",
-          "quantity": 2,
-          "sku": "96254",
-          "url": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-250-mm-20-mm-3-4-schwarz-matt-0763202837/"
+          "sku": "allowance; bracket type not selected",
+          "url": null
         },
         {
           "kind": "wood",
@@ -2564,7 +2576,7 @@
       "kicker": "Frame",
       "description": "Feed the pre-staged sleeves before closing the desk and wardrobe posts.",
       "actions": [
-        "Ordinary wardrobe posts use 1000 + coupling + 1200 mm. The rear wall-side desk post uses 1000 + coupling + 1500 mm. The near cross-bearing post continues with 602 + coupling + 1200 mm above its riser; the far one keeps its 1500 mm tube.",
+        "Ordinary wardrobe posts use 1000 + coupling + 1200 mm. The rear wall-side desk posts use 1000 + coupling + 1200 mm (near) and 1000 + coupling + 1000 mm (far) above their low cross. The near middle post continues with 602 + coupling + 1200 mm above its riser; the far one keeps its 1500 mm tube.",
         "Keep couplings fully seated; never leave a tube partly threaded to adjust the height."
       ],
       "notes": [],
@@ -2599,6 +2611,13 @@
           "url": "https://www.obi.de/p/4978219/dolle-doppelmuffe-extension-fuer-pipe-regalsystem-20-mm-3-4-schwarz-matt"
         },
         {
+          "kind": "tube_1000",
+          "name": "1,000 mm pipe",
+          "quantity": 1,
+          "sku": "96292",
+          "url": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1000-mm-20-mm-3-4-schwarz-matt-0763202825/"
+        },
+        {
           "kind": "tube_1200",
           "name": "1,200 mm pipe",
           "quantity": 6,
@@ -2608,7 +2627,7 @@
         {
           "kind": "tube_1500",
           "name": "1,500 mm pipe",
-          "quantity": 2,
+          "quantity": 1,
           "sku": "96339",
           "url": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1500-mm-20-mm-3-4-schwarz-matt-0763202820/"
         },
@@ -2652,9 +2671,6 @@
         "Desk.wall0.940.tee",
         "Desk.wall0.940.tube",
         "Desk.wall0.940.wall",
-        "Rack.depth0.200.t1",
-        "Rack.depth0.200.t2",
-        "Rack.depth0.200.tube",
         "Rack.depth2.1800.t1",
         "Rack.depth2.1800.t2",
         "Rack.depth2.1800.tube",
@@ -2679,14 +2695,14 @@
         {
           "kind": "slide_tee",
           "name": "Sliding T connector",
-          "quantity": 9,
+          "quantity": 7,
           "sku": "96544",
           "url": "https://www.globus-baumarkt.de/p/dolle-t-verbinder-fuer-pipe-regalsystem-20-mm-3-4-verschiebbar-schwarz-matt-0763202823/"
         },
         {
           "kind": "tube_250",
           "name": "250 mm pipe",
-          "quantity": 2,
+          "quantity": 1,
           "sku": "96254",
           "url": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-250-mm-20-mm-3-4-schwarz-matt-0763202837/"
         },
@@ -3031,7 +3047,7 @@
       "description": "A physical fit check completes the concept review.",
       "actions": [
         "Walk through the door carrying something. 869 mm at the floor, 1,122 mm at shoulder height, 778 mm to the desk corner.",
-        "Sit at the desk and check the aisle beside the bed: 622 mm with the chair parked, less when seated.",
+        "Sit at the desk and check the aisle beside the bed: 930 mm with the chair parked, less when seated.",
         "Open the right balcony leaf and check its handle, curtains and coats.",
         "Have the ceiling and wall fixings checked before loading the crates or shelves."
       ],
@@ -3291,10 +3307,10 @@
     },
     "Speaker0.platform": {
       "bounds": [
-        3000,
-        3350,
-        2327.4848700782986,
-        2677.4848700782986
+        3055,
+        3425,
+        2303.0,
+        2673.0
       ],
       "bottom": 1100,
       "thickness": 25,
@@ -3302,7 +3318,7 @@
         [
           "Speaker0.arm0.saddle0",
           3117.0,
-          2335.0,
+          2320.0,
           1100.0
         ],
         [
@@ -3314,7 +3330,7 @@
         [
           "Speaker0.arm1.saddle0",
           3343.0,
-          2445.0,
+          2320.0,
           1100.0
         ],
         [
@@ -3326,14 +3342,14 @@
       ],
       "holes": [],
       "recess": null,
-      "rotation_degrees": -45.25770398341365
+      "rotation_degrees": 0
     },
     "Speaker1.platform": {
       "bounds": [
-        3000,
-        3350,
-        3447.5151299217014,
-        3797.5151299217014
+        3055,
+        3425,
+        3452.0,
+        3822.0
       ],
       "bottom": 1100,
       "thickness": 25,
@@ -3341,7 +3357,7 @@
         [
           "Speaker1.arm0.saddle0",
           3117.0,
-          3790.0,
+          3800.0,
           1100.0
         ],
         [
@@ -3353,7 +3369,7 @@
         [
           "Speaker1.arm1.saddle0",
           3343.0,
-          3680.0,
+          3800.0,
           1100.0
         ],
         [
@@ -3365,7 +3381,7 @@
       ],
       "holes": [],
       "recess": null,
-      "rotation_degrees": 45.25770398341365
+      "rotation_degrees": 0
     },
     "Desk.top": {
       "bounds": [
@@ -3397,7 +3413,7 @@
         ],
         [
           "Desk.shared0.1.saddle1",
-          3200.0,
+          3150.0,
           2282.0,
           704.0
         ],
@@ -3421,7 +3437,7 @@
         ],
         [
           "Desk.shared1.1.saddle1",
-          3200.0,
+          3150.0,
           3808.0,
           704.0
         ]
@@ -3461,7 +3477,7 @@
         {
           "bounds": [
             3054,
-            3116.0,
+            3116,
             2232,
             2268,
             703,
@@ -3481,7 +3497,7 @@
         {
           "bounds": [
             3054,
-            3116.0,
+            3116,
             3822,
             3858,
             703,
@@ -3531,28 +3547,28 @@
       "thickness": 18,
       "supports": [
         [
-          "Desk.service0.saddle0",
-          3195.0,
-          2282.0,
-          500.0
+          "Desk.service_bracket0",
+          3250,
+          2375,
+          500
         ],
         [
-          "Desk.service0.saddle1",
-          3310.0,
-          2282.0,
-          500.0
+          "Desk.service_bracket1",
+          3250,
+          2835,
+          500
         ],
         [
-          "Desk.service1.saddle0",
-          3195.0,
-          3808.0,
-          500.0
+          "Desk.service_bracket2",
+          3250,
+          3290,
+          500
         ],
         [
-          "Desk.service1.saddle1",
-          3310.0,
-          3808.0,
-          500.0
+          "Desk.service_bracket3",
+          3250,
+          3750,
+          500
         ]
       ],
       "holes": [
@@ -3568,29 +3584,7 @@
         ]
       ],
       "recess": null,
-      "rotation_degrees": 0,
-      "support_reliefs": [
-        {
-          "bounds": [
-            3344,
-            3375,
-            2232,
-            2268,
-            499,
-            502.5
-          ]
-        },
-        {
-          "bounds": [
-            3344,
-            3375,
-            3822,
-            3858,
-            499,
-            502.5
-          ]
-        }
-      ]
+      "rotation_degrees": 0
     },
     "Portal.shelfL0": {
       "bounds": [
@@ -3799,36 +3793,36 @@
     "Portal.shelfL1": {
       "bounds": [
         1313,
-        1756.705571061485,
+        1752.038040724667,
         1915,
         2295
       ],
-      "bottom": 315,
+      "bottom": 330,
       "thickness": 28,
       "supports": [
         [
           "Portal.shelfL1.outer.saddle0",
           1375.0,
           2025.0,
-          315.0
+          330.0
         ],
         [
           "Portal.shelfL1.outer.saddle1",
           1375.0,
           2185.0,
-          315.0
+          330.0
         ],
         [
           "Portal.shelfL1.inner.saddle0",
           1601.0,
           2025.0,
-          315.0
+          330.0
         ],
         [
           "Portal.shelfL1.inner.saddle1",
           1601.0,
           2185.0,
-          315.0
+          330.0
         ]
       ],
       "holes": [
@@ -3862,8 +3856,8 @@
             1361,
             1960,
             1991,
-            314,
-            317.5
+            329,
+            332.5
           ]
         },
         {
@@ -3872,8 +3866,8 @@
             1361,
             2219,
             2250,
-            314,
-            317.5
+            329,
+            332.5
           ]
         },
         {
@@ -3882,8 +3876,8 @@
             1651,
             1960,
             1991,
-            314,
-            317.5
+            329,
+            332.5
           ]
         },
         {
@@ -3892,45 +3886,45 @@
             1651,
             2219,
             2250,
-            314,
-            317.5
+            329,
+            332.5
           ]
         }
       ]
     },
     "Portal.shelfR1": {
       "bounds": [
-        2961.294428938515,
+        2965.961959275333,
         3405,
         1915,
         2295
       ],
-      "bottom": 315,
+      "bottom": 330,
       "thickness": 28,
       "supports": [
         [
-          "Portal.shelfR1.front.saddle0",
-          3150.0,
-          1992.0,
-          315.0
+          "Portal.shelfR1.outer.saddle0",
+          3343.0,
+          2025.0,
+          330.0
         ],
         [
-          "Portal.shelfR1.front.saddle1",
-          3310.0,
-          1992.0,
-          315.0
+          "Portal.shelfR1.outer.saddle1",
+          3343.0,
+          2185.0,
+          330.0
         ],
         [
-          "Portal.shelfR1.rear.saddle0",
-          3150.0,
-          2218.0,
-          315.0
+          "Portal.shelfR1.inner.saddle0",
+          3117.0,
+          2025.0,
+          330.0
         ],
         [
-          "Portal.shelfR1.rear.saddle1",
-          3310.0,
-          2218.0,
-          315.0
+          "Portal.shelfR1.inner.saddle1",
+          3117.0,
+          2185.0,
+          330.0
         ]
       ],
       "holes": [
@@ -3960,42 +3954,42 @@
       "support_reliefs": [
         {
           "bounds": [
-            3085,
-            3116,
-            1942,
-            1978,
-            314,
-            317.5
+            3357,
+            3393,
+            1960,
+            1991,
+            329,
+            332.5
           ]
         },
         {
           "bounds": [
-            3344,
-            3375,
-            1942,
-            1978,
-            314,
-            317.5
+            3357,
+            3393,
+            2219,
+            2250,
+            329,
+            332.5
           ]
         },
         {
           "bounds": [
-            3085,
-            3116,
-            2232,
-            2268,
-            314,
-            317.5
+            3067,
+            3103,
+            1960,
+            1991,
+            329,
+            332.5
           ]
         },
         {
           "bounds": [
-            3344,
-            3375,
-            2232,
-            2268,
-            314,
-            317.5
+            3067,
+            3103,
+            2219,
+            2250,
+            329,
+            332.5
           ]
         }
       ]
@@ -5534,8 +5528,8 @@
       "tubes": [
         "RF0.lower",
         "RF0.joint_riser",
-        "RF0.upper",
-        "RF0.top_stub"
+        "RF0.top_stub",
+        "RF0.upper"
       ]
     },
     "RF1": {
@@ -5559,6 +5553,7 @@
       "y": 3840,
       "tubes": [
         "RB0.lower",
+        "RB0.mid",
         "RB0.upper"
       ]
     },
@@ -5584,8 +5579,8 @@
       "tubes": [
         "DS0.lower",
         "DS0.joint_riser",
-        "DS0.upper",
         "DS0.top_stub",
+        "DS0.upper",
         "DS0.upper2"
       ]
     },
@@ -5594,6 +5589,7 @@
       "y": 2250,
       "tubes": [
         "SB0.lower",
+        "SB0.mid",
         "SB0.upper"
       ]
     },
@@ -5920,94 +5916,6 @@
       "data": {}
     },
     {
-      "id": "RB0.lower",
-      "kind": "tube_1000",
-      "origin": [
-        3375,
-        3840,
-        15
-      ],
-      "axis": [
-        0.0,
-        0.0,
-        1.0
-      ],
-      "direction": [
-        1,
-        0,
-        0
-      ],
-      "data": {
-        "length": 1000
-      }
-    },
-    {
-      "id": "RB0.extension",
-      "kind": "extension",
-      "origin": [
-        3375.0,
-        3840.0,
-        1021.0
-      ],
-      "axis": [
-        0,
-        0,
-        1
-      ],
-      "direction": [
-        1,
-        0,
-        0
-      ],
-      "data": {
-        "gap": 12
-      }
-    },
-    {
-      "id": "RB0.upper",
-      "kind": "tube_1200",
-      "origin": [
-        3375.0,
-        3840.0,
-        1027.0
-      ],
-      "axis": [
-        0.0,
-        0.0,
-        1.0
-      ],
-      "direction": [
-        1,
-        0,
-        0
-      ],
-      "data": {
-        "length": 1200
-      }
-    },
-    {
-      "id": "RB0.cover",
-      "kind": "cap",
-      "origin": [
-        3375.0,
-        3840.0,
-        2227.0
-      ],
-      "axis": [
-        0.0,
-        0.0,
-        1.0
-      ],
-      "direction": [
-        1,
-        0,
-        0
-      ],
-      "data": {
-        "interface_status": "fit unverified; no structural role"
-      }
-    },
-    {
       "id": "RB1.foot",
       "kind": "flange",
       "origin": [
@@ -6264,94 +6172,6 @@
       "data": {}
     },
     {
-      "id": "SB0.lower",
-      "kind": "tube_1000",
-      "origin": [
-        3375,
-        2250,
-        15
-      ],
-      "axis": [
-        0.0,
-        0.0,
-        1.0
-      ],
-      "direction": [
-        1,
-        0,
-        0
-      ],
-      "data": {
-        "length": 1000
-      }
-    },
-    {
-      "id": "SB0.extension",
-      "kind": "extension",
-      "origin": [
-        3375.0,
-        2250.0,
-        1021.0
-      ],
-      "axis": [
-        0,
-        0,
-        1
-      ],
-      "direction": [
-        1,
-        0,
-        0
-      ],
-      "data": {
-        "gap": 12
-      }
-    },
-    {
-      "id": "SB0.upper",
-      "kind": "tube_1500",
-      "origin": [
-        3375.0,
-        2250.0,
-        1027.0
-      ],
-      "axis": [
-        0.0,
-        0.0,
-        1.0
-      ],
-      "direction": [
-        1,
-        0,
-        0
-      ],
-      "data": {
-        "length": 1500
-      }
-    },
-    {
-      "id": "SB0.cover",
-      "kind": "cap",
-      "origin": [
-        3375.0,
-        2250.0,
-        2527.0
-      ],
-      "axis": [
-        0.0,
-        0.0,
-        1.0
-      ],
-      "direction": [
-        1,
-        0,
-        0
-      ],
-      "data": {
-        "interface_status": "fit unverified; no structural role"
-      }
-    },
-    {
       "id": "Desk.wall0.940.tee",
       "kind": "slide_tee",
       "origin": [
@@ -6370,7 +6190,7 @@
         0
       ],
       "data": {
-        "host": "SB0.lower"
+        "host": "SB0.mid"
       }
     },
     {
@@ -7253,72 +7073,6 @@
         "holes": [],
         "recess": null,
         "rotation_degrees": 0
-      }
-    },
-    {
-      "id": "Rack.depth0.200.t1",
-      "kind": "slide_tee",
-      "origin": [
-        3085,
-        3840,
-        200
-      ],
-      "axis": [
-        0,
-        0,
-        1
-      ],
-      "direction": [
-        1.0,
-        0.0,
-        0.0
-      ],
-      "data": {
-        "host": "RF0.lower"
-      }
-    },
-    {
-      "id": "Rack.depth0.200.t2",
-      "kind": "slide_tee",
-      "origin": [
-        3375,
-        3840,
-        200
-      ],
-      "axis": [
-        0,
-        0,
-        1
-      ],
-      "direction": [
-        -1.0,
-        -0.0,
-        -0.0
-      ],
-      "data": {
-        "host": "RB0.lower"
-      }
-    },
-    {
-      "id": "Rack.depth0.200.tube",
-      "kind": "tube_250",
-      "origin": [
-        3105.0,
-        3840.0,
-        200.0
-      ],
-      "axis": [
-        1.0,
-        0.0,
-        0.0
-      ],
-      "direction": [
-        1,
-        0,
-        0
-      ],
-      "data": {
-        "length": 250
       }
     },
     {
@@ -8484,7 +8238,7 @@
       "kind": "saddle",
       "origin": [
         3085.0,
-        2335.0,
+        2320.0,
         1085.0
       ],
       "axis": [
@@ -8499,7 +8253,7 @@
       ],
       "data": {
         "host": "Speaker0.arm0.tube",
-        "distance": 65
+        "distance": 50
       }
     },
     {
@@ -8544,7 +8298,7 @@
         0
       ],
       "data": {
-        "host": "SB0.upper"
+        "host": "SB0.mid"
       }
     },
     {
@@ -8596,7 +8350,7 @@
       "kind": "saddle",
       "origin": [
         3375.0,
-        2445.0,
+        2320.0,
         1085.0
       ],
       "axis": [
@@ -8611,7 +8365,7 @@
       ],
       "data": {
         "host": "Speaker0.arm1.tube",
-        "distance": 175
+        "distance": 50
       }
     },
     {
@@ -8641,8 +8395,8 @@
       "id": "Speaker0.platform",
       "kind": "wood",
       "origin": [
-        3175.0,
-        2502.4848700782986,
+        3240.0,
+        2488.0,
         1112.5
       ],
       "axis": [
@@ -8657,16 +8411,16 @@
       ],
       "data": {
         "bounds": [
-          3000,
-          3350,
-          2327.4848700782986,
-          2677.4848700782986
+          3055,
+          3425,
+          2303.0,
+          2673.0
         ],
         "bottom": 1100,
         "thickness": 25,
         "holes": [],
         "recess": null,
-        "rotation_degrees": -45.25770398341365,
+        "rotation_degrees": 0,
         "speaker_target_mm": [
           2620,
           3062.5,
@@ -8745,7 +8499,7 @@
       "kind": "saddle",
       "origin": [
         3085.0,
-        3790.0,
+        3800.0,
         1085.0
       ],
       "axis": [
@@ -8760,7 +8514,7 @@
       ],
       "data": {
         "host": "Speaker1.arm0.tube",
-        "distance": 30
+        "distance": 20
       }
     },
     {
@@ -8805,7 +8559,7 @@
         0
       ],
       "data": {
-        "host": "RB0.upper"
+        "host": "RB0.mid"
       }
     },
     {
@@ -8857,7 +8611,7 @@
       "kind": "saddle",
       "origin": [
         3375.0,
-        3680.0,
+        3800.0,
         1085.0
       ],
       "axis": [
@@ -8872,7 +8626,7 @@
       ],
       "data": {
         "host": "Speaker1.arm1.tube",
-        "distance": 140
+        "distance": 20
       }
     },
     {
@@ -8902,8 +8656,8 @@
       "id": "Speaker1.platform",
       "kind": "wood",
       "origin": [
-        3175.0,
-        3622.5151299217014,
+        3240.0,
+        3637.0,
         1112.5
       ],
       "axis": [
@@ -8918,930 +8672,20 @@
       ],
       "data": {
         "bounds": [
-          3000,
-          3350,
-          3447.5151299217014,
-          3797.5151299217014
+          3055,
+          3425,
+          3452.0,
+          3822.0
         ],
         "bottom": 1100,
         "thickness": 25,
         "holes": [],
         "recess": null,
-        "rotation_degrees": 45.25770398341365,
+        "rotation_degrees": 0,
         "speaker_target_mm": [
           2620,
           3062.5,
           1220
-        ]
-      }
-    },
-    {
-      "id": "Desk.shared0.0.tube",
-      "kind": "tube_250",
-      "origin": [
-        3065,
-        2250,
-        689
-      ],
-      "axis": [
-        -1.0,
-        0.0,
-        0.0
-      ],
-      "direction": [
-        1,
-        0,
-        0
-      ],
-      "data": {
-        "length": 250
-      }
-    },
-    {
-      "id": "Desk.shared0.0.saddle0",
-      "kind": "saddle",
-      "origin": [
-        3020.0,
-        2250.0,
-        689.0
-      ],
-      "axis": [
-        -1.0,
-        0.0,
-        0.0
-      ],
-      "direction": [
-        0.0,
-        1.0,
-        0.0
-      ],
-      "data": {
-        "host": "Desk.shared0.0.tube",
-        "distance": 45
-      }
-    },
-    {
-      "id": "Desk.shared0.0.saddle1",
-      "kind": "saddle",
-      "origin": [
-        2860.0,
-        2250.0,
-        689.0
-      ],
-      "axis": [
-        -1.0,
-        0.0,
-        0.0
-      ],
-      "direction": [
-        0.0,
-        1.0,
-        0.0
-      ],
-      "data": {
-        "host": "Desk.shared0.0.tube",
-        "distance": 205
-      }
-    },
-    {
-      "id": "DF0.foot",
-      "kind": "flange",
-      "origin": [
-        2795.0,
-        2250,
-        0
-      ],
-      "axis": [
-        0,
-        0,
-        1
-      ],
-      "direction": [
-        1,
-        0,
-        0
-      ],
-      "data": {}
-    },
-    {
-      "id": "DF0.lower",
-      "kind": "tube_602",
-      "origin": [
-        2795.0,
-        2250,
-        15
-      ],
-      "axis": [
-        0.0,
-        0.0,
-        1.0
-      ],
-      "direction": [
-        1,
-        0,
-        0
-      ],
-      "data": {
-        "length": 602
-      }
-    },
-    {
-      "id": "DF0.extension",
-      "kind": "extension",
-      "origin": [
-        2795.0,
-        2250.0,
-        623.0
-      ],
-      "axis": [
-        0,
-        0,
-        1
-      ],
-      "direction": [
-        1,
-        0,
-        0
-      ],
-      "data": {
-        "gap": 12
-      }
-    },
-    {
-      "id": "DF0.upper",
-      "kind": "tube_40",
-      "origin": [
-        2795.0,
-        2250.0,
-        629.0
-      ],
-      "axis": [
-        0.0,
-        0.0,
-        1.0
-      ],
-      "direction": [
-        1,
-        0,
-        0
-      ],
-      "data": {
-        "length": 40
-      }
-    },
-    {
-      "id": "DF0.elbow",
-      "kind": "elbow",
-      "origin": [
-        2795.0,
-        2250,
-        689
-      ],
-      "axis": [
-        0,
-        0,
-        -1
-      ],
-      "direction": [
-        1,
-        0,
-        0
-      ],
-      "data": {}
-    },
-    {
-      "id": "Desk.shared0.1.tee",
-      "kind": "slide_tee",
-      "origin": [
-        3375,
-        2250,
-        689
-      ],
-      "axis": [
-        0,
-        0,
-        1
-      ],
-      "direction": [
-        -1,
-        0,
-        0
-      ],
-      "data": {
-        "host": "SB0.lower"
-      }
-    },
-    {
-      "id": "Desk.shared0.1.tube",
-      "kind": "tube_250",
-      "origin": [
-        3355,
-        2250,
-        689
-      ],
-      "axis": [
-        -1.0,
-        0.0,
-        0.0
-      ],
-      "direction": [
-        1,
-        0,
-        0
-      ],
-      "data": {
-        "length": 250
-      }
-    },
-    {
-      "id": "Desk.shared0.1.saddle0",
-      "kind": "saddle",
-      "origin": [
-        3310.0,
-        2250.0,
-        689.0
-      ],
-      "axis": [
-        -1.0,
-        0.0,
-        0.0
-      ],
-      "direction": [
-        0.0,
-        1.0,
-        0.0
-      ],
-      "data": {
-        "host": "Desk.shared0.1.tube",
-        "distance": 45
-      }
-    },
-    {
-      "id": "Desk.shared0.1.saddle1",
-      "kind": "saddle",
-      "origin": [
-        3200.0,
-        2250.0,
-        689.0
-      ],
-      "axis": [
-        -1.0,
-        0.0,
-        0.0
-      ],
-      "direction": [
-        0.0,
-        1.0,
-        0.0
-      ],
-      "data": {
-        "host": "Desk.shared0.1.tube",
-        "distance": 155
-      }
-    },
-    {
-      "id": "Desk.low_depth0.t1",
-      "kind": "slide_tee",
-      "origin": [
-        3085,
-        2250,
-        300
-      ],
-      "axis": [
-        0,
-        0,
-        1
-      ],
-      "direction": [
-        1.0,
-        0.0,
-        0.0
-      ],
-      "data": {
-        "host": "DS0.lower"
-      }
-    },
-    {
-      "id": "Desk.low_depth0.t2",
-      "kind": "slide_tee",
-      "origin": [
-        3375,
-        2250,
-        300
-      ],
-      "axis": [
-        0,
-        0,
-        1
-      ],
-      "direction": [
-        -1.0,
-        -0.0,
-        -0.0
-      ],
-      "data": {
-        "host": "SB0.lower"
-      }
-    },
-    {
-      "id": "Desk.low_depth0.tube",
-      "kind": "tube_250",
-      "origin": [
-        3105.0,
-        2250.0,
-        300.0
-      ],
-      "axis": [
-        1.0,
-        0.0,
-        0.0
-      ],
-      "direction": [
-        1,
-        0,
-        0
-      ],
-      "data": {
-        "length": 250
-      }
-    },
-    {
-      "id": "Desk.low_wall0.tee",
-      "kind": "slide_tee",
-      "origin": [
-        3375,
-        2250,
-        400
-      ],
-      "axis": [
-        0,
-        0,
-        1
-      ],
-      "direction": [
-        1,
-        0,
-        0
-      ],
-      "data": {
-        "host": "SB0.lower"
-      }
-    },
-    {
-      "id": "Desk.low_wall0.tube",
-      "kind": "tube_40",
-      "origin": [
-        3395,
-        2250,
-        400
-      ],
-      "axis": [
-        1.0,
-        0.0,
-        0.0
-      ],
-      "direction": [
-        1,
-        0,
-        0
-      ],
-      "data": {
-        "length": 40
-      }
-    },
-    {
-      "id": "Desk.low_wall0.wall",
-      "kind": "flange",
-      "origin": [
-        3450.0,
-        2250.0,
-        400.0
-      ],
-      "axis": [
-        -1,
-        0,
-        0
-      ],
-      "direction": [
-        1,
-        0,
-        0
-      ],
-      "data": {}
-    },
-    {
-      "id": "Desk.shared1.0.tube",
-      "kind": "tube_250",
-      "origin": [
-        3065,
-        3840,
-        689
-      ],
-      "axis": [
-        -1.0,
-        0.0,
-        0.0
-      ],
-      "direction": [
-        1,
-        0,
-        0
-      ],
-      "data": {
-        "length": 250
-      }
-    },
-    {
-      "id": "Desk.shared1.0.saddle0",
-      "kind": "saddle",
-      "origin": [
-        3020.0,
-        3840.0,
-        689.0
-      ],
-      "axis": [
-        -1.0,
-        0.0,
-        0.0
-      ],
-      "direction": [
-        0.0,
-        -1.0,
-        0.0
-      ],
-      "data": {
-        "host": "Desk.shared1.0.tube",
-        "distance": 45
-      }
-    },
-    {
-      "id": "Desk.shared1.0.saddle1",
-      "kind": "saddle",
-      "origin": [
-        2860.0,
-        3840.0,
-        689.0
-      ],
-      "axis": [
-        -1.0,
-        0.0,
-        0.0
-      ],
-      "direction": [
-        0.0,
-        -1.0,
-        0.0
-      ],
-      "data": {
-        "host": "Desk.shared1.0.tube",
-        "distance": 205
-      }
-    },
-    {
-      "id": "DF1.foot",
-      "kind": "flange",
-      "origin": [
-        2795.0,
-        3840,
-        0
-      ],
-      "axis": [
-        0,
-        0,
-        1
-      ],
-      "direction": [
-        1,
-        0,
-        0
-      ],
-      "data": {}
-    },
-    {
-      "id": "DF1.lower",
-      "kind": "tube_602",
-      "origin": [
-        2795.0,
-        3840,
-        15
-      ],
-      "axis": [
-        0.0,
-        0.0,
-        1.0
-      ],
-      "direction": [
-        1,
-        0,
-        0
-      ],
-      "data": {
-        "length": 602
-      }
-    },
-    {
-      "id": "DF1.extension",
-      "kind": "extension",
-      "origin": [
-        2795.0,
-        3840.0,
-        623.0
-      ],
-      "axis": [
-        0,
-        0,
-        1
-      ],
-      "direction": [
-        1,
-        0,
-        0
-      ],
-      "data": {
-        "gap": 12
-      }
-    },
-    {
-      "id": "DF1.upper",
-      "kind": "tube_40",
-      "origin": [
-        2795.0,
-        3840.0,
-        629.0
-      ],
-      "axis": [
-        0.0,
-        0.0,
-        1.0
-      ],
-      "direction": [
-        1,
-        0,
-        0
-      ],
-      "data": {
-        "length": 40
-      }
-    },
-    {
-      "id": "DF1.elbow",
-      "kind": "elbow",
-      "origin": [
-        2795.0,
-        3840,
-        689
-      ],
-      "axis": [
-        0,
-        0,
-        -1
-      ],
-      "direction": [
-        1,
-        0,
-        0
-      ],
-      "data": {}
-    },
-    {
-      "id": "Desk.shared1.1.tee",
-      "kind": "slide_tee",
-      "origin": [
-        3375,
-        3840,
-        689
-      ],
-      "axis": [
-        0,
-        0,
-        1
-      ],
-      "direction": [
-        -1,
-        0,
-        0
-      ],
-      "data": {
-        "host": "RB0.lower"
-      }
-    },
-    {
-      "id": "Desk.shared1.1.tube",
-      "kind": "tube_250",
-      "origin": [
-        3355,
-        3840,
-        689
-      ],
-      "axis": [
-        -1.0,
-        0.0,
-        0.0
-      ],
-      "direction": [
-        1,
-        0,
-        0
-      ],
-      "data": {
-        "length": 250
-      }
-    },
-    {
-      "id": "Desk.shared1.1.saddle0",
-      "kind": "saddle",
-      "origin": [
-        3310.0,
-        3840.0,
-        689.0
-      ],
-      "axis": [
-        -1.0,
-        0.0,
-        0.0
-      ],
-      "direction": [
-        0.0,
-        -1.0,
-        0.0
-      ],
-      "data": {
-        "host": "Desk.shared1.1.tube",
-        "distance": 45
-      }
-    },
-    {
-      "id": "Desk.shared1.1.saddle1",
-      "kind": "saddle",
-      "origin": [
-        3200.0,
-        3840.0,
-        689.0
-      ],
-      "axis": [
-        -1.0,
-        0.0,
-        0.0
-      ],
-      "direction": [
-        0.0,
-        -1.0,
-        0.0
-      ],
-      "data": {
-        "host": "Desk.shared1.1.tube",
-        "distance": 155
-      }
-    },
-    {
-      "id": "Desk.low_depth1.t1",
-      "kind": "slide_tee",
-      "origin": [
-        3085,
-        3840,
-        300
-      ],
-      "axis": [
-        0,
-        0,
-        1
-      ],
-      "direction": [
-        1.0,
-        0.0,
-        0.0
-      ],
-      "data": {
-        "host": "RF0.lower"
-      }
-    },
-    {
-      "id": "Desk.low_depth1.t2",
-      "kind": "slide_tee",
-      "origin": [
-        3375,
-        3840,
-        300
-      ],
-      "axis": [
-        0,
-        0,
-        1
-      ],
-      "direction": [
-        -1.0,
-        -0.0,
-        -0.0
-      ],
-      "data": {
-        "host": "RB0.lower"
-      }
-    },
-    {
-      "id": "Desk.low_depth1.tube",
-      "kind": "tube_250",
-      "origin": [
-        3105.0,
-        3840.0,
-        300.0
-      ],
-      "axis": [
-        1.0,
-        0.0,
-        0.0
-      ],
-      "direction": [
-        1,
-        0,
-        0
-      ],
-      "data": {
-        "length": 250
-      }
-    },
-    {
-      "id": "Desk.low_wall1.tee",
-      "kind": "slide_tee",
-      "origin": [
-        3375,
-        3840,
-        400
-      ],
-      "axis": [
-        0,
-        0,
-        1
-      ],
-      "direction": [
-        1,
-        0,
-        0
-      ],
-      "data": {
-        "host": "RB0.lower"
-      }
-    },
-    {
-      "id": "Desk.low_wall1.tube",
-      "kind": "tube_40",
-      "origin": [
-        3395,
-        3840,
-        400
-      ],
-      "axis": [
-        1.0,
-        0.0,
-        0.0
-      ],
-      "direction": [
-        1,
-        0,
-        0
-      ],
-      "data": {
-        "length": 40
-      }
-    },
-    {
-      "id": "Desk.low_wall1.wall",
-      "kind": "flange",
-      "origin": [
-        3450.0,
-        3840.0,
-        400.0
-      ],
-      "axis": [
-        -1,
-        0,
-        0
-      ],
-      "direction": [
-        1,
-        0,
-        0
-      ],
-      "data": {}
-    },
-    {
-      "id": "Desk.top",
-      "kind": "wood",
-      "origin": [
-        3054.0,
-        3062.5,
-        718.0
-      ],
-      "axis": [
-        0,
-        0,
-        1
-      ],
-      "direction": [
-        1,
-        0,
-        0
-      ],
-      "data": {
-        "bounds": [
-          2703,
-          3405,
-          2255,
-          3870
-        ],
-        "bottom": 704,
-        "thickness": 28,
-        "holes": [
-          [
-            3085,
-            2250,
-            44
-          ],
-          [
-            3375,
-            2250,
-            44
-          ],
-          [
-            3085,
-            3840,
-            44
-          ],
-          [
-            3375,
-            3840,
-            44
-          ]
-        ],
-        "recess": null,
-        "rotation_degrees": 0,
-        "corner_radii": [
-          [
-            2703,
-            2255,
-            100
-          ]
-        ],
-        "support_reliefs": [
-          {
-            "bounds": [
-              3054,
-              3116.0,
-              2232,
-              2268,
-              703,
-              706.5
-            ]
-          },
-          {
-            "bounds": [
-              3344,
-              3375,
-              2232,
-              2268,
-              703,
-              706.5
-            ]
-          },
-          {
-            "bounds": [
-              3054,
-              3116.0,
-              3822,
-              3858,
-              703,
-              706.5
-            ]
-          },
-          {
-            "bounds": [
-              3344,
-              3375,
-              3822,
-              3858,
-              703,
-              706.5
-            ]
-          },
-          {
-            "bounds": [
-              2777.0,
-              2826.0,
-              2232,
-              2268,
-              703,
-              706.5
-            ]
-          },
-          {
-            "bounds": [
-              2777.0,
-              2826.0,
-              3822,
-              3858,
-              703,
-              706.5
-            ]
-          }
         ]
       }
     },
@@ -10064,7 +8908,487 @@
       }
     },
     {
-      "id": "Desk.low_front0.t1",
+      "id": "SB0.lower",
+      "kind": "tube_200",
+      "origin": [
+        3375,
+        2250,
+        15
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {
+        "length": 200
+      }
+    },
+    {
+      "id": "Desk.low0.cross_rear",
+      "kind": "cross",
+      "origin": [
+        3375.0,
+        2250.0,
+        235.0
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "direction": [
+        -1,
+        0,
+        0
+      ],
+      "data": {}
+    },
+    {
+      "id": "SB0.mid",
+      "kind": "tube_1000",
+      "origin": [
+        3375.0,
+        2250.0,
+        255.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {
+        "length": 1000
+      }
+    },
+    {
+      "id": "SB0.extension",
+      "kind": "extension",
+      "origin": [
+        3375.0,
+        2250.0,
+        1261.0
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {
+        "gap": 12
+      }
+    },
+    {
+      "id": "SB0.upper",
+      "kind": "tube_1200",
+      "origin": [
+        3375.0,
+        2250.0,
+        1267.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {
+        "length": 1200
+      }
+    },
+    {
+      "id": "SB0.cover",
+      "kind": "cap",
+      "origin": [
+        3375.0,
+        2250.0,
+        2467.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {
+        "interface_status": "fit unverified; no structural role"
+      }
+    },
+    {
+      "id": "Desk.shared0.0.tube",
+      "kind": "tube_250",
+      "origin": [
+        3065.0,
+        2250.0,
+        689.0
+      ],
+      "axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {
+        "length": 250
+      }
+    },
+    {
+      "id": "Desk.shared0.1.tee",
+      "kind": "slide_tee",
+      "origin": [
+        3375,
+        2250,
+        689
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "direction": [
+        -1,
+        0,
+        0
+      ],
+      "data": {
+        "host": "SB0.mid"
+      }
+    },
+    {
+      "id": "Desk.shared0.1.tube",
+      "kind": "tube_250",
+      "origin": [
+        3355,
+        2250,
+        689
+      ],
+      "axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {
+        "length": 250
+      }
+    },
+    {
+      "id": "Desk.shared0.0.saddle0",
+      "kind": "saddle",
+      "origin": [
+        3020.0,
+        2250.0,
+        689.0
+      ],
+      "axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "direction": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "data": {
+        "host": "Desk.shared0.0.tube",
+        "distance": 45
+      }
+    },
+    {
+      "id": "Desk.shared0.0.saddle1",
+      "kind": "saddle",
+      "origin": [
+        2860.0,
+        2250.0,
+        689.0
+      ],
+      "axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "direction": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "data": {
+        "host": "Desk.shared0.0.tube",
+        "distance": 205
+      }
+    },
+    {
+      "id": "Desk.shared0.1.saddle0",
+      "kind": "saddle",
+      "origin": [
+        3310.0,
+        2250.0,
+        689.0
+      ],
+      "axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "direction": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "data": {
+        "host": "Desk.shared0.1.tube",
+        "distance": 45
+      }
+    },
+    {
+      "id": "Desk.shared0.1.saddle1",
+      "kind": "saddle",
+      "origin": [
+        3150.0,
+        2250.0,
+        689.0
+      ],
+      "axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "direction": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "data": {
+        "host": "Desk.shared0.1.tube",
+        "distance": 205
+      }
+    },
+    {
+      "id": "DF0.foot",
+      "kind": "flange",
+      "origin": [
+        2795.0,
+        2250,
+        0
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {}
+    },
+    {
+      "id": "DF0.lower",
+      "kind": "tube_602",
+      "origin": [
+        2795.0,
+        2250,
+        15
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {
+        "length": 602
+      }
+    },
+    {
+      "id": "DF0.extension",
+      "kind": "extension",
+      "origin": [
+        2795.0,
+        2250.0,
+        623.0
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {
+        "gap": 12
+      }
+    },
+    {
+      "id": "DF0.upper",
+      "kind": "tube_40",
+      "origin": [
+        2795.0,
+        2250.0,
+        629.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {
+        "length": 40
+      }
+    },
+    {
+      "id": "DF0.elbow",
+      "kind": "elbow",
+      "origin": [
+        2795.0,
+        2250,
+        689
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {}
+    },
+    {
+      "id": "Desk.low0.tee",
+      "kind": "slide_tee",
+      "origin": [
+        3085,
+        2250,
+        235
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {
+        "host": "DS0.lower"
+      }
+    },
+    {
+      "id": "Desk.low0.rear",
+      "kind": "tube_250",
+      "origin": [
+        3355.0,
+        2250.0,
+        235.0
+      ],
+      "axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {
+        "length": 250
+      }
+    },
+    {
+      "id": "Desk.low0.wall",
+      "kind": "tube_40",
+      "origin": [
+        3395.0,
+        2250.0,
+        235.0
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {
+        "length": 40
+      }
+    },
+    {
+      "id": "Desk.low0.wall_flange",
+      "kind": "flange",
+      "origin": [
+        3450.0,
+        2250.0,
+        235.0
+      ],
+      "axis": [
+        -1,
+        0,
+        0
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {}
+    },
+    {
+      "id": "Desk.low0.front.t1",
       "kind": "slide_tee",
       "origin": [
         2795.0,
@@ -10086,7 +9410,7 @@
       }
     },
     {
-      "id": "Desk.low_front0.t2",
+      "id": "Desk.low0.front.t2",
       "kind": "slide_tee",
       "origin": [
         3085,
@@ -10108,7 +9432,7 @@
       }
     },
     {
-      "id": "Desk.low_front0.tube",
+      "id": "Desk.low0.front.tube",
       "kind": "tube_250",
       "origin": [
         2815.0,
@@ -10304,7 +9628,487 @@
       }
     },
     {
-      "id": "Desk.low_front1.t1",
+      "id": "RB0.lower",
+      "kind": "tube_200",
+      "origin": [
+        3375,
+        3840,
+        15
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {
+        "length": 200
+      }
+    },
+    {
+      "id": "Desk.low1.cross_rear",
+      "kind": "cross",
+      "origin": [
+        3375.0,
+        3840.0,
+        235.0
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "direction": [
+        -1,
+        0,
+        0
+      ],
+      "data": {}
+    },
+    {
+      "id": "RB0.mid",
+      "kind": "tube_1000",
+      "origin": [
+        3375.0,
+        3840.0,
+        255.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {
+        "length": 1000
+      }
+    },
+    {
+      "id": "RB0.extension",
+      "kind": "extension",
+      "origin": [
+        3375.0,
+        3840.0,
+        1261.0
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {
+        "gap": 12
+      }
+    },
+    {
+      "id": "RB0.upper",
+      "kind": "tube_1000",
+      "origin": [
+        3375.0,
+        3840.0,
+        1267.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {
+        "length": 1000
+      }
+    },
+    {
+      "id": "RB0.cover",
+      "kind": "cap",
+      "origin": [
+        3375.0,
+        3840.0,
+        2267.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {
+        "interface_status": "fit unverified; no structural role"
+      }
+    },
+    {
+      "id": "Desk.shared1.0.tube",
+      "kind": "tube_250",
+      "origin": [
+        3065.0,
+        3840.0,
+        689.0
+      ],
+      "axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {
+        "length": 250
+      }
+    },
+    {
+      "id": "Desk.shared1.1.tee",
+      "kind": "slide_tee",
+      "origin": [
+        3375,
+        3840,
+        689
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "direction": [
+        -1,
+        0,
+        0
+      ],
+      "data": {
+        "host": "RB0.mid"
+      }
+    },
+    {
+      "id": "Desk.shared1.1.tube",
+      "kind": "tube_250",
+      "origin": [
+        3355,
+        3840,
+        689
+      ],
+      "axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {
+        "length": 250
+      }
+    },
+    {
+      "id": "Desk.shared1.0.saddle0",
+      "kind": "saddle",
+      "origin": [
+        3020.0,
+        3840.0,
+        689.0
+      ],
+      "axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "direction": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "data": {
+        "host": "Desk.shared1.0.tube",
+        "distance": 45
+      }
+    },
+    {
+      "id": "Desk.shared1.0.saddle1",
+      "kind": "saddle",
+      "origin": [
+        2860.0,
+        3840.0,
+        689.0
+      ],
+      "axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "direction": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "data": {
+        "host": "Desk.shared1.0.tube",
+        "distance": 205
+      }
+    },
+    {
+      "id": "Desk.shared1.1.saddle0",
+      "kind": "saddle",
+      "origin": [
+        3310.0,
+        3840.0,
+        689.0
+      ],
+      "axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "direction": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "data": {
+        "host": "Desk.shared1.1.tube",
+        "distance": 45
+      }
+    },
+    {
+      "id": "Desk.shared1.1.saddle1",
+      "kind": "saddle",
+      "origin": [
+        3150.0,
+        3840.0,
+        689.0
+      ],
+      "axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "direction": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "data": {
+        "host": "Desk.shared1.1.tube",
+        "distance": 205
+      }
+    },
+    {
+      "id": "DF1.foot",
+      "kind": "flange",
+      "origin": [
+        2795.0,
+        3840,
+        0
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {}
+    },
+    {
+      "id": "DF1.lower",
+      "kind": "tube_602",
+      "origin": [
+        2795.0,
+        3840,
+        15
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {
+        "length": 602
+      }
+    },
+    {
+      "id": "DF1.extension",
+      "kind": "extension",
+      "origin": [
+        2795.0,
+        3840.0,
+        623.0
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {
+        "gap": 12
+      }
+    },
+    {
+      "id": "DF1.upper",
+      "kind": "tube_40",
+      "origin": [
+        2795.0,
+        3840.0,
+        629.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {
+        "length": 40
+      }
+    },
+    {
+      "id": "DF1.elbow",
+      "kind": "elbow",
+      "origin": [
+        2795.0,
+        3840,
+        689
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {}
+    },
+    {
+      "id": "Desk.low1.tee",
+      "kind": "slide_tee",
+      "origin": [
+        3085,
+        3840,
+        235
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {
+        "host": "RF0.lower"
+      }
+    },
+    {
+      "id": "Desk.low1.rear",
+      "kind": "tube_250",
+      "origin": [
+        3355.0,
+        3840.0,
+        235.0
+      ],
+      "axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {
+        "length": 250
+      }
+    },
+    {
+      "id": "Desk.low1.wall",
+      "kind": "tube_40",
+      "origin": [
+        3395.0,
+        3840.0,
+        235.0
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {
+        "length": 40
+      }
+    },
+    {
+      "id": "Desk.low1.wall_flange",
+      "kind": "flange",
+      "origin": [
+        3450.0,
+        3840.0,
+        235.0
+      ],
+      "axis": [
+        -1,
+        0,
+        0
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {}
+    },
+    {
+      "id": "Desk.low1.front.t1",
       "kind": "slide_tee",
       "origin": [
         2795.0,
@@ -10326,7 +10130,7 @@
       }
     },
     {
-      "id": "Desk.low_front1.t2",
+      "id": "Desk.low1.front.t2",
       "kind": "slide_tee",
       "origin": [
         3085,
@@ -10348,7 +10152,7 @@
       }
     },
     {
-      "id": "Desk.low_front1.tube",
+      "id": "Desk.low1.front.tube",
       "kind": "tube_250",
       "origin": [
         2815.0,
@@ -10370,61 +10174,17 @@
       }
     },
     {
-      "id": "Desk.service0.t1",
-      "kind": "slide_tee",
+      "id": "Desk.top",
+      "kind": "wood",
       "origin": [
-        3085,
-        2250,
-        485
+        3054.0,
+        3062.5,
+        718.0
       ],
       "axis": [
         0,
         0,
         1
-      ],
-      "direction": [
-        1.0,
-        0.0,
-        0.0
-      ],
-      "data": {
-        "host": "DS0.lower"
-      }
-    },
-    {
-      "id": "Desk.service0.t2",
-      "kind": "slide_tee",
-      "origin": [
-        3375,
-        2250,
-        485
-      ],
-      "axis": [
-        0,
-        0,
-        1
-      ],
-      "direction": [
-        -1.0,
-        -0.0,
-        -0.0
-      ],
-      "data": {
-        "host": "SB0.lower"
-      }
-    },
-    {
-      "id": "Desk.service0.tube",
-      "kind": "tube_250",
-      "origin": [
-        3105.0,
-        2250.0,
-        485.0
-      ],
-      "axis": [
-        1.0,
-        0.0,
-        0.0
       ],
       "direction": [
         1,
@@ -10432,62 +10192,116 @@
         0
       ],
       "data": {
-        "length": 250
+        "bounds": [
+          2703,
+          3405,
+          2255,
+          3870
+        ],
+        "bottom": 704,
+        "thickness": 28,
+        "holes": [
+          [
+            3085,
+            2250,
+            44
+          ],
+          [
+            3375,
+            2250,
+            44
+          ],
+          [
+            3085,
+            3840,
+            44
+          ],
+          [
+            3375,
+            3840,
+            44
+          ]
+        ],
+        "recess": null,
+        "rotation_degrees": 0,
+        "corner_radii": [
+          [
+            2703,
+            2255,
+            100
+          ]
+        ],
+        "support_reliefs": [
+          {
+            "bounds": [
+              3054,
+              3116,
+              2232,
+              2268,
+              703,
+              706.5
+            ]
+          },
+          {
+            "bounds": [
+              3344,
+              3375,
+              2232,
+              2268,
+              703,
+              706.5
+            ]
+          },
+          {
+            "bounds": [
+              3054,
+              3116,
+              3822,
+              3858,
+              703,
+              706.5
+            ]
+          },
+          {
+            "bounds": [
+              3344,
+              3375,
+              3822,
+              3858,
+              703,
+              706.5
+            ]
+          },
+          {
+            "bounds": [
+              2777.0,
+              2826.0,
+              2232,
+              2268,
+              703,
+              706.5
+            ]
+          },
+          {
+            "bounds": [
+              2777.0,
+              2826.0,
+              3822,
+              3858,
+              703,
+              706.5
+            ]
+          }
+        ]
       }
     },
     {
-      "id": "Desk.service0.saddle0",
-      "kind": "saddle",
+      "id": "Desk.service_bracket0",
+      "kind": "bracket",
       "origin": [
-        3195.0,
-        2250.0,
-        485.0
-      ],
-      "axis": [
-        1.0,
-        0.0,
-        0.0
-      ],
-      "direction": [
-        0.0,
-        1.0,
-        0.0
-      ],
-      "data": {
-        "host": "Desk.service0.tube",
-        "distance": 90
-      }
-    },
-    {
-      "id": "Desk.service0.saddle1",
-      "kind": "saddle",
-      "origin": [
-        3310.0,
-        2250.0,
-        485.0
-      ],
-      "axis": [
-        1.0,
-        0.0,
-        0.0
-      ],
-      "direction": [
-        0.0,
-        1.0,
-        0.0
-      ],
-      "data": {
-        "host": "Desk.service0.tube",
-        "distance": 205
-      }
-    },
-    {
-      "id": "Desk.service1.t1",
-      "kind": "slide_tee",
-      "origin": [
-        3085,
-        3840,
-        485
+        3450,
+        2375,
+        500
       ],
       "axis": [
         0,
@@ -10495,102 +10309,82 @@
         1
       ],
       "direction": [
-        1.0,
-        0.0,
-        0.0
-      ],
-      "data": {
-        "host": "RF0.lower"
-      }
-    },
-    {
-      "id": "Desk.service1.t2",
-      "kind": "slide_tee",
-      "origin": [
-        3375,
-        3840,
-        485
-      ],
-      "axis": [
-        0,
-        0,
-        1
-      ],
-      "direction": [
-        -1.0,
-        -0.0,
-        -0.0
-      ],
-      "data": {
-        "host": "RB0.lower"
-      }
-    },
-    {
-      "id": "Desk.service1.tube",
-      "kind": "tube_250",
-      "origin": [
-        3105.0,
-        3840.0,
-        485.0
-      ],
-      "axis": [
-        1.0,
-        0.0,
-        0.0
-      ],
-      "direction": [
-        1,
+        -1,
         0,
         0
       ],
       "data": {
-        "length": 250
+        "reach": 200,
+        "interface_status": "allowance; bracket type, size and wall fixings not selected"
       }
     },
     {
-      "id": "Desk.service1.saddle0",
-      "kind": "saddle",
+      "id": "Desk.service_bracket1",
+      "kind": "bracket",
       "origin": [
-        3195.0,
-        3840.0,
-        485.0
+        3450,
+        2835,
+        500
       ],
       "axis": [
-        1.0,
-        0.0,
-        0.0
+        0,
+        0,
+        1
       ],
       "direction": [
-        0.0,
-        -1.0,
-        0.0
+        -1,
+        0,
+        0
       ],
       "data": {
-        "host": "Desk.service1.tube",
-        "distance": 90
+        "reach": 200,
+        "interface_status": "allowance; bracket type, size and wall fixings not selected"
       }
     },
     {
-      "id": "Desk.service1.saddle1",
-      "kind": "saddle",
+      "id": "Desk.service_bracket2",
+      "kind": "bracket",
       "origin": [
-        3310.0,
-        3840.0,
-        485.0
+        3450,
+        3290,
+        500
       ],
       "axis": [
-        1.0,
-        0.0,
-        0.0
+        0,
+        0,
+        1
       ],
       "direction": [
-        0.0,
-        -1.0,
-        0.0
+        -1,
+        0,
+        0
       ],
       "data": {
-        "host": "Desk.service1.tube",
-        "distance": 205
+        "reach": 200,
+        "interface_status": "allowance; bracket type, size and wall fixings not selected"
+      }
+    },
+    {
+      "id": "Desk.service_bracket3",
+      "kind": "bracket",
+      "origin": [
+        3450,
+        3750,
+        500
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "direction": [
+        -1,
+        0,
+        0
+      ],
+      "data": {
+        "reach": 200,
+        "interface_status": "allowance; bracket type, size and wall fixings not selected"
       }
     },
     {
@@ -10633,29 +10427,7 @@
           ]
         ],
         "recess": null,
-        "rotation_degrees": 0,
-        "support_reliefs": [
-          {
-            "bounds": [
-              3344,
-              3375,
-              2232,
-              2268,
-              499,
-              502.5
-            ]
-          },
-          {
-            "bounds": [
-              3344,
-              3375,
-              3822,
-              3858,
-              499,
-              502.5
-            ]
-          }
-        ]
+        "rotation_degrees": 0
       }
     },
     {
@@ -11945,12 +11717,12 @@
       }
     },
     {
-      "id": "ShelfCross.PF0.PB0.300.t1",
+      "id": "ShelfCross.PF0.PB0.315.t1",
       "kind": "slide_tee",
       "origin": [
         1343,
         1960,
-        300
+        315
       ],
       "axis": [
         0,
@@ -11967,12 +11739,12 @@
       }
     },
     {
-      "id": "ShelfCross.PF0.PB0.300.t2",
+      "id": "ShelfCross.PF0.PB0.315.t2",
       "kind": "slide_tee",
       "origin": [
         1343,
         2250,
-        300
+        315
       ],
       "axis": [
         0,
@@ -11989,12 +11761,12 @@
       }
     },
     {
-      "id": "ShelfCross.PF0.PB0.300.tube",
+      "id": "ShelfCross.PF0.PB0.315.tube",
       "kind": "tube_250",
       "origin": [
         1343.0,
         1980.0,
-        300.0
+        315.0
       ],
       "axis": [
         0.0,
@@ -12016,7 +11788,7 @@
       "origin": [
         1343.0,
         2025.0,
-        300.0
+        315.0
       ],
       "axis": [
         0.0,
@@ -12029,7 +11801,7 @@
         0.0
       ],
       "data": {
-        "host": "ShelfCross.PF0.PB0.300.tube",
+        "host": "ShelfCross.PF0.PB0.315.tube",
         "distance": 45
       }
     },
@@ -12039,7 +11811,7 @@
       "origin": [
         1343.0,
         2185.0,
-        300.0
+        315.0
       ],
       "axis": [
         0.0,
@@ -12052,17 +11824,17 @@
         0.0
       ],
       "data": {
-        "host": "ShelfCross.PF0.PB0.300.tube",
+        "host": "ShelfCross.PF0.PB0.315.tube",
         "distance": 205
       }
     },
     {
-      "id": "ShelfCross.PF1.PB1.300.t1",
+      "id": "ShelfCross.PF1.PB1.315.t1",
       "kind": "slide_tee",
       "origin": [
         1633,
         1960,
-        300
+        315
       ],
       "axis": [
         0,
@@ -12079,12 +11851,12 @@
       }
     },
     {
-      "id": "ShelfCross.PF1.PB1.300.t2",
+      "id": "ShelfCross.PF1.PB1.315.t2",
       "kind": "slide_tee",
       "origin": [
         1633,
         2250,
-        300
+        315
       ],
       "axis": [
         0,
@@ -12101,12 +11873,12 @@
       }
     },
     {
-      "id": "ShelfCross.PF1.PB1.300.tube",
+      "id": "ShelfCross.PF1.PB1.315.tube",
       "kind": "tube_250",
       "origin": [
         1633.0,
         1980.0,
-        300.0
+        315.0
       ],
       "axis": [
         0.0,
@@ -12128,7 +11900,7 @@
       "origin": [
         1633.0,
         2025.0,
-        300.0
+        315.0
       ],
       "axis": [
         0.0,
@@ -12141,7 +11913,7 @@
         0.0
       ],
       "data": {
-        "host": "ShelfCross.PF1.PB1.300.tube",
+        "host": "ShelfCross.PF1.PB1.315.tube",
         "distance": 45
       }
     },
@@ -12151,7 +11923,7 @@
       "origin": [
         1633.0,
         2185.0,
-        300.0
+        315.0
       ],
       "axis": [
         0.0,
@@ -12164,7 +11936,7 @@
         0.0
       ],
       "data": {
-        "host": "ShelfCross.PF1.PB1.300.tube",
+        "host": "ShelfCross.PF1.PB1.315.tube",
         "distance": 205
       }
     },
@@ -12172,9 +11944,9 @@
       "id": "Portal.shelfL1",
       "kind": "wood",
       "origin": [
-        1534.8527855307425,
+        1532.5190203623335,
         2105.0,
-        329.0
+        344.0
       ],
       "axis": [
         0,
@@ -12189,11 +11961,11 @@
       "data": {
         "bounds": [
           1313,
-          1756.705571061485,
+          1752.038040724667,
           1915,
           2295
         ],
-        "bottom": 315,
+        "bottom": 330,
         "thickness": 28,
         "holes": [
           [
@@ -12226,8 +11998,8 @@
               1361,
               1960,
               1991,
-              314,
-              317.5
+              329,
+              332.5
             ]
           },
           {
@@ -12236,8 +12008,8 @@
               1361,
               2219,
               2250,
-              314,
-              317.5
+              329,
+              332.5
             ]
           },
           {
@@ -12246,8 +12018,8 @@
               1651,
               1960,
               1991,
-              314,
-              317.5
+              329,
+              332.5
             ]
           },
           {
@@ -12256,42 +12028,20 @@
               1651,
               2219,
               2250,
-              314,
-              317.5
+              329,
+              332.5
             ]
           }
         ]
       }
     },
     {
-      "id": "Portal.front300.t1",
-      "kind": "slide_tee",
-      "origin": [
-        3085,
-        1960,
-        300
-      ],
-      "axis": [
-        0,
-        0,
-        1
-      ],
-      "direction": [
-        1.0,
-        0.0,
-        0.0
-      ],
-      "data": {
-        "host": "PF2.lower"
-      }
-    },
-    {
-      "id": "Portal.front300.t2",
+      "id": "ShelfCross.PF3.SB0.315.t1",
       "kind": "slide_tee",
       "origin": [
         3375,
         1960,
-        300
+        315
       ],
       "axis": [
         0,
@@ -12299,25 +12049,47 @@
         1
       ],
       "direction": [
-        -1.0,
-        -0.0,
-        -0.0
+        0.0,
+        1.0,
+        0.0
       ],
       "data": {
         "host": "PF3.lower"
       }
     },
     {
-      "id": "Portal.front300.tube",
-      "kind": "tube_250",
+      "id": "ShelfCross.PF3.SB0.315.t2",
+      "kind": "slide_tee",
       "origin": [
-        3105.0,
-        1960.0,
-        300.0
+        3375,
+        2250,
+        315
       ],
       "axis": [
-        1.0,
+        0,
+        0,
+        1
+      ],
+      "direction": [
+        -0.0,
+        -1.0,
+        -0.0
+      ],
+      "data": {
+        "host": "SB0.mid"
+      }
+    },
+    {
+      "id": "ShelfCross.PF3.SB0.315.tube",
+      "kind": "tube_250",
+      "origin": [
+        3375.0,
+        1980.0,
+        315.0
+      ],
+      "axis": [
         0.0,
+        1.0,
         0.0
       ],
       "direction": [
@@ -12330,94 +12102,160 @@
       }
     },
     {
-      "id": "Portal.shelfR1.front.saddle0",
+      "id": "Portal.shelfR1.outer.saddle0",
       "kind": "saddle",
       "origin": [
-        3150.0,
-        1960.0,
-        300.0
+        3375.0,
+        2025.0,
+        315.0
       ],
       "axis": [
-        1.0,
         0.0,
+        1.0,
         0.0
       ],
       "direction": [
+        -1.0,
         0.0,
-        1.0,
         0.0
       ],
       "data": {
-        "host": "Portal.front300.tube",
+        "host": "ShelfCross.PF3.SB0.315.tube",
         "distance": 45
       }
     },
     {
-      "id": "Portal.shelfR1.front.saddle1",
+      "id": "Portal.shelfR1.outer.saddle1",
       "kind": "saddle",
       "origin": [
-        3310.0,
-        1960.0,
-        300.0
+        3375.0,
+        2185.0,
+        315.0
       ],
       "axis": [
-        1.0,
         0.0,
+        1.0,
         0.0
       ],
       "direction": [
+        -1.0,
         0.0,
-        1.0,
         0.0
       ],
       "data": {
-        "host": "Portal.front300.tube",
+        "host": "ShelfCross.PF3.SB0.315.tube",
         "distance": 205
       }
     },
     {
-      "id": "Portal.shelfR1.rear.saddle0",
-      "kind": "saddle",
+      "id": "ShelfCross.PF2.DS0.315.t1",
+      "kind": "slide_tee",
       "origin": [
-        3150.0,
-        2250.0,
-        300.0
+        3085,
+        1960,
+        315
       ],
       "axis": [
+        0,
+        0,
+        1
+      ],
+      "direction": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "data": {
+        "host": "PF2.lower"
+      }
+    },
+    {
+      "id": "ShelfCross.PF2.DS0.315.t2",
+      "kind": "slide_tee",
+      "origin": [
+        3085,
+        2250,
+        315
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "direction": [
+        -0.0,
+        -1.0,
+        -0.0
+      ],
+      "data": {
+        "host": "DS0.lower"
+      }
+    },
+    {
+      "id": "ShelfCross.PF2.DS0.315.tube",
+      "kind": "tube_250",
+      "origin": [
+        3085.0,
+        1980.0,
+        315.0
+      ],
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {
+        "length": 250
+      }
+    },
+    {
+      "id": "Portal.shelfR1.inner.saddle0",
+      "kind": "saddle",
+      "origin": [
+        3085.0,
+        2025.0,
+        315.0
+      ],
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "direction": [
         1.0,
         0.0,
         0.0
       ],
-      "direction": [
-        0.0,
-        -1.0,
-        0.0
-      ],
       "data": {
-        "host": "Desk.low_depth0.tube",
+        "host": "ShelfCross.PF2.DS0.315.tube",
         "distance": 45
       }
     },
     {
-      "id": "Portal.shelfR1.rear.saddle1",
+      "id": "Portal.shelfR1.inner.saddle1",
       "kind": "saddle",
       "origin": [
-        3310.0,
-        2250.0,
-        300.0
+        3085.0,
+        2185.0,
+        315.0
       ],
       "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "direction": [
         1.0,
         0.0,
         0.0
       ],
-      "direction": [
-        0.0,
-        -1.0,
-        0.0
-      ],
       "data": {
-        "host": "Desk.low_depth0.tube",
+        "host": "ShelfCross.PF2.DS0.315.tube",
         "distance": 205
       }
     },
@@ -12425,9 +12263,9 @@
       "id": "Portal.shelfR1",
       "kind": "wood",
       "origin": [
-        3183.1472144692575,
+        3185.4809796376667,
         2105.0,
-        329.0
+        344.0
       ],
       "axis": [
         0,
@@ -12441,12 +12279,12 @@
       ],
       "data": {
         "bounds": [
-          2961.294428938515,
+          2965.961959275333,
           3405,
           1915,
           2295
         ],
-        "bottom": 315,
+        "bottom": 330,
         "thickness": 28,
         "holes": [
           [
@@ -12475,42 +12313,42 @@
         "support_reliefs": [
           {
             "bounds": [
-              3085,
-              3116,
-              1942,
-              1978,
-              314,
-              317.5
+              3357,
+              3393,
+              1960,
+              1991,
+              329,
+              332.5
             ]
           },
           {
             "bounds": [
-              3344,
-              3375,
-              1942,
-              1978,
-              314,
-              317.5
+              3357,
+              3393,
+              2219,
+              2250,
+              329,
+              332.5
             ]
           },
           {
             "bounds": [
-              3085,
-              3116,
-              2232,
-              2268,
-              314,
-              317.5
+              3067,
+              3103,
+              1960,
+              1991,
+              329,
+              332.5
             ]
           },
           {
             "bounds": [
-              3344,
-              3375,
-              2232,
-              2268,
-              314,
-              317.5
+              3067,
+              3103,
+              2219,
+              2250,
+              329,
+              332.5
             ]
           }
         ]
@@ -12876,7 +12714,7 @@
         -0.0
       ],
       "data": {
-        "host": "SB0.lower"
+        "host": "SB0.mid"
       }
     },
     {
@@ -13514,7 +13352,7 @@
         -0.0
       ],
       "data": {
-        "host": "SB0.lower"
+        "host": "SB0.mid"
       }
     },
     {
@@ -14152,7 +13990,7 @@
         -0.0
       ],
       "data": {
-        "host": "SB0.upper"
+        "host": "SB0.mid"
       }
     },
     {
@@ -18475,7 +18313,7 @@
   ],
   "checks": {
     "allAssignedExactlyOnce": true,
-    "coreBudgetReconciled": 4563.28,
+    "coreBudgetReconciled": 4539.77,
     "tubeLengths": [
       40,
       200,

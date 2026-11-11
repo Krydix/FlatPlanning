@@ -7,7 +7,7 @@ An interactive Three.js model of the approved studio apartment, with baked after
 ## On the site
 
 - **Free 3D:** orbit, zoom and switch between seven room views, including the desk joints and equipment, with Cycles-baked lighting throughout camera movement. Smart cutaway retains the illuminated walls inside the apartment.
-- Follow 21 illustrated stages, or inspect each stage in a 3D component viewer. All 291 frame/timber components are assigned exactly once.
+- Follow 21 illustrated stages, or inspect each stage in a 3D component viewer. All 282 frame/timber components are assigned exactly once.
 - Save assembly progress and purchase checks in your browser. Nothing is sent to a server.
 - Search/filter the BOM, follow supplier links and download CSV cut lists, DXF plans and the original Blender model.
 - Print the complete illustrated guide and BOM using your browser’s PDF/print function.
@@ -16,9 +16,19 @@ The freely movable room uses a **128-sample Cycles bake**. Each atlas is sized f
 
 **Dimensions** are drawn from the data with their evidence: solid green only for site measurements, dashed amber for assumed or model-derived values. **Measure** lets you click two surfaces for a model distance. The **FOV** slider sets the horizontal field of view from 40° to 130°. The room keeps its size on screen and only the perspective changes, because the camera slides along its line of sight to compensate. Choosing a view returns to that view's framing.
 
-The desktop's entrance-side front corner is rounded to R100. The kitchen-corner passage is now limited by the near leg's low brace, not the desk corner. The desktop uses two DOLLE four-way threaded crosses, fully connected rear bridges and offset low front T braces. The cross-bearing uprights are split into catalog stock sections; the €4 per-cross price is a budget allowance. Shelf positions and the 64.1 cm entrance gap remain unchanged.
+The desktop's entrance-side front corner is rounded to R100. The desk module uses four DOLLE four-way threaded crosses. At desk height a cross on each middle post joins the 250 mm front arm, the 250 mm rear bridge and the post sections above and below. At 235 mm a cross on each rear post takes a 250 mm pipe from a sliding T on the middle post and a 40 mm pipe into a wall flange, replacing the old low rear brace and low wall tie. The front leg stays a plain 602 + coupling + 40 mm leg with a sliding-T brace to the middle post at 400 mm, which still sets the 665 mm kitchen-corner passage. Rear posts stack 200, cross, 1,000 + coupling + 1,000 mm. The derived desktop top is 732 mm. The €4 per-cross price is a budget allowance. Shelf positions are unchanged.
 
-The rear equipment shelf holds the M1 Mac mini, the router, and the router and dock power supplies. The Mac mini M1 has an internal power supply, so the third brick bay is spare. The monitor hangs on the optional desk-clamp VESA arm at the rear edge, because no stand fits behind the 61-key controller. The speaker trays aim at a seated ear reference (x 2,620, z 1,220 mm). Each speaker sits at the rear-outer corner of its tray, toward the wall and desk end, mirrored left and right (`source/speaker_placement.py`). Angled pads tilt the speakers down. The OWC Thunderbolt 4 dock and Focusrite mount under opposite front ends with exposed controls; the 700 mm central knee width stays clear. The Equipment camera hides the chair for inspection only. Holder designs and router/brick envelopes remain provisional; their costs are allowances. A €40 allowance covers a 2 m certified Thunderbolt lead for the shown routing; reuse a suitable existing lead if available.
+The rear equipment shelf hangs on four separate wall shelf brackets (an allowance; type and fixings not chosen), not on the pipe frame, and holds the M1 Mac mini, the router, and the router and dock power supplies. The Mac mini M1 has an internal power supply, so the third brick bay is spare. The monitor hangs on the optional desk-clamp VESA arm at the rear edge, because no stand fits behind the 61-key controller. The speaker trays are 370 mm squares inside the shelf column between the middle and rear posts, flush with the shelf fronts and mirrored about the desk centre, so nothing overhangs the desktop. Each speaker is turned on its tray to face the seated ear reference (x 2,620, z 1,220 mm); 370 mm is the smallest square that takes the turned speaker (`source/speaker_placement.py`). Angled pads tilt the speakers down. The OWC Thunderbolt 4 dock and Focusrite mount under opposite front ends with exposed controls; the 700 mm central knee width stays clear. The Equipment camera hides the chair for inspection only. Holder designs and router/brick envelopes remain provisional; their costs are allowances. A €40 allowance covers a 2 m certified Thunderbolt lead for the shown routing; reuse a suitable existing lead if available.
+
+## Daybed
+
+The bed is an IKEA [GLAMBERGET](https://www.ikea.com/de/de/p/glamberget-bettgestell-auszieh-aufbew-2matratz-kiefer-agotnes-fest-s89568386/) pine daybed with two ÅGOTNES 80 × 200 mattresses (€369 on 11 November 2026, still outside the budget). It stands with its long side on the left wall, from y 2,620 to 4,730 mm, with three back cushions and two accent cushions like the IKEA photos. **Extend bed** in the room viewer drops the cushions out, rolls the pull-out 825 mm into the room and raises it 170 mm on fold-down legs. **Close bed** reverses that and drops the cushions back in one by one. The **Daybed** view frames it.
+
+- IKEA gives 211 cm long, 35 cm high, 87 cm closed and 163 cm extended. Board sizes, the stroke and the lift come from product photos. The model reaches 1,692 mm extended because its front rail sits between the mattresses.
+- 211 cm does not fit between the bar and the left balcony leaf. With the daybed along the wall, that leaf opens to about 42° instead of the assumed 100° (`accepted_stop` in `source/room-measurements.json`).
+- The pull-out is baked extended and the cushions in place, and neither shadows the other atlases, so nothing leaves a ghost shadow when it moves.
+
+`scripts/update-bed.py` rebuilds the bed in `source/flat-v18.blend`. Then rebuild the portal variant and rerun the checks, data, bake and optimise steps for both layouts.
 
 ## Portal variant
 
@@ -80,7 +90,7 @@ npm run build
 - `source/assembly.json`: checked component graph, stock lengths and preview fitting profile.
 - `source/pipe_engine.py`: connection rules and shared desk-frame design.
 - `source/equipment-layout.json`: measured M1 case size, provisional equipment/mount clearances, desk items, monitor arm and speaker envelopes.
-- `scripts/check-clearances.py`: Blender clash and clearance report (`public/data/clearances.json`). It covers the entrance passage, equipment intersections, the knee zone, speaker aim, storage-to-ceiling, under-bed boxes, door sweeps and the bed aisle, and records the basis of each value.
+- `scripts/check-clearances.py`: Blender clash and clearance report (`public/data/clearances.json`). It covers the entrance passage, equipment intersections, the knee zone, speaker aim, storage-to-ceiling, the pull-out under the daybed rail, door sweeps and the aisle beside the extended bed, and records the basis of each value.
 - `source/prices.json`: dated hardware prices and timber/fixing allowances.
 - `scripts/generate-data.py`: BOM reconciliation, assembly-stage assignment and original SVG illustrations.
 - `scripts/update-desk-joints.py`: rebuild the corrected frame from the stock-pipe graph in Blender.
@@ -105,6 +115,6 @@ npm run build
 
 V18 is a locked layout, not a structural fabrication approval. The ceiling is measured at 2,630 mm, so the four top crates clear it by 162 mm and can be tilted in. Room width and length, the services (sockets, switches, radiators, pipes), the door swing directions and the connector seating offsets are still unmeasured; fill in `source/room-measurements.json` and `source/Measurements-v8.json`. Clamp anti-rotation, shelf-holder screws, wall anchors, tabletop stiffness and actual equipment loads need verification before building. Timber sizes, bores and light-pocket details are provisional. The bathroom is a shell because its fixtures are unknown.
 
-Core working estimate: **€2,968.90**, including a 10% reserve. With the six KNAGGLIG crates and corresponding reserve: **€3,034.83**. Without wood: **€1,821.64**, including a recalculated 10% reserve; excludes boards, timber waste and light covers, while retaining machining/fixings. Add the actual reclaimed-wood cost separately. The Parts & budget page shows every category subtotal and the filtered-table subtotal. Price basis: 19–20 October 2026; store stock and final prices must be checked. Bed, entrance furniture, installation labour and new electronics are excluded.
+Core working estimate: **€2,930.73**, including a 10% reserve. With the six KNAGGLIG crates and corresponding reserve: **€2,996.66**. Without wood: **€1,778.01**, including a recalculated 10% reserve; excludes boards, timber waste and light covers, while retaining machining/fixings. Add the actual reclaimed-wood cost separately. The Parts & budget page shows every category subtotal and the filtered-table subtotal. Price basis: 19–20 October 2026; store stock and final prices must be checked. Bed, entrance furniture, installation labour and new electronics are excluded.
 
 ![Approved apartment](public/images/room.jpg)

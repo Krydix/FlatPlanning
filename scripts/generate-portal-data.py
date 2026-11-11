@@ -122,18 +122,18 @@ stage('Stage the desk and wardrobe posts','Frame','The whole desk module stands 
  'Their wall ties move to the divider heights, and they run on above the desk to reach the ceiling ties.',
  'Stage the lower sleeves and braces before closing each lower post.'
 ],lambda id,p:bool(re.match(r'^(RF[0-2]|RB[0-2]|DS0|SB0)\.(foot|lower)$',id)),focus='desk')
-stage('Build the shared desk supports','Desk module','The same crosses, front returns and bridges as V18.',[
- 'Preassemble each free cross/front-arm/elbow module, with 40 mm pipe, coupling and 602 mm front leg.',
- 'Fit a four-female DOLLE cross at each middle upright with its 250 mm front arm and rear bridge.',
- 'Use the low 250 mm braces at 300 and 400 mm, staggered so two T sleeves cannot overlap.'
-],lambda id,p:id.startswith(('Desk.shared','Desk.cross','Desk.low','DF0','DF1')) or bool(re.match(r'^(DS0|RF0)\.(joint_riser|extension)$',id)),focus='desk')
+stage('Build the shared desk supports','Desk module','The same joints as V18: a rear cross line at 235 mm, a front brace at 400 mm and the desk-height crosses.',[
+ 'Low line first: a 200 mm tube and a four-female cross at 235 mm on each rear post, with a 250 mm pipe to a sliding T on the middle post and a 40 mm pipe into a wall flange. The rear posts continue with a 1,000 mm tube.',
+ 'Preassemble each cross/front-arm/elbow module with its 40 mm pipe, coupling and 602 mm front leg, and brace the leg to the middle post with a 250 mm sliding-T bridge at 400 mm.',
+ 'Fit the desk-height cross at each middle upright with its 250 mm front arm and rear bridge.'
+],lambda id,p:id.startswith(('Desk.shared','Desk.cross','Desk.low','DF0','DF1')) or bool(re.match(r'^(DS0|RF0|SB0|RB0)\.mid$|^(DS0|RF0)\.(joint_riser|extension)$',id)),focus='desk')
 stage('Fit the desktop and service shelf','Desk module','The same 1,615 × 702 mm surface, with its R100 corner now facing the door.',[
  'Fit the desktop around the continuing posts and screw it to its eight saddle tabs.',
- 'Add the rear service shelf on its two 250 mm pipes and four saddle tabs.',
+ 'Hang the rear service shelf on four separate wall shelf brackets (allowance); it is not part of the pipe frame.',
  f'The rounded corner sits on your way through the door. {exit_w:,.0f} mm is left between it and the left edge of the opening at the floor.'
 ],lambda id,p:id=='Desk.top' or id.startswith('Desk.service'),focus='desk')
 stage('Complete the upper posts','Frame','Feed the pre-staged sleeves before closing the desk and wardrobe posts.',[
- 'Ordinary wardrobe posts use 1000 + coupling + 1200 mm. The rear wall-side desk post uses 1000 + coupling + 1500 mm. The near cross-bearing post continues with 602 + coupling + 1200 mm above its riser; the far one keeps its 1500 mm tube.',
+ 'Ordinary wardrobe posts use 1000 + coupling + 1200 mm. The rear wall-side desk posts use 1000 + coupling + 1200 mm (near) and 1000 + coupling + 1000 mm (far) above their low cross. The near middle post continues with 602 + coupling + 1200 mm above its riser; the far one keeps its 1500 mm tube.',
  'Keep couplings fully seated; never leave a tube partly threaded to adjust the height.'
 ],lambda id,p:bool(re.match(r'^(RF[0-2]|RB[0-2]|DS0|SB0)\.(extension|upper|upper2|top_stub|top_extension|top_extension2)$',id)))
 stage('Square and brace the frame','Frame','Tie the desk and wardrobe back to the wall.',[
@@ -206,7 +206,7 @@ copy={
  '.site-footer small':'Portal variant · Original planning guide · Updated 5 November 2026'}
 metadata={'design':'Portal','variant':'portal','locked':False,'updated':'2026-11-05','priceBasis':'19–20 October 2026','partCount':len(parts),'pipeCount':pipes,'boardCount':len(A['boards']),'hardwarePieces':sum(v for k,v in counts.items() if k!='wood'),'lightState':'Afternoon daylight · ceiling fixture off','coreBudget':core,'withCrates':with_crates,'optionalAccessories':float(t['optional_accessories']),'entryGap':check['entry-passage']['value'],'desk':[1615,702,732],'room':[GEO['wall_x'],ROOM['assumed']['room_length_y'],GEO['ceiling']],'roomHeightMeasured':GEO['ceiling_measured'],'roomWidthMeasured':GEO['wall_measured'],'servicesSurveyed':ROOM['services']['status']!='not surveyed',
  'portal':{'width':2*hw,'floorWidth':floor_w,'head':head,'exitWidth':exit_w,'crates':6,'deskOffset':shift},'verification':['Room width and length still the CAD assumption; ceiling measured at '+f'{GEO["ceiling"]:,.0f} mm','Bar and bed positions come from the CAD model','Ceiling construction and tie fixings unknown','Sockets, switches, radiators and pipes are not surveyed','Connector seating offsets not measured','Cantilever, clamp, wood screw, wall and ceiling load capacities not certified','Bathroom fixtures unknown; shell only'],
- 'model':'models/flat-portal-baked.glb?bake=portal-5','assemblyModel':'models/assembly-portal.glb?design=portal-2','views':views,'copy':copy,
+ 'model':'models/flat-portal-baked.glb?bake=portal-6','assemblyModel':'models/assembly-portal.glb?design=portal-2','views':views,'copy':copy,
  'printTitle':'FLAT / PORTAL · ORIGINAL ASSEMBLY PLANNING GUIDE','printHeading':'A wall.<br>A door hinted in it.','printStatus':f'Portal variant · {n} stages · {len(parts)} frame/timber components','printFacts':f'Divider from the bar end to the right wall. Opening {2*hw:,} × {head:,.0f} mm, {floor_w:,.0f} mm at the floor. Six crates above the door. Desk moved {shift:,.0f} mm along the wall. Main ceiling light off. Existing kitchen and bar stay fixed.'}
 jwrite(OUT/'project-portal.json',{'meta':metadata,'dimensions':dimensions,'clearances':CLEAR,'parts':rows,'stages':stages,'boards':A['boards'],'columns':A['columns'],'graph':A['parts'],'checks':{'allAssignedExactlyOnce':True,'coreBudgetReconciled':core,'tubeLengths':sorted(STOCK)},'sources':{'repo':'https://github.com/Krydix/FlatPlanning','pages':'https://krydix.github.io/FlatPlanning/'}})
 jwrite(OUT/'assembly-portal.json',A)

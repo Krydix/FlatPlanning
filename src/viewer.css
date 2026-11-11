@@ -3,7 +3,7 @@
 @media(max-width:800px){.scene-card{min-height:555px}.scene-label{font-size:8px}.view-presets button{padding:8px 15px}.icon-button span{font-size:8px}}
 @media(max-width:540px){.scene-card{min-height:455px}.scene-top{left:12px;right:12px;top:14px}.scene-label{font-size:6px;padding:7px 8px;letter-spacing:.08em}.quiet-pill{font-size:6px;padding:7px 8px;letter-spacing:.05em}.scene-bottom{left:12px;right:12px;bottom:67px;align-items:flex-end}.scene-hint{font-size:6px;padding:6px}.scene-hint i{margin:0 2px}.scene-actions{gap:3px}.icon-button{padding:7px}.icon-button span{font-size:7px}.view-presets{padding:4px;bottom:17px;gap:1px}.view-presets button{padding:8px 10px;font-size:8px}.dimension-legend{left:13px;top:54px;padding:9px}.dimension-legend span{font-size:8px}.dimension-legend small{font-size:6px}.loader{min-width:210px;padding:19px}.loader strong{font-size:10px}}
 
-.canvas-wrap[hidden],.view-presets[hidden],#room-tools[hidden]{display:none}
+.canvas-wrap[hidden],.view-presets[hidden],#room-tools[hidden],#toggle-bed[hidden],#toggle-balcony[hidden]{display:none}
 #room-tools{display:flex;gap:5px}
 
 .view-presets{width:max-content;overflow-x:auto;scrollbar-width:none}.view-presets::-webkit-scrollbar{display:none}

@@ -29,6 +29,8 @@ def draw_part(id,parts,boards,active=False):
  elif kind=='elbow':
   s.append(line(project(add(o,mul(axis,20))),project(o),color,23));s.append(line(project(o),project(add(o,mul(d,20))),color,23))
  elif kind=='cap':s.append(line(project(o),project(add(o,mul(axis,4))),color,24))
+ elif kind=='bracket':
+  s.append(line(project(add(o,(0,0,-120))),project(o),color,8));s.append(line(project(o),project(add(o,mul(d,p['data']['reach']))),color,8))
  elif kind=='saddle':
   s.append(line(project(add(o,(0,0,-14))),project(add(o,mul(d,32))),color,8));s.append(line(project(add(o,mul(d,32))),project(add(add(o,mul(d,32)),(0,0,24))),color,5))
  return ''.join(s)

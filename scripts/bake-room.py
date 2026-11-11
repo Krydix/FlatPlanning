@@ -9,7 +9,7 @@ import bpy,bmesh,os,sys,json,math,struct,time
 from types import SimpleNamespace
 from pathlib import Path
 from collections import defaultdict
-from mathutils import Vector
+from mathutils import Vector,Matrix
 ROOT=Path(__file__).resolve().parent.parent
 # FLAT_VARIANT=portal bakes source/flat-portal.blend into its own files; the default stays V18.
 PORTAL=os.environ.get('FLAT_VARIANT')=='portal';TAG='-portal' if PORTAL else ''
@@ -17,6 +17,8 @@ BASE=ROOT/('source/flat-portal.blend' if PORTAL else 'source/flat-v18.blend');OU
 CACHE=ROOT/('.cache/bake'+TAG);CACHE.mkdir(parents=True,exist_ok=True);DRY=os.environ.get('BAKE_DRY_RUN')=='1'
 # Target texels per metre. The frame, desk timber and equipment carry the detail people inspect.
 DENSITY={'pipes':200,'wood':300,'equipment':320,'lighting':300,'chair':200,'crates':240,'kitchen':220,'doors':180,'floor':300,'balcony':190,'shell':150,'ceiling':120,'exterior':80,'glass':60}
+# Cushions are small, close to the camera and patterned, so they get a finer bake.
+DENSITY.update({f'bed_cushion_{i}':420 for i in range(5)})
 MARGIN_PX=16
 bpy.ops.wm.open_mainfile(filepath=str(BASE));scene=bpy.context.scene;scene.frame_set(1)
 SAMPLES=128
@@ -37,6 +39,13 @@ def visit(c,hidden=False):
    if not o.hide_render:allowed.add(o.original.name)
  for child in c.children:visit(child,hidden)
 visit(scene.collection)
+# The daybed is drawn closed. Its pull-out is baked extended, where people see it lit; closed it
+# hides under the fixed bed. The viewer slides it back by the stroke and lift stored here.
+EXTEND=tuple(scene.get('bed_extend_m',(0,0)))
+for o in scene.objects:
+ if o.get('bed_part')=='pullout':o.matrix_world=Matrix.Translation((EXTEND[0],0,EXTEND[1]))@o.matrix_world
+ elif o.get('bed_part')=='legs':o.matrix_world=Matrix.Translation((EXTEND[0],0,0))@o.matrix_world
+bpy.context.view_layer.update()
 def category(o,inst):
  n=o.name;cols=[c.name for c in o.users_collection]
  if inst.is_instance and inst.parent and 'KNAGGLIG' in inst.parent.original.name:return 'crates'
@@ -46,13 +55,19 @@ def category(o,inst):
   return 'trim'
  if any(c.startswith('02 ') for c in cols):return 'kitchen'
  if any(c.startswith('04 ') for c in cols):return 'chair' if n.startswith('Chair') else 'equipment'
- if any(c.startswith('05 ') for c in cols):return 'bed'
+ if any(c.startswith('05 ') for c in cols):
+  # The daybed's moving parts get their own nodes so the viewer can extend it.
+  part=o.get('bed_part');return {'pullout':'bed_pullout','legs':'bed_legs','cushion':f'bed_cushion_{o.get("cushion_index",0)}'}.get(part,'bed')
  if any(c.startswith('07 ') for c in cols):return 'curtains' if 'curtain' in n.lower() else 'clothes'
  if any(c.startswith('08 ') for c in cols):return 'hall'
  if any(c.startswith('09 ') for c in cols):return 'ceiling'
  if any(c.startswith('10 ') for c in cols):return 'exterior'
  if any(c.startswith('19 ') for c in cols):return 'balcony'
- if any(c.startswith('12 ') for c in cols):return 'glass' if 'glass' in n.lower() else 'doors'
+ if any(c.startswith('12 ') for c in cols):
+  # Balcony leaves hang from their hinge empties and get their own nodes so they can swing open.
+  side=next((s for s in ('left','right') if o.parent and o.parent.name==f'{s.title()} balcony hinge'),None)
+  if side:return f'balcony_{side}'+('_glass' if 'glass' in n.lower() else '')
+  return 'glass' if 'glass' in n.lower() else 'doors'
  if any(c.startswith('13 ') for c in cols):return 'wood' if o.parent and o.parent.get('catalog_kind')=='wood' else 'pipes'
  if any(c.startswith(('14 ','15 ')) for c in cols):return 'lighting'
  return 'misc'
@@ -104,6 +119,8 @@ for key,objects in groups.items():
  bpy.ops.object.select_all(action='DESELECT')
  for o in objects:o.select_set(True)
  bpy.context.view_layer.objects.active=objects[0];bpy.ops.object.join();o=bpy.context.object;o.name='flat_'+key;o['category']=key;merged.append(o)
+ if key.startswith('balcony_'):o['hinge_m']=list(bpy.data.objects[key.split('_')[1].title()+' balcony hinge'].matrix_world.translation)
+ if key in ('bed_pullout','bed_legs'):o['bed_extend']=[EXTEND[0],EXTEND[1] if key=='bed_pullout' else 0]
  bpy.ops.object.transform_apply(location=True,rotation=True,scale=True)
  # Size from surface area so every category gets a comparable texel density, then pack tightly.
  flags=o.data.attributes.get('uv_shrink');area=sum(f.area for f in o.data.polygons if not (flags and flags.data[f.index].value));size=int(min(4096,max(256,2**math.ceil(math.log2(math.sqrt(area/.62)*DENSITY.get(key,200))))));o['atlas']=size;o['area_m2']=area
@@ -152,6 +169,8 @@ for o,image,key,size in prepared:
  # Bake with all other geometry present so occlusion and practical lighting are retained.
  bpy.ops.object.select_all(action='DESELECT');o.select_set(True);bpy.context.view_layer.objects.active=o
  started=time.time();print('BAKE_START',key,size,flush=True)
+ # Moving bed parts stay out of every other atlas, so no shadow is left behind when they move.
+ for other in merged:other.hide_render=other is not o and other['category'].startswith('bed_') and not key.startswith('bed_')
  bpy.ops.object.bake(type='COMBINED',use_clear=True)
  # Apply the scene view transform once, here. The lossless PNG feeds KTX2; the JPG is a reviewable record.
  settings=scene.render.image_settings;settings.color_management='FOLLOW_SCENE';settings.file_format='PNG';settings.color_depth='8';settings.compression=15
