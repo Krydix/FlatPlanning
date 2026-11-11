@@ -54,19 +54,20 @@
       {
         "id": "Room door",
         "hinge": [
-          3350,
+          3310,
           0
         ],
         "closed_toward": [
-          2450,
+          2494,
           0
         ],
         "swing": "into room",
         "status": "assumed",
         "open_toward": [
-          3350,
-          900
-        ]
+          3310,
+          816
+        ],
+        "note": "Frameless 8 mm clear glass leaf on two patch hinges in a white frame, clear transom above (occupant photo, 2026-11-11). Hinge side away from the kitchen."
       },
       {
         "id": "Bathroom door",

@@ -134,7 +134,7 @@
     },
     {
       "id": "bed-aisle",
-      "label": "Bed to desk aisle",
+      "label": "Extended bed to desk aisle",
       "a": [
         1723.0,
         2919.7,
@@ -146,6 +146,22 @@
         704.3
       ],
       "value": 980.0,
+      "basis": "model"
+    },
+    {
+      "id": "bar-stools",
+      "label": "Stool seat out from bar",
+      "a": [
+        350.0,
+        2280.0,
+        740
+      ],
+      "b": [
+        350.0,
+        2458.0,
+        740
+      ],
+      "value": 178.0,
       "basis": "model"
     }
   ],
@@ -320,6 +336,16 @@
         ]
       },
       {
+        "id": "kitchen-crates",
+        "label": "Kitchen-top crates to ceiling",
+        "value": 10.0,
+        "target": 0,
+        "unit": "mm",
+        "status": "tight",
+        "detail": "5 KNAGGLIG crates on their long side (310 mm) on the 2310 mm cabinet tops reach 2620 mm; ceiling 2630 mm. Too tight to tilt in: they slide on from the front.",
+        "basis": "measured"
+      },
+      {
         "id": "under-bed",
         "label": "Pull-out below the front rail and slats",
         "value": 15.0,
@@ -330,13 +356,35 @@
         "basis": "envelopes"
       },
       {
+        "id": "bar-stools",
+        "label": "Bar stool seat centre out from the bar edge",
+        "value": 178.0,
+        "target": 250,
+        "unit": "mm",
+        "status": "tight",
+        "detail": "Two DALFRED stools pulled out until the footrest ring is 4 mm from the daybed end (2620 mm, 340 mm from the 2280 mm bar edge). A usual seat sits about 250 mm out, so knees stay under the 240 mm overhang only when sitting upright and close. The seat itself clears the 390 mm mattress.",
+        "basis": "envelopes",
+        "points": [
+          [
+            350.0,
+            2280.0,
+            740
+          ],
+          [
+            350.0,
+            2458.0,
+            740
+          ]
+        ]
+      },
+      {
         "id": "door-room-door",
         "label": "Room door sweep",
-        "value": 27.5,
+        "value": 84.0,
         "target": 20,
         "unit": "mm",
         "status": "ok",
-        "detail": "Swing into room to 90°; nearest Fixed upper white cabinet.003",
+        "detail": "Swing into room to 90°; nearest Kitchen worktop",
         "basis": "assumed"
       },
       {

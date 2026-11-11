@@ -26,6 +26,8 @@ const VIEWS = {
  joints: {position:[2.58,.50,-.94],target:[3.11,.48,-1.30],fov:68},
  plan: {position:[1.72,10.8,-1.4],target:[1.72,0,-1.4],fov:49},
  bed: {position:[2.55,1.65,-2.75],target:[.78,.42,-3.72],fov:70},
+ bar: {position:[2.05,1.45,-3.25],target:[.62,.62,-2.3],fov:68},
+ kitchen: {position:[1.75,1.62,-2.55],target:[1.9,1.25,0],fov:78},
 };
 // GLAMBERGET daybed motion. `slide` and `lift` run 0 (daybed) → 1 (double bed); each cushion
 // has a height offset in metres and a squash/stretch scale about its base.
@@ -88,7 +90,7 @@ export function watchContext(canvas,{onLost,onRestored,onFailed},now=()=>perform
  canvas.addEventListener('webglcontextlost',()=>{if(failed)return;const time=now();recent=[...recent.filter(t=>time-t<8000),time];if(recent.length>=3){failed=true;onFailed?.();}else onLost?.();});
  canvas.addEventListener('webglcontextrestored',()=>{if(!failed)onRestored?.();});}
 export class RoomViewer {
- constructor(container,{onProgress,onReady,onError,onCutaway,onContextLost,onContextRestored,onContextFailed,onMeasure,onFov,balcony=[],dimensions=[],ceiling,model='models/flat-baked.glb?bake=v24-balcony',sky='models/sky.ktx2?v=2',views}={}){
+ constructor(container,{onProgress,onReady,onError,onCutaway,onContextLost,onContextRestored,onContextFailed,onMeasure,onFov,balcony=[],dimensions=[],ceiling,model='models/flat-baked.glb?bake=v25-kitchen',sky='models/sky.ktx2?v=2',views}={}){
   this.views={...VIEWS,...views};this.balconySpec=balcony;this.motion=Promise.resolve();this.onFov=onFov;this.userFov=null;this.container=container;this.onCutaway=onCutaway;this.onError=onError;this.onMeasure=onMeasure;this.cutaway=true;this.currentView='overview';this.scene=new THREE.Scene();this.interior=ceiling?interiorFor(ceiling):INTERIOR;
   this.camera=new THREE.PerspectiveCamera(43,1,.02,100);this.renderer=rendererFor(container,0xe8eadf);watchContext(this.renderer.domElement,{onLost:onContextLost,onRestored:()=>{onContextRestored?.();this.runner.draw();},onFailed:()=>{this.runner.enable(false);this.renderer.dispose();this.renderer.forceContextLoss();this.renderer.domElement.remove();onContextFailed?.();}});
   this.controls=new OrbitControls(this.camera,this.renderer.domElement);this.controls.enableDamping=true;this.controls.dampingFactor=.1;this.controls.minDistance=.35;this.controls.maxDistance=21;this.controls.maxPolarAngle=Math.PI*.52;

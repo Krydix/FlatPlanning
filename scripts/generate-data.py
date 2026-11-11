@@ -198,7 +198,9 @@ room_basis='measured' if GEO['wall_measured'] else 'assumed';ceiling_basis='meas
 dimensions=[dim('room-width','Room width',[0,5550,50],[GEO['wall_x'],5550,50],GEO['wall_x'],room_basis),dim('room-length','Room length',[-220,0,50],[-220,5300,50],5300,'assumed'),
  dim('ceiling','Ceiling height',[60,5240,0],[60,5240,GEO['ceiling']],GEO['ceiling'],ceiling_basis),dim('entry','Kitchen-corner passage',e[0],e[1],entry,'model'),
  dim('desk-height','Desktop height',[2700,2020,0],[2700,2020,DESK_TOP],DESK_TOP,'preview'),dim('crate-ceiling','Top crates to ceiling',c[0],c[1],check['ceiling-storage']['value'],ceiling_basis),
- dim('bed-aisle','Bed to desk aisle',bed[0],bed[1],check['bed-aisle']['value'],'model')]
+ dim('bed-aisle','Extended bed to desk aisle',bed[0],bed[1],check['bed-aisle']['value'],'model')]
+# Optional: only quoted once the existing stools are modelled.
+if 'bar-stools' in check:st=check['bar-stools'];dimensions.append(dim('bar-stools','Stool seat out from bar',st['points'][0],st['points'][1],st['value'],'model'))
 jwrite(OUT/'project.json',{'meta':metadata,'dimensions':dimensions,'clearances':CLEAR,'parts':rows,'stages':stages,'boards':A['boards'],'columns':A['columns'],'graph':A['parts'],'checks':{'allAssignedExactlyOnce':True,'coreBudgetReconciled':round(core,2),'tubeLengths':sorted(STOCK)},'sources':{'repo':'https://github.com/Krydix/FlatPlanning','pages':'https://krydix.github.io/FlatPlanning/'}})
 jwrite(OUT/'assembly.json',A)
 jwrite(OUT/'equipment.json',json.loads((ROOT/'source/equipment-layout.json').read_text()))

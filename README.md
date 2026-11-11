@@ -30,6 +30,14 @@ The bed is an IKEA [GLAMBERGET](https://www.ikea.com/de/de/p/glamberget-bettgest
 
 `scripts/update-bed.py` rebuilds the bed in `source/flat-v18.blend`. Then rebuild the portal variant and rerun the checks, data, bake and optimise steps for both layouts.
 
+## Kitchen corner and bar
+
+The existing kitchen follows the occupant's photos of 11 November 2026, applied by `scripts/update-kitchen.py`. From the bed wall the run goes: a wide end cabinet, a built-in oven with a drawer below and the hob above, a 45 cm integrated dishwasher, then the anthracite sink at the door end. Each upper door lines up with the unit below it. The widths are read from the photos and scaled to the assumed 2,410 mm run.
+
+- Five of the occupant's own KNAGGLIG crates lie on their long side on the upper cabinets. They are 310 mm tall in a 320 mm gap, so they have to slide on from the front. They are not in the budget, and they are kept out of the wardrobe crate-to-ceiling figure.
+- The room door is a frameless clear glass leaf on two patch hinges in a white frame, with a clear transom almost to the ceiling.
+- Two IKEA [DALFRED](https://www.ikea.com/de/de/p/dalfred-barhocker-schwarz-60155602/) stools stand under the pendants. The bar edge is only 340 mm from the daybed's end, so their seats come 178 mm out before the footrest ring meets the bed. A usual seat sits about 250 mm out, so sitting there is upright and close. The **Bar** view shows it.
+
 ## Portal variant
 
 A second layout sits alongside V18: pick **Portal** in the layout bar, or open `?variant=portal`. V18's model, data and guide are unchanged.
