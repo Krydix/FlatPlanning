@@ -5,8 +5,8 @@ Run with Blender in background mode; it rewrites source/flat-v18.blend (V18 only
   and the hob above, a slim 45 cm integrated dishwasher, then the sink cabinet at the door end.
   Each upper door lines up with the unit below it. Widths are read from the photos and scaled
   to the assumed 2,410 mm run, so they move if the run is measured.
-- Five existing KNAGGLIG crates lie on their long side on the upper cabinets (310 mm tall,
-  under a 320 mm gap), bottoms to the room.
+- Five existing KNAGGLIG crates stand on the upper cabinets, long side to the room (250 mm
+  tall under a 320 mm gap).
 - The room door is a frameless clear glass leaf in a white frame, with a clear transom above.
 - Two IKEA DALFRED bar stools (seat Ø300, 63–74 cm) stand at the bar under the pendants,
   pulled out as far as the daybed allows. Their tripod spread is read from product photos.
@@ -63,12 +63,12 @@ box('Sink bowl dark interior',(sc-200,240,909),(sc+200,590,911),'Sink interior',
 tx=sc-60;cylinder('Kitchen tap',(tx,110,900),(tx,110,1200),15,'Brushed steel',KITCHEN);cylinder('Kitchen tap spout',(tx,110,1185),(tx,290,1185),11,'Brushed steel',KITCHEN);cylinder('Kitchen tap spout',(tx,290,1185),(tx,290,1135),11,'Brushed steel',KITCHEN)
 # Upper doors line up with the units below.
 for k,_ in UNITS:a,b=X[k];box('Fixed upper white cabinet',(a+(17 if a==0 else 3),0,1530),(b-3,360,2310),FRONT,KITCHEN)
-# Five KNAGGLIG crates on their long side: 460 along the run, 310 tall, 250 deep, bottom to the room.
+# Five KNAGGLIG crates standing on their bottoms, long side (460) to the room: 310 deep, 250 tall.
 drop('KNAGGLIG existing kitchen top');asset=bpy.data.collections['ASSET KNAGGLIG 70292359 460x310x250 mm'];tops=coll('20 Existing KNAGGLIG on the kitchen')
-span=RUN-17;gap=(span-5*460)/6;turn=Matrix(((0,1,0,0),(0,0,-1,0),(-1,0,0,0),(0,0,0,1)))  # local length→x, width→z, open top→wall
+span=RUN-17;gap=(span-5*460)/6;turn=Matrix(((0,1,0,0),(-1,0,0,0),(0,0,1,0),(0,0,0,1)))  # local length→x, width→y, upright
 for i in range(5):
  e=bpy.data.objects.new(f'KNAGGLIG existing kitchen top {i+1}',None);e.instance_type='COLLECTION';e.instance_collection=asset;tops.objects.link(e);e['existing']=True
- e.matrix_world=Matrix.Translation(Vector((17+gap+230+i*(460+gap),355,2310+155))/1000)@turn
+ e.matrix_world=Matrix.Translation(Vector((17+gap+230+i*(460+gap),360-155-5,2310))/1000)@turn
 # Room door: white frame, frameless 8 mm clear leaf on two patch hinges, clear transom above.
 drop('Main room','Room door frame',collection=DOORS)
 # Only a 30 mm strip of wall stays above the transom frame.
@@ -104,8 +104,13 @@ for i,cx in enumerate((350,950)):
  loc=o.location.copy();bpy.data.objects.remove(o,do_unlink=True);bpy.data.curves.remove(cu);o=bpy.data.objects.new(n+' footrest',me);KITCHEN.objects.link(o);o.location=loc
 for o in KITCHEN.objects:
  if o.name.startswith('DALFRED'):o['stool']=int(o.name.split()[3])
-bpy.context.scene['bar_stools_mm']={'bar_edge_y':BAR_EDGE,'seat_centre_y':cy,'ring_r':RING_R,'leg_r':LEG_R}
+# With the bed pulled out the stools slide right in to the bar: the leg that points at the bar
+# stops just short of the carcass front, with the seat half under the worktop overhang.
+CARCASS=2040;tucked=CARCASS+LEG_R+5
+for o in KITCHEN.objects:
+ if o.name.startswith('DALFRED'):o['stool_tuck_m']=[0,(tucked-cy)/1000]
+bpy.context.scene['bar_stools_mm']={'bar_edge_y':BAR_EDGE,'seat_centre_y':cy,'tucked_y':tucked,'ring_r':RING_R,'leg_r':LEG_R}
 bpy.context.view_layer.update()
-print('KITCHEN_UNITS',X,'STOOL_Y',cy,flush=True)
+print('KITCHEN_UNITS',X,'STOOL_Y',cy,'TUCKED_Y',tucked,flush=True)
 bpy.ops.wm.save_as_mainfile(filepath=str(FILE))
 print('KITCHEN_SAVED',flush=True)

@@ -105,14 +105,14 @@ tops=[max(((m@Vector(c))*1000).to_tuple()[::-1] for c in o.bound_box)[::-1]+('KN
 tops=[(t[2],t[3],t[:3]) for t in tops]+[(v.z,part(o),tuple(v)) for o in storage for v in [max(world(o)[0],key=lambda v:v.z)]]
 high=max(tops);gap=GEO['ceiling']-high[0];top_board=max(b['bottom']+b['thickness'] for k,b in ASSEMBLY['boards'].items() if k.startswith('Portal.lintel1' if PORTAL else 'Rack.top'))
 report('ceiling-storage','Highest storage to ceiling',gap,TARGET['storage_ceiling_gap_min'],'clash' if gap<0 else 'tight' if gap<TARGET['storage_ceiling_gap_min'] or not GEO['ceiling_measured'] else 'ok',f'{high[1]} reaches {high[0]:.0f} mm; ceiling {GEO["ceiling"]:.0f} mm'+(' measured' if GEO['ceiling_measured'] else ' ASSUMED — measure before buying the top crates')+f'. Above the {top_board:.0f} mm top boards there is {GEO["ceiling"]-top_board:.0f} mm; a 310 × 250 mm crate needs {math.hypot(310,250):.0f} mm to tilt in, otherwise it must slide in flat.','measured' if GEO['ceiling_measured'] else 'assumed',points=[high[2],(high[2][0],high[2][1],GEO['ceiling'])])
-# 6b. The occupant's five existing crates lie on their long side on the kitchen's upper cabinets.
+# 6b. The occupant's five existing crates stand on the kitchen's upper cabinets.
 crate_tops={}
 for i in dg.object_instances:
  if i.is_instance and i.parent and i.parent.original.get('existing'):crate_tops[i.parent.original.name]=max(crate_tops.get(i.parent.original.name,0),max(((i.matrix_world@Vector(c))*1000).z for c in i.object.original.bound_box))
 kitchen_tops=list(crate_tops.values())
 if kitchen_tops:
  gap=GEO['ceiling']-max(kitchen_tops);cab=max(bounds(named('Fixed upper white cabinet'))[1][2] for _ in [0])
- report('kitchen-crates','Kitchen-top crates to ceiling',gap,0,'clash' if gap<0 else 'tight' if gap<20 else 'ok',f'{len(kitchen_tops)} KNAGGLIG crates on their long side (310 mm) on the {cab:.0f} mm cabinet tops reach {max(kitchen_tops):.0f} mm; ceiling {GEO["ceiling"]:.0f} mm. Too tight to tilt in: they slide on from the front.','measured' if GEO['ceiling_measured'] else 'assumed')
+ report('kitchen-crates','Kitchen-top crates to ceiling',gap,0,'clash' if gap<0 else 'tight' if gap<100 else 'ok',f'{len(kitchen_tops)} KNAGGLIG crates stand on the {cab:.0f} mm cabinet tops, long side to the room, and reach {max(kitchen_tops):.0f} mm; ceiling {GEO["ceiling"]:.0f} mm. They slide on from the front.','measured' if GEO['ceiling_measured'] else 'assumed')
 # 7. The daybed's pull-out slides out under the front rail and the fixed slats.
 bed_parts=lambda kind:[o for o in OBJECTS if o.get('bed_part')==kind]
 STROKE,LIFT=(v*1000 for v in scene.get('bed_extend_m',(0,0)))
@@ -129,7 +129,7 @@ if stools:
   parts=[o for o in stools if o['stool']==k];lo,hi=bounds([o for o in parts if o.name.endswith('seat')]);low=[v for o in parts for v in world(o)[0] if v.z<bed_hi[2] and bed_lo[0]<v.x<bed_hi[0]]
   seats.append(((lo[1]+hi[1])/2-bar_edge,bed_lo[1]-max((v.y for v in low),default=-1e9),(lo[0]+hi[0])/2))
  out=min(s[0] for s in seats);room=min(s[1] for s in seats)
- report('bar-stools','Bar stool seat centre out from the bar edge',out,250,'clash' if room<0 else 'tight' if out<250 else 'ok',f'Two DALFRED stools pulled out until the footrest ring is {room:.0f} mm from the daybed end ({bed_lo[1]:.0f} mm, {bed_lo[1]-bar_edge:.0f} mm from the {bar_edge:.0f} mm bar edge). A usual seat sits about 250 mm out, so knees stay under the 240 mm overhang only when sitting upright and close. The seat itself clears the 390 mm mattress.','envelopes',points=[(seats[0][2],bar_edge,740),(seats[0][2],bar_edge+out,740)])
+ report('bar-stools','Bar stool seat centre out from the bar edge',out,250,'clash' if room<0 else 'tight' if out<250 else 'ok',f'Two DALFRED stools pulled out until the footrest ring is {room:.0f} mm from the daybed end ({bed_lo[1]:.0f} mm, {bed_lo[1]-bar_edge:.0f} mm from the {bar_edge:.0f} mm bar edge). A usual seat sits about 250 mm out, so knees stay under the 240 mm overhang only when sitting upright and close. The seat itself clears the 390 mm mattress. With the bed pulled out, the viewer slides both stools in to the bar.','envelopes',points=[(seats[0][2],bar_edge,740),(seats[0][2],bar_edge+out,740)])
 # 8. Door sweeps (directions assumed unless surveyed).
 obstacles=[o for o in OBJECTS if not any(c.startswith(('01 ','09 ','10 ','12 ')) for c in collections(o)) and 'curtain' not in o.name.lower()]
 def segment(px,py,ax,ay,bx,by):

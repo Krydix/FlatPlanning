@@ -338,11 +338,11 @@
       {
         "id": "kitchen-crates",
         "label": "Kitchen-top crates to ceiling",
-        "value": 10.0,
+        "value": 70.0,
         "target": 0,
         "unit": "mm",
         "status": "tight",
-        "detail": "5 KNAGGLIG crates on their long side (310 mm) on the 2310 mm cabinet tops reach 2620 mm; ceiling 2630 mm. Too tight to tilt in: they slide on from the front.",
+        "detail": "5 KNAGGLIG crates stand on the 2310 mm cabinet tops, long side to the room, and reach 2560 mm; ceiling 2630 mm. They slide on from the front.",
         "basis": "measured"
       },
       {
@@ -362,7 +362,7 @@
         "target": 250,
         "unit": "mm",
         "status": "tight",
-        "detail": "Two DALFRED stools pulled out until the footrest ring is 4 mm from the daybed end (2620 mm, 340 mm from the 2280 mm bar edge). A usual seat sits about 250 mm out, so knees stay under the 240 mm overhang only when sitting upright and close. The seat itself clears the 390 mm mattress.",
+        "detail": "Two DALFRED stools pulled out until the footrest ring is 4 mm from the daybed end (2620 mm, 340 mm from the 2280 mm bar edge). A usual seat sits about 250 mm out, so knees stay under the 240 mm overhang only when sitting upright and close. The seat itself clears the 390 mm mattress. With the bed pulled out, the viewer slides both stools in to the bar.",
         "basis": "envelopes",
         "points": [
           [

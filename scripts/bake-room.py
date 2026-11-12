@@ -20,6 +20,8 @@ DENSITY={'pipes':200,'wood':300,'equipment':320,'lighting':300,'chair':200,'crat
 # Cushions are small, close to the camera and patterned, so they get a finer bake.
 DENSITY.update({f'bed_cushion_{i}':420 for i in range(5)})
 MARGIN_PX=16
+# Parts that move in the viewer stay out of every other atlas, so they leave no shadow behind.
+MOVING=('bed_','stool_')
 bpy.ops.wm.open_mainfile(filepath=str(BASE));scene=bpy.context.scene;scene.frame_set(1)
 SAMPLES=128
 scene.render.engine='CYCLES';scene.cycles.device='GPU';scene.cycles.samples=SAMPLES
@@ -53,6 +55,8 @@ def category(o,inst):
   if 'floor' in n.lower() or 'parquet' in n.lower():return 'floor'
   if any(k in n.lower() for k in ('exterior','partition','wall','pier')):return 'shell'
   return 'trim'
+ # Bar stools move with the bed, so each is its own node.
+ if o.get('stool'):return f'stool_{o["stool"]}'
  if any(c.startswith('02 ') for c in cols):return 'kitchen'
  if any(c.startswith('04 ') for c in cols):return 'chair' if n.startswith('Chair') else 'equipment'
  if any(c.startswith('05 ') for c in cols):
@@ -120,6 +124,7 @@ for key,objects in groups.items():
  for o in objects:o.select_set(True)
  bpy.context.view_layer.objects.active=objects[0];bpy.ops.object.join();o=bpy.context.object;o.name='flat_'+key;o['category']=key;merged.append(o)
  if key.startswith('balcony_'):o['hinge_m']=list(bpy.data.objects[key.split('_')[1].title()+' balcony hinge'].matrix_world.translation)
+ if key.startswith('stool_'):st=scene['bar_stools_mm'];o['stool_tuck']=[0,(st['tucked_y']-st['seat_centre_y'])/1000]
  if key in ('bed_pullout','bed_legs'):o['bed_extend']=[EXTEND[0],EXTEND[1] if key=='bed_pullout' else 0]
  bpy.ops.object.transform_apply(location=True,rotation=True,scale=True)
  # Size from surface area so every category gets a comparable texel density, then pack tightly.
@@ -170,7 +175,7 @@ for o,image,key,size in prepared:
  bpy.ops.object.select_all(action='DESELECT');o.select_set(True);bpy.context.view_layer.objects.active=o
  started=time.time();print('BAKE_START',key,size,flush=True)
  # Moving bed parts stay out of every other atlas, so no shadow is left behind when they move.
- for other in merged:other.hide_render=other is not o and other['category'].startswith('bed_') and not key.startswith('bed_')
+ for other in merged:other.hide_render=other is not o and other['category'].startswith(MOVING) and not key.startswith(MOVING)
  bpy.ops.object.bake(type='COMBINED',use_clear=True)
  # Apply the scene view transform once, here. The lossless PNG feeds KTX2; the JPG is a reviewable record.
  settings=scene.render.image_settings;settings.color_management='FOLLOW_SCENE';settings.file_format='PNG';settings.color_depth='8';settings.compression=15

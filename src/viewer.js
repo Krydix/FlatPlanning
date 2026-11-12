@@ -90,7 +90,7 @@ export function watchContext(canvas,{onLost,onRestored,onFailed},now=()=>perform
  canvas.addEventListener('webglcontextlost',()=>{if(failed)return;const time=now();recent=[...recent.filter(t=>time-t<8000),time];if(recent.length>=3){failed=true;onFailed?.();}else onLost?.();});
  canvas.addEventListener('webglcontextrestored',()=>{if(!failed)onRestored?.();});}
 export class RoomViewer {
- constructor(container,{onProgress,onReady,onError,onCutaway,onContextLost,onContextRestored,onContextFailed,onMeasure,onFov,balcony=[],dimensions=[],ceiling,model='models/flat-baked.glb?bake=v25-kitchen',sky='models/sky.ktx2?v=2',views}={}){
+ constructor(container,{onProgress,onReady,onError,onCutaway,onContextLost,onContextRestored,onContextFailed,onMeasure,onFov,balcony=[],dimensions=[],ceiling,model='models/flat-baked.glb?bake=v26-stools',sky='models/sky.ktx2?v=2',views}={}){
   this.views={...VIEWS,...views};this.balconySpec=balcony;this.motion=Promise.resolve();this.onFov=onFov;this.userFov=null;this.container=container;this.onCutaway=onCutaway;this.onError=onError;this.onMeasure=onMeasure;this.cutaway=true;this.currentView='overview';this.scene=new THREE.Scene();this.interior=ceiling?interiorFor(ceiling):INTERIOR;
   this.camera=new THREE.PerspectiveCamera(43,1,.02,100);this.renderer=rendererFor(container,0xe8eadf);watchContext(this.renderer.domElement,{onLost:onContextLost,onRestored:()=>{onContextRestored?.();this.runner.draw();},onFailed:()=>{this.runner.enable(false);this.renderer.dispose();this.renderer.forceContextLoss();this.renderer.domElement.remove();onContextFailed?.();}});
   this.controls=new OrbitControls(this.camera,this.renderer.domElement);this.controls.enableDamping=true;this.controls.dampingFactor=.1;this.controls.minDistance=.35;this.controls.maxDistance=21;this.controls.maxPolarAngle=Math.PI*.52;
@@ -106,7 +106,7 @@ export class RoomViewer {
   loader.load(asset(model),gltf=>{
    this.model=gltf.scene;this.scene.add(this.model);this.addSky(ktx2Sky);
    this.model.traverse(o=>{if(o.isMesh){o.castShadow=false;o.receiveShadow=false;const mats=Array.isArray(o.material)?o.material:[o.material];for(const m of mats){m.toneMapped=false;if(m.map)m.map.anisotropy=Math.min(8,this.renderer.capabilities.getMaxAnisotropy());if(o.name==='flat_glass'||o.userData.category?.endsWith('_glass')){m.transparent=true;m.opacity=.10;m.depthWrite=false;m.side=THREE.DoubleSide;}}}});
-   this.setupBed();this.setupBalcony();this.setCutaway(this.cutaway);this.runner.draw();onReady?.();
+   this.setupBed();this.setupBalcony();this.setupStools();this.setCutaway(this.cutaway);this.runner.draw();onReady?.();
   },event=>{if(event.total)onProgress?.(Math.round(event.loaded/event.total*100));},error=>{console.error('Room model load failed',error);onError?.(error);});
  }
  // A hand-set FOV wins over the preset until the next preset is chosen, including across resizes.
@@ -208,12 +208,24 @@ export class RoomViewer {
    const wait=seconds=>new Promise(resolve=>setTimeout(resolve,reduced?0:seconds*1000));
    // A long swing holds the bed back just enough that the slide still starts after it.
    const lead=value?Math.max(0,this.leafTime(true)-BED_TIMING.slideOut):0;
-   await Promise.all([wait(lead).then(()=>this.playBed(value)),value?this.swingLeaves(true):wait(BED_TIMING.home).then(()=>this.swingLeaves(false))]);
+   // The bar stools slide in to the bar as the bed starts, and back out once it is home.
+   await Promise.all([wait(lead).then(()=>this.playBed(value)),value?this.swingLeaves(true):wait(BED_TIMING.home).then(()=>this.swingLeaves(false)),value?this.moveStools(false):wait(BED_TIMING.home).then(()=>this.moveStools(true))]);
    return value;});
  }
  playBed(value){
   const b=this.bed,total=value?BED_TIMING.open:BED_TIMING.close,start=performance.now();
   return new Promise(resolve=>{const step=time=>{const t=reduced?total:Math.min((time-start)/1000,total);this.poseBed(bedPose(t,value,b.cushions.length));this.runner.draw();if(t<total)requestAnimationFrame(step);else resolve();};requestAnimationFrame(step);});
+ }
+ // Stools are baked where people sit; `stool_tuck` is the move (plan metres) in to the bar.
+ setupStools(){
+  const nodes=[];this.model.traverse(o=>{if(o.userData.category?.startsWith('stool_'))nodes.push(o);});
+  this.stools=nodes.length?nodes.map(node=>{const [dx,dy]=node.userData.stool_tuck||[0,0];return {node,base:node.position.clone(),tuck:new THREE.Vector3(dx,0,-dy)};}):null;this.stoolsOut=1;
+ }
+ moveStools(out){
+  if(!this.stools)return Promise.resolve();const from=this.stoolsOut,to=out?1:0;if(from===to)return Promise.resolve();
+  const total=reduced?0:.7,start=performance.now();
+  return new Promise(resolve=>{const step=time=>{const k=total?Math.min((time-start)/1000/total,1):1;this.stoolsOut=from+(to-from)*smooth(k);
+   for(const s of this.stools)s.node.position.copy(s.base).addScaledVector(s.tuck,1-this.stoolsOut);this.runner.draw();if(k<1)requestAnimationFrame(step);else resolve();};requestAnimationFrame(step);});
  }
  // Each leaf hangs from a pivot on its hinge line, so turning the pivot swings frame and glass together.
  setupBalcony(){
