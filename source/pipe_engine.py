@@ -204,6 +204,22 @@ class Assembly:
   self.part(id,'wood',p,bounds=bounds,bottom=bottom,thickness=thickness,holes=list(holes),recess=recess,rotation_degrees=rotation_degrees,**extra)
   data=dict(bounds=bounds,bottom=bottom,thickness=thickness,supports=supports,holes=list(holes),recess=recess,rotation_degrees=rotation_degrees,**extra);self.boards[id]=data
   for s,*_ in supports:self.edges.append((s,id,'wood screw',None,None))
+ def open_edge_bores(self,id,min_web=20):
+  """Open a post bore to the board edge where less than min_web of timber would be left: a short-grain web that thin breaks off.
+  Each notch is a rectangle [x0, x1, y0, y1] as wide as the bore, from the bore to the edge (or to both edges at a corner)."""
+  b=self.boards[id];X0,X1,Y0,Y1=b['bounds'];notches=[]
+  for x,y,diam in b['holes']:
+   r=diam/2;n=[x-r,x+r,y-r,y+r];cut=False
+   if X1-(x+r)<min_web:n[1]=X1;cut=True
+   if (x-r)-X0<min_web:n[0]=X0;cut=True
+   if Y1-(y+r)<min_web:n[3]=Y1;cut=True
+   if (y-r)-Y0<min_web:n[2]=Y0;cut=True
+   n=[max(n[0],X0),min(n[1],X1),max(n[2],Y0),min(n[3],Y1)]
+   if cut and n[1]>n[0] and n[3]>n[2]:notches.append(n)
+  for sid,x,y,z in b['supports']:
+   if any(n[0]-10<x<n[1]+10 and n[2]-10<y<n[3]+10 for n in notches):raise DesignError(id+': support screw inside or beside an edge notch')
+  if notches:b['notches']=notches;self.parts[id].data['notches']=notches
+  return notches
  def bracket(self,id,y,z,reach):
   """Separate shelf bracket on the right wall: a budget allowance, not a DOLLE fitting. Returns the board support point."""
   if reach<=0:raise DesignError('Bracket needs a positive reach')
@@ -493,7 +509,7 @@ def build(profile=None,close_gap=False,entry60=False,side_speakers=False,shared_
   a.notes=[n for n in a.notes if not n.startswith(('DS0 is a stock 1500','A 70 mm desktop'))]
   a.notes += ['V17 TV and all its custom support parts removed; the desktop TV bore is removed.', 'DS0 is now a floor-mounted 1000 + 1200 mm stock column with coupling, near support pair offset 50 mm from the desktop endframe to avoid crossing its pipes; eight 40 mm desktop holes include the two open-edge notches. Speaker shelves do not bear on the desktop.', f'Each speaker board is a {SPEAKER_TRAY} x {SPEAKER_TRAY} x 25 mm oak tray inside the shelf column, flush with the shelf fronts, on two uncut 250 mm cantilever arms, each clamped to its own upright by a sliding T. Four one-sided saddle tabs screw each tray to the arms. Nothing overhangs the desktop.', 'Near wall tie raised from 1100 to 1200 mm to clear speaker-arm tees. Tray underside 1100, top 1125 mm before angled isolation pads. The arm tees cannot drop lower while the 1000 + 1200 mm posts keep their coupling at 1015-1027 mm, so the downward tweeter aim comes from the pads. No desktop speaker risers or flanges.', 'Trays are square to the frame, between the middle and rear posts at each desk end. Each speaker turns on its tray to face the seated ear reference (x 2620, z 1220 mm), not the seat centre; angled pads tilt the tweeters down to that height. This wide stereo geometry is a visual arrangement, not a calibrated acoustic setup.', 'Cantilever capacity, clamp anti-rotation, saddle screw retention, speaker weight and fixing loads remain unverified. No positive manufacturer cantilever rating has been established.']
  return a
-def build_shared_desk(profile=None,desk_shift=0,rack=None,desk_walls=(1200,2020),rear_upper=1000,near_upper=(1500,)):
+def build_shared_desk(profile=None,desk_shift=0,rack=None,desk_walls=(1200,2020),rear_upper=None,near_upper=(1500,),wall_at_desk=True):
  """Reuse four rack uprights; two elbow-return front legs, no separate rear legs.
 
  At desk height a DOLLE four-way cross on each middle post joins the 250 mm front arm, the
@@ -504,7 +520,15 @@ def build_shared_desk(profile=None,desk_shift=0,rack=None,desk_walls=(1200,2020)
  socket, and a cross on the middle post would not meet the front leg's elbow height.
  A cross cannot slide onto a continuous upright: those posts are stacked from catalog
  lengths and every sleeve already on them is rehosted on the new tubes.
+
+ wall_at_desk (V18): the rear post takes its cross at desk height instead. It joins the rear
+ bridge and a 40 mm pipe into a wall flange at about 689 mm, above the 150-450 mm band where
+ sockets and their feeds usually run. The low 250 mm brace at 235 mm then sits between two
+ sliding Ts and nothing is fixed to the wall down there. The rear post stacks exactly like the
+ middle post. Rear post bores are opened to the board edge. wall_at_desk=False keeps the
+ earlier low cross line, which the frozen Portal layout was built with.
  """
+ if rear_upper is None:rear_upper=1500 if wall_at_desk else 1000
  # The provisional 1000 + 1200 rear post from build() only hosts the sleeves until it is restacked below.
  a=build(profile,side_speakers=True,offset=desk_shift,rack=rack,desk_walls=desk_walls,rear_upper=1200);bounds=a.boards['Desk.top']['bounds']
  if abs(a.v('cross_stop')-a.v('tee_stop'))>.001 or abs(a.v('cross_stop')-a.v('elbow_stop'))>.001:
@@ -542,14 +566,25 @@ def build_shared_desk(profile=None,desk_shift=0,rack=None,desk_walls=(1200,2020)
   for k,L in enumerate(near_upper[1:] if i==0 else ()):
    last=f'{front}.upper{k+2}';a.from_port(last,L,coupling(f'{front}.top_extension{k+2}',tubes[-1]+'.b'));tubes.append(last)
   a.cap(front+'.cover',tubes[-1]+'.b');a.columns[front]['tubes']=tubes
-  # Rear post: 200, low cross, 1000 + coupling + the upper section.
-  a.from_port(back+'.lower',200,back+'.foot.socket');cross(low+'.cross_rear',back+'.lower.b')
-  a.from_port(back+'.mid',1000,low+'.cross_rear.up');a.from_port(back+'.upper',rear_upper if i==0 else 1000,coupling(back+'.extension',back+'.mid.b'));a.cap(back+'.cover',back+'.upper.b');a.columns[back]['tubes']=[back+'.lower',back+'.mid',back+'.upper']
+  if wall_at_desk:
+   # Rear post: 602 + coupling + 40, desk cross, 40 + coupling + the upper section, the same stack as the middle post.
+   a.from_port(back+'.lower',602,back+'.foot.socket');a.from_port(back+'.joint_riser',40,coupling(back+'.extension',back+'.lower.b'));rear=cross(f'Desk.cross_rear{i}',back+'.joint_riser.b')
+   a.from_port(back+'.top_stub',40,rear+'.up');a.from_port(back+'.upper',rear_upper if i==0 else 1500,coupling(back+'.top_extension',back+'.top_stub.b'));a.cap(back+'.cover',back+'.upper.b')
+   a.columns[back]['tubes']=[back+'.lower',back+'.joint_riser',back+'.top_stub',back+'.upper']
+  else:
+   # Rear post: 200, low cross, 1000 + coupling + the upper section.
+   a.from_port(back+'.lower',200,back+'.foot.socket');cross(low+'.cross_rear',back+'.lower.b')
+   a.from_port(back+'.mid',1000,low+'.cross_rear.up');a.from_port(back+'.upper',rear_upper if i==0 else 1000,coupling(back+'.extension',back+'.mid.b'));a.cap(back+'.cover',back+'.upper.b');a.columns[back]['tubes']=[back+'.lower',back+'.mid',back+'.upper']
   for q in retained:
    host,_=a.host_at(q['host'].split('.')[0],a.parts[q['id']].origin[2],q['half']);q['host']=host;a.parts[q['id']].data['host']=host;a.edges.append((host,q['id'],'clamp',None,None))
   # Desk level: the front arm runs out of the cross to the front leg's elbow; the rear bridge seats in a sliding T on the rear post.
   arm=f'Desk.shared{i}.0';a.from_port(arm+'.tube',250,joint+'.out')
-  bridge=f'Desk.shared{i}.1';a.clamp(bridge+'.tee',back,axis_z,(-1,0,0));a.from_port(bridge+'.tube',250,bridge+'.tee.branch');a.connect(bridge+'.tube.b',joint+'.in')
+  bridge=f'Desk.shared{i}.1'
+  if wall_at_desk:
+   # The rear bridge is threaded cross to cross, and the same line runs on through a 40 mm pipe into the wall flange.
+   a.from_port(bridge+'.tube',250,rear+'.out');a.connect(bridge+'.tube.b',joint+'.in')
+   a.from_port(bridge+'.wall',40,rear+'.in');wall=add(a.ports[bridge+'.wall.b'].p,(f,0,0));a.flange(bridge+'.wall_flange',wall,(-1,0,0),'wall');a.connect(bridge+'.wall.b',bridge+'.wall_flange.socket')
+  else:a.clamp(bridge+'.tee',back,axis_z,(-1,0,0));a.from_port(bridge+'.tube',250,bridge+'.tee.branch');a.connect(bridge+'.tube.b',joint+'.in')
   for stem in (arm,bridge):
    for k,offset in enumerate((45,205)):
     sid=stem+'.saddle'+str(k);point=a.saddle(sid,stem+'.tube',offset,(0,direction,0));supports.append((sid,*point))
@@ -561,13 +596,16 @@ def build_shared_desk(profile=None,desk_shift=0,rack=None,desk_walls=(1200,2020)
   a.columns[leg]={'x':x,'y':y,'tubes':[leg+'.lower',leg+'.upper']}
   # Low line: rear cross to a sliding T on the middle post, and on into the wall. The front leg is braced higher, at 400 mm,
   # because a second sleeve cannot share the middle post's 235 mm station.
-  a.clamp(low+'.tee',front,low_z,(1,0,0));a.from_port(low+'.rear',250,low+'.cross_rear.out');a.connect(low+'.rear.b',low+'.tee.branch')
-  a.from_port(low+'.wall',40,low+'.cross_rear.in');wall=add(a.ports[low+'.wall.b'].p,(f,0,0));a.flange(low+'.wall_flange',wall,(-1,0,0),'wall');a.connect(low+'.wall.b',low+'.wall_flange.socket')
+  if wall_at_desk:a.bridge(low+'.rear',back,front,low_z,250)
+  else:
+   a.clamp(low+'.tee',front,low_z,(1,0,0));a.from_port(low+'.rear',250,low+'.cross_rear.out');a.connect(low+'.rear.b',low+'.tee.branch')
+   a.from_port(low+'.wall',40,low+'.cross_rear.in');wall=add(a.ports[low+'.wall.b'].p,(f,0,0));a.flange(low+'.wall_flange',wall,(-1,0,0),'wall');a.connect(low+'.wall.b',low+'.wall_flange.socket')
   a.bridge(low+'.front',leg,front,400,250)
  holes=[(a.columns[k]['x'],a.columns[k]['y'],44) for k in ('DS0','SB0','RF0','RB0')]
  # Round the entrance corner: the kitchen-corner pinch is the main circulation path.
  # R100 keeps the nearest saddle screw (x 2860) on full-width timber.
  a.board('Desk.top',bounds,bottom,28,supports,holes,corner_radii=[(bounds[0],bounds[2],ENTRY_CORNER_RADIUS)])
+ if wall_at_desk:a.open_edge_bores('Desk.top')
  # Preview underside reliefs for the cross, tee and elbow castings; the top face is continuous.
  reliefs=[]
  for k,(lo,hi) in (('DS0',(-31,31)),('SB0',(-31,0)),('RF0',(-31,31)),('RB0',(-31,0)),('DF0',(-18,31)),('DF1',(-18,31))):
@@ -583,13 +621,22 @@ def build_shared_desk(profile=None,desk_shift=0,rack=None,desk_walls=(1200,2020)
   'The desktop still measures 1615 x 702 x 28 mm in the same plan position. Main entry corner gap remains 640.9 mm. Closest modeled front foot clearance exceeds 600 mm.',
   'The cross is a threaded fitting, not a slide-on clamp. Preassemble free modules and stage all sleeves before feeding posts; verify the physical closure sequence and measured socket stops before purchasing or cutting timber.',
   'Model connection and clearance checks are not a load certification. Verify desk saddle screws, clamp slip/rotation, wall anchorage and leaning loads before construction. Fully floating desk is not assumed approved.']
- return add_equipment_shelf(a,desk_shift)
-def add_equipment_shelf(a,desk_shift=0):
+ if wall_at_desk:
+  # Replace the notes that describe the earlier low cross line.
+  a.notes=[n for n in a.notes if not n.startswith(('V18 desk module:','Derived desktop underside','Low line at','Cross-bearing posts:'))]
+  a.notes += ['V18 desk module: all four former short desktop columns and both 602 mm endframe cross-pipes removed. The existing DS0/SB0 and RF0/RB0 rack posts carry the desktop: a DOLLE four-way cross at desk height on each middle post and each rear post. The middle cross joins the 250 mm front arm, the 250 mm rear bridge and the post sections above and below. The rear cross joins the rear bridge, a 40 mm pipe into a wall flange and its own post sections.',
+   f'Wall fixing at desk height: the two desk wall flanges sit at {axis_z:g} mm, under the back edge of the desktop. Nothing is fixed to the wall between the floor and {axis_z:g} mm at the posts, which keeps the flange screws out of the 150-450 mm band where sockets and their feeds usually run. Services are still not surveyed: check the wall with a cable detector before drilling anywhere.',
+   f'Low brace at {low_z:g} mm: a 250 mm pipe between two sliding Ts joins each rear post to its middle post. The front leg is braced to the middle post by a second 250 mm sliding-T bridge at 400 mm, because two sleeves cannot share one station.',
+   f'Cross-bearing posts: middle and rear posts stack alike, 602 + coupling + 40, cross, 40 + coupling + 1500 mm (capped top {mid_top.origin[2]+mid_top.data["length"]:g} mm). Boards, equipment and the upper shelf sleeves keep their positions.',
+   f'Derived desktop underside {bottom:g} mm / top {bottom+28:g} mm. Front legs finish under the tabletop through elbows: no front-leg bores. The four 44 mm post clearances are open-edge notches, not closed bores: a closed bore would leave only 8 mm of timber to the board edge, which breaks off. The two rear ones are corner notches.']
+ return add_equipment_shelf(a,desk_shift,wall_at_desk)
+def add_equipment_shelf(a,desk_shift=0,open_bores=False):
  """Rear service shelf on four separate wall brackets behind a 472 mm deep central knee zone; no pipes under the desk."""
  y0,y1=1305+desk_shift,2920+desk_shift;bottom=500
  supports=[a.bracket(f'Desk.service_bracket{j}',y,bottom,SERVICE_BRACKET_REACH) for j,y in enumerate((y0+120,y0+580,y1-580,y1-120))]
  holes=[(a.columns[k]['x'],a.columns[k]['y'],44) for k in ('SB0','RB0')]
  a.board('Desk.service_shelf',(3175,3405,y0,y1),bottom,18,supports,holes)
+ if open_bores:a.open_edge_bores('Desk.service_shelf')
  clear=a.boards['Desk.top']['bottom']-bottom-18
  a.notes += [f'Rear equipment shelf: 1615 x 230 x 18 mm, underside 500 / top 518 mm, {clear:g} mm clear below the desktop. It begins 472 mm behind the desktop front; the middle knee zone remains open. It hangs on four separate shelf brackets fixed to the wall, {SERVICE_BRACKET_REACH} mm reach, not on the pipe frame: bracket type, size and wall fixings are an allowance still to be chosen.',
   'M1 Mac mini 197 x 197 x 36 mm sits on the rear shelf with ports facing along its length for cable access. Router and power-brick sizes remain space allowances, not measured products. Keep the shelf open and separate the bricks; do not stack or strap across vents.',
@@ -694,7 +741,7 @@ def build_portal(profile=None):
  d=portal_layout();probe=Assembly(profile);rows=portal_geometry(probe,d)['rows']
  # DS0 sits at y 1300 in V18; the rigid desk module moves until its near posts are the rear divider row.
  offset=rows[1]-1300;rack=tuple((b['role'],b['tube'],tuple(b['rails'])) for b in d['wardrobe']);sh=d['shared_posts']
- a=add_portal(build_shared_desk(profile,offset,rack,tuple(d['frame']['wall_tie_heights']),sh['rear_upper_tube'],tuple(sh['near_upper_tubes'])),d)
+ a=add_portal(build_shared_desk(profile,offset,rack,tuple(d['frame']['wall_tie_heights']),sh['rear_upper_tube'],tuple(sh['near_upper_tubes']),wall_at_desk=False),d)
  g=portal_geometry(a,d);a.portal={'desk_offset':offset,'xs':list(g['xs']),'rows':list(g['rows']),'cx':g['cx'],'ymid':g['ymid'],'head':g['head'],'lintel':g['lintel'],'upper':g['upper'],'crate_top':g['crate_top'],'half_width':d['opening']['half_width'],'centre_z':d['opening']['centre_z'],'semi_height':g['b'],'tie_z':g['tie_z'],'crates':portal_crates(a,d)}
  a.notes=[n for n in a.notes if not n.startswith(('V11','Four coat','Fold shelf','V16','Wear-again','Desk and first'))]
  a.notes+=['Portal variant: a floor-to-ceiling divider runs from the bar end to the right wall. Six new posts stand on the floor and the two near desk posts complete the frame, so no upright is doubled. Four ceiling ties and four wall ties hold it.',f'Board ends step along an ellipse {2*d["opening"]["half_width"]} mm wide and {g["head"]:.0f} mm high above the floor, so the round door is hinted by the cut of the shelves. Nothing is curved.','Six KNAGGLIG crates sit 3 x 2 on the two lintel boards, long side across the room. Lintel heights are derived from the measured ceiling.','The desk module moves as one rigid block to stand behind the divider. The wardrobe becomes one 602 mm short bay and one 602 mm coat bay; folded clothes move onto the divider shelves and the wear-again rail is dropped.','Ceiling ties take up height through a sliding T, so a re-measured ceiling moves the tie and lintel without changing any stock pipe length.','Ceiling construction, anchors, cantilever arms and the 1,416 mm crate-loaded span are not load-certified; verify before building.']

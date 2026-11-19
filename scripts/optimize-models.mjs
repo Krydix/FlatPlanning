@@ -27,7 +27,8 @@ for(const path of [`public/models/flat${TAG}-baked.glb`]){
   const source=existsSync(cached)?await readFile(cached):texture.getMimeType()==='image/ktx2'?null:texture.getImage();if(!source)continue;
   const input=join(work,`${i}.png`),output=join(work,`${i}.ktx2`);await writeFile(input,source);
   const smooth=SMOOTH.has(key);
-  execFileSync(KTX,['create','--format','R8G8B8_SRGB',...(smooth?['--encode','basis-lz','--clevel','4','--qlevel','255']:['--encode','uastc','--uastc-quality','2','--uastc-rdo','--uastc-rdo-l',RDO,'--zstd','18']),'--generate-mipmap',input,output],{stdio:'inherit'});
+  // Blender 5.3 embeds an ICC profile in the bake PNGs, which ktx refuses. The pixels are sRGB/BT.709, as ktx assumed for the untagged files before.
+  execFileSync(KTX,['create','--format','R8G8B8_SRGB','--assign-tf','srgb','--assign-primaries','bt709',...(smooth?['--encode','basis-lz','--clevel','4','--qlevel','255']:['--encode','uastc','--uastc-quality','2','--uastc-rdo','--uastc-rdo-l',RDO,'--zstd','18']),'--generate-mipmap',input,output],{stdio:'inherit'});
   const [width,height]=texture.getSize();gpuBytes+=Math.round(width*height*4/3);
   texture.setImage(await readFile(output)).setMimeType('image/ktx2').setURI('');textures.push({name:key,size:[width,height],codec:smooth?'ETC1S':'UASTC',bytes:(await stat(output)).size});
  }

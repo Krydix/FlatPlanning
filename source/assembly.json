@@ -952,7 +952,7 @@
         0
       ],
       "data": {
-        "host": "SB0.mid"
+        "host": "SB0.upper"
       }
     },
     {
@@ -4602,7 +4602,7 @@
         0
       ],
       "data": {
-        "host": "SB0.mid"
+        "host": "SB0.upper"
       }
     },
     {
@@ -4863,7 +4863,7 @@
         0
       ],
       "data": {
-        "host": "RB0.mid"
+        "host": "RB0.upper"
       }
     },
     {
@@ -5169,7 +5169,7 @@
     },
     {
       "id": "SB0.lower",
-      "kind": "tube_200",
+      "kind": "tube_602",
       "origin": [
         3375,
         1300,
@@ -5186,16 +5186,60 @@
         0
       ],
       "data": {
-        "length": 200
+        "length": 602
       }
     },
     {
-      "id": "Desk.low0.cross_rear",
+      "id": "SB0.extension",
+      "kind": "extension",
+      "origin": [
+        3375.0,
+        1300.0,
+        623.0
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {
+        "gap": 12
+      }
+    },
+    {
+      "id": "SB0.joint_riser",
+      "kind": "tube_40",
+      "origin": [
+        3375.0,
+        1300.0,
+        629.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {
+        "length": 40
+      }
+    },
+    {
+      "id": "Desk.cross_rear0",
       "kind": "cross",
       "origin": [
         3375.0,
         1300.0,
-        235.0
+        689.0
       ],
       "axis": [
         0,
@@ -5210,12 +5254,12 @@
       "data": {}
     },
     {
-      "id": "SB0.mid",
-      "kind": "tube_1000",
+      "id": "SB0.top_stub",
+      "kind": "tube_40",
       "origin": [
         3375.0,
         1300.0,
-        255.0
+        709.0
       ],
       "axis": [
         0.0,
@@ -5228,16 +5272,16 @@
         0
       ],
       "data": {
-        "length": 1000
+        "length": 40
       }
     },
     {
-      "id": "SB0.extension",
+      "id": "SB0.top_extension",
       "kind": "extension",
       "origin": [
         3375.0,
         1300.0,
-        1261.0
+        755.0
       ],
       "axis": [
         0,
@@ -5255,11 +5299,11 @@
     },
     {
       "id": "SB0.upper",
-      "kind": "tube_1000",
+      "kind": "tube_1500",
       "origin": [
         3375.0,
         1300.0,
-        1267.0
+        761.0
       ],
       "axis": [
         0.0,
@@ -5272,7 +5316,7 @@
         0
       ],
       "data": {
-        "length": 1000
+        "length": 1500
       }
     },
     {
@@ -5281,7 +5325,7 @@
       "origin": [
         3375.0,
         1300.0,
-        2267.0
+        2261.0
       ],
       "axis": [
         0.0,
@@ -5320,34 +5364,12 @@
       }
     },
     {
-      "id": "Desk.shared0.1.tee",
-      "kind": "slide_tee",
-      "origin": [
-        3375,
-        1300,
-        689
-      ],
-      "axis": [
-        0,
-        0,
-        1
-      ],
-      "direction": [
-        -1,
-        0,
-        0
-      ],
-      "data": {
-        "host": "SB0.mid"
-      }
-    },
-    {
       "id": "Desk.shared0.1.tube",
       "kind": "tube_250",
       "origin": [
-        3355,
-        1300,
-        689
+        3355.0,
+        1300.0,
+        689.0
       ],
       "axis": [
         -1.0,
@@ -5362,6 +5384,48 @@
       "data": {
         "length": 250
       }
+    },
+    {
+      "id": "Desk.shared0.1.wall",
+      "kind": "tube_40",
+      "origin": [
+        3395.0,
+        1300.0,
+        689.0
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {
+        "length": 40
+      }
+    },
+    {
+      "id": "Desk.shared0.1.wall_flange",
+      "kind": "flange",
+      "origin": [
+        3450.0,
+        1300.0,
+        689.0
+      ],
+      "axis": [
+        -1,
+        0,
+        0
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {}
     },
     {
       "id": "Desk.shared0.0.saddle0",
@@ -5562,7 +5626,29 @@
       "data": {}
     },
     {
-      "id": "Desk.low0.tee",
+      "id": "Desk.low0.rear.t1",
+      "kind": "slide_tee",
+      "origin": [
+        3375,
+        1300,
+        235
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "direction": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "data": {
+        "host": "SB0.lower"
+      }
+    },
+    {
+      "id": "Desk.low0.rear.t2",
       "kind": "slide_tee",
       "origin": [
         3085,
@@ -5575,16 +5661,16 @@
         1
       ],
       "direction": [
-        1,
-        0,
-        0
+        1.0,
+        -0.0,
+        -0.0
       ],
       "data": {
         "host": "DS0.lower"
       }
     },
     {
-      "id": "Desk.low0.rear",
+      "id": "Desk.low0.rear.tube",
       "kind": "tube_250",
       "origin": [
         3355.0,
@@ -5604,48 +5690,6 @@
       "data": {
         "length": 250
       }
-    },
-    {
-      "id": "Desk.low0.wall",
-      "kind": "tube_40",
-      "origin": [
-        3395.0,
-        1300.0,
-        235.0
-      ],
-      "axis": [
-        1.0,
-        0.0,
-        0.0
-      ],
-      "direction": [
-        1,
-        0,
-        0
-      ],
-      "data": {
-        "length": 40
-      }
-    },
-    {
-      "id": "Desk.low0.wall_flange",
-      "kind": "flange",
-      "origin": [
-        3450.0,
-        1300.0,
-        235.0
-      ],
-      "axis": [
-        -1,
-        0,
-        0
-      ],
-      "direction": [
-        1,
-        0,
-        0
-      ],
-      "data": {}
     },
     {
       "id": "Desk.low0.front.t1",
@@ -5889,7 +5933,7 @@
     },
     {
       "id": "RB0.lower",
-      "kind": "tube_200",
+      "kind": "tube_602",
       "origin": [
         3375,
         2890,
@@ -5906,16 +5950,60 @@
         0
       ],
       "data": {
-        "length": 200
+        "length": 602
       }
     },
     {
-      "id": "Desk.low1.cross_rear",
+      "id": "RB0.extension",
+      "kind": "extension",
+      "origin": [
+        3375.0,
+        2890.0,
+        623.0
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {
+        "gap": 12
+      }
+    },
+    {
+      "id": "RB0.joint_riser",
+      "kind": "tube_40",
+      "origin": [
+        3375.0,
+        2890.0,
+        629.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {
+        "length": 40
+      }
+    },
+    {
+      "id": "Desk.cross_rear1",
       "kind": "cross",
       "origin": [
         3375.0,
         2890.0,
-        235.0
+        689.0
       ],
       "axis": [
         0,
@@ -5930,12 +6018,12 @@
       "data": {}
     },
     {
-      "id": "RB0.mid",
-      "kind": "tube_1000",
+      "id": "RB0.top_stub",
+      "kind": "tube_40",
       "origin": [
         3375.0,
         2890.0,
-        255.0
+        709.0
       ],
       "axis": [
         0.0,
@@ -5948,16 +6036,16 @@
         0
       ],
       "data": {
-        "length": 1000
+        "length": 40
       }
     },
     {
-      "id": "RB0.extension",
+      "id": "RB0.top_extension",
       "kind": "extension",
       "origin": [
         3375.0,
         2890.0,
-        1261.0
+        755.0
       ],
       "axis": [
         0,
@@ -5975,11 +6063,11 @@
     },
     {
       "id": "RB0.upper",
-      "kind": "tube_1000",
+      "kind": "tube_1500",
       "origin": [
         3375.0,
         2890.0,
-        1267.0
+        761.0
       ],
       "axis": [
         0.0,
@@ -5992,7 +6080,7 @@
         0
       ],
       "data": {
-        "length": 1000
+        "length": 1500
       }
     },
     {
@@ -6001,7 +6089,7 @@
       "origin": [
         3375.0,
         2890.0,
-        2267.0
+        2261.0
       ],
       "axis": [
         0.0,
@@ -6040,34 +6128,12 @@
       }
     },
     {
-      "id": "Desk.shared1.1.tee",
-      "kind": "slide_tee",
-      "origin": [
-        3375,
-        2890,
-        689
-      ],
-      "axis": [
-        0,
-        0,
-        1
-      ],
-      "direction": [
-        -1,
-        0,
-        0
-      ],
-      "data": {
-        "host": "RB0.mid"
-      }
-    },
-    {
       "id": "Desk.shared1.1.tube",
       "kind": "tube_250",
       "origin": [
-        3355,
-        2890,
-        689
+        3355.0,
+        2890.0,
+        689.0
       ],
       "axis": [
         -1.0,
@@ -6082,6 +6148,48 @@
       "data": {
         "length": 250
       }
+    },
+    {
+      "id": "Desk.shared1.1.wall",
+      "kind": "tube_40",
+      "origin": [
+        3395.0,
+        2890.0,
+        689.0
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {
+        "length": 40
+      }
+    },
+    {
+      "id": "Desk.shared1.1.wall_flange",
+      "kind": "flange",
+      "origin": [
+        3450.0,
+        2890.0,
+        689.0
+      ],
+      "axis": [
+        -1,
+        0,
+        0
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {}
     },
     {
       "id": "Desk.shared1.0.saddle0",
@@ -6282,7 +6390,29 @@
       "data": {}
     },
     {
-      "id": "Desk.low1.tee",
+      "id": "Desk.low1.rear.t1",
+      "kind": "slide_tee",
+      "origin": [
+        3375,
+        2890,
+        235
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "direction": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "data": {
+        "host": "RB0.lower"
+      }
+    },
+    {
+      "id": "Desk.low1.rear.t2",
       "kind": "slide_tee",
       "origin": [
         3085,
@@ -6295,16 +6425,16 @@
         1
       ],
       "direction": [
-        1,
-        0,
-        0
+        1.0,
+        -0.0,
+        -0.0
       ],
       "data": {
         "host": "RF0.lower"
       }
     },
     {
-      "id": "Desk.low1.rear",
+      "id": "Desk.low1.rear.tube",
       "kind": "tube_250",
       "origin": [
         3355.0,
@@ -6324,48 +6454,6 @@
       "data": {
         "length": 250
       }
-    },
-    {
-      "id": "Desk.low1.wall",
-      "kind": "tube_40",
-      "origin": [
-        3395.0,
-        2890.0,
-        235.0
-      ],
-      "axis": [
-        1.0,
-        0.0,
-        0.0
-      ],
-      "direction": [
-        1,
-        0,
-        0
-      ],
-      "data": {
-        "length": 40
-      }
-    },
-    {
-      "id": "Desk.low1.wall_flange",
-      "kind": "flange",
-      "origin": [
-        3450.0,
-        2890.0,
-        235.0
-      ],
-      "axis": [
-        -1,
-        0,
-        0
-      ],
-      "direction": [
-        1,
-        0,
-        0
-      ],
-      "data": {}
     },
     {
       "id": "Desk.low1.front.t1",
@@ -6489,6 +6577,32 @@
             2703,
             1305,
             100
+          ]
+        ],
+        "notches": [
+          [
+            3063.0,
+            3107.0,
+            1305,
+            1322.0
+          ],
+          [
+            3353.0,
+            3405,
+            1305,
+            1322.0
+          ],
+          [
+            3063.0,
+            3107.0,
+            2868.0,
+            2920
+          ],
+          [
+            3353.0,
+            3405,
+            2868.0,
+            2920
           ]
         ],
         "support_reliefs": [
@@ -6687,7 +6801,21 @@
           ]
         ],
         "recess": null,
-        "rotation_degrees": 0
+        "rotation_degrees": 0,
+        "notches": [
+          [
+            3353.0,
+            3405,
+            1305,
+            1322.0
+          ],
+          [
+            3353.0,
+            3405,
+            2868.0,
+            2920
+          ]
+        ]
       }
     }
   ],
@@ -10184,109 +10312,7 @@
       "p": [
         3375.0,
         1300.0,
-        215.0
-      ],
-      "n": [
-        0.0,
-        0.0,
-        1.0
-      ],
-      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
-      "used": "Desk.low0.cross_rear.down"
-    },
-    {
-      "id": "Desk.low0.cross_rear.up",
-      "owner": "Desk.low0.cross_rear",
-      "kind": "female",
-      "p": [
-        3375.0,
-        1300.0,
-        255.0
-      ],
-      "n": [
-        0,
-        0,
-        1
-      ],
-      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
-      "used": "SB0.mid.a"
-    },
-    {
-      "id": "Desk.low0.cross_rear.down",
-      "owner": "Desk.low0.cross_rear",
-      "kind": "female",
-      "p": [
-        3375.0,
-        1300.0,
-        215.0
-      ],
-      "n": [
-        0,
-        0,
-        -1
-      ],
-      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
-      "used": "SB0.lower.b"
-    },
-    {
-      "id": "Desk.low0.cross_rear.out",
-      "owner": "Desk.low0.cross_rear",
-      "kind": "female",
-      "p": [
-        3355.0,
-        1300.0,
-        235.0
-      ],
-      "n": [
-        -1,
-        0,
-        0
-      ],
-      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
-      "used": "Desk.low0.rear.a"
-    },
-    {
-      "id": "Desk.low0.cross_rear.in",
-      "owner": "Desk.low0.cross_rear",
-      "kind": "female",
-      "p": [
-        3395.0,
-        1300.0,
-        235.0
-      ],
-      "n": [
-        1,
-        0,
-        0
-      ],
-      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
-      "used": "Desk.low0.wall.a"
-    },
-    {
-      "id": "SB0.mid.a",
-      "owner": "SB0.mid",
-      "kind": "male",
-      "p": [
-        3375.0,
-        1300.0,
-        255.0
-      ],
-      "n": [
-        -0.0,
-        -0.0,
-        -1.0
-      ],
-      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
-      "used": "Desk.low0.cross_rear.up"
-    },
-    {
-      "id": "SB0.mid.b",
-      "owner": "SB0.mid",
-      "kind": "male",
-      "p": [
-        3375.0,
-        1300.0,
-        1255.0
+        617.0
       ],
       "n": [
         0.0,
@@ -10303,7 +10329,7 @@
       "p": [
         3375.0,
         1300.0,
-        1255.0
+        617.0
       ],
       "n": [
         0,
@@ -10311,7 +10337,7 @@
         -1
       ],
       "family": "DOLLE-current-25-metric-unconfirmed-pitch",
-      "used": "SB0.mid.b"
+      "used": "SB0.lower.b"
     },
     {
       "id": "SB0.extension.up",
@@ -10320,7 +10346,177 @@
       "p": [
         3375.0,
         1300.0,
-        1267.0
+        629.0
+      ],
+      "n": [
+        0,
+        0,
+        1
+      ],
+      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
+      "used": "SB0.joint_riser.a"
+    },
+    {
+      "id": "SB0.joint_riser.a",
+      "owner": "SB0.joint_riser",
+      "kind": "male",
+      "p": [
+        3375.0,
+        1300.0,
+        629.0
+      ],
+      "n": [
+        -0.0,
+        -0.0,
+        -1.0
+      ],
+      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
+      "used": "SB0.extension.up"
+    },
+    {
+      "id": "SB0.joint_riser.b",
+      "owner": "SB0.joint_riser",
+      "kind": "male",
+      "p": [
+        3375.0,
+        1300.0,
+        669.0
+      ],
+      "n": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
+      "used": "Desk.cross_rear0.down"
+    },
+    {
+      "id": "Desk.cross_rear0.up",
+      "owner": "Desk.cross_rear0",
+      "kind": "female",
+      "p": [
+        3375.0,
+        1300.0,
+        709.0
+      ],
+      "n": [
+        0,
+        0,
+        1
+      ],
+      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
+      "used": "SB0.top_stub.a"
+    },
+    {
+      "id": "Desk.cross_rear0.down",
+      "owner": "Desk.cross_rear0",
+      "kind": "female",
+      "p": [
+        3375.0,
+        1300.0,
+        669.0
+      ],
+      "n": [
+        0,
+        0,
+        -1
+      ],
+      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
+      "used": "SB0.joint_riser.b"
+    },
+    {
+      "id": "Desk.cross_rear0.out",
+      "owner": "Desk.cross_rear0",
+      "kind": "female",
+      "p": [
+        3355.0,
+        1300.0,
+        689.0
+      ],
+      "n": [
+        -1,
+        0,
+        0
+      ],
+      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
+      "used": "Desk.shared0.1.tube.a"
+    },
+    {
+      "id": "Desk.cross_rear0.in",
+      "owner": "Desk.cross_rear0",
+      "kind": "female",
+      "p": [
+        3395.0,
+        1300.0,
+        689.0
+      ],
+      "n": [
+        1,
+        0,
+        0
+      ],
+      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
+      "used": "Desk.shared0.1.wall.a"
+    },
+    {
+      "id": "SB0.top_stub.a",
+      "owner": "SB0.top_stub",
+      "kind": "male",
+      "p": [
+        3375.0,
+        1300.0,
+        709.0
+      ],
+      "n": [
+        -0.0,
+        -0.0,
+        -1.0
+      ],
+      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
+      "used": "Desk.cross_rear0.up"
+    },
+    {
+      "id": "SB0.top_stub.b",
+      "owner": "SB0.top_stub",
+      "kind": "male",
+      "p": [
+        3375.0,
+        1300.0,
+        749.0
+      ],
+      "n": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
+      "used": "SB0.top_extension.down"
+    },
+    {
+      "id": "SB0.top_extension.down",
+      "owner": "SB0.top_extension",
+      "kind": "female",
+      "p": [
+        3375.0,
+        1300.0,
+        749.0
+      ],
+      "n": [
+        0,
+        0,
+        -1
+      ],
+      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
+      "used": "SB0.top_stub.b"
+    },
+    {
+      "id": "SB0.top_extension.up",
+      "owner": "SB0.top_extension",
+      "kind": "female",
+      "p": [
+        3375.0,
+        1300.0,
+        761.0
       ],
       "n": [
         0,
@@ -10337,7 +10533,7 @@
       "p": [
         3375.0,
         1300.0,
-        1267.0
+        761.0
       ],
       "n": [
         -0.0,
@@ -10345,7 +10541,7 @@
         -1.0
       ],
       "family": "DOLLE-current-25-metric-unconfirmed-pitch",
-      "used": "SB0.extension.up"
+      "used": "SB0.top_extension.up"
     },
     {
       "id": "SB0.upper.b",
@@ -10354,7 +10550,7 @@
       "p": [
         3375.0,
         1300.0,
-        2267.0
+        2261.0
       ],
       "n": [
         0.0,
@@ -10399,30 +10595,13 @@
       "used": "DF0.elbow.in"
     },
     {
-      "id": "Desk.shared0.1.tee.branch",
-      "owner": "Desk.shared0.1.tee",
-      "kind": "female",
-      "p": [
-        3355,
-        1300,
-        689
-      ],
-      "n": [
-        -1,
-        0,
-        0
-      ],
-      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
-      "used": "Desk.shared0.1.tube.a"
-    },
-    {
       "id": "Desk.shared0.1.tube.a",
       "owner": "Desk.shared0.1.tube",
       "kind": "male",
       "p": [
-        3355,
-        1300,
-        689
+        3355.0,
+        1300.0,
+        689.0
       ],
       "n": [
         1.0,
@@ -10430,7 +10609,7 @@
         -0.0
       ],
       "family": "DOLLE-current-25-metric-unconfirmed-pitch",
-      "used": "Desk.shared0.1.tee.branch"
+      "used": "Desk.cross_rear0.out"
     },
     {
       "id": "Desk.shared0.1.tube.b",
@@ -10448,6 +10627,57 @@
       ],
       "family": "DOLLE-current-25-metric-unconfirmed-pitch",
       "used": "Desk.cross0.in"
+    },
+    {
+      "id": "Desk.shared0.1.wall.a",
+      "owner": "Desk.shared0.1.wall",
+      "kind": "male",
+      "p": [
+        3395.0,
+        1300.0,
+        689.0
+      ],
+      "n": [
+        -1.0,
+        -0.0,
+        -0.0
+      ],
+      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
+      "used": "Desk.cross_rear0.in"
+    },
+    {
+      "id": "Desk.shared0.1.wall.b",
+      "owner": "Desk.shared0.1.wall",
+      "kind": "male",
+      "p": [
+        3435.0,
+        1300.0,
+        689.0
+      ],
+      "n": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
+      "used": "Desk.shared0.1.wall_flange.socket"
+    },
+    {
+      "id": "Desk.shared0.1.wall_flange.socket",
+      "owner": "Desk.shared0.1.wall_flange",
+      "kind": "female",
+      "p": [
+        3435.0,
+        1300.0,
+        689.0
+      ],
+      "n": [
+        -1,
+        0,
+        0
+      ],
+      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
+      "used": "Desk.shared0.1.wall.b"
     },
     {
       "id": "DF0.foot.socket",
@@ -10603,25 +10833,42 @@
       "used": "Desk.shared0.0.tube.b"
     },
     {
-      "id": "Desk.low0.tee.branch",
-      "owner": "Desk.low0.tee",
+      "id": "Desk.low0.rear.t1.branch",
+      "owner": "Desk.low0.rear.t1",
       "kind": "female",
       "p": [
-        3105,
-        1300,
-        235
+        3355.0,
+        1300.0,
+        235.0
       ],
       "n": [
-        1,
-        0,
-        0
+        -1.0,
+        0.0,
+        0.0
       ],
       "family": "DOLLE-current-25-metric-unconfirmed-pitch",
-      "used": "Desk.low0.rear.b"
+      "used": "Desk.low0.rear.tube.a"
     },
     {
-      "id": "Desk.low0.rear.a",
-      "owner": "Desk.low0.rear",
+      "id": "Desk.low0.rear.t2.branch",
+      "owner": "Desk.low0.rear.t2",
+      "kind": "female",
+      "p": [
+        3105.0,
+        1300.0,
+        235.0
+      ],
+      "n": [
+        1.0,
+        -0.0,
+        -0.0
+      ],
+      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
+      "used": "Desk.low0.rear.tube.b"
+    },
+    {
+      "id": "Desk.low0.rear.tube.a",
+      "owner": "Desk.low0.rear.tube",
       "kind": "male",
       "p": [
         3355.0,
@@ -10634,11 +10881,11 @@
         -0.0
       ],
       "family": "DOLLE-current-25-metric-unconfirmed-pitch",
-      "used": "Desk.low0.cross_rear.out"
+      "used": "Desk.low0.rear.t1.branch"
     },
     {
-      "id": "Desk.low0.rear.b",
-      "owner": "Desk.low0.rear",
+      "id": "Desk.low0.rear.tube.b",
+      "owner": "Desk.low0.rear.tube",
       "kind": "male",
       "p": [
         3105.0,
@@ -10651,58 +10898,7 @@
         0.0
       ],
       "family": "DOLLE-current-25-metric-unconfirmed-pitch",
-      "used": "Desk.low0.tee.branch"
-    },
-    {
-      "id": "Desk.low0.wall.a",
-      "owner": "Desk.low0.wall",
-      "kind": "male",
-      "p": [
-        3395.0,
-        1300.0,
-        235.0
-      ],
-      "n": [
-        -1.0,
-        -0.0,
-        -0.0
-      ],
-      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
-      "used": "Desk.low0.cross_rear.in"
-    },
-    {
-      "id": "Desk.low0.wall.b",
-      "owner": "Desk.low0.wall",
-      "kind": "male",
-      "p": [
-        3435.0,
-        1300.0,
-        235.0
-      ],
-      "n": [
-        1.0,
-        0.0,
-        0.0
-      ],
-      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
-      "used": "Desk.low0.wall_flange.socket"
-    },
-    {
-      "id": "Desk.low0.wall_flange.socket",
-      "owner": "Desk.low0.wall_flange",
-      "kind": "female",
-      "p": [
-        3435.0,
-        1300.0,
-        235.0
-      ],
-      "n": [
-        -1,
-        0,
-        0
-      ],
-      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
-      "used": "Desk.low0.wall.b"
+      "used": "Desk.low0.rear.t2.branch"
     },
     {
       "id": "Desk.low0.front.t1.branch",
@@ -11068,109 +11264,7 @@
       "p": [
         3375.0,
         2890.0,
-        215.0
-      ],
-      "n": [
-        0.0,
-        0.0,
-        1.0
-      ],
-      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
-      "used": "Desk.low1.cross_rear.down"
-    },
-    {
-      "id": "Desk.low1.cross_rear.up",
-      "owner": "Desk.low1.cross_rear",
-      "kind": "female",
-      "p": [
-        3375.0,
-        2890.0,
-        255.0
-      ],
-      "n": [
-        0,
-        0,
-        1
-      ],
-      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
-      "used": "RB0.mid.a"
-    },
-    {
-      "id": "Desk.low1.cross_rear.down",
-      "owner": "Desk.low1.cross_rear",
-      "kind": "female",
-      "p": [
-        3375.0,
-        2890.0,
-        215.0
-      ],
-      "n": [
-        0,
-        0,
-        -1
-      ],
-      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
-      "used": "RB0.lower.b"
-    },
-    {
-      "id": "Desk.low1.cross_rear.out",
-      "owner": "Desk.low1.cross_rear",
-      "kind": "female",
-      "p": [
-        3355.0,
-        2890.0,
-        235.0
-      ],
-      "n": [
-        -1,
-        0,
-        0
-      ],
-      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
-      "used": "Desk.low1.rear.a"
-    },
-    {
-      "id": "Desk.low1.cross_rear.in",
-      "owner": "Desk.low1.cross_rear",
-      "kind": "female",
-      "p": [
-        3395.0,
-        2890.0,
-        235.0
-      ],
-      "n": [
-        1,
-        0,
-        0
-      ],
-      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
-      "used": "Desk.low1.wall.a"
-    },
-    {
-      "id": "RB0.mid.a",
-      "owner": "RB0.mid",
-      "kind": "male",
-      "p": [
-        3375.0,
-        2890.0,
-        255.0
-      ],
-      "n": [
-        -0.0,
-        -0.0,
-        -1.0
-      ],
-      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
-      "used": "Desk.low1.cross_rear.up"
-    },
-    {
-      "id": "RB0.mid.b",
-      "owner": "RB0.mid",
-      "kind": "male",
-      "p": [
-        3375.0,
-        2890.0,
-        1255.0
+        617.0
       ],
       "n": [
         0.0,
@@ -11187,7 +11281,7 @@
       "p": [
         3375.0,
         2890.0,
-        1255.0
+        617.0
       ],
       "n": [
         0,
@@ -11195,7 +11289,7 @@
         -1
       ],
       "family": "DOLLE-current-25-metric-unconfirmed-pitch",
-      "used": "RB0.mid.b"
+      "used": "RB0.lower.b"
     },
     {
       "id": "RB0.extension.up",
@@ -11204,7 +11298,177 @@
       "p": [
         3375.0,
         2890.0,
-        1267.0
+        629.0
+      ],
+      "n": [
+        0,
+        0,
+        1
+      ],
+      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
+      "used": "RB0.joint_riser.a"
+    },
+    {
+      "id": "RB0.joint_riser.a",
+      "owner": "RB0.joint_riser",
+      "kind": "male",
+      "p": [
+        3375.0,
+        2890.0,
+        629.0
+      ],
+      "n": [
+        -0.0,
+        -0.0,
+        -1.0
+      ],
+      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
+      "used": "RB0.extension.up"
+    },
+    {
+      "id": "RB0.joint_riser.b",
+      "owner": "RB0.joint_riser",
+      "kind": "male",
+      "p": [
+        3375.0,
+        2890.0,
+        669.0
+      ],
+      "n": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
+      "used": "Desk.cross_rear1.down"
+    },
+    {
+      "id": "Desk.cross_rear1.up",
+      "owner": "Desk.cross_rear1",
+      "kind": "female",
+      "p": [
+        3375.0,
+        2890.0,
+        709.0
+      ],
+      "n": [
+        0,
+        0,
+        1
+      ],
+      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
+      "used": "RB0.top_stub.a"
+    },
+    {
+      "id": "Desk.cross_rear1.down",
+      "owner": "Desk.cross_rear1",
+      "kind": "female",
+      "p": [
+        3375.0,
+        2890.0,
+        669.0
+      ],
+      "n": [
+        0,
+        0,
+        -1
+      ],
+      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
+      "used": "RB0.joint_riser.b"
+    },
+    {
+      "id": "Desk.cross_rear1.out",
+      "owner": "Desk.cross_rear1",
+      "kind": "female",
+      "p": [
+        3355.0,
+        2890.0,
+        689.0
+      ],
+      "n": [
+        -1,
+        0,
+        0
+      ],
+      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
+      "used": "Desk.shared1.1.tube.a"
+    },
+    {
+      "id": "Desk.cross_rear1.in",
+      "owner": "Desk.cross_rear1",
+      "kind": "female",
+      "p": [
+        3395.0,
+        2890.0,
+        689.0
+      ],
+      "n": [
+        1,
+        0,
+        0
+      ],
+      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
+      "used": "Desk.shared1.1.wall.a"
+    },
+    {
+      "id": "RB0.top_stub.a",
+      "owner": "RB0.top_stub",
+      "kind": "male",
+      "p": [
+        3375.0,
+        2890.0,
+        709.0
+      ],
+      "n": [
+        -0.0,
+        -0.0,
+        -1.0
+      ],
+      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
+      "used": "Desk.cross_rear1.up"
+    },
+    {
+      "id": "RB0.top_stub.b",
+      "owner": "RB0.top_stub",
+      "kind": "male",
+      "p": [
+        3375.0,
+        2890.0,
+        749.0
+      ],
+      "n": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
+      "used": "RB0.top_extension.down"
+    },
+    {
+      "id": "RB0.top_extension.down",
+      "owner": "RB0.top_extension",
+      "kind": "female",
+      "p": [
+        3375.0,
+        2890.0,
+        749.0
+      ],
+      "n": [
+        0,
+        0,
+        -1
+      ],
+      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
+      "used": "RB0.top_stub.b"
+    },
+    {
+      "id": "RB0.top_extension.up",
+      "owner": "RB0.top_extension",
+      "kind": "female",
+      "p": [
+        3375.0,
+        2890.0,
+        761.0
       ],
       "n": [
         0,
@@ -11221,7 +11485,7 @@
       "p": [
         3375.0,
         2890.0,
-        1267.0
+        761.0
       ],
       "n": [
         -0.0,
@@ -11229,7 +11493,7 @@
         -1.0
       ],
       "family": "DOLLE-current-25-metric-unconfirmed-pitch",
-      "used": "RB0.extension.up"
+      "used": "RB0.top_extension.up"
     },
     {
       "id": "RB0.upper.b",
@@ -11238,7 +11502,7 @@
       "p": [
         3375.0,
         2890.0,
-        2267.0
+        2261.0
       ],
       "n": [
         0.0,
@@ -11283,30 +11547,13 @@
       "used": "DF1.elbow.in"
     },
     {
-      "id": "Desk.shared1.1.tee.branch",
-      "owner": "Desk.shared1.1.tee",
-      "kind": "female",
-      "p": [
-        3355,
-        2890,
-        689
-      ],
-      "n": [
-        -1,
-        0,
-        0
-      ],
-      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
-      "used": "Desk.shared1.1.tube.a"
-    },
-    {
       "id": "Desk.shared1.1.tube.a",
       "owner": "Desk.shared1.1.tube",
       "kind": "male",
       "p": [
-        3355,
-        2890,
-        689
+        3355.0,
+        2890.0,
+        689.0
       ],
       "n": [
         1.0,
@@ -11314,7 +11561,7 @@
         -0.0
       ],
       "family": "DOLLE-current-25-metric-unconfirmed-pitch",
-      "used": "Desk.shared1.1.tee.branch"
+      "used": "Desk.cross_rear1.out"
     },
     {
       "id": "Desk.shared1.1.tube.b",
@@ -11332,6 +11579,57 @@
       ],
       "family": "DOLLE-current-25-metric-unconfirmed-pitch",
       "used": "Desk.cross1.in"
+    },
+    {
+      "id": "Desk.shared1.1.wall.a",
+      "owner": "Desk.shared1.1.wall",
+      "kind": "male",
+      "p": [
+        3395.0,
+        2890.0,
+        689.0
+      ],
+      "n": [
+        -1.0,
+        -0.0,
+        -0.0
+      ],
+      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
+      "used": "Desk.cross_rear1.in"
+    },
+    {
+      "id": "Desk.shared1.1.wall.b",
+      "owner": "Desk.shared1.1.wall",
+      "kind": "male",
+      "p": [
+        3435.0,
+        2890.0,
+        689.0
+      ],
+      "n": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
+      "used": "Desk.shared1.1.wall_flange.socket"
+    },
+    {
+      "id": "Desk.shared1.1.wall_flange.socket",
+      "owner": "Desk.shared1.1.wall_flange",
+      "kind": "female",
+      "p": [
+        3435.0,
+        2890.0,
+        689.0
+      ],
+      "n": [
+        -1,
+        0,
+        0
+      ],
+      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
+      "used": "Desk.shared1.1.wall.b"
     },
     {
       "id": "DF1.foot.socket",
@@ -11487,25 +11785,42 @@
       "used": "Desk.shared1.0.tube.b"
     },
     {
-      "id": "Desk.low1.tee.branch",
-      "owner": "Desk.low1.tee",
+      "id": "Desk.low1.rear.t1.branch",
+      "owner": "Desk.low1.rear.t1",
       "kind": "female",
       "p": [
-        3105,
-        2890,
-        235
+        3355.0,
+        2890.0,
+        235.0
       ],
       "n": [
-        1,
-        0,
-        0
+        -1.0,
+        0.0,
+        0.0
       ],
       "family": "DOLLE-current-25-metric-unconfirmed-pitch",
-      "used": "Desk.low1.rear.b"
+      "used": "Desk.low1.rear.tube.a"
     },
     {
-      "id": "Desk.low1.rear.a",
-      "owner": "Desk.low1.rear",
+      "id": "Desk.low1.rear.t2.branch",
+      "owner": "Desk.low1.rear.t2",
+      "kind": "female",
+      "p": [
+        3105.0,
+        2890.0,
+        235.0
+      ],
+      "n": [
+        1.0,
+        -0.0,
+        -0.0
+      ],
+      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
+      "used": "Desk.low1.rear.tube.b"
+    },
+    {
+      "id": "Desk.low1.rear.tube.a",
+      "owner": "Desk.low1.rear.tube",
       "kind": "male",
       "p": [
         3355.0,
@@ -11518,11 +11833,11 @@
         -0.0
       ],
       "family": "DOLLE-current-25-metric-unconfirmed-pitch",
-      "used": "Desk.low1.cross_rear.out"
+      "used": "Desk.low1.rear.t1.branch"
     },
     {
-      "id": "Desk.low1.rear.b",
-      "owner": "Desk.low1.rear",
+      "id": "Desk.low1.rear.tube.b",
+      "owner": "Desk.low1.rear.tube",
       "kind": "male",
       "p": [
         3105.0,
@@ -11535,58 +11850,7 @@
         0.0
       ],
       "family": "DOLLE-current-25-metric-unconfirmed-pitch",
-      "used": "Desk.low1.tee.branch"
-    },
-    {
-      "id": "Desk.low1.wall.a",
-      "owner": "Desk.low1.wall",
-      "kind": "male",
-      "p": [
-        3395.0,
-        2890.0,
-        235.0
-      ],
-      "n": [
-        -1.0,
-        -0.0,
-        -0.0
-      ],
-      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
-      "used": "Desk.low1.cross_rear.in"
-    },
-    {
-      "id": "Desk.low1.wall.b",
-      "owner": "Desk.low1.wall",
-      "kind": "male",
-      "p": [
-        3435.0,
-        2890.0,
-        235.0
-      ],
-      "n": [
-        1.0,
-        0.0,
-        0.0
-      ],
-      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
-      "used": "Desk.low1.wall_flange.socket"
-    },
-    {
-      "id": "Desk.low1.wall_flange.socket",
-      "owner": "Desk.low1.wall_flange",
-      "kind": "female",
-      "p": [
-        3435.0,
-        2890.0,
-        235.0
-      ],
-      "n": [
-        -1,
-        0,
-        0
-      ],
-      "family": "DOLLE-current-25-metric-unconfirmed-pitch",
-      "used": "Desk.low1.wall.b"
+      "used": "Desk.low1.rear.t2.branch"
     },
     {
       "id": "Desk.low1.front.t1.branch",
@@ -13424,30 +13688,44 @@
     ],
     [
       "SB0.lower",
-      "Desk.low0.cross_rear",
-      "thread",
-      "SB0.lower.b",
-      "Desk.low0.cross_rear.down"
-    ],
-    [
-      "Desk.low0.cross_rear",
-      "SB0.mid",
-      "thread",
-      "Desk.low0.cross_rear.up",
-      "SB0.mid.a"
-    ],
-    [
-      "SB0.mid",
       "SB0.extension",
       "thread",
-      "SB0.mid.b",
+      "SB0.lower.b",
       "SB0.extension.down"
     ],
     [
       "SB0.extension",
-      "SB0.upper",
+      "SB0.joint_riser",
       "thread",
       "SB0.extension.up",
+      "SB0.joint_riser.a"
+    ],
+    [
+      "SB0.joint_riser",
+      "Desk.cross_rear0",
+      "thread",
+      "SB0.joint_riser.b",
+      "Desk.cross_rear0.down"
+    ],
+    [
+      "Desk.cross_rear0",
+      "SB0.top_stub",
+      "thread",
+      "Desk.cross_rear0.up",
+      "SB0.top_stub.a"
+    ],
+    [
+      "SB0.top_stub",
+      "SB0.top_extension",
+      "thread",
+      "SB0.top_stub.b",
+      "SB0.top_extension.down"
+    ],
+    [
+      "SB0.top_extension",
+      "SB0.upper",
+      "thread",
+      "SB0.top_extension.up",
       "SB0.upper.a"
     ],
     [
@@ -13486,7 +13764,7 @@
       null
     ],
     [
-      "SB0.mid",
+      "SB0.upper",
       "Desk.wall0.1200.tee",
       "clamp",
       null,
@@ -13521,7 +13799,7 @@
       null
     ],
     [
-      "SB0.mid",
+      "SB0.upper",
       "Speaker0.arm1.tee",
       "clamp",
       null,
@@ -13535,17 +13813,10 @@
       "Desk.shared0.0.tube.a"
     ],
     [
-      "SB0.mid",
-      "Desk.shared0.1.tee",
-      "clamp",
-      null,
-      null
-    ],
-    [
-      "Desk.shared0.1.tee",
+      "Desk.cross_rear0",
       "Desk.shared0.1.tube",
       "thread",
-      "Desk.shared0.1.tee.branch",
+      "Desk.cross_rear0.out",
       "Desk.shared0.1.tube.a"
     ],
     [
@@ -13554,6 +13825,20 @@
       "thread",
       "Desk.shared0.1.tube.b",
       "Desk.cross0.in"
+    ],
+    [
+      "Desk.cross_rear0",
+      "Desk.shared0.1.wall",
+      "thread",
+      "Desk.cross_rear0.in",
+      "Desk.shared0.1.wall.a"
+    ],
+    [
+      "Desk.shared0.1.wall",
+      "Desk.shared0.1.wall_flange",
+      "thread",
+      "Desk.shared0.1.wall.b",
+      "Desk.shared0.1.wall_flange.socket"
     ],
     [
       "Desk.shared0.0.tube",
@@ -13619,39 +13904,32 @@
       "DF0.elbow.in"
     ],
     [
-      "DS0.lower",
-      "Desk.low0.tee",
+      "SB0.lower",
+      "Desk.low0.rear.t1",
       "clamp",
       null,
       null
     ],
     [
-      "Desk.low0.cross_rear",
-      "Desk.low0.rear",
-      "thread",
-      "Desk.low0.cross_rear.out",
-      "Desk.low0.rear.a"
+      "DS0.lower",
+      "Desk.low0.rear.t2",
+      "clamp",
+      null,
+      null
     ],
     [
-      "Desk.low0.rear",
-      "Desk.low0.tee",
+      "Desk.low0.rear.t1",
+      "Desk.low0.rear.tube",
       "thread",
-      "Desk.low0.rear.b",
-      "Desk.low0.tee.branch"
+      "Desk.low0.rear.t1.branch",
+      "Desk.low0.rear.tube.a"
     ],
     [
-      "Desk.low0.cross_rear",
-      "Desk.low0.wall",
+      "Desk.low0.rear.tube",
+      "Desk.low0.rear.t2",
       "thread",
-      "Desk.low0.cross_rear.in",
-      "Desk.low0.wall.a"
-    ],
-    [
-      "Desk.low0.wall",
-      "Desk.low0.wall_flange",
-      "thread",
-      "Desk.low0.wall.b",
-      "Desk.low0.wall_flange.socket"
+      "Desk.low0.rear.tube.b",
+      "Desk.low0.rear.t2.branch"
     ],
     [
       "DF0.lower",
@@ -13746,30 +14024,44 @@
     ],
     [
       "RB0.lower",
-      "Desk.low1.cross_rear",
-      "thread",
-      "RB0.lower.b",
-      "Desk.low1.cross_rear.down"
-    ],
-    [
-      "Desk.low1.cross_rear",
-      "RB0.mid",
-      "thread",
-      "Desk.low1.cross_rear.up",
-      "RB0.mid.a"
-    ],
-    [
-      "RB0.mid",
       "RB0.extension",
       "thread",
-      "RB0.mid.b",
+      "RB0.lower.b",
       "RB0.extension.down"
     ],
     [
       "RB0.extension",
-      "RB0.upper",
+      "RB0.joint_riser",
       "thread",
       "RB0.extension.up",
+      "RB0.joint_riser.a"
+    ],
+    [
+      "RB0.joint_riser",
+      "Desk.cross_rear1",
+      "thread",
+      "RB0.joint_riser.b",
+      "Desk.cross_rear1.down"
+    ],
+    [
+      "Desk.cross_rear1",
+      "RB0.top_stub",
+      "thread",
+      "Desk.cross_rear1.up",
+      "RB0.top_stub.a"
+    ],
+    [
+      "RB0.top_stub",
+      "RB0.top_extension",
+      "thread",
+      "RB0.top_stub.b",
+      "RB0.top_extension.down"
+    ],
+    [
+      "RB0.top_extension",
+      "RB0.upper",
+      "thread",
+      "RB0.top_extension.up",
       "RB0.upper.a"
     ],
     [
@@ -13850,7 +14142,7 @@
       null
     ],
     [
-      "RB0.mid",
+      "RB0.upper",
       "Speaker1.arm1.tee",
       "clamp",
       null,
@@ -13864,17 +14156,10 @@
       "Desk.shared1.0.tube.a"
     ],
     [
-      "RB0.mid",
-      "Desk.shared1.1.tee",
-      "clamp",
-      null,
-      null
-    ],
-    [
-      "Desk.shared1.1.tee",
+      "Desk.cross_rear1",
       "Desk.shared1.1.tube",
       "thread",
-      "Desk.shared1.1.tee.branch",
+      "Desk.cross_rear1.out",
       "Desk.shared1.1.tube.a"
     ],
     [
@@ -13883,6 +14168,20 @@
       "thread",
       "Desk.shared1.1.tube.b",
       "Desk.cross1.in"
+    ],
+    [
+      "Desk.cross_rear1",
+      "Desk.shared1.1.wall",
+      "thread",
+      "Desk.cross_rear1.in",
+      "Desk.shared1.1.wall.a"
+    ],
+    [
+      "Desk.shared1.1.wall",
+      "Desk.shared1.1.wall_flange",
+      "thread",
+      "Desk.shared1.1.wall.b",
+      "Desk.shared1.1.wall_flange.socket"
     ],
     [
       "Desk.shared1.0.tube",
@@ -13948,39 +14247,32 @@
       "DF1.elbow.in"
     ],
     [
-      "RF0.lower",
-      "Desk.low1.tee",
+      "RB0.lower",
+      "Desk.low1.rear.t1",
       "clamp",
       null,
       null
     ],
     [
-      "Desk.low1.cross_rear",
-      "Desk.low1.rear",
-      "thread",
-      "Desk.low1.cross_rear.out",
-      "Desk.low1.rear.a"
+      "RF0.lower",
+      "Desk.low1.rear.t2",
+      "clamp",
+      null,
+      null
     ],
     [
-      "Desk.low1.rear",
-      "Desk.low1.tee",
+      "Desk.low1.rear.t1",
+      "Desk.low1.rear.tube",
       "thread",
-      "Desk.low1.rear.b",
-      "Desk.low1.tee.branch"
+      "Desk.low1.rear.t1.branch",
+      "Desk.low1.rear.tube.a"
     ],
     [
-      "Desk.low1.cross_rear",
-      "Desk.low1.wall",
+      "Desk.low1.rear.tube",
+      "Desk.low1.rear.t2",
       "thread",
-      "Desk.low1.cross_rear.in",
-      "Desk.low1.wall.a"
-    ],
-    [
-      "Desk.low1.wall",
-      "Desk.low1.wall_flange",
-      "thread",
-      "Desk.low1.wall.b",
-      "Desk.low1.wall_flange.socket"
+      "Desk.low1.rear.tube.b",
+      "Desk.low1.rear.t2.branch"
     ],
     [
       "DF1.lower",
@@ -14112,10 +14404,10 @@
     "Rack.wall1.wall": "wall",
     "Rack.wall2.wall": "wall",
     "Rack.wall3.wall": "wall",
+    "Desk.shared0.1.wall_flange": "wall",
     "DF0.foot": "floor",
-    "Desk.low0.wall_flange": "wall",
+    "Desk.shared1.1.wall_flange": "wall",
     "DF1.foot": "floor",
-    "Desk.low1.wall_flange": "wall",
     "Desk.service_bracket0": "wall",
     "Desk.service_bracket1": "wall",
     "Desk.service_bracket2": "wall",
@@ -14124,7 +14416,7 @@
   "clamps": [
     {
       "id": "Desk.wall0.1200.tee",
-      "host": "SB0.mid",
+      "host": "SB0.upper",
       "z": 1200,
       "half": 35
     },
@@ -14754,7 +15046,7 @@
     },
     {
       "id": "Speaker0.arm1.tee",
-      "host": "SB0.mid",
+      "host": "SB0.upper",
       "z": 1085,
       "half": 35
     },
@@ -14790,7 +15082,7 @@
     },
     {
       "id": "Speaker1.arm1.tee",
-      "host": "RB0.mid",
+      "host": "RB0.upper",
       "z": 1085,
       "half": 35
     },
@@ -14805,12 +15097,6 @@
       "host": "Speaker1.arm1.tube",
       "z": 1085.0,
       "half": 7
-    },
-    {
-      "id": "Desk.shared0.1.tee",
-      "host": "SB0.mid",
-      "z": 689,
-      "half": 35
     },
     {
       "id": "Desk.shared0.0.saddle0",
@@ -14837,7 +15123,13 @@
       "half": 7
     },
     {
-      "id": "Desk.low0.tee",
+      "id": "Desk.low0.rear.t1",
+      "host": "SB0.lower",
+      "z": 235,
+      "half": 35
+    },
+    {
+      "id": "Desk.low0.rear.t2",
       "host": "DS0.lower",
       "z": 235,
       "half": 35
@@ -14852,12 +15144,6 @@
       "id": "Desk.low0.front.t2",
       "host": "DS0.lower",
       "z": 400,
-      "half": 35
-    },
-    {
-      "id": "Desk.shared1.1.tee",
-      "host": "RB0.mid",
-      "z": 689,
       "half": 35
     },
     {
@@ -14885,7 +15171,13 @@
       "half": 7
     },
     {
-      "id": "Desk.low1.tee",
+      "id": "Desk.low1.rear.t1",
+      "host": "RB0.lower",
+      "z": 235,
+      "half": 35
+    },
+    {
+      "id": "Desk.low1.rear.t2",
       "host": "RF0.lower",
       "z": 235,
       "half": 35
@@ -15509,6 +15801,32 @@
           100
         ]
       ],
+      "notches": [
+        [
+          3063.0,
+          3107.0,
+          1305,
+          1322.0
+        ],
+        [
+          3353.0,
+          3405,
+          1305,
+          1322.0
+        ],
+        [
+          3063.0,
+          3107.0,
+          2868.0,
+          2920
+        ],
+        [
+          3353.0,
+          3405,
+          2868.0,
+          2920
+        ]
+      ],
       "support_reliefs": [
         {
           "bounds": [
@@ -15620,7 +15938,21 @@
         ]
       ],
       "recess": null,
-      "rotation_degrees": 0
+      "rotation_degrees": 0,
+      "notches": [
+        [
+          3353.0,
+          3405,
+          1305,
+          1322.0
+        ],
+        [
+          3353.0,
+          3405,
+          2868.0,
+          2920
+        ]
+      ]
     }
   },
   "lights": [
@@ -15683,7 +16015,8 @@
       "y": 2890,
       "tubes": [
         "RB0.lower",
-        "RB0.mid",
+        "RB0.joint_riser",
+        "RB0.top_stub",
         "RB0.upper"
       ]
     },
@@ -15726,7 +16059,8 @@
       "y": 1300,
       "tubes": [
         "SB0.lower",
-        "SB0.mid",
+        "SB0.joint_riser",
+        "SB0.top_stub",
         "SB0.upper"
       ]
     },
@@ -15762,14 +16096,15 @@
     "Near wall tie raised from 1100 to 1200 mm to clear speaker-arm tees. Tray underside 1100, top 1125 mm before angled isolation pads. The arm tees cannot drop lower while the 1000 + 1200 mm posts keep their coupling at 1015-1027 mm, so the downward tweeter aim comes from the pads. No desktop speaker risers or flanges.",
     "Trays are square to the frame, between the middle and rear posts at each desk end. Each speaker turns on its tray to face the seated ear reference (x 2620, z 1220 mm), not the seat centre; angled pads tilt the tweeters down to that height. This wide stereo geometry is a visual arrangement, not a calibrated acoustic setup.",
     "Cantilever capacity, clamp anti-rotation, saddle screw retention, speaker weight and fixing loads remain unverified. No positive manufacturer cantilever rating has been established.",
-    "V18 desk module: all four former short desktop columns and both 602 mm endframe cross-pipes removed. The existing DS0/SB0 and RF0/RB0 rack posts carry the desktop: a DOLLE four-way cross at desk height on each middle post joins its 250 mm front arm, its 250 mm rear bridge and the post sections above and below. The rear bridge seats in a sliding T on the rear post.",
     "Each front arm returns down through a stock elbow to a 602 + coupling + 40 mm front leg. Eight saddle holders support the desktop; no separate rear desk legs.",
-    "Derived desktop underside 704 mm / top 732 mm. Front legs finish under the tabletop through elbows: no front-leg bores. Four 44 mm preview clearance bores remain only for the continuing rack posts, including near-edge notches.",
-    "Low line at 235 mm: a four-way cross on each rear post takes a 250 mm pipe from a sliding T on the middle post and a 40 mm pipe into a wall flange, replacing the old 300 mm rear brace, the 400 mm low wall tie and the far end's 200 mm wardrobe depth bar. The front leg keeps a plain sliding T: its 250 mm brace to the middle post sits at 400 mm, because two sleeves cannot share one station and no stock stack puts a cross on the leg without a spare socket.",
-    "Cross-bearing posts: middle posts 602 + coupling + 40, cross, 40 + coupling + 1500 mm (capped top 2261 mm); rear posts 200, cross, 1000 + coupling + 1000 mm (capped top 2267 mm). Boards, equipment and the upper shelf sleeves keep their positions.",
     "The desktop still measures 1615 x 702 x 28 mm in the same plan position. Main entry corner gap remains 640.9 mm. Closest modeled front foot clearance exceeds 600 mm.",
     "The cross is a threaded fitting, not a slide-on clamp. Preassemble free modules and stage all sleeves before feeding posts; verify the physical closure sequence and measured socket stops before purchasing or cutting timber.",
     "Model connection and clearance checks are not a load certification. Verify desk saddle screws, clamp slip/rotation, wall anchorage and leaning loads before construction. Fully floating desk is not assumed approved.",
+    "V18 desk module: all four former short desktop columns and both 602 mm endframe cross-pipes removed. The existing DS0/SB0 and RF0/RB0 rack posts carry the desktop: a DOLLE four-way cross at desk height on each middle post and each rear post. The middle cross joins the 250 mm front arm, the 250 mm rear bridge and the post sections above and below. The rear cross joins the rear bridge, a 40 mm pipe into a wall flange and its own post sections.",
+    "Wall fixing at desk height: the two desk wall flanges sit at 689 mm, under the back edge of the desktop. Nothing is fixed to the wall between the floor and 689 mm at the posts, which keeps the flange screws out of the 150-450 mm band where sockets and their feeds usually run. Services are still not surveyed: check the wall with a cable detector before drilling anywhere.",
+    "Low brace at 235 mm: a 250 mm pipe between two sliding Ts joins each rear post to its middle post. The front leg is braced to the middle post by a second 250 mm sliding-T bridge at 400 mm, because two sleeves cannot share one station.",
+    "Cross-bearing posts: middle and rear posts stack alike, 602 + coupling + 40, cross, 40 + coupling + 1500 mm (capped top 2261 mm). Boards, equipment and the upper shelf sleeves keep their positions.",
+    "Derived desktop underside 704 mm / top 732 mm. Front legs finish under the tabletop through elbows: no front-leg bores. The four 44 mm post clearances are open-edge notches, not closed bores: a closed bore would leave only 8 mm of timber to the board edge, which breaks off. The two rear ones are corner notches.",
     "Rear equipment shelf: 1615 x 230 x 18 mm, underside 500 / top 518 mm, 186 mm clear below the desktop. It begins 472 mm behind the desktop front; the middle knee zone remains open. It hangs on four separate shelf brackets fixed to the wall, 200 mm reach, not on the pipe frame: bracket type, size and wall fixings are an allowance still to be chosen.",
     "M1 Mac mini 197 x 197 x 36 mm sits on the rear shelf with ports facing along its length for cable access. Router and power-brick sizes remain space allowances, not measured products. Keep the shelf open and separate the bricks; do not stack or strap across vents.",
     "Focusrite and OWC dock use separate adjustable open-bottom/side U holders under the front ends. Their exposed front panels and cable reserves remain outside the 700 mm central seated knee width; bracket screw lengths and exact Focusrite generation remain to verify."

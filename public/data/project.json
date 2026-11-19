@@ -4,13 +4,13 @@
     "locked": true,
     "updated": "2026-10-20",
     "priceBasis": "19–20 October 2026",
-    "partCount": 282,
-    "pipeCount": 77,
+    "partCount": 286,
+    "pipeCount": 79,
     "boardCount": 15,
-    "hardwarePieces": 267,
+    "hardwarePieces": 271,
     "lightState": "Afternoon daylight · ceiling fixture off",
-    "coreBudget": 2930.73,
-    "withCrates": 2996.66,
+    "coreBudget": 2933.77,
+    "withCrates": 2999.7,
     "optionalAccessories": 90.0,
     "entryGap": 665.5,
     "desk": [
@@ -137,13 +137,13 @@
       "label": "Extended bed to desk aisle",
       "a": [
         1723.0,
-        2919.7,
-        704.3
+        2918.8,
+        705.2
       ],
       "b": [
         2703.0,
-        2919.7,
-        704.3
+        2918.8,
+        705.2
       ],
       "value": 980.0,
       "basis": "model"
@@ -439,13 +439,13 @@
         "points": [
           [
             1723.0,
-            2919.7,
-            704.3
+            2918.8,
+            705.2
           ],
           [
             2703.0,
-            2919.7,
-            704.3
+            2918.8,
+            705.2
           ]
         ]
       },
@@ -483,11 +483,11 @@
       "name": "1,000 mm pipe",
       "description": "DOLLE tube Ø25 × 1000 mm",
       "sku": "96292",
-      "quantity": 12,
-      "buyPacks": 12,
+      "quantity": 8,
+      "buyPacks": 8,
       "packSize": 1,
       "unitPrice": 9.99,
-      "total": 119.88,
+      "total": 79.92,
       "url": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1000-mm-20-mm-3-4-schwarz-matt-0763202825/",
       "status": "Last observed Globus price, 19 October 2026. On 21 October 2026 the Globus listing showed the item sold out with no price; recheck price and stock",
       "purchase": true
@@ -498,11 +498,11 @@
       "name": "Female–female coupling",
       "description": "DOLLE Extension, TWO FEMALE THREADS",
       "sku": "96445",
-      "quantity": 14,
-      "buyPacks": 14,
+      "quantity": 16,
+      "buyPacks": 16,
       "packSize": 1,
       "unitPrice": 1.59,
-      "total": 22.26,
+      "total": 25.44,
       "url": "https://www.obi.de/p/4978219/dolle-doppelmuffe-extension-fuer-pipe-regalsystem-20-mm-3-4-schwarz-matt",
       "status": "Indicative indexed listing; current direct page unavailable; price/stock must be rechecked. The OBI page returned 404 on 21 October 2026",
       "purchase": true
@@ -558,11 +558,11 @@
       "name": "40 mm pipe",
       "description": "DOLLE tube Ø25 × 40 mm",
       "sku": "96193",
-      "quantity": 14,
-      "buyPacks": 14,
+      "quantity": 18,
+      "buyPacks": 18,
       "packSize": 1,
       "unitPrice": 1.19,
-      "total": 16.66,
+      "total": 21.42,
       "url": "https://www.obi.de/p/4964102/dolle-rohr-tube-fuer-pipe-regalsystem-25-mm-x-40-mm-schwarz-matt",
       "status": "Indicative indexed listing; current direct page unavailable; price/stock must be rechecked. The OBI page returned 404 on 21 October 2026",
       "purchase": true
@@ -603,11 +603,11 @@
       "name": "602 mm pipe",
       "description": "DOLLE tube Ø25 × 602 mm",
       "sku": "96599",
-      "quantity": 6,
-      "buyPacks": 6,
+      "quantity": 8,
+      "buyPacks": 8,
       "packSize": 1,
       "unitPrice": 6.99,
-      "total": 41.94,
+      "total": 55.92,
       "url": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-602-mm-20-mm-3-4-schwarz-matt-0763202834/",
       "status": "Last observed Globus price, 19 October 2026. On 21 October 2026 the Globus listing showed the item sold out with no price; recheck price and stock",
       "purchase": true
@@ -618,11 +618,11 @@
       "name": "200 mm pipe",
       "description": "DOLLE tube Ø25 × 200 mm",
       "sku": "96247",
-      "quantity": 4,
-      "buyPacks": 4,
+      "quantity": 2,
+      "buyPacks": 2,
       "packSize": 1,
       "unitPrice": 2.59,
-      "total": 10.36,
+      "total": 5.18,
       "url": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-200-mm-20-mm-3-4-schwarz-matt-0763202832/",
       "status": "Last observed Globus price, 19 October 2026. On 21 October 2026 the Globus listing showed the item sold out with no price; recheck price and stock",
       "purchase": true
@@ -663,11 +663,11 @@
       "name": "1,500 mm pipe",
       "description": "DOLLE tube Ø25 × 1500 mm",
       "sku": "96339",
-      "quantity": 2,
-      "buyPacks": 2,
+      "quantity": 4,
+      "buyPacks": 4,
       "packSize": 1,
       "unitPrice": 12.99,
-      "total": 25.98,
+      "total": 51.96,
       "url": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1500-mm-20-mm-3-4-schwarz-matt-0763202820/",
       "status": "Retained 19 October 2026 Globus price input; verify local stock",
       "purchase": true
@@ -1217,7 +1217,7 @@
       "name": "Contingency · 10%",
       "description": "Reserve on the core frame, wood, lights and allowances",
       "quantity": 1,
-      "total": 266.43,
+      "total": 266.71,
       "url": null,
       "status": "Budget reserve",
       "purchase": false
@@ -1323,7 +1323,7 @@
       "description": "Lay out the ten main posts at their V18 positions. Leave the structure loose and supported.",
       "actions": [
         "Lay out paired front/back posts 290 mm apart, using the model axes rather than the wall surface as a datum.",
-        "Stage the lower sleeves before closing each lower post into its coupling. The two rear desk posts start with a 200 mm tube and a threaded cross at 235 mm instead.",
+        "Stage the lower sleeves before closing each lower post into its coupling. The four desk posts (middle and rear) start with a 602 mm tube; thread their two low sleeves on before the coupling closes it.",
         "Use floor protection under flanges. Do not assume that a floor flange must be drilled into the rental floor.",
         "Keep the frame braced or held during dry fitting; it is not self-supporting until its wall ties and braces are secured."
       ],
@@ -1368,16 +1368,9 @@
           "url": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1000-mm-20-mm-3-4-schwarz-matt-0763202825/"
         },
         {
-          "kind": "tube_200",
-          "name": "200 mm pipe",
-          "quantity": 2,
-          "sku": "96247",
-          "url": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-200-mm-20-mm-3-4-schwarz-matt-0763202832/"
-        },
-        {
           "kind": "tube_602",
           "name": "602 mm pipe",
-          "quantity": 2,
+          "quantity": 4,
           "sku": "96599",
           "url": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-602-mm-20-mm-3-4-schwarz-matt-0763202834/"
         }
@@ -1390,11 +1383,11 @@
       "id": 4,
       "title": "Build the shared desk supports",
       "kicker": "Desk module",
-      "description": "Crosses where a line continues, sliding Ts where it ends: a low line into the wall at 235 mm, a front brace at 400 mm and the desk-height joints.",
+      "description": "Crosses at desk height on the middle and rear posts, with the wall fixing there too. Low down only sliding Ts: a brace at 235 mm and a front brace at 400 mm.",
       "actions": [
-        "Low line first: each rear post starts with a 200 mm tube and a four-female DOLLE cross at 235 mm. From the cross a 250 mm pipe runs to a sliding T on the middle post and a 40 mm pipe into a wall flange. Above the cross the rear post continues with 1,000 + coupling + 1,000 mm.",
-        "Preassemble each free cross/front-arm/elbow module with its 40 mm pipe, coupling and 602 mm front leg. The middle post below the desk cross is 602 + coupling + 40 mm; above it 40 + coupling + 1500 mm.",
-        "Fit the desk-height cross at each middle upright: 250 mm front arm into the front-leg elbow, 250 mm rear bridge into the sliding T on the rear upright. Brace the front leg to the middle post with a 250 mm pipe between two sliding Ts at 400 mm; it cannot share the 235 mm station on the middle post.",
+        "Low brace first: a 250 mm pipe between two sliding Ts at 235 mm joins each rear post to its middle post. Nothing is fixed to the wall down here, so no screw goes into the 150–450 mm band where sockets and their feeds usually run.",
+        "Preassemble each free cross/front-arm/elbow module with its 40 mm pipe, coupling and 602 mm front leg. Middle and rear posts stack alike: 602 + coupling + 40 mm below the desk cross, 40 + coupling + 1500 mm above it.",
+        "Fit the desk-height cross at each middle upright: 250 mm front arm into the front-leg elbow, 250 mm rear bridge into the cross on the rear upright. From that rear cross a 40 mm pipe runs into a wall flange at desk height, under the back edge of the desktop. Brace the front leg to the middle post with a 250 mm pipe between two sliding Ts at 400 mm; it cannot share the 235 mm station on the middle post.",
         "The current fitting profile yields a 689 mm support-pipe axis. Keep all eight saddle screw points on the 704 mm underside plane."
       ],
       "notes": [
@@ -1415,40 +1408,42 @@
         "DS0.joint_riser",
         "Desk.cross0",
         "Desk.cross1",
-        "Desk.low0.cross_rear",
+        "Desk.cross_rear0",
+        "Desk.cross_rear1",
         "Desk.low0.front.t1",
         "Desk.low0.front.t2",
         "Desk.low0.front.tube",
-        "Desk.low0.rear",
-        "Desk.low0.tee",
-        "Desk.low0.wall",
-        "Desk.low0.wall_flange",
-        "Desk.low1.cross_rear",
+        "Desk.low0.rear.t1",
+        "Desk.low0.rear.t2",
+        "Desk.low0.rear.tube",
         "Desk.low1.front.t1",
         "Desk.low1.front.t2",
         "Desk.low1.front.tube",
-        "Desk.low1.rear",
-        "Desk.low1.tee",
-        "Desk.low1.wall",
-        "Desk.low1.wall_flange",
+        "Desk.low1.rear.t1",
+        "Desk.low1.rear.t2",
+        "Desk.low1.rear.tube",
         "Desk.shared0.0.saddle0",
         "Desk.shared0.0.saddle1",
         "Desk.shared0.0.tube",
         "Desk.shared0.1.saddle0",
         "Desk.shared0.1.saddle1",
-        "Desk.shared0.1.tee",
         "Desk.shared0.1.tube",
+        "Desk.shared0.1.wall",
+        "Desk.shared0.1.wall_flange",
         "Desk.shared1.0.saddle0",
         "Desk.shared1.0.saddle1",
         "Desk.shared1.0.tube",
         "Desk.shared1.1.saddle0",
         "Desk.shared1.1.saddle1",
-        "Desk.shared1.1.tee",
         "Desk.shared1.1.tube",
-        "RB0.mid",
+        "Desk.shared1.1.wall",
+        "Desk.shared1.1.wall_flange",
+        "RB0.extension",
+        "RB0.joint_riser",
         "RF0.extension",
         "RF0.joint_riser",
-        "SB0.mid"
+        "SB0.extension",
+        "SB0.joint_riser"
       ],
       "materials": [
         {
@@ -1468,7 +1463,7 @@
         {
           "kind": "extension",
           "name": "Female–female coupling",
-          "quantity": 4,
+          "quantity": 6,
           "sku": "96445",
           "url": "https://www.obi.de/p/4978219/dolle-doppelmuffe-extension-fuer-pipe-regalsystem-20-mm-3-4-schwarz-matt"
         },
@@ -1494,13 +1489,6 @@
           "url": "https://www.globus-baumarkt.de/p/dolle-t-verbinder-fuer-pipe-regalsystem-20-mm-3-4-verschiebbar-schwarz-matt-0763202823/"
         },
         {
-          "kind": "tube_1000",
-          "name": "1,000 mm pipe",
-          "quantity": 2,
-          "sku": "96292",
-          "url": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1000-mm-20-mm-3-4-schwarz-matt-0763202825/"
-        },
-        {
           "kind": "tube_250",
           "name": "250 mm pipe",
           "quantity": 8,
@@ -1510,7 +1498,7 @@
         {
           "kind": "tube_40",
           "name": "40 mm pipe",
-          "quantity": 6,
+          "quantity": 8,
           "sku": "96193",
           "url": "https://www.obi.de/p/4964102/dolle-rohr-tube-fuer-pipe-regalsystem-25-mm-x-40-mm-schwarz-matt"
         },
@@ -1533,11 +1521,11 @@
       "description": "Keep the full 1,615 × 702 mm surface with a clear front edge.",
       "actions": [
         "While the upper frame is still open, fit the desktop around the continuing rack posts and support it safely during assembly.",
-        "Transfer four post clearances from the measured frame. The preview uses Ø44 mm, including two open-edge notches at the near end.",
+        "Transfer four post clearances from the measured frame. The preview uses 44 mm wide open-edge notches for all four, because a closed Ø44 bore would leave only 8 mm of timber to the edge. The two rear ones are corner notches.",
         "Transfer the shallow underside tee/elbow reliefs from real castings. Do not break through the top face.",
         "Round the entrance-side front corner to R100 mm. It widens the kitchen-corner passage; the nearest saddle screw stays on full-width timber.",
         "Screw the desktop to its eight saddle tabs. Hang the 1615 × 230 × 18 mm rear service shelf on four separate wall shelf brackets at 500 mm underside / 518 mm top; it is not part of the pipe frame.",
-        "The service shelf begins 472 mm behind the front edge. Choose the brackets (about 200 mm reach) and their wall fixings for the real wall; the budget carries an allowance only. Transfer its two rear post clearances from actual parts and keep the central knee area open."
+        "The service shelf begins 472 mm behind the front edge. Choose the brackets (about 200 mm reach) and their wall fixings for the real wall; the budget carries an allowance only. Cut its two rear post clearances as corner notches, transferred from actual parts, and keep the central knee area open."
       ],
       "notes": [
         "Preview top height: 732 mm. This is derived from stock lengths and unmeasured socket offsets; it may change after calibration.",
@@ -1587,7 +1575,8 @@
         "DS0.top_extension",
         "DS0.top_stub",
         "DS0.upper",
-        "RB0.extension",
+        "RB0.top_extension",
+        "RB0.top_stub",
         "RB0.upper",
         "RB1.extension",
         "RB1.upper",
@@ -1604,7 +1593,8 @@
         "RF2.upper",
         "RF3.extension",
         "RF3.upper",
-        "SB0.extension",
+        "SB0.top_extension",
+        "SB0.top_stub",
         "SB0.upper"
       ],
       "materials": [
@@ -1616,13 +1606,6 @@
           "url": "https://www.obi.de/p/4978219/dolle-doppelmuffe-extension-fuer-pipe-regalsystem-20-mm-3-4-schwarz-matt"
         },
         {
-          "kind": "tube_1000",
-          "name": "1,000 mm pipe",
-          "quantity": 2,
-          "sku": "96292",
-          "url": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1000-mm-20-mm-3-4-schwarz-matt-0763202825/"
-        },
-        {
           "kind": "tube_1200",
           "name": "1,200 mm pipe",
           "quantity": 6,
@@ -1632,14 +1615,14 @@
         {
           "kind": "tube_1500",
           "name": "1,500 mm pipe",
-          "quantity": 2,
+          "quantity": 4,
           "sku": "96339",
           "url": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1500-mm-20-mm-3-4-schwarz-matt-0763202820/"
         },
         {
           "kind": "tube_40",
           "name": "40 mm pipe",
-          "quantity": 2,
+          "quantity": 4,
           "sku": "96193",
           "url": "https://www.obi.de/p/4964102/dolle-rohr-tube-fuer-pipe-regalsystem-25-mm-x-40-mm-schwarz-matt"
         }
@@ -2964,6 +2947,32 @@
           100
         ]
       ],
+      "notches": [
+        [
+          3063.0,
+          3107.0,
+          1305,
+          1322.0
+        ],
+        [
+          3353.0,
+          3405,
+          1305,
+          1322.0
+        ],
+        [
+          3063.0,
+          3107.0,
+          2868.0,
+          2920
+        ],
+        [
+          3353.0,
+          3405,
+          2868.0,
+          2920
+        ]
+      ],
       "support_reliefs": [
         {
           "bounds": [
@@ -3075,7 +3084,21 @@
         ]
       ],
       "recess": null,
-      "rotation_degrees": 0
+      "rotation_degrees": 0,
+      "notches": [
+        [
+          3353.0,
+          3405,
+          1305,
+          1322.0
+        ],
+        [
+          3353.0,
+          3405,
+          2868.0,
+          2920
+        ]
+      ]
     }
   },
   "columns": {
@@ -3118,7 +3141,8 @@
       "y": 2890,
       "tubes": [
         "RB0.lower",
-        "RB0.mid",
+        "RB0.joint_riser",
+        "RB0.top_stub",
         "RB0.upper"
       ]
     },
@@ -3161,7 +3185,8 @@
       "y": 1300,
       "tubes": [
         "SB0.lower",
-        "SB0.mid",
+        "SB0.joint_riser",
+        "SB0.top_stub",
         "SB0.upper"
       ]
     },
@@ -3930,7 +3955,7 @@
         0
       ],
       "data": {
-        "host": "SB0.mid"
+        "host": "SB0.upper"
       }
     },
     {
@@ -7580,7 +7605,7 @@
         0
       ],
       "data": {
-        "host": "SB0.mid"
+        "host": "SB0.upper"
       }
     },
     {
@@ -7841,7 +7866,7 @@
         0
       ],
       "data": {
-        "host": "RB0.mid"
+        "host": "RB0.upper"
       }
     },
     {
@@ -8147,7 +8172,7 @@
     },
     {
       "id": "SB0.lower",
-      "kind": "tube_200",
+      "kind": "tube_602",
       "origin": [
         3375,
         1300,
@@ -8164,16 +8189,60 @@
         0
       ],
       "data": {
-        "length": 200
+        "length": 602
       }
     },
     {
-      "id": "Desk.low0.cross_rear",
+      "id": "SB0.extension",
+      "kind": "extension",
+      "origin": [
+        3375.0,
+        1300.0,
+        623.0
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {
+        "gap": 12
+      }
+    },
+    {
+      "id": "SB0.joint_riser",
+      "kind": "tube_40",
+      "origin": [
+        3375.0,
+        1300.0,
+        629.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {
+        "length": 40
+      }
+    },
+    {
+      "id": "Desk.cross_rear0",
       "kind": "cross",
       "origin": [
         3375.0,
         1300.0,
-        235.0
+        689.0
       ],
       "axis": [
         0,
@@ -8188,12 +8257,12 @@
       "data": {}
     },
     {
-      "id": "SB0.mid",
-      "kind": "tube_1000",
+      "id": "SB0.top_stub",
+      "kind": "tube_40",
       "origin": [
         3375.0,
         1300.0,
-        255.0
+        709.0
       ],
       "axis": [
         0.0,
@@ -8206,16 +8275,16 @@
         0
       ],
       "data": {
-        "length": 1000
+        "length": 40
       }
     },
     {
-      "id": "SB0.extension",
+      "id": "SB0.top_extension",
       "kind": "extension",
       "origin": [
         3375.0,
         1300.0,
-        1261.0
+        755.0
       ],
       "axis": [
         0,
@@ -8233,11 +8302,11 @@
     },
     {
       "id": "SB0.upper",
-      "kind": "tube_1000",
+      "kind": "tube_1500",
       "origin": [
         3375.0,
         1300.0,
-        1267.0
+        761.0
       ],
       "axis": [
         0.0,
@@ -8250,7 +8319,7 @@
         0
       ],
       "data": {
-        "length": 1000
+        "length": 1500
       }
     },
     {
@@ -8259,7 +8328,7 @@
       "origin": [
         3375.0,
         1300.0,
-        2267.0
+        2261.0
       ],
       "axis": [
         0.0,
@@ -8298,34 +8367,12 @@
       }
     },
     {
-      "id": "Desk.shared0.1.tee",
-      "kind": "slide_tee",
-      "origin": [
-        3375,
-        1300,
-        689
-      ],
-      "axis": [
-        0,
-        0,
-        1
-      ],
-      "direction": [
-        -1,
-        0,
-        0
-      ],
-      "data": {
-        "host": "SB0.mid"
-      }
-    },
-    {
       "id": "Desk.shared0.1.tube",
       "kind": "tube_250",
       "origin": [
-        3355,
-        1300,
-        689
+        3355.0,
+        1300.0,
+        689.0
       ],
       "axis": [
         -1.0,
@@ -8340,6 +8387,48 @@
       "data": {
         "length": 250
       }
+    },
+    {
+      "id": "Desk.shared0.1.wall",
+      "kind": "tube_40",
+      "origin": [
+        3395.0,
+        1300.0,
+        689.0
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {
+        "length": 40
+      }
+    },
+    {
+      "id": "Desk.shared0.1.wall_flange",
+      "kind": "flange",
+      "origin": [
+        3450.0,
+        1300.0,
+        689.0
+      ],
+      "axis": [
+        -1,
+        0,
+        0
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {}
     },
     {
       "id": "Desk.shared0.0.saddle0",
@@ -8540,7 +8629,29 @@
       "data": {}
     },
     {
-      "id": "Desk.low0.tee",
+      "id": "Desk.low0.rear.t1",
+      "kind": "slide_tee",
+      "origin": [
+        3375,
+        1300,
+        235
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "direction": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "data": {
+        "host": "SB0.lower"
+      }
+    },
+    {
+      "id": "Desk.low0.rear.t2",
       "kind": "slide_tee",
       "origin": [
         3085,
@@ -8553,16 +8664,16 @@
         1
       ],
       "direction": [
-        1,
-        0,
-        0
+        1.0,
+        -0.0,
+        -0.0
       ],
       "data": {
         "host": "DS0.lower"
       }
     },
     {
-      "id": "Desk.low0.rear",
+      "id": "Desk.low0.rear.tube",
       "kind": "tube_250",
       "origin": [
         3355.0,
@@ -8582,48 +8693,6 @@
       "data": {
         "length": 250
       }
-    },
-    {
-      "id": "Desk.low0.wall",
-      "kind": "tube_40",
-      "origin": [
-        3395.0,
-        1300.0,
-        235.0
-      ],
-      "axis": [
-        1.0,
-        0.0,
-        0.0
-      ],
-      "direction": [
-        1,
-        0,
-        0
-      ],
-      "data": {
-        "length": 40
-      }
-    },
-    {
-      "id": "Desk.low0.wall_flange",
-      "kind": "flange",
-      "origin": [
-        3450.0,
-        1300.0,
-        235.0
-      ],
-      "axis": [
-        -1,
-        0,
-        0
-      ],
-      "direction": [
-        1,
-        0,
-        0
-      ],
-      "data": {}
     },
     {
       "id": "Desk.low0.front.t1",
@@ -8867,7 +8936,7 @@
     },
     {
       "id": "RB0.lower",
-      "kind": "tube_200",
+      "kind": "tube_602",
       "origin": [
         3375,
         2890,
@@ -8884,16 +8953,60 @@
         0
       ],
       "data": {
-        "length": 200
+        "length": 602
       }
     },
     {
-      "id": "Desk.low1.cross_rear",
+      "id": "RB0.extension",
+      "kind": "extension",
+      "origin": [
+        3375.0,
+        2890.0,
+        623.0
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {
+        "gap": 12
+      }
+    },
+    {
+      "id": "RB0.joint_riser",
+      "kind": "tube_40",
+      "origin": [
+        3375.0,
+        2890.0,
+        629.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {
+        "length": 40
+      }
+    },
+    {
+      "id": "Desk.cross_rear1",
       "kind": "cross",
       "origin": [
         3375.0,
         2890.0,
-        235.0
+        689.0
       ],
       "axis": [
         0,
@@ -8908,12 +9021,12 @@
       "data": {}
     },
     {
-      "id": "RB0.mid",
-      "kind": "tube_1000",
+      "id": "RB0.top_stub",
+      "kind": "tube_40",
       "origin": [
         3375.0,
         2890.0,
-        255.0
+        709.0
       ],
       "axis": [
         0.0,
@@ -8926,16 +9039,16 @@
         0
       ],
       "data": {
-        "length": 1000
+        "length": 40
       }
     },
     {
-      "id": "RB0.extension",
+      "id": "RB0.top_extension",
       "kind": "extension",
       "origin": [
         3375.0,
         2890.0,
-        1261.0
+        755.0
       ],
       "axis": [
         0,
@@ -8953,11 +9066,11 @@
     },
     {
       "id": "RB0.upper",
-      "kind": "tube_1000",
+      "kind": "tube_1500",
       "origin": [
         3375.0,
         2890.0,
-        1267.0
+        761.0
       ],
       "axis": [
         0.0,
@@ -8970,7 +9083,7 @@
         0
       ],
       "data": {
-        "length": 1000
+        "length": 1500
       }
     },
     {
@@ -8979,7 +9092,7 @@
       "origin": [
         3375.0,
         2890.0,
-        2267.0
+        2261.0
       ],
       "axis": [
         0.0,
@@ -9018,34 +9131,12 @@
       }
     },
     {
-      "id": "Desk.shared1.1.tee",
-      "kind": "slide_tee",
-      "origin": [
-        3375,
-        2890,
-        689
-      ],
-      "axis": [
-        0,
-        0,
-        1
-      ],
-      "direction": [
-        -1,
-        0,
-        0
-      ],
-      "data": {
-        "host": "RB0.mid"
-      }
-    },
-    {
       "id": "Desk.shared1.1.tube",
       "kind": "tube_250",
       "origin": [
-        3355,
-        2890,
-        689
+        3355.0,
+        2890.0,
+        689.0
       ],
       "axis": [
         -1.0,
@@ -9060,6 +9151,48 @@
       "data": {
         "length": 250
       }
+    },
+    {
+      "id": "Desk.shared1.1.wall",
+      "kind": "tube_40",
+      "origin": [
+        3395.0,
+        2890.0,
+        689.0
+      ],
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {
+        "length": 40
+      }
+    },
+    {
+      "id": "Desk.shared1.1.wall_flange",
+      "kind": "flange",
+      "origin": [
+        3450.0,
+        2890.0,
+        689.0
+      ],
+      "axis": [
+        -1,
+        0,
+        0
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "data": {}
     },
     {
       "id": "Desk.shared1.0.saddle0",
@@ -9260,7 +9393,29 @@
       "data": {}
     },
     {
-      "id": "Desk.low1.tee",
+      "id": "Desk.low1.rear.t1",
+      "kind": "slide_tee",
+      "origin": [
+        3375,
+        2890,
+        235
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "direction": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "data": {
+        "host": "RB0.lower"
+      }
+    },
+    {
+      "id": "Desk.low1.rear.t2",
       "kind": "slide_tee",
       "origin": [
         3085,
@@ -9273,16 +9428,16 @@
         1
       ],
       "direction": [
-        1,
-        0,
-        0
+        1.0,
+        -0.0,
+        -0.0
       ],
       "data": {
         "host": "RF0.lower"
       }
     },
     {
-      "id": "Desk.low1.rear",
+      "id": "Desk.low1.rear.tube",
       "kind": "tube_250",
       "origin": [
         3355.0,
@@ -9302,48 +9457,6 @@
       "data": {
         "length": 250
       }
-    },
-    {
-      "id": "Desk.low1.wall",
-      "kind": "tube_40",
-      "origin": [
-        3395.0,
-        2890.0,
-        235.0
-      ],
-      "axis": [
-        1.0,
-        0.0,
-        0.0
-      ],
-      "direction": [
-        1,
-        0,
-        0
-      ],
-      "data": {
-        "length": 40
-      }
-    },
-    {
-      "id": "Desk.low1.wall_flange",
-      "kind": "flange",
-      "origin": [
-        3450.0,
-        2890.0,
-        235.0
-      ],
-      "axis": [
-        -1,
-        0,
-        0
-      ],
-      "direction": [
-        1,
-        0,
-        0
-      ],
-      "data": {}
     },
     {
       "id": "Desk.low1.front.t1",
@@ -9467,6 +9580,32 @@
             2703,
             1305,
             100
+          ]
+        ],
+        "notches": [
+          [
+            3063.0,
+            3107.0,
+            1305,
+            1322.0
+          ],
+          [
+            3353.0,
+            3405,
+            1305,
+            1322.0
+          ],
+          [
+            3063.0,
+            3107.0,
+            2868.0,
+            2920
+          ],
+          [
+            3353.0,
+            3405,
+            2868.0,
+            2920
           ]
         ],
         "support_reliefs": [
@@ -9665,13 +9804,27 @@
           ]
         ],
         "recess": null,
-        "rotation_degrees": 0
+        "rotation_degrees": 0,
+        "notches": [
+          [
+            3353.0,
+            3405,
+            1305,
+            1322.0
+          ],
+          [
+            3353.0,
+            3405,
+            2868.0,
+            2920
+          ]
+        ]
       }
     }
   ],
   "checks": {
     "allAssignedExactlyOnce": true,
-    "coreBudgetReconciled": 2930.73,
+    "coreBudgetReconciled": 2933.77,
     "tubeLengths": [
       40,
       200,

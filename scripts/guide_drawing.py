@@ -18,6 +18,7 @@ def draw_part(id,parts,boards,active=False):
   s.append(poly(top,color,fill,4))
   for x,y,diam in b['holes']:
    ring=[project((x+diam/2*math.cos(t),y+diam/2*math.sin(t),z+b['thickness'])) for t in [j*math.tau/20 for j in range(20)]];s.append(poly(ring,color,'#fff',2.5))
+  for nx0,nx1,ny0,ny1 in b.get('notches',[]):s.append(poly([project((x,y,z+b['thickness'])) for x,y in ((nx0,ny0),(nx1,ny0),(nx1,ny1),(nx0,ny1))],color,'#fff',2.5))
  elif kind=='slide_tee':
   s.append(line(project(add(o,mul(axis,-35))),project(add(o,mul(axis,35))),color,23));s.append(line(project(o),project(add(o,mul(d,30))),color,22))
  elif kind=='cross':

@@ -1,40 +1,40 @@
 # Complete BOM — V18 cross-braced desk module
 
-Core estimate **€2,930.73** including 10% reserve. With six crates **€2,996.66**.
+Core estimate **€2,933.77** including 10% reserve. With six crates **€2,999.70**.
 
-Without wood: **€1,778.01**, including a recalculated 10% reserve of €161.64. Excludes boards, timber waste and light covers; keeps machining and fixings. Add your reclaimed wood cost separately. Crates and optional accessories remain extra.
+Without wood: **€1,781.04**, including a recalculated 10% reserve of €161.91. Excludes boards, timber waste and light covers; keeps machining and fixings. Add your reclaimed wood cost separately. Crates and optional accessories remain extra.
 
 | Category | Subtotal € |
 |---|---:|
-| Hardware | 1036.39 |
+| Hardware | 1039.15 |
 | Wood | 1047.93 |
 | Lighting | 207.98 |
-| Allowances | 638.43 |
+| Allowances | 638.71 |
 | Crates (extra) | 59.94 |
 | Optional (extra) | 90.00 |
 
 Allowances includes the core 10% reserve. Category subtotals reconcile to the listed rows.
 
-Four four-female crosses. At desk height a cross on each middle post joins the 250 mm front arm and the 250 mm rear bridge. At 235 mm a cross on each rear post takes a 250 mm pipe from a sliding T on the middle post and a 40 mm pipe into a wall flange; the front leg is braced to the middle post by a 250 mm sliding-T bridge at 400 mm. Middle posts stack 602 + coupling + 40, cross, 40 + coupling + 1500 mm; rear posts 200, cross, 1000 + coupling + 1000 mm. The rear service shelf hangs on four separate wall brackets (allowance). No structural stock pipe is cut or stretched.
+Four four-female crosses. All sit at desk height. The cross on each middle post joins the 250 mm front arm and the 250 mm rear bridge. The cross on each rear post joins that bridge and a 40 mm pipe into a wall flange at 689 mm, so no wall fixing sits in the 150–450 mm socket band. Low down, a 250 mm sliding-T brace at 235 mm joins the rear and middle posts and another at 400 mm joins the front leg and middle post. Middle and rear posts stack 602 + coupling + 40, cross, 40 + coupling + 1500 mm. The rear service shelf hangs on four separate wall brackets (allowance). No structural stock pipe is cut or stretched.
 
 Crosses carry a €4.00 each budget allowance, not a confirmed shop quote. Other prices retain their dated 19–20 October 2026 basis.
 
 | Part | Qty | Packs | Unit/pack € | Total € | Source |
 |---|---:|---:|---:|---:|---|
 | Ø70 mm mounting flange · DOLLE plate / flange Ø70 | 20 | 20 | 2.59 | 51.80 | https://www.globus-baumarkt.de/p/dolle-plattenscheibe-fuer-pipe-regalsystem-oe-70-mm-20-mm-3-4-schwarz-matt-0763202822/ |
-| 1,000 mm pipe · DOLLE tube Ø25 × 1000 mm | 12 | 12 | 9.99 | 119.88 | https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1000-mm-20-mm-3-4-schwarz-matt-0763202825/ |
-| Female–female coupling · DOLLE Extension, TWO FEMALE THREADS | 14 | 14 | 1.59 | 22.26 | https://www.obi.de/p/4978219/dolle-doppelmuffe-extension-fuer-pipe-regalsystem-20-mm-3-4-schwarz-matt |
+| 1,000 mm pipe · DOLLE tube Ø25 × 1000 mm | 8 | 8 | 9.99 | 79.92 | https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1000-mm-20-mm-3-4-schwarz-matt-0763202825/ |
+| Female–female coupling · DOLLE Extension, TWO FEMALE THREADS | 16 | 16 | 1.59 | 25.44 | https://www.obi.de/p/4978219/dolle-doppelmuffe-extension-fuer-pipe-regalsystem-20-mm-3-4-schwarz-matt |
 | 1,200 mm pipe · DOLLE tube Ø25 × 1200 mm | 6 | 6 | 10.99 | 65.94 | https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1200-mm-20-mm-3-4-schwarz-matt-0763202841/ |
 | End cover · DOLLE end stopper, fit to verify, 2 per pack | 16 | 8 | 3.79 | 30.32 | https://www.globus-baumarkt.de/p/dolle-abdeckstopfen-fuer-pipe-regalsystem-20-mm-3-4-schwarz-matt-2-stueck-0763202816/ |
 | Sliding T connector · DOLLE sliding T, one female branch, Ø25 sleeve | 70 | 70 | 5.99 | 419.30 | https://www.globus-baumarkt.de/p/dolle-t-verbinder-fuer-pipe-regalsystem-20-mm-3-4-verschiebbar-schwarz-matt-0763202823/ |
-| 40 mm pipe · DOLLE tube Ø25 × 40 mm | 14 | 14 | 1.19 | 16.66 | https://www.obi.de/p/4964102/dolle-rohr-tube-fuer-pipe-regalsystem-25-mm-x-40-mm-schwarz-matt |
+| 40 mm pipe · DOLLE tube Ø25 × 40 mm | 18 | 18 | 1.19 | 21.42 | https://www.obi.de/p/4964102/dolle-rohr-tube-fuer-pipe-regalsystem-25-mm-x-40-mm-schwarz-matt |
 | 250 mm pipe · DOLLE tube Ø25 × 250 mm | 33 | 33 | 2.99 | 98.67 | https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-250-mm-20-mm-3-4-schwarz-matt-0763202837/ |
 | Saddle shelf holder · DOLLE PIPE one-sided saddle shelf holder, 2 per Toom pack | 60 | 30 | 2.99 | 89.70 | https://toom.de/p/regalbodenhalter-fuer-regalsystem-pipe-schwarz-2-stueck/7450897 |
-| 602 mm pipe · DOLLE tube Ø25 × 602 mm | 6 | 6 | 6.99 | 41.94 | https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-602-mm-20-mm-3-4-schwarz-matt-0763202834/ |
-| 200 mm pipe · DOLLE tube Ø25 × 200 mm | 4 | 4 | 2.59 | 10.36 | https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-200-mm-20-mm-3-4-schwarz-matt-0763202832/ |
+| 602 mm pipe · DOLLE tube Ø25 × 602 mm | 8 | 8 | 6.99 | 55.92 | https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-602-mm-20-mm-3-4-schwarz-matt-0763202834/ |
+| 200 mm pipe · DOLLE tube Ø25 × 200 mm | 2 | 2 | 2.59 | 5.18 | https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-200-mm-20-mm-3-4-schwarz-matt-0763202832/ |
 | 90° elbow · DOLLE 90 degree elbow, two female threads | 2 | 2 | 1.79 | 3.58 | https://www.obi.de/p/4974440/dolle-90-eckverbinder-fuer-pipe-regalsystem-2-innengewinden-20-mm-3-4-schwarz |
 | Four-way threaded cross · DOLLE PIPE four-way threaded cross, four female sockets · €4 each budget allowance; verify store price | 4 | 4 | 4.0 | 16.00 | https://toom.de/p/kreuzverbinder-fuer-regalsystem-pipe-34-schwarz/7450886 |
-| 1,500 mm pipe · DOLLE tube Ø25 × 1500 mm | 2 | 2 | 12.99 | 25.98 | https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1500-mm-20-mm-3-4-schwarz-matt-0763202820/ |
+| 1,500 mm pipe · DOLLE tube Ø25 × 1500 mm | 4 | 4 | 12.99 | 51.96 | https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1500-mm-20-mm-3-4-schwarz-matt-0763202820/ |
 | Wall shelf bracket (allowance) · Separate wall shelf bracket for the rear service shelf (allowance) | 4 | 4 | 6.0 | 24.00 | Allowance |
 | Desk · shelf0 · 1554 × 350 × 40 mm · oak allowance | 1 | 1 | 130.54 | 130.54 | Allowance |
 | Desk · shelf1 · 1554 × 350 × 28 mm · oak allowance | 1 | 1 | 87.02 | 87.02 | Allowance |
@@ -72,7 +72,7 @@ Crosses carry a €4.00 each budget allowance, not a confirmed shop quote. Other
 | Removable equipment straps, underside cable clips and cable service loops · Working budget allowance | 1 | — | 10.0 | 10.00 | Allowance |
 | 2 m certified Thunderbolt 4 cable; reuse existing lead if it reaches · Working budget allowance | 1 | — | 40.0 | 40.00 | Allowance |
 | Light-cover fixings and extra cuts · Small brackets, short wood screws and removable-cover joinery | 1 | — | — | 25.00 | Allowance |
-| Contingency · 10% · Reserve on the core frame, wood, lights and allowances | 1 | — | — | 266.43 | Allowance |
+| Contingency · 10% · Reserve on the core frame, wood, lights and allowances | 1 | — | — | 266.71 | Allowance |
 | KNAGGLIG · pine crate · 460 × 310 × 250 mm · four on top, two stacked below the folded bay | 6 | 6 | 9.99 | 59.94 | https://www.ikea.com/de/de/p/knagglig-kasten-kiefer-70292359/ |
 | VESA monitor arm, if the existing mount cannot be reused · Optional accessory allowance; no exact product selected | 1 | — | — | 60.00 | Allowance |
 | Speaker isolation pads, if needed · Optional accessory allowance; no exact product selected | 1 | — | — | 20.00 | Allowance |
@@ -80,11 +80,11 @@ Crosses carry a €4.00 each budget allowance, not a confirmed shop quote. Other
 
 ## Connection and machining checks
 
-Low line at 235 mm: a four-way cross on each rear post takes a 250 mm pipe from a sliding T on the middle post and a 40 mm pipe into a wall flange, replacing the old 300 mm rear brace, the 400 mm low wall tie and the far end's 200 mm wardrobe depth bar. The front leg keeps a plain sliding T: its 250 mm brace to the middle post sits at 400 mm, because two sleeves cannot share one station and no stock stack puts a cross on the leg without a spare socket.
-Cross-bearing posts: middle posts 602 + coupling + 40, cross, 40 + coupling + 1500 mm (capped top 2261 mm); rear posts 200, cross, 1000 + coupling + 1000 mm (capped top 2267 mm). Boards, equipment and the upper shelf sleeves keep their positions.
-The desktop still measures 1615 x 702 x 28 mm in the same plan position. Main entry corner gap remains 640.9 mm. Closest modeled front foot clearance exceeds 600 mm.
-The cross is a threaded fitting, not a slide-on clamp. Preassemble free modules and stage all sleeves before feeding posts; verify the physical closure sequence and measured socket stops before purchasing or cutting timber.
-Model connection and clearance checks are not a load certification. Verify desk saddle screws, clamp slip/rotation, wall anchorage and leaning loads before construction. Fully floating desk is not assumed approved.
+V18 desk module: all four former short desktop columns and both 602 mm endframe cross-pipes removed. The existing DS0/SB0 and RF0/RB0 rack posts carry the desktop: a DOLLE four-way cross at desk height on each middle post and each rear post. The middle cross joins the 250 mm front arm, the 250 mm rear bridge and the post sections above and below. The rear cross joins the rear bridge, a 40 mm pipe into a wall flange and its own post sections.
+Wall fixing at desk height: the two desk wall flanges sit at 689 mm, under the back edge of the desktop. Nothing is fixed to the wall between the floor and 689 mm at the posts, which keeps the flange screws out of the 150-450 mm band where sockets and their feeds usually run. Services are still not surveyed: check the wall with a cable detector before drilling anywhere.
+Low brace at 235 mm: a 250 mm pipe between two sliding Ts joins each rear post to its middle post. The front leg is braced to the middle post by a second 250 mm sliding-T bridge at 400 mm, because two sleeves cannot share one station.
+Cross-bearing posts: middle and rear posts stack alike, 602 + coupling + 40, cross, 40 + coupling + 1500 mm (capped top 2261 mm). Boards, equipment and the upper shelf sleeves keep their positions.
+Derived desktop underside 704 mm / top 732 mm. Front legs finish under the tabletop through elbows: no front-leg bores. The four 44 mm post clearances are open-edge notches, not closed bores: a closed bore would leave only 8 mm of timber to the board edge, which breaks off. The two rear ones are corner notches.
 Rear equipment shelf: 1615 x 230 x 18 mm, underside 500 / top 518 mm, 186 mm clear below the desktop. It begins 472 mm behind the desktop front; the middle knee zone remains open. It hangs on four separate shelf brackets fixed to the wall, 200 mm reach, not on the pipe frame: bracket type, size and wall fixings are an allowance still to be chosen.
 M1 Mac mini 197 x 197 x 36 mm sits on the rear shelf with ports facing along its length for cable access. Router and power-brick sizes remain space allowances, not measured products. Keep the shelf open and separate the bricks; do not stack or strap across vents.
 Focusrite and OWC dock use separate adjustable open-bottom/side U holders under the front ends. Their exposed front panels and cable reserves remain outside the 700 mm central seated knee width; bracket screw lengths and exact Focusrite generation remain to verify.

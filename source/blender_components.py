@@ -130,6 +130,10 @@ def rebuild(a,collection=MANAGED):
    origin=Vector(p.origin);x0,x1,y0,y1=p.data['bounds'];bt=p.data['bottom'];th=p.data['thickness'];o=b('Oak cut board',(0,0,0),(x1-x0,y1-y0,th));origin=Vector(p.origin)
    for x,y,diam in p.data['holes']:
     pos=Vector((x,y,bt-th))-origin;q=Vector((x,y,bt+th*2))-origin;hole=cylinder('Post bore',pos,q,diam/2);boolean(o,hole)
+   for nx0,nx1,ny0,ny1 in p.data.get('notches',[]):
+    # Open-edge notch: run the cutter 2 mm past the board edge so the boolean leaves no skin.
+    ex0,ex1,ey0,ey1=(nx0-(2 if nx0<=x0 else 0),nx1+(2 if nx1>=x1 else 0),ny0-(2 if ny0<=y0 else 0),ny1+(2 if ny1>=y1 else 0))
+    centre=Vector(((ex0+ex1)/2,(ey0+ey1)/2,bt+th/2))-origin;cut=box('Edge notch',centre,(ex1-ex0,ey1-ey0,th*3));boolean(o,cut)
    rc=p.data.get('recess')
    if rc:
     centre=Vector((rc['centre'][0],rc['centre'][1],bt+rc['depth']/2-.1))-origin;cut=box('OPEN UNDERSIDE POCKET',centre,(rc['width'],rc['length'],rc['depth']+.2));boolean(o,cut)

@@ -25,16 +25,16 @@
 
 ## Geometry and data
 
-- 54 source connection/geometry tests pass. They cover the R100 entrance corner, the rear cross line into the wall, the bracket-mounted service shelf, the in-column mirrored speaker trays and the wall plane read from the room file.
-- All 282 frame/timber components are assigned exactly once across 21 planning stages. Against the previous desk module the BOM has 10 fewer sliding Ts, 2 more crosses, 2 more 200 mm tubes and 4 shelf brackets (allowance).
-- Data checks reconcile the core €2,930.73 estimate, pack quantities, KTX2 textures, the Basis transcoder version, the clearance report and the measured/assumed dimension labels.
+- 56 source connection/geometry tests pass. They cover the R100 entrance corner, the desk-height rear cross and wall flange (no pipe-frame wall fixing in the 150–450 mm socket band), the open-edge post notches, the bracket-mounted service shelf, the in-column mirrored speaker trays and the wall plane read from the room file.
+- All 286 frame/timber components are assigned exactly once across 21 planning stages. Moving the rear crosses and the wall flanges up to desk height changed the BOM by 4 fewer 1,000 mm and 2 fewer 200 mm tubes, and 2 more 1,500 mm, 2 more 602 mm and 4 more 40 mm tubes plus 2 more couplings (about €3 more).
+- Data checks reconcile the core €2,933.77 estimate, pack quantities, KTX2 textures, the Basis transcoder version, the clearance report and the measured/assumed dimension labels.
 - Supplier status notes were rechecked on 21 October 2026. Globus listings were sold out without a price. Three OBI pages returned 404. The four-way cross EAN is listed elsewhere as a corner coupling and must be confirmed. The 1,200 mm tube is DOLLE 96322.
 
 ## Rendering
 
 - Cycles combined bake: 128 samples and six diffuse bounces, with the main ceiling fixture off. Atlases are sized by texel density, about 1.5–3 mm per pixel on the frame, desk timber and equipment. Hidden faces are removed, islands are tightly packed, and margins are 16 px. The 18 atlases took 1549 s to bake.
 - Atlases are baked in float and saved through the scene's AgX view transform (exposure +0.45). The browser renders them without tone mapping, so the colour matches the Blender poster.
-- KTX2 textures (UASTC + Zstandard; ETC1S for walls, ceiling, exterior and glass), mipmapped. The model is 22.9 MB, with about 98 MB of GPU texture memory, previously about 520 MB.
+- KTX2 textures (UASTC + Zstandard; ETC1S for walls, ceiling, exterior and glass), mipmapped. The model is 25.5 MB, with about 104 MB of GPU texture memory, previously about 520 MB.
 - Inside the flat, the cutaway keeps walls, ceiling and outside view. The render loop sleeps when idle, follows pixel-density changes and pauses and recovers on WebGL context loss. The 3D viewers load on first use.
 - Eight viewer tests pass. Browser checks covered the overview, workstation, dimensions, two-click measure tool, assembly 3D view and a 390 px layout.
 

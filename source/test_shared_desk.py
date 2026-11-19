@@ -20,31 +20,34 @@ class SharedDesk(unittest.TestCase):
   self.assertEqual(len(self.a.boards['Desk.top']['supports']),8)
   for i in range(2):
    self.assertEqual(self.a.parts[f'Desk.shared{i}.0.tube'].kind,'tube_250');self.assertEqual(self.a.parts[f'Desk.shared{i}.1.tube'].kind,'tube_250')
-   self.assertEqual(self.a.parts[f'Desk.shared{i}.1.tee'].kind,'slide_tee')
+   self.assertNotIn(f'Desk.shared{i}.1.tee',self.a.parts)
    self.assertEqual(self.a.parts[f'Desk.cross{i}'].kind,'cross')
    for suffix in ('up','down','in','out'):self.assertIn(self.a.ports[f'Desk.cross{i}.{suffix}'].used,self.a.ports)
    self.assertNotIn(f'Desk.shared{i}.1.cap',self.a.parts)
- def test_low_line_crosses_the_rear_post_and_tees_the_others(self):
+ def test_wall_fixing_is_at_desk_height_and_the_low_brace_is_two_tees(self):
+  axis=self.a.boards['Desk.top']['bottom']-self.a.v('saddle_rise')
   for i in range(2):
-   low=f'Desk.low{i}';y=self.a.columns[f'DF{i}']['y']
-   cross=self.a.parts[f'{low}.cross_rear'];self.assertEqual(cross.kind,'cross');self.assertEqual(cross.origin,(self.a.columns[('SB0','RB0')[i]]['x'],y,235))
-   for suffix in ('up','down','in','out'):self.assertIn(self.a.ports[f'{low}.cross_rear.{suffix}'].used,self.a.ports,suffix)
-   self.assertEqual(self.a.parts[f'{low}.tee'].kind,'slide_tee');self.assertEqual(self.a.parts[f'{low}.tee'].origin[2],235);self.assertEqual(self.a.parts[f'{low}.rear'].kind,'tube_250');self.assertEqual(self.a.parts[f'{low}.wall'].kind,'tube_40')
-   self.assertEqual(self.a.mounts[f'{low}.wall_flange'],'wall')
+   low=f'Desk.low{i}';y=self.a.columns[f'DF{i}']['y'];rear=self.a.parts[f'Desk.cross_rear{i}']
+   self.assertEqual(rear.kind,'cross');self.assertEqual(rear.origin,(self.a.columns[('SB0','RB0')[i]]['x'],y,axis))
+   for suffix in ('up','down','in','out'):self.assertIn(self.a.ports[f'Desk.cross_rear{i}.{suffix}'].used,self.a.ports,suffix)
+   self.assertEqual(self.a.parts[f'Desk.shared{i}.1.wall'].kind,'tube_40');self.assertEqual(self.a.mounts[f'Desk.shared{i}.1.wall_flange'],'wall')
    for suffix in ('t1','t2'):
+    t=self.a.parts[f'{low}.rear.{suffix}'];self.assertEqual(t.kind,'slide_tee');self.assertEqual(t.origin[2],235)
     t=self.a.parts[f'{low}.front.{suffix}'];self.assertEqual(t.kind,'slide_tee');self.assertEqual(t.origin[2],400)
-   self.assertFalse(any(k.startswith(f'{low}.cross_') and not k.endswith('rear') for k in self.a.parts));self.assertNotIn(f'{low}.stub',self.a.parts)
+   self.assertEqual(self.a.parts[f'{low}.rear.tube'].kind,'tube_250');self.assertFalse(any(k.startswith(f'{low}.cross') or k.startswith(f'{low}.wall') for k in self.a.parts))
   posts=('DS0','SB0','RF0','RB0','DF0','DF1');low_clamps=sorted(c['id'] for c in self.a.clamps if c['host'].split('.')[0] in posts and c['z']<self.a.boards['Desk.top']['bottom'])
-  self.assertEqual(low_clamps,sorted(['Desk.shared0.1.tee','Desk.shared1.1.tee','Desk.low0.tee','Desk.low1.tee','Desk.low0.front.t1','Desk.low0.front.t2','Desk.low1.front.t1','Desk.low1.front.t2']))
+  self.assertEqual(low_clamps,sorted(f'Desk.low{i}.{line}.{t}' for i in range(2) for line in ('rear','front') for t in ('t1','t2')))
   self.assertFalse(any(id.startswith(('Desk.low_front','Desk.low_depth','Desk.low_wall','Desk.service0','Desk.service1','Rack.depth0.')) for id in self.a.parts))
   self.assertIn('Rack.depth1.200.tube',self.a.parts)
+ def test_no_wall_fixing_in_the_socket_band_at_the_desk(self):
+  # Sockets and their feeds usually run 150-450 mm above the floor; the pipe frame keeps its flange screws out of that band.
+  for id,surface in self.a.mounts.items():
+   p=self.a.parts[id]
+   if surface=='wall' and p.kind=='flange':self.assertFalse(150-35<=p.origin[2]<=450+35,id)
  def test_crosses_split_uprights_and_rehost_every_clamp(self):
-  for c in ('DS0','RF0'):
+  for c in ('DS0','RF0','SB0','RB0'):
    self.assertEqual([self.a.parts[t].data['length'] for t in self.a.columns[c]['tubes']],[602,40,40,1500])
    self.assertEqual(self.a.parts[c+'.upper'].origin[2]+1500,2261)
-  for c in ('SB0','RB0'):
-   self.assertEqual([self.a.parts[t].data['length'] for t in self.a.columns[c]['tubes']],[200,1000,1000])
-   self.assertEqual(self.a.parts[c+'.upper'].origin[2]+1000,2267)
   for clamp in self.a.clamps:self.assertEqual(self.a.parts[clamp['id']].data['host'],clamp['host'])
   for id in ('Desk.wall0.1200.tee','Speaker0.arm1.tee','ShelfCross.DS0.SB0.1525.t2','Rack.wall0.tee','Rack.clean0.950.t1'):self.assertIn(id,self.a.parts)
  def test_cross_movement_is_rejected(self):
@@ -54,6 +57,16 @@ class SharedDesk(unittest.TestCase):
   holes=self.a.boards['Desk.top']['holes'];self.assertEqual(len(holes),4)
   for c in ('DS0','SB0','RF0','RB0'):
    post=self.a.columns[c];self.assertIn((post['x'],post['y'],44),holes)
+ def test_post_bores_open_to_the_edge_instead_of_leaving_a_thin_web(self):
+  for id,count in (('Desk.top',4),('Desk.service_shelf',2)):
+   b=self.a.boards[id];X0,X1,Y0,Y1=b['bounds'];self.assertEqual(len(b['notches']),count);self.assertEqual(self.a.parts[id].data['notches'],b['notches'])
+   for x,y,diam in b['holes']:
+    r=diam/2;inside=[n for n in b['notches'] if n[0]<=x-r+.01 and n[1]>=min(x+r,X1)-.01]
+    self.assertTrue(inside,(id,x,y))
+    for edge,web in ((X1,X1-x-r),(Y1,Y1-y-r),(Y0,y-r-Y0)):
+     if web<20:self.assertTrue(any(edge in n for n in inside),(id,x,y,edge))
+   for sid,x,y,z in b['supports']:self.assertFalse(any(n[0]-10<x<n[1]+10 and n[2]-10<y<n[3]+10 for n in b['notches']),sid)
+  for id in ('Desk.shelf0','Rack.top0','Speaker0.platform'):self.assertNotIn('notches',self.a.boards[id])
  def test_full_desktop_and_derived_height(self):
   b=self.a.boards['Desk.top'];x0,x1,y0,y1=b['bounds'];self.assertEqual((y1-y0,x1-x0,b['thickness']),(1615,702,28));self.assertEqual(b['bottom']+28,732)
   p=copy.deepcopy(PROFILE);p['elbow_stop']['value']=21

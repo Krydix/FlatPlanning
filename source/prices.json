@@ -17,22 +17,22 @@
     {
       "kind": "tube_1000",
       "name": "DOLLE tube \u00d825 \u00d7 1000 mm",
-      "quantity": 12,
-      "buy_packs": 12,
+      "quantity": 8,
+      "buy_packs": 8,
       "units_per_pack": 1,
       "unit_eur": "9.99",
-      "total_eur": "119.88",
+      "total_eur": "79.92",
       "source": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1000-mm-20-mm-3-4-schwarz-matt-0763202825/",
       "status": "Last observed Globus price, 19 October 2026. On 21 October 2026 the Globus listing showed the item sold out with no price; recheck price and stock"
     },
     {
       "kind": "extension",
       "name": "DOLLE Extension, TWO FEMALE THREADS",
-      "quantity": 14,
-      "buy_packs": 14,
+      "quantity": 16,
+      "buy_packs": 16,
       "units_per_pack": 1,
       "unit_eur": "1.59",
-      "total_eur": "22.26",
+      "total_eur": "25.44",
       "source": "https://www.obi.de/p/4978219/dolle-doppelmuffe-extension-fuer-pipe-regalsystem-20-mm-3-4-schwarz-matt",
       "status": "Indicative indexed listing; current direct page unavailable; price/stock must be rechecked. The OBI page returned 404 on 21 October 2026"
     },
@@ -72,11 +72,11 @@
     {
       "kind": "tube_40",
       "name": "DOLLE tube \u00d825 \u00d7 40 mm",
-      "quantity": 14,
-      "buy_packs": 14,
+      "quantity": 18,
+      "buy_packs": 18,
       "units_per_pack": 1,
       "unit_eur": "1.19",
-      "total_eur": "16.66",
+      "total_eur": "21.42",
       "source": "https://www.obi.de/p/4964102/dolle-rohr-tube-fuer-pipe-regalsystem-25-mm-x-40-mm-schwarz-matt",
       "status": "Indicative indexed listing; current direct page unavailable; price/stock must be rechecked. The OBI page returned 404 on 21 October 2026"
     },
@@ -105,22 +105,22 @@
     {
       "kind": "tube_602",
       "name": "DOLLE tube \u00d825 \u00d7 602 mm",
-      "quantity": 6,
-      "buy_packs": 6,
+      "quantity": 8,
+      "buy_packs": 8,
       "units_per_pack": 1,
       "unit_eur": "6.99",
-      "total_eur": "41.94",
+      "total_eur": "55.92",
       "source": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-602-mm-20-mm-3-4-schwarz-matt-0763202834/",
       "status": "Last observed Globus price, 19 October 2026. On 21 October 2026 the Globus listing showed the item sold out with no price; recheck price and stock"
     },
     {
       "kind": "tube_200",
       "name": "DOLLE tube \u00d825 \u00d7 200 mm",
-      "quantity": 4,
-      "buy_packs": 4,
+      "quantity": 2,
+      "buy_packs": 2,
       "units_per_pack": 1,
       "unit_eur": "2.59",
-      "total_eur": "10.36",
+      "total_eur": "5.18",
       "source": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-200-mm-20-mm-3-4-schwarz-matt-0763202832/",
       "status": "Last observed Globus price, 19 October 2026. On 21 October 2026 the Globus listing showed the item sold out with no price; recheck price and stock"
     },
@@ -153,9 +153,9 @@
       "unit_eur": "12.99",
       "source": "https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1500-mm-20-mm-3-4-schwarz-matt-0763202820/",
       "status": "Retained 19 October 2026 Globus price input; verify local stock",
-      "quantity": 2,
-      "buy_packs": 2,
-      "total_eur": "25.98"
+      "quantity": 4,
+      "buy_packs": 4,
+      "total_eur": "51.96"
     },
     {
       "kind": "bracket",
@@ -541,43 +541,43 @@
   ],
   "totals": {
     "low": {
-      "hardware": "1036.39",
+      "hardware": "1039.15",
       "timber_net": "600.35",
       "timber_with_waste": "690.40",
       "lip_with_waste": "42.86",
       "lighting": "207.98",
       "other_allowances": "182.00",
-      "core_before_contingency": "2159.63",
-      "contingency": "215.96",
-      "core_budget": "2375.59",
+      "core_before_contingency": "2162.39",
+      "contingency": "216.24",
+      "core_budget": "2378.63",
       "optional_accessories": "57.00",
-      "with_optional_accessories": "2432.590"
+      "with_optional_accessories": "2435.630"
     },
     "base": {
-      "hardware": "1036.39",
+      "hardware": "1039.15",
       "timber_net": "858.00",
       "timber_with_waste": "986.70",
       "lip_with_waste": "61.23",
       "lighting": "207.98",
       "other_allowances": "372.00",
-      "core_before_contingency": "2664.30",
-      "contingency": "266.43",
-      "core_budget": "2930.73",
+      "core_before_contingency": "2667.06",
+      "contingency": "266.71",
+      "core_budget": "2933.77",
       "optional_accessories": "90.00",
-      "with_optional_accessories": "3020.730"
+      "with_optional_accessories": "3023.770"
     },
     "high": {
-      "hardware": "1036.39",
+      "hardware": "1039.15",
       "timber_net": "1255.88",
       "timber_with_waste": "1444.26",
       "lip_with_waste": "91.84",
       "lighting": "207.98",
       "other_allowances": "705.00",
-      "core_before_contingency": "3485.47",
-      "contingency": "348.55",
-      "core_budget": "3834.02",
+      "core_before_contingency": "3488.23",
+      "contingency": "348.82",
+      "core_budget": "3837.05",
       "optional_accessories": "155.00",
-      "with_optional_accessories": "3989.020"
+      "with_optional_accessories": "3992.050"
     }
   },
   "base_allowances": [
@@ -698,8 +698,8 @@
     "unit_eur": "9.99",
     "total_eur": "59.94",
     "price_date": "2026-10-20",
-    "core_plus_crates_including_contingency_eur": "2996.66"
+    "core_plus_crates_including_contingency_eur": "2999.70"
   },
-  "joint_revision": "Four four-way desk crosses: desk-height joints plus a rear cross line at 235 mm into the wall; front legs braced by sliding Ts at 400 mm; rear service shelf on separate wall brackets; cross and bracket prices are allowances",
+  "joint_revision": "Four four-way desk crosses, all at desk height on the middle and rear posts; the two desk wall flanges sit at desk height, outside the 150-450 mm socket band; low sliding-T braces at 235 and 400 mm; rear service shelf on separate wall brackets; cross and bracket prices are allowances",
   "source_check": "Supplier links audited 21 October 2026; see each hardware status"
 }
