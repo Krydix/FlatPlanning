@@ -23,9 +23,9 @@ def draw(m,p,project,plan=False):
    for nx0,nx1,ny0,ny1 in p.data.get('notches',[]):
     ring=[project((x,y,bt)) for x,y in ((nx0,ny0),(nx1,ny0),(nx1,ny1),(nx0,ny1))]
     for k in range(4):m.add_line(ring[k],ring[(k+1)%4],dxfattribs={'layer':'V8_CLAMPS'})
- elif kind in ('slide_tee','cross','elbow'):
+ elif kind in ('slide_tee','tee','cross','elbow'):
   for d in (p.axis,p.direction):
-   negative=-30 if kind in ('slide_tee','cross') and (d==p.axis or kind=='cross') else 0
+   negative=-30 if kind in ('slide_tee','tee','cross') and (d==p.axis or kind=='cross') else 0
    line(add(o,mul(d,negative)),add(o,mul(d,30)))
  elif kind=='flange':m.add_circle(project(o),.035,dxfattribs={'layer':layer})
  elif kind=='saddle':line(o,add(add(o,mul(p.direction,A.v('saddle_tab_offset'))),(0,0,A.v('saddle_rise'))))
@@ -37,7 +37,7 @@ for name in ['flat-v18.dxf','frame-elevations-v18.dxf']:
   if e.dxf.layer in ('V8_PIPE','V8_TIMBER','V8_OVERHEAD','V8_CLAMPS','V18_EQUIPMENT_SERVICE'):m.delete_entity(e)
  if name=='flat-v18.dxf':views=[(lambda p:(.472818559556786+p[0]/1000,1.606022766620499+p[1]/1000),list(A.parts))]
  else:
-  views=[(lambda p:((p[1]-950)/1000,p[2]/1000),list(A.parts)),(lambda p:(4.75+(3450-p[0])/1000,p[2]/1000),[id for id in A.parts if id.startswith(('DF0','DS0','SB0','Speaker0','Desk.shared0','Desk.cross0','Desk.cross_rear0','Desk.low0','Desk.service_bracket','Desk.service_shelf','Desk.shelf','Desk.top'))]),(lambda p:(6.05+(3450-p[0])/1000,p[2]/1000),[id for id in A.parts if id.startswith(('RF2','RB2','Rack.fold','Rack.coat_shoes','Rack.top2','Rack.depth2','Wear'))])]
+  views=[(lambda p:((p[1]-950)/1000,p[2]/1000),list(A.parts)),(lambda p:(4.75+(3450-p[0])/1000,p[2]/1000),[id for id in A.parts if id.startswith(('DF0','DS0','SB0','Speaker0','Desk.shared0','Desk.cross0','Desk.cross_rear0','Desk.wall0','Desk.service_bracket','Desk.service_shelf','Desk.shelf','Desk.top'))]),(lambda p:(6.05+(3450-p[0])/1000,p[2]/1000),[id for id in A.parts if id.startswith(('RF2','RB2','Rack.fold','Rack.coat_shoes','Rack.top2','Rack.depth2','Wear'))])]
  for project,ids in views:
   for id in ids:draw(m,A.parts[id],project,name=='flat-v18.dxf')
  if 'V18_EQUIPMENT_SERVICE' not in d.layers:d.layers.new('V18_EQUIPMENT_SERVICE',dxfattribs={'color':5})

@@ -73,7 +73,8 @@ class Portal(unittest.TestCase):
    a=build(portal=True);self.assertEqual(a.validate()['geometry_errors'],[]);self.assertEqual(a.portal['crate_top'],room['ceiling']-self.d['crate']['ceiling_gap']);self.assertEqual(a.portal['lintel'],self.p['lintel']-20)
    self.assertEqual(a.parts['Portal.tie0.ceiling'].origin[2],room['ceiling'])
  def test_desk_module_moves_rigidly(self):
-  v=build(shared_desk=True);o=self.p['desk_offset']
+  # The frozen Portal keeps the sliding-T desk module it was built with, not V18's all-threaded frame.
+  v=pipe_engine.build_shared_desk(wall_at_desk=False);o=self.p['desk_offset']
   self.assertEqual(self.a.boards['Desk.top']['bounds'][2]-v.boards['Desk.top']['bounds'][2],o)
   self.assertEqual(o,self.p['rows'][1]-1300)
   for k in ('Desk.top','Desk.service_shelf','Desk.shelf0','Desk.shelf1','Desk.shelf2','Speaker0.platform','Speaker1.platform'):

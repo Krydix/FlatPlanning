@@ -14,14 +14,14 @@ from speaker_placement import speaker_layout
 SPEAKERS=speaker_layout(ROOT);speaker_sep=math.dist(*(s['centre'] for s in SPEAKERS))
 GEO=room_geometry();entry=check['entry-passage']['value'];tilt=CLEAR['speaker_tilt_degrees']
 DESK=A['boards']['Desk.top'];DESK_TOP=DESK['bottom']+DESK['thickness'];TRAY=A['boards']['Speaker0.platform'];TRAY_SIZE=TRAY['bounds'][1]-TRAY['bounds'][0];toe_in=180-abs(math.degrees(SPEAKERS[0]['yaw']))
-labels={'tube_40':'40 mm pipe','tube_200':'200 mm pipe','tube_250':'250 mm pipe','tube_602':'602 mm pipe','tube_802':'802 mm pipe','tube_1000':'1,000 mm pipe','tube_1200':'1,200 mm pipe','tube_1500':'1,500 mm pipe','cross':'Four-way threaded cross','slide_tee':'Sliding T connector','flange':'Ø70 mm mounting flange','extension':'Female–female coupling','elbow':'90° elbow','saddle':'Saddle shelf holder','cap':'End cover','bracket':'Wall shelf bracket (allowance)'}
+labels={'tee':'Threaded T connector','tube_60':'60 mm pipe','tube_100':'100 mm pipe','tube_150':'150 mm pipe','tube_300':'300 mm pipe','tube_400':'400 mm pipe','tube_40':'40 mm pipe','tube_200':'200 mm pipe','tube_250':'250 mm pipe','tube_602':'602 mm pipe','tube_802':'802 mm pipe','tube_1000':'1,000 mm pipe','tube_1200':'1,200 mm pipe','tube_1500':'1,500 mm pipe','cross':'Four-way threaded cross','slide_tee':'Sliding T connector','flange':'Ø70 mm mounting flange','extension':'Female–female coupling','elbow':'90° elbow','saddle':'Saddle shelf holder','cap':'End cover','bracket':'Wall shelf bracket (allowance)'}
 def show(id):
  p=parts[id];return labels.get(p['kind'],id.replace('Rack.','Wardrobe · ').replace('Desk.','Desk · ').replace('Speaker0','Speaker L').replace('Speaker1','Speaker R'))
 def jwrite(path,value):path.write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n')
 # Complete purchase list; reconcile every core line with the retained budget.
 rows=[]
 for r in P['hardware']:
- rows.append({'id':r['kind'],'category':'Hardware','name':labels.get(r['kind'],r['name']),'description':r['name']+(' · €4 each budget allowance; verify store price' if r['kind']=='cross' else ''),'sku':CATALOG[r['kind']]['sku'],'quantity':r['quantity'],'buyPacks':r['buy_packs'],'packSize':r['units_per_pack'],'unitPrice':float(r['unit_eur']),'total':float(r['total_eur']),'url':r['source'],'status':r['status'],'purchase':True})
+ rows.append({'id':r['kind'],'category':'Hardware','name':labels.get(r['kind'],r['name']),'description':r['name']+(' · €4 each budget allowance; verify store price' if r['kind']=='cross' else ' · budget allowance; verify store price' if r.get('allowance') else ''),'sku':CATALOG[r['kind']]['sku'],'quantity':r['quantity'],'buyPacks':r['buy_packs'],'packSize':r['units_per_pack'],'unitPrice':float(r['unit_eur']),'total':float(r['total_eur']),'url':r['source'],'status':r['status'],'purchase':True})
 for r in P['wood']:
  rows.append({'id':'wood:'+r['id'],'category':'Wood','name':show(r['id']),'description':f"{r['length_mm']:g} × {r['depth_mm']:g} × {r['thickness_mm']:g} mm · oak allowance",'quantity':1,'buyPacks':1,'packSize':1,'unitPrice':float(r['net_eur']['base']),'total':float(r['net_eur']['base']),'url':None,'status':'Concept dimensions, not final machining sizes. Timber supplier not selected.','holes':r['holes'],'purchase':True})
 t=P['totals']['base']
@@ -40,37 +40,42 @@ for i,r in enumerate(P['optional_allowances']):
  rows.append({'id':'optional:'+str(i),'category':'Optional','name':r['name'],'description':'Optional accessory allowance; no exact product selected','quantity':1,'total':float(r['base']),'url':None,'status':'Not a supplier quote; extra to core budget','purchase':True,'optional':True})
 counts=Counter(p['kind'] for p in parts.values());assert all(r['quantity']==counts[r['kind']] for r in P['hardware'])
 # Stages are a dry-fit planning sequence. The physical assembly method must be
-# confirmed with actual fittings; all sliding sleeves must be loaded before closing posts.
+# confirmed with actual fittings; each post is built bottom-up as its own threaded stack.
 assigned=set();stages=[]
 def stage(title,kicker,description,actions,selector=None,notes=None,focus='frame',extra=None):
  ids=sorted(id for id,p in parts.items() if id not in assigned and selector and selector(id,p));assigned.update(ids)
  number=len(stages)+1
  stages.append({'id':number,'title':title,'kicker':kicker,'description':description,'actions':actions,'notes':notes or [],'parts':ids,'materials':[{'kind':k,'name':labels.get(k,k),'quantity':n,'sku':CATALOG.get(k,{}).get('sku'),'url':CATALOG.get(k,{}).get('source')} for k,n in sorted(Counter(parts[id]['kind'] for id in ids).items())],'focus':focus,'extra':extra or [],'diagram':f'diagrams/step-{number:02}.svg'})
 stage('Measure before making','Preparation','Lock the design; verify the real room and a sample connector before ordering wood or drilling.',[
- f'Measure the ceiling height. The top crate envelope reaches about 2,468 mm; {GEO["ceiling"]:,.0f} mm is '+('measured.' if GEO['ceiling_measured'] else 'only the current assumption.'),
+ f'Measure the ceiling height. The top crate envelope reaches about {A["boards"]["Rack.top0"]["bottom"]+278:,.0f} mm; {GEO["ceiling"]:,.0f} mm is '+('measured.' if GEO['ceiling_measured'] else 'only the current assumption.'),
  'Measure the room width at three heights, both diagonals and the right-wall plumb. Record them, plus every socket, switch, radiator and pipe, in source/room-measurements.json.',
- 'Measure seating stops, sleeve envelopes, saddle height and screw positions using the measurement fields supplied with the model.',
+ 'Measure fitting seating stops, saddle height and screw positions using the measurement fields supplied with the model.',
  'Check the independent right balcony leaf, gathered curtain, real clothes and the 600 mm minimum entrance with a physical mock-up.',
- 'Confirm wall construction, anchors, clamp anti-rotation and desk/speaker load capacities. Choose fixings for the actual substrate.'
+ 'Confirm wall construction, anchors and desk/shelf-arm/speaker load capacities. Choose fixings for the actual substrate.'
 ],notes=['This is a checked geometry proposal, not a certified load rating or a drilling template. Do not cut the boards to these preview numbers until fitting measurements are entered.'],focus='plan')
+B=A['boards'];bot=lambda id:f"{B[id]['bottom']:,.0f}";blen=lambda id:f"{B[id]['bounds'][3]-B[id]['bounds'][2]:,.0f}"
+POST=r'^(RF[0-3]|RB[0-3]|DS0|SB0)\.(foot|tube\d+|coupling\d+|joint\..+)$'
+def rail_z(prefix):return sorted({p['origin'][2] for id,p in parts.items() if id.startswith(prefix) and id.endswith('.tube') and abs(p['axis'][1])>.9})
+RAILS=rail_z('Rack.clean0');TOP=B['Rack.top0']['bottom']+B['Rack.top0']['thickness'];CRATE_TOP=TOP+250;WEAR=parts['Wear.rail']['origin'][2]
+TIES=sorted({p['origin'][2] for id,p in parts.items() if id.startswith(('Desk.wall','Rack.wall')) and p['kind']=='flange'})
 stage('Lay out the kit','Preparation','Sort pipes by their printed catalog lengths, and keep similar-looking fittings separate.',[
  'Use only the listed DOLLE PIPE family; do not mix generic plumbing threads or change a stock pipe length.',
- 'The BOM shows required pieces and purchase packs separately. Saddles come in packs of two.',
+ 'The BOM shows required pieces and purchase packs separately. Saddles and end covers come in packs of two.',
  'Dry-fit one T/pipe/saddle/board connection. Check the end-cover fit; covers do not carry load.',
- 'Assemble horizontal pipe-and-fitting submodules while the T sleeves are free, then feed the upright sections through. Do not try to screw a rigid closed frame together.'
-],notes=['All sliding T pieces for a rod section must be staged before flanges, couplings or covers prevent them passing. Exact assembly order and fastener torque must follow the actual part instructions.'])
-stage('Stage the lower uprights','Frame','Lay out the ten main posts at their V18 positions. Leave the structure loose and supported.',[
+ 'There is no sliding fitting in this frame. Every post is built from the floor up as its own stack, and no two posts are joined by more than one threaded pipe, because a frame closed only by threads cannot be screwed together.'
+],notes=['A fitting is tightened to the direction it must face, not to the end of its thread, so most joints end slightly backed off. Use thread-locker on them, and follow the actual part instructions for torque.'])
+stage('Stand the lower post stacks','Frame','Lay out the ten main posts at their V18 positions and build each one up to desk height.',[
  'Lay out paired front/back posts 290 mm apart, using the model axes rather than the wall surface as a datum.',
- 'Stage the lower sleeves before closing each lower post into its coupling. The four desk posts (middle and rear) start with a 602 mm tube; thread their two low sleeves on before the coupling closes it.',
- 'Use floor protection under flanges. Do not assume that a floor flange must be drilled into the rental floor.',
- 'Keep the frame braced or held during dry fitting; it is not self-supporting until its wall ties and braces are secured.'
-],lambda id,p:bool(re.match(r'^(RF[0-3]|RB[0-3]|DS0|SB0)\.(foot|lower)$',id)),notes=['The near shelf frame is 50 mm before the desk edge frame used in older versions. Keep the V18 axes; moving it back causes a pipe intersection.'])
-stage('Build the shared desk supports','Desk module','Crosses at desk height on the middle and rear posts, with the wall fixing there too. Low down only sliding Ts: a brace at 235 mm and a front brace at 400 mm.',[
- 'Low brace first: a 250 mm pipe between two sliding Ts at 235 mm joins each rear post to its middle post. Nothing is fixed to the wall down here, so no screw goes into the 150–450 mm band where sockets and their feeds usually run.',
- 'Preassemble each free cross/front-arm/elbow module with its 40 mm pipe, coupling and 602 mm front leg. Middle and rear posts stack alike: 602 + coupling + 40 mm below the desk cross, 40 + coupling + 1500 mm above it.',
- 'Fit the desk-height cross at each middle upright: 250 mm front arm into the front-leg elbow, 250 mm rear bridge into the cross on the rear upright. From that rear cross a 40 mm pipe runs into a wall flange at desk height, under the back edge of the desktop. Brace the front leg to the middle post with a 250 mm pipe between two sliding Ts at 400 mm; it cannot share the 235 mm station on the middle post.',
+ 'Six posts start with 602 + coupling + 40 mm: the four desk posts, which take a cross next, and the pair beside the wardrobe. The four window-side posts start with a 150 mm tube and the shoe-shelf T.',
+ 'Turn each T so its branch points along the wall toward its board (or into the room for a rail arm) before the next tube goes in.',
+ 'Use floor protection under flanges and shim them level. Heights cannot be adjusted later; do not assume that a floor flange must be drilled into the rental floor.'
+],lambda id,p:bool(re.match(POST,id)) and p['origin'][2]<680,notes=['The near shelf frame is 50 mm before the desk edge frame used in older versions. Keep the V18 axes.'])
+stage('Build the shared desk supports','Desk module','Four crosses at desk height: front arm, rear bridge and the wall fixing all sit on one line.',[
+ 'Screw each 250 mm rear bridge into its middle and rear cross as a free piece first, then turn the lower post stacks up into the crosses.',
+ 'From each middle cross a 250 mm arm runs to the front-leg elbow; the front leg is 602 + coupling + 40 mm. From each rear cross a 40 mm pipe runs into a wall flange under the back edge of the desktop.',
+ 'There are no low braces. Each front leg is held only at its elbow, so check it for sideways play and keep heavy knocks off it.',
  f'The current fitting profile yields a {DESK["bottom"]-15:g} mm support-pipe axis. Keep all eight saddle screw points on the {DESK["bottom"]:g} mm underside plane.'
-],lambda id,p:id.startswith(('Desk.shared','Desk.cross','Desk.low','DF0','DF1')) or bool(re.match(r'^(DS0|RF0|SB0|RB0)\.(joint_riser|extension)$',id)),notes=['No separate short rear desk legs. The two front returns finish below the tabletop; no front-leg holes are required. The cross is a threaded fitting: build each post as a stack of stock sections and stage every sleeve before closing it. Leave the final wall anchoring to the verified fixing specification.'],focus='desk')
+],lambda id,p:id.startswith(('Desk.shared','Desk.cross','DF0','DF1')),notes=['No separate short rear desk legs. The two front returns finish below the tabletop; no front-leg holes are required. Leave the final wall anchoring to the verified fixing specification.'],focus='desk')
 stage('Fit the desktop and service shelf','Desk module','Keep the full 1,615 × 702 mm surface with a clear front edge.',[
  'While the upper frame is still open, fit the desktop around the continuing rack posts and support it safely during assembly.',
  'Transfer four post clearances from the measured frame. The preview uses 44 mm wide open-edge notches for all four, because a closed Ø44 bore would leave only 8 mm of timber to the edge. The two rear ones are corner notches.',
@@ -79,80 +84,80 @@ stage('Fit the desktop and service shelf','Desk module','Keep the full 1,615 × 
  'Screw the desktop to its eight saddle tabs. Hang the 1615 × 230 × 18 mm rear service shelf on four separate wall shelf brackets at 500 mm underside / 518 mm top; it is not part of the pipe frame.',
  'The service shelf begins 472 mm behind the front edge. Choose the brackets (about 200 mm reach) and their wall fixings for the real wall; the budget carries an allowance only. Cut its two rear post clearances as corner notches, transferred from actual parts, and keep the central knee area open.'
 ],lambda id,p:id=='Desk.top' or id.startswith('Desk.service'),notes=[f'Preview top height: {DESK_TOP:g} mm. This is derived from stock lengths and unmeasured socket offsets; it may change after calibration.',f'Kitchen-corner passage in the model: {entry:.0f} mm, limited by the low front brace on the near leg rather than the desk corner. Keep at least 600 mm.'],focus='desk')
-stage('Complete the upper posts','Frame','Feed the pre-staged upper sleeves before closing the upright sections.',[
- 'Ordinary wardrobe posts use 1000 + coupling + 1200 mm. The two middle desk posts use the separate 40 mm riser, coupling and 1500 mm upper tube above the desk cross; the two rear desk posts use 1000 + coupling + 1000 mm above their low cross. Do not run a continuous pipe through a cross.',
- 'Stage upper rail/cross-pipe subassemblies in height order before feeding the upper posts through their sleeves.',
- 'Keep coupling seating fully engaged; do not shorten or leave a tube partly threaded to adjust the overall height.',
- 'Leave the frame loose enough to square it, and retain temporary support until the wall ties are fixed.'
-],lambda id,p:bool(re.match(r'^(RF[0-3]|RB[0-3]|DS0|SB0)\.(extension|upper|top_stub|top_extension)$',id)))
-stage('Square and brace the frame','Frame','Tie the frame back to the wall using the verified anchor arrangement.',[
- 'Install the upper wall ties at their model heights. The near desk ties are at 1,200 and 2,020 mm.',
- 'Fit the wardrobe depth bars: the low 200 mm bar under the folded bay and the 1,800 mm coat-end brace. The low wall ties under the desk are already part of the rear cross line.',
- 'Check verticals and diagonals, then secure the verified fasteners and clamp settings.',
+stage('Complete the upper posts','Frame','Carry on up each post: tube, fitting, tube, until the top fitting closes it.',[
+ 'Follow the stack list for each post exactly; the tube between two fittings sets the shelf spacing. Do not shorten a tube or leave one partly threaded to adjust a height.',
+ f'Shelf lines land at {bot("Rack.fold1")} / {bot("Rack.fold2")} / {bot("Rack.fold3")} mm underside and the top boards at {bot("Rack.top0")} mm, the same on the desk side and the wardrobe side.',
+ 'Posts end in a fitting, not a cover: an elbow at the two ends of the run and a T laid on its side where boards meet on both sides.',
+ 'Keep the frame supported until the boards and wall ties are on. Without its boards nothing ties the front posts to the rear posts.'
+],lambda id,p:bool(re.match(POST,id)))
+stage('Tie the frame to the wall','Frame','One flange per rear post, plus the two at desk height.',[
+ f'Each rear post has a T facing the wall at {TIES[0]:,.0f} mm with a 40 mm pipe into a flange. The desk posts have a second flange at {DESK["bottom"]-15:g} mm.',
+ 'Nothing is fixed to the wall between 150 and 450 mm above the floor, where sockets and their feeds usually run. Check the wall with a cable detector anyway before drilling.',
+ 'Each post stands 75 mm off the wall in front of its flange, so plan hex-head screws and a spanner, or a stubby ratchet. Pack out behind a flange where the wall is not straight.',
  f'Keep the bar and kitchen fixed. Confirm the kitchen-corner passage is about {entry:.0f} mm in the actual flat.'
-],lambda id,p:id.startswith(('Desk.wall','Rack.wall','Rack.depth')),notes=['Wall material and permissible fixings remain to be verified. The model does not specify an anchor type or allowable structural load.'])
+],lambda id,p:id.startswith(('Desk.wall','Rack.wall')),notes=['Wall material and permissible fixings remain to be verified. The model does not specify an anchor type or allowable structural load.'])
 stage('Add the two short-clothes rows','Hanging storage','The entrance-side wardrobe bay keeps two levels of short hanging storage.',[
- 'Fit the 1,000 mm stock rails at 950 and 1,950 mm to their pre-staged sliding T connectors.',
- 'Thread both free T branches onto each rail before closing the upright sections.',
- 'Keep sleeves off couplings and clear of neighboring clamps.',
- 'Check real short garments on both rows before locking the heights.'
+ f'Screw the upper 1,000 mm rail at {RAILS[-1]:,.0f} mm between the Ts on the two front posts.',
+ f'The lower rail at {RAILS[0]:,.0f} mm hangs from the two rear posts on 200 mm arms and elbows, 50 mm behind the front post line. A second rail between the same front posts would close a threaded loop that cannot be assembled.',
+ 'Join each rail to one post first, then turn the neighbouring post stack onto it.',
+ 'Check real short garments on both rows; the heights are fixed by the stock tubes.'
 ],lambda id,p:id.startswith('Rack.clean0'),focus='wardrobe')
 stage('Keep a full-length coat drop','Hanging storage','The window-side bay uses the next smaller 602 mm stock rail.',[
- 'Fit the 602 mm coat rail at 1,950 mm.',
+ f'Fit the 602 mm coat rail at {RAILS[-1]:,.0f} mm.',
  'Allow about 70 mm hanger drop and up to 1,500 mm garment length in the design envelope.',
  'Four positions at roughly 140 mm pitch are shown; bulky winter coats may need fewer places.',
  'Keep the curtain gathered and the right balcony door/handle sweep clear.'
 ],lambda id,p:id.startswith('Rack.clean2'),notes=['The coat-bay width is a stock-pipe decision, not a cut-down 802 mm rail.'],focus='wardrobe')
-stage('Add the shelf cross-pipes','Shelf supports','Every ordinary cross-pipe seats into a sliding T on both uprights.',[
- 'Build the listed 250 mm cross-pipe/T modules before feeding or closing the corresponding post sections.',
- 'Match the model heights for the desk shelves, folded bay, top shelves and coat shoe shelf.',
- 'Use the correct shared cross-pipe where two neighboring boards meet.',
- 'Keep opposing saddle tabs staggered along a shared pipe so the straps do not collide.'
-],lambda id,p:id.startswith('ShelfCross.'),notes=['A saddle holder wraps around a horizontal pipe. It is not a substitute for an upright T clamp.'],focus='frame')
+stage('Add the shelf arms','Shelf supports','Every board rests on four 250 mm arms, one from each corner post.',[
+ 'Screw a 250 mm arm into each T branch that points along the wall. The arms are cantilevers; nothing joins a front post to a rear post except the boards.',
+ 'Where two boards meet at one post and one height, the top fitting has a socket on each side.',
+ 'Fit the saddle tabs on the arms with the tabs pointing inward, toward the middle of the board.',
+ 'Do not hang weight on an arm before its board is screwed on.'
+],lambda id,p:bool(re.match(r'^(Desk\.shelf\d|Rack\.(top|fold)\d|Rack\.coat_shoes)\.arm\d\.tube$',id)),notes=['No load rating for these cantilever arms has been established. A saddle holder wraps around a horizontal pipe; the arm, its thread and the T carry the load.'],focus='frame')
 stage('Build the folded-clothes stack','Shelves','Four intermediate boards leave usable spaces for folded pullovers.',[
- 'Set the 606 × 350 × 28 mm boards at underside heights 700, 1,100, 1,500 and 1,850 mm.',
- 'Use four saddle tabs per board; transfer screw positions from the actual hardware.',
+ f'Set the {blen("Rack.fold0")} × 350 × 28 mm boards at underside heights {bot("Rack.fold0")}, {bot("Rack.fold1")}, {bot("Rack.fold2")} and {bot("Rack.fold3")} mm.',
+ 'Use four saddle tabs per board, one on each arm; transfer screw positions from the actual hardware.',
  'Keep the paired folded stacks inside the shelf depth.',
- 'Check the 372 / 372 / 322 / 312 mm rear clear openings; the highest front opening is 272 mm behind the light lip.'
-],lambda id,p:id.startswith('Rack.fold'),focus='wardrobe')
-stage('Cap the storage bays with wood','Shelves','The three top boards finish at 2,218 mm, before the crates.',[
- 'Fit the 1,004 mm top over short hanging and the two 606 mm tops over folds and long coats.',
- 'Use four saddle tabs per board and preserve the stagger on shared support pipes.',
+ f'Clear openings between the boards are {B["Rack.fold1"]["bottom"]-B["Rack.fold0"]["bottom"]-28:g} / {B["Rack.fold2"]["bottom"]-B["Rack.fold1"]["bottom"]-28:g} / {B["Rack.fold3"]["bottom"]-B["Rack.fold2"]["bottom"]-28:g} / {B["Rack.top1"]["bottom"]-B["Rack.fold3"]["bottom"]-28:g} mm; the highest front opening is 40 mm less behind the light lip.'
+],lambda id,p:id.startswith('Rack.fold') and not id.endswith('.cap'),focus='wardrobe')
+stage('Cap the storage bays with wood','Shelves',f'The three top boards finish at {TOP:,.0f} mm, before the crates.',[
+ f'Fit the {blen("Rack.top0")} mm top over short hanging and the two {blen("Rack.top1")} mm tops over folds and long coats.',
+ 'Use four saddle tabs per board, one on each arm.',
  'Keep the front edge clear for the removable light covers.',
- f'Top crates reach about 2,468 mm, {check["ceiling-storage"]["value"]:.0f} mm below the '+('measured' if GEO['ceiling_measured'] else 'ASSUMED')+f' {GEO["ceiling"]:,.0f} mm ceiling; check the actual top shelf with a crate before loading it.'
-],lambda id,p:id.startswith('Rack.top'),focus='wardrobe')
+ f'Top crates reach about {CRATE_TOP:,.0f} mm, {check["ceiling-storage"]["value"]:.0f} mm below the '+('measured' if GEO['ceiling_measured'] else 'ASSUMED')+f' {GEO["ceiling"]:,.0f} mm ceiling; check the actual top shelf with a crate before loading it.'
+],lambda id,p:id.startswith('Rack.top') and not id.endswith('.cap'),focus='wardrobe')
 stage('Fit the low coat-bay shelf','Shelves','The long coats retain a low shoe shelf rather than a second hanging row.',[
- 'Fit the 606 × 350 × 28 mm board at 200 mm underside height.',
+ f'Fit the {blen("Rack.coat_shoes")} × 350 × 28 mm board at {bot("Rack.coat_shoes")} mm underside height.',
  'Screw it to its four saddle holders.',
- 'The preview allows 100 mm shoes above the 228 mm top; verify actual boots and coat hems.',
+ f'The preview allows 100 mm shoes above the {B["Rack.coat_shoes"]["bottom"]+28:g} mm top; verify actual boots and coat hems.',
  'Keep the door-side area free of loose shoes and trailing garments.'
-],lambda id,p:id.startswith('Rack.coat_shoes'),focus='wardrobe')
+],lambda id,p:id.startswith('Rack.coat_shoes') and not id.endswith('.cap'),focus='wardrobe')
 stage('Build the three desk shelves','Desk shelves','The overhead shelves reuse the same main frame as the desk and wardrobe.',[
- 'Fit the 1,554 × 350 mm boards at underside heights 1,540, 1,880 and 2,190 mm.',
+ f'Fit the {blen("Desk.shelf0")} × 350 mm boards at underside heights {bot("Desk.shelf0")}, {bot("Desk.shelf1")} and {bot("Desk.shelf2")} mm.',
  'The lowest board is 40 mm thick for the proposed MITTLED pocket; the upper two are 28 mm.',
- 'Use four saddles per board and the shared far-end cross-pipe.',
+ 'Each long board takes eight saddle tabs, two on each of its four arms.',
  'Do not route the light pocket until clips, plugs, cable access and suitability of recessed installation are confirmed.'
-],lambda id,p:id.startswith('Desk.shelf'),notes=['The proposed 1,320 × 32 × 20 mm underside pocket is unverified. Surface-mounting the original IKEA clips behind a removable wood lip is the alternative.'],focus='desk')
+],lambda id,p:id.startswith('Desk.shelf') and not id.endswith('.cap'),notes=['The proposed 1,320 × 32 × 20 mm underside pocket is unverified. Surface-mounting the original IKEA clips behind a removable wood lip is the alternative.'],focus='desk')
 stage('Float the speakers inside the shelf column','Speaker module','Two side arms per tray; the trays sit between the middle and rear posts, so nothing overhangs the desktop.',[
- 'Attach each tray to two uncut 250 mm arms, each on a sliding T at a separate upright.',
+ 'Attach each tray to two uncut 250 mm arms, each screwed into a T on its own upright.',
  f'Fit four saddle holders per {TRAY_SIZE:g} × {TRAY_SIZE:g} × 25 mm tray. The trays are square to the frame, flush with the shelf fronts, and mirrored about the desk centre line.',
- f'Tray top: {TRAY["bottom"]+TRAY["thickness"]:,} mm. Turn each speaker about {toe_in:.0f}° on its tray so it faces the seated ear reference (x {EAR_MM[0]:,}, z {EAR_MM[1]:,} mm), not the seat centre. {TRAY_SIZE:g} mm is the smallest square that takes the turned speaker with a 5 mm edge margin.',
+ f'Tray top: {TRAY["bottom"]+TRAY["thickness"]:,.0f} mm. Turn each speaker about {toe_in:.0f}° on its tray so it faces the seated ear reference (x {EAR_MM[0]:,}, z {EAR_MM[1]:,} mm), not the seat centre. {TRAY_SIZE:g} mm is the smallest square that takes the turned speaker with a 5 mm edge margin.',
  f'Each speaker sits centred on its tray, fully supported, at least 15 mm from the nearest frame part. The speakers end up about {speaker_sep:,.0f} mm apart and {SPEAKERS[0]["wall_gap"]:.0f} mm from the wall.',
  f'Tilt each speaker about {tilt:g}° down on angled isolation pads.',
- 'Check real speaker weight, tweeter height, clamp anti-rotation and screw retention before loading.'
+ 'Check real speaker weight, tweeter height and screw retention before loading.'
 ],lambda id,p:id.startswith('Speaker'),notes=['No load rating for this cantilever arrangement has been established. The desk-end placement gives a wide stereo angle, not a calibrated monitor triangle.'],focus='desk')
 stage('Give worn clothes their own rail','Hanging storage','The throw-over rail marks clothes that are worn but ready to wear again.',[
- 'Use the two 200 mm returns, sliding-T outer fittings and 602 mm rail shown in the graph.',
- 'The rail sits at 1,250 mm in front of the folded bay.',
+ 'Use the two 100 mm returns, the two elbows and the 602 mm rail shown in the graph.',
+ f'The rail sits at {WEAR:,.0f} mm in front of the folded bay.',
  'Keep the draped item in the front 200 mm zone, y=3,950–4,150 mm.',
  'Leave the rear part toward the balcony clear so the door handle cannot catch clothing.'
 ],lambda id,p:id.startswith('Wear.'),focus='wardrobe')
-stage('Close the ends and recheck joints','Finish the frame','Only close the post ends after every required sleeve and board is in place.',[
- 'Fit the listed upright end covers after confirming their actual fit on this DOLLE thread family.',
- 'Recheck every structural socket, coupling, wall tie and saddle screw.',
+stage('Close the arm ends and recheck joints','Finish the frame','Cap the open arm ends once every board is screwed on.',[
+ 'Fit the listed end covers on the shelf arms after confirming their actual fit on this DOLLE thread family.',
+ 'Recheck every threaded joint for direction and thread-locker, and every wall tie and saddle screw.',
  'Treat caps as covers only, never as load-bearing connections.',
- 'Remove temporary support only after the frame and desk fixing checks are complete.'
-],lambda id,p:id.endswith('.cover'))
+ 'Remove temporary support only after the boards, wall ties and desk fixing checks are complete.'
+],lambda id,p:id.endswith('.cap'))
 stage('Light the work surface','Lighting','Keep the two original MITTLED bars intact.',[
  'Use two 600 mm MITTLED units with their original mounting clips and compatible leads/driver.',
  'The proposed pocket must retain at least 20 mm timber above it, with access for clips and connectors.',
@@ -191,7 +196,7 @@ import runpy
 runpy.run_path(str(ROOT/'scripts/equipment-diagram.py'))
 stages[19]['diagram']='diagrams/equipment.svg'
 # Purchase data, model graph and a printable CSV keep the guide independently usable.
-metadata={'design':'V18','locked':True,'updated':'2026-10-20','priceBasis':'19–20 October 2026','partCount':len(parts),'pipeCount':sum(n for k,n in counts.items() if k.startswith('tube_')),'boardCount':len(A['boards']),'hardwarePieces':sum(n for k,n in counts.items() if k!='wood'),'lightState':'Afternoon daylight · ceiling fixture off','coreBudget':float(t['core_budget']),'withCrates':float(P['six_knagglig_crates']['core_plus_crates_including_contingency_eur']),'optionalAccessories':float(t['optional_accessories']),'entryGap':entry,'desk':[1615,702,DESK_TOP],'room':[GEO['wall_x'],ROOM['assumed']['room_length_y'],GEO['ceiling']],'roomHeightMeasured':GEO['ceiling_measured'],'roomWidthMeasured':GEO['wall_measured'],'servicesSurveyed':ROOM['services']['status']!='not surveyed','verification':['Room '+' and '.join(x for x,m in (('width and length',GEO['wall_measured']),('height',GEO['ceiling_measured'])) if not m)+' still the CAD assumption'+(f'; ceiling measured at {GEO["ceiling"]:,.0f} mm' if GEO['ceiling_measured'] else '') if not (GEO['wall_measured'] and GEO['ceiling_measured']) else 'Room dimensions are measured','Sockets, switches, radiators and pipes are not surveyed','Connector seating offsets not measured','Cantilever, clamp, wood screw and wall-fixing load capacities not certified','Custom MITTLED recess and light-cover details remain provisional','Bathroom fixtures unknown; shell only']}
+metadata={'design':'V18','locked':True,'updated':'2026-10-20','priceBasis':'19–20 October 2026','partCount':len(parts),'pipeCount':sum(n for k,n in counts.items() if k.startswith('tube_')),'boardCount':len(A['boards']),'hardwarePieces':sum(n for k,n in counts.items() if k!='wood'),'lightState':'Afternoon daylight · ceiling fixture off','coreBudget':float(t['core_budget']),'withCrates':float(P['six_knagglig_crates']['core_plus_crates_including_contingency_eur']),'optionalAccessories':float(t['optional_accessories']),'entryGap':entry,'desk':[1615,702,DESK_TOP],'room':[GEO['wall_x'],ROOM['assumed']['room_length_y'],GEO['ceiling']],'roomHeightMeasured':GEO['ceiling_measured'],'roomWidthMeasured':GEO['wall_measured'],'servicesSurveyed':ROOM['services']['status']!='not surveyed','verification':['Room '+' and '.join(x for x,m in (('width and length',GEO['wall_measured']),('height',GEO['ceiling_measured'])) if not m)+' still the CAD assumption'+(f'; ceiling measured at {GEO["ceiling"]:,.0f} mm' if GEO['ceiling_measured'] else '') if not (GEO['wall_measured'] and GEO['ceiling_measured']) else 'Room dimensions are measured','Sockets, switches, radiators and pipes are not surveyed','Fitting seating offsets not measured; every shelf height depends on them','Cantilever arm, threaded joint, wood screw and wall-fixing load capacities not certified','Custom MITTLED recess and light-cover details remain provisional','Bathroom fixtures unknown; shell only']}
 def dim(id,label,a,b,value,basis):return {'id':id,'label':label,'a':a,'b':b,'value':round(value,1),'basis':basis}
 c=check['ceiling-storage']['points'];e=check['entry-passage']['points'];bed=check['bed-aisle']['points']
 room_basis='measured' if GEO['wall_measured'] else 'assumed';ceiling_basis='measured' if GEO['ceiling_measured'] else 'assumed'
@@ -213,7 +218,7 @@ with (ROOT/'public/downloads/cut-list.csv').open('w',newline='') as f:
   x0,x1,y0,y1=b['bounds'];w.writerow([id,y1-y0,x1-x0,b['thickness'],b['bottom'],b.get('rotation_degrees',0),json.dumps(b['holes']),json.dumps(b.get('corner_radii',[])),json.dumps(b.get('notches',[])),'CONCEPT ONLY — calibrate fitting profile before cutting'])
 print('DATA_READY',json.dumps({'parts':len(parts),'stages':len(stages),'budget':round(core,2),'BOMlines':len(rows)}))
 
-md=['# Complete BOM — V18 cross-braced desk module','',f"Core estimate **€{metadata['coreBudget']:,.2f}** including 10% reserve. With six crates **€{metadata['withCrates']:,.2f}**.",'','Four four-female crosses. All sit at desk height. The cross on each middle post joins the 250 mm front arm and the 250 mm rear bridge. The cross on each rear post joins that bridge and a 40 mm pipe into a wall flange at 689 mm, so no wall fixing sits in the 150–450 mm socket band. Low down, a 250 mm sliding-T brace at 235 mm joins the rear and middle posts and another at 400 mm joins the front leg and middle post. Middle and rear posts stack 602 + coupling + 40, cross, 40 + coupling + 1500 mm. The rear service shelf hangs on four separate wall brackets (allowance). No structural stock pipe is cut or stretched.','', 'Crosses carry a €4.00 each budget allowance, not a confirmed shop quote. Other prices retain their dated 19–20 October 2026 basis.','', '| Part | Qty | Packs | Unit/pack € | Total € | Source |','|---|---:|---:|---:|---:|---|']
+md=['# Complete BOM — V18 all-threaded frame','',f"Core estimate **€{metadata['coreBudget']:,.2f}** including 10% reserve. With six crates **€{metadata['withCrates']:,.2f}**.",'','No sliding T anywhere: every post is its own stack of uncut stock tubes and fixed threaded Ts, crosses and elbows, and each board rests on four capped 250 mm arms. Four four-female crosses sit at desk height: the middle ones take the front arm and rear bridge, the rear ones that bridge and a 40 mm pipe into a wall flange. The other wall flanges sit at the upper rail height, so no wall fixing is in the 150–450 mm socket band. The rear service shelf hangs on four separate wall brackets (allowance). No structural stock pipe is cut or stretched.','', 'The threaded T (€3.00), the cross (€4.00) and the 60, 100, 150, 300 and 400 mm tubes carry budget allowances, not shop quotes. Other prices retain their dated 19–20 October 2026 basis.','', '| Part | Qty | Packs | Unit/pack € | Total € | Source |','|---|---:|---:|---:|---:|---|']
 for r in rows:
  md.append(f"| {r['name']} · {r['description']} | {r['quantity']} | {r.get('buyPacks','—')} | {r.get('unitPrice','—')} | {r['total']:.2f} | {r.get('url') or 'Allowance'} |")
 category_totals={category:round(sum(r['total'] for r in rows if r['category']==category),2) for category in dict.fromkeys(r['category'] for r in rows)}

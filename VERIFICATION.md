@@ -11,23 +11,23 @@
 
 | Check | Model value | Status |
 |---|---|---|
-| Kitchen-corner passage (limited by the near leg's low brace, previously 640.9 mm at the desk corner) | 665.5 mm | tight; at least 600, about 800 is comfortable |
-| Top crates to the measured ceiling (was 32 mm at the assumed 2,500 mm) | 162 mm | ok; 412 mm above the top boards lets a crate tilt in |
+| Kitchen-corner passage (limited by the near front leg; the low brace is gone) | 666.7 mm | tight; at least 600, about 800 is comfortable |
+| Top crates to the measured ceiling (was 32 mm at the assumed 2,500 mm) | 188 mm | ok; 438 mm above the top boards lets a crate tilt in |
 | Bed to desk aisle | 673 mm | tight |
 | Under-bed boxes below the 250 mm side beam (was a 5 mm overlap) | 20 mm | ok |
 | Computer keyboard to MIDI controller (was a 10 mm overlap) | 20 mm | ok |
 | Desk equipment intersections, including the new monitor arm | 0 | ok |
 | Speakers centred on 370 mm square trays inside the shelf column (the 5 mm tray edge margin is the limit, frame parts 80–104 mm away; nothing in front of the shelf line) | 32 mm to wall | ok |
-| Speaker tweeter aim error at the seated ear reference (was about 17°) | 4.4° | ok |
+| Speaker tweeter aim error at the seated ear reference (was 4.4° with the trays 56 mm higher) | 0.3° | ok; the tilted speakers clear the shelf arms above them by about 5 mm |
 | Room, bathroom, entrance and both balcony leaf sweeps (directions assumed) | 27–160 mm | ok |
 | Central knee zone | 700 mm wide | ok; check against your own knees and chair arms |
 | Rays escaping through the floor, cast down from the room air in 49 directions (was 767) | 0 of about 241,000 | ok |
 
 ## Geometry and data
 
-- 56 source connection/geometry tests pass. They cover the R100 entrance corner, the desk-height rear cross and wall flange (no pipe-frame wall fixing in the 150–450 mm socket band), the open-edge post notches, the bracket-mounted service shelf, the in-column mirrored speaker trays and the wall plane read from the room file.
-- All 286 frame/timber components are assigned exactly once across 21 planning stages. Moving the rear crosses and the wall flanges up to desk height changed the BOM by 4 fewer 1,000 mm and 2 fewer 200 mm tubes, and 2 more 1,500 mm, 2 more 602 mm and 4 more 40 mm tubes plus 2 more couplings (about €3 more).
-- Data checks reconcile the core €2,933.77 estimate, pack quantities, KTX2 textures, the Basis transcoder version, the clearance report and the measured/assumed dimension labels.
+- 57 source connection/geometry tests pass. They cover the all-threaded frame (no sliding fitting, no closed thread loop, levels derived from the stock stacks, every board on four capped arms), the desk crosses and wall flanges (none in the 150–450 mm socket band), the rails, the top boards for the crates, the R100 entrance corner, the open-edge post notches, the bracket-mounted service shelf, the mirrored speaker trays and the wall plane read from the room file.
+- All 383 frame/timber components are assigned exactly once across 21 planning stages. Against the sliding-T frame the BOM drops all 70 sliding Ts and the 1,200 mm tubes and adds 51 threaded Ts, 8 more elbows, 19 more 250 mm arms, 32 more end covers and the short 60–400 mm post tubes. The core estimate falls by about €130, mostly because the threaded T is carried at a €3 allowance against €5.99 for the sliding T.
+- Data checks reconcile the core €2,803.70 estimate, pack quantities, KTX2 textures, the Basis transcoder version, the clearance report and the measured/assumed dimension labels.
 - Supplier status notes were rechecked on 21 October 2026. Globus listings were sold out without a price. Three OBI pages returned 404. The four-way cross EAN is listed elsewhere as a corner coupling and must be confirmed. The 1,200 mm tube is DOLLE 96322.
 
 ## Rendering

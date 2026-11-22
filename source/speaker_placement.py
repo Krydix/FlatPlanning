@@ -28,8 +28,9 @@ def obstacles(parts,z0,z1):
    L=p['data']['length'];e=[o[i]+ax[i]*L for i in range(3)]
    if max(o[2],e[2])+12.5<z0 or min(o[2],e[2])-12.5>z1:continue
    out.append((p['id'],tuple(o[:2]),tuple(e[:2]),12.5))
-  elif k in ('slide_tee','cross','elbow','extension','cap','flange'):
-   half=35
+  elif k in ('slide_tee','tee','cross','elbow','extension','cap','flange'):
+   # An end cover is a thin disc on a horizontal arm; fittings and flanges keep the taller casting envelope.
+   half=14 if k=='cap' else 35
    if o[2]+half<z0 or o[2]-half>z1:continue
    out.append((p['id'],tuple(o[:2]),tuple(o[:2]),35 if k=='flange' else 17))
  return out

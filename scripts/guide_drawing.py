@@ -21,6 +21,8 @@ def draw_part(id,parts,boards,active=False):
   for nx0,nx1,ny0,ny1 in b.get('notches',[]):s.append(poly([project((x,y,z+b['thickness'])) for x,y in ((nx0,ny0),(nx1,ny0),(nx1,ny1),(nx0,ny1))],color,'#fff',2.5))
  elif kind=='slide_tee':
   s.append(line(project(add(o,mul(axis,-35))),project(add(o,mul(axis,35))),color,23));s.append(line(project(o),project(add(o,mul(d,30))),color,22))
+ elif kind=='tee':
+  s.append(line(project(add(o,mul(axis,-30))),project(add(o,mul(axis,30))),color,23));s.append(line(project(o),project(add(o,mul(d,30))),color,23))
  elif kind=='cross':
   for v in (axis,d):s.append(line(project(add(o,mul(v,-30))),project(add(o,mul(v,30))),color,23))
  elif kind=='extension':s.append(line(project(add(o,mul(axis,-16))),project(add(o,mul(axis,16))),color,23))

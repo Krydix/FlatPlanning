@@ -1,16 +1,16 @@
 Board ID,Length mm,Depth mm,Thickness mm,Underside mm,Rotation degrees,Post holes mm,Corner radii mm,"Edge notches mm [x0, x1, y0, y1]",Status
-Desk.shelf0,1554,350,40,1540,0,[],[],[],CONCEPT ONLY — calibrate fitting profile before cutting
-Desk.shelf1,1554,350,28,1880,0,[],[],[],CONCEPT ONLY — calibrate fitting profile before cutting
-Desk.shelf2,1554,350,28,2190,0,[],[],[],CONCEPT ONLY — calibrate fitting profile before cutting
-Rack.top0,1004,350,28,2190,0,[],[],[],CONCEPT ONLY — calibrate fitting profile before cutting
-Rack.top1,606,350,28,2190,0,[],[],[],CONCEPT ONLY — calibrate fitting profile before cutting
-Rack.fold0,606,350,28,700,0,[],[],[],CONCEPT ONLY — calibrate fitting profile before cutting
-Rack.fold1,606,350,28,1100,0,[],[],[],CONCEPT ONLY — calibrate fitting profile before cutting
-Rack.fold2,606,350,28,1500,0,[],[],[],CONCEPT ONLY — calibrate fitting profile before cutting
-Rack.fold3,606,350,28,1850,0,[],[],[],CONCEPT ONLY — calibrate fitting profile before cutting
-Rack.top2,606,350,28,2190,0,[],[],[],CONCEPT ONLY — calibrate fitting profile before cutting
-Rack.coat_shoes,606,350,28,200,0,[],[],[],CONCEPT ONLY — calibrate fitting profile before cutting
-Speaker0.platform,370.0,370,25,1100,0,[],[],[],CONCEPT ONLY — calibrate fitting profile before cutting
-Speaker1.platform,370.0,370,25,1100,0,[],[],[],CONCEPT ONLY — calibrate fitting profile before cutting
-Desk.top,1615,702,28,704,0,"[[3085, 1300, 44], [3375, 1300, 44], [3085, 2890, 44], [3375, 2890, 44]]","[[2703, 1305, 100]]","[[3063.0, 3107.0, 1305, 1322.0], [3353.0, 3405, 1305, 1322.0], [3063.0, 3107.0, 2868.0, 2920], [3353.0, 3405, 2868.0, 2920]]",CONCEPT ONLY — calibrate fitting profile before cutting
+Desk.top,1615,702,28,704.0,0,"[[3085, 1300, 44], [3375, 1300, 44], [3085, 2890, 44], [3375, 2890, 44]]","[[2703, 1305, 100]]","[[3063.0, 3107.0, 1305, 1322.0], [3353.0, 3405, 1305, 1322.0], [3063.0, 3107.0, 2868.0, 2920], [3353.0, 3405, 2868.0, 2920]]",CONCEPT ONLY — calibrate fitting profile before cutting
+Desk.shelf0,1528,350,40,1484.0,0,[],[],[],CONCEPT ONLY — calibrate fitting profile before cutting
+Desk.shelf1,1528,350,28,1824.0,0,[],[],[],CONCEPT ONLY — calibrate fitting profile before cutting
+Desk.shelf2,1528,350,28,2164.0,0,[],[],[],CONCEPT ONLY — calibrate fitting profile before cutting
+Rack.top0,978,350,28,2164.0,0,[],[],[],CONCEPT ONLY — calibrate fitting profile before cutting
+Rack.top1,580,350,28,2164.0,0,[],[],[],CONCEPT ONLY — calibrate fitting profile before cutting
+Rack.top2,580,350,28,2164.0,0,[],[],[],CONCEPT ONLY — calibrate fitting profile before cutting
+Rack.fold0,580,350,28,704.0,0,[],[],[],CONCEPT ONLY — calibrate fitting profile before cutting
+Rack.fold1,580,350,28,1044.0,0,[],[],[],CONCEPT ONLY — calibrate fitting profile before cutting
+Rack.fold2,580,350,28,1484.0,0,[],[],[],CONCEPT ONLY — calibrate fitting profile before cutting
+Rack.fold3,580,350,28,1824.0,0,[],[],[],CONCEPT ONLY — calibrate fitting profile before cutting
+Rack.coat_shoes,580,350,28,200.0,0,[],[],[],CONCEPT ONLY — calibrate fitting profile before cutting
+Speaker0.platform,370.0,370,25,1044.0,0,[],[],[],CONCEPT ONLY — calibrate fitting profile before cutting
+Speaker1.platform,370.0,370,25,1044.0,0,[],[],[],CONCEPT ONLY — calibrate fitting profile before cutting
 Desk.service_shelf,1615,230,18,500,0,"[[3375, 1300, 44], [3375, 2890, 44]]",[],"[[3353.0, 3405, 1305, 1322.0], [3353.0, 3405, 2868.0, 2920]]",CONCEPT ONLY — calibrate fitting profile before cutting

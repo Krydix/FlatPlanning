@@ -10,7 +10,7 @@
     2620,
     1220
   ],
-  "speaker_tilt_degrees": 10.0,
+  "speaker_tilt_degrees": 9.54,
   "balcony": [
     {
       "id": "Balcony left leaf",
@@ -77,22 +77,22 @@
     {
       "id": "entry-passage",
       "label": "Entrance passage, kitchen corner to desk",
-      "value": 665.5,
+      "value": 666.7,
       "target": 600,
       "unit": "mm",
       "status": "tight",
-      "detail": "Nearest: Desk.low0.front.t1. At floor level the nearest is DF0.foot at 649 mm. Comfortable two-way passage is about 800 mm.",
+      "detail": "Nearest: DF0.extension. At floor level the nearest is DF0.foot at 649 mm. Comfortable two-way passage is about 800 mm.",
       "basis": "assumed",
       "points": [
         [
           2410.0,
           735.0,
-          420.5
+          607.0
         ],
         [
-          2793.3,
-          1279.0,
-          420.5
+          2785.6,
+          1285.9,
+          607.0
         ]
       ]
     },
@@ -129,37 +129,37 @@
     {
       "id": "speaker-aim-L",
       "label": "Speaker L tweeter aim error",
-      "value": 4.4,
+      "value": 0.3,
       "target": 8,
       "unit": "deg",
       "status": "ok",
-      "detail": "Tweeter at 1389 mm, 679 mm from the ear reference; pad tilt 10.0°, capped at 10° for a stable wedge pad; under about 8° keeps the ear inside the tweeter on-axis window. Seated ear reference x 2620, z 1220 mm.",
+      "detail": "Tweeter at 1333 mm, 661 mm from the ear reference; pad tilt 9.54°, capped at 10° for a stable wedge pad; under about 8° keeps the ear inside the tweeter on-axis window. Seated ear reference x 2620, z 1220 mm.",
       "basis": "envelopes"
     },
     {
       "id": "speaker-aim-R",
       "label": "Speaker R tweeter aim error",
-      "value": 4.4,
+      "value": 0.3,
       "target": 8,
       "unit": "deg",
       "status": "ok",
-      "detail": "Tweeter at 1389 mm, 679 mm from the ear reference; pad tilt 10.0°, capped at 10° for a stable wedge pad; under about 8° keeps the ear inside the tweeter on-axis window. Seated ear reference x 2620, z 1220 mm.",
+      "detail": "Tweeter at 1333 mm, 661 mm from the ear reference; pad tilt 9.54°, capped at 10° for a stable wedge pad; under about 8° keeps the ear inside the tweeter on-axis window. Seated ear reference x 2620, z 1220 mm.",
       "basis": "envelopes"
     },
     {
       "id": "ceiling-storage",
       "label": "Highest storage to ceiling",
-      "value": 162.0,
+      "value": 188.0,
       "target": 30,
       "unit": "mm",
       "status": "ok",
-      "detail": "KNAGGLIG crate reaches 2468 mm; ceiling 2630 mm measured. Above the 2218 mm top boards there is 412 mm; a 310 × 250 mm crate needs 398 mm to tilt in, otherwise it must slide in flat.",
+      "detail": "KNAGGLIG crate reaches 2442 mm; ceiling 2630 mm measured. Above the 2192 mm top boards there is 438 mm; a 310 × 250 mm crate needs 398 mm to tilt in, otherwise it must slide in flat.",
       "basis": "measured",
       "points": [
         [
           3385.0,
           5123.0,
-          2468.0
+          2442.0
         ],
         [
           3385.0,
@@ -253,11 +253,11 @@
     {
       "id": "door-balcony-right-leaf",
       "label": "Balcony right leaf sweep",
-      "value": 80.2,
+      "value": 86.0,
       "target": 20,
       "unit": "mm",
       "status": "ok",
-      "detail": "Swing into room to 100°; nearest V11 sweater over wear rail",
+      "detail": "Swing into room to 100°; nearest V11 wear-again sweater",
       "basis": "assumed"
     },
     {

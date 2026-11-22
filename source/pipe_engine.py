@@ -22,7 +22,7 @@ ENTRY_CORNER_RADIUS=100
 SPEAKER_TRAY=370
 # Rear service shelf on separate wall brackets (allowance, type not selected): arm reach from the wall to the shelf screw point.
 SERVICE_BRACKET_REACH=200
-STOCK={40:('96193','https://www.obi.de/p/4964102/dolle-rohr-tube-fuer-pipe-regalsystem-25-mm-x-40-mm-schwarz-matt'),200:('96247','https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-200-mm-20-mm-3-4-schwarz-matt-0763202832/'),250:('96254','https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-250-mm-20-mm-3-4-schwarz-matt-0763202837/'),602:('96599','https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-602-mm-20-mm-3-4-schwarz-matt-0763202834/'),802:('96605','https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-802-mm-20-mm-3-4-schwarz-matt-0763202835/'),1000:('96292','https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1000-mm-20-mm-3-4-schwarz-matt-0763202825/'),1200:('96322','https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1200-mm-20-mm-3-4-schwarz-matt-0763202841/'),1500:('96339','https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1500-mm-20-mm-3-4-schwarz-matt-0763202820/')}
+STOCK={40:('96193','https://www.obi.de/p/4964102/dolle-rohr-tube-fuer-pipe-regalsystem-25-mm-x-40-mm-schwarz-matt'),60:('toom 7450868; DOLLE no. pending','https://toom.de/p/verbindungsrohr-fuer-regalsystem-pipe-25-x-60-mm-schwarz/7450868'),100:('toom 7450870; DOLLE no. pending','https://toom.de/p/verbindungsrohr-fuer-regalsystem-pipe-25-x-100-mm-schwarz/7450870'),150:('toom 7450871; DOLLE no. pending','https://toom.de/p/verbindungsrohr-fuer-regalsystem-pipe-25-x-150-mm-schwarz/7450871'),300:('toom 7450875; DOLLE no. pending','https://toom.de/p/verbindungsrohr-fuer-regalsystem-pipe-25-x-300-mm-schwarz/7450875'),400:('toom 7450876; DOLLE no. pending','https://toom.de/p/verbindungsrohr-fuer-regalsystem-pipe-25-x-400-mm-schwarz/7450876'),200:('96247','https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-200-mm-20-mm-3-4-schwarz-matt-0763202832/'),250:('96254','https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-250-mm-20-mm-3-4-schwarz-matt-0763202837/'),602:('96599','https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-602-mm-20-mm-3-4-schwarz-matt-0763202834/'),802:('96605','https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-802-mm-20-mm-3-4-schwarz-matt-0763202835/'),1000:('96292','https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1000-mm-20-mm-3-4-schwarz-matt-0763202825/'),1200:('96322','https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1200-mm-20-mm-3-4-schwarz-matt-0763202841/'),1500:('96339','https://www.globus-baumarkt.de/p/dolle-rohr-fuer-pipe-regalsystem-oe-25-x-1500-mm-20-mm-3-4-schwarz-matt-0763202820/')}
 PROFILE={
  'saddle_rise':{'value':15,'status':'preview','measure':'Horizontal tube axis to wood underside at the saddle tab'},
  'saddle_tab_offset':{'value':32,'status':'preview','measure':'Tube axis to shelf screw hole, perpendicular to tube'},
@@ -50,6 +50,7 @@ CATALOG={
  'saddle':{'sku':'toom 7450897; DOLLE EAN unconfirmed','name':'DOLLE PIPE one-sided saddle shelf holder, 2 per Toom pack','source':'https://toom.de/p/regalbodenhalter-fuer-regalsystem-pipe-schwarz-2-stueck/7450897'},
  'flange':{'sku':'96483','name':'DOLLE plate / flange Ø70','source':'https://www.globus-baumarkt.de/p/dolle-plattenscheibe-fuer-pipe-regalsystem-oe-70-mm-20-mm-3-4-schwarz-matt-0763202822/'},
  'cross':{'sku':'96384 / EAN 4007557096384 — UNCONFIRMED: Bauhaus SE lists this EAN as a 4×3/4" corner coupling','name':'DOLLE PIPE four-way threaded cross, four female sockets (article to confirm)','source':'https://toom.de/p/kreuzverbinder-fuer-regalsystem-pipe-34-schwarz/7450886'},
+ 'tee':{'sku':'toom 7450885; DOLLE no. pending','name':'DOLLE PIPE threaded T, three female sockets (42 x 54 x 25 mm; socket layout and seating to confirm)','source':'https://toom.de/p/t-verbinder-42-x-54-x-25-mm-fuer-regalsystem-pipe-34-schwarz/7450885'},
  'slide_tee':{'sku':'96544','name':'DOLLE sliding T, one female branch, Ø25 sleeve','source':'https://www.globus-baumarkt.de/p/dolle-t-verbinder-fuer-pipe-regalsystem-20-mm-3-4-verschiebbar-schwarz-matt-0763202823/'},
  'extension':{'sku':'96445','name':'DOLLE Extension, TWO FEMALE THREADS','source':'https://www.obi.de/p/4978219/dolle-doppelmuffe-extension-fuer-pipe-regalsystem-20-mm-3-4-schwarz-matt'},
  'elbow':{'sku':'96353','name':'DOLLE 90 degree elbow, two female threads','source':'https://www.obi.de/p/4974440/dolle-90-eckverbinder-fuer-pipe-regalsystem-2-innengewinden-20-mm-3-4-schwarz'},
@@ -287,6 +288,10 @@ class Assembly:
    if p.kind=='slide_tee':
     v=self.ports[p.id+'.branch']
     if not close(v.p,add(p.origin,mul(p.direction,self.v('tee_stop')))) or not close(v.n,p.direction):errors.append(p.id+': tee port moved independently')
+   if p.kind=='tee':
+    for suffix,d in [('up',p.axis),('down',mul(p.axis,-1)),('out',p.direction)]:
+     v=self.ports[p.id+'.'+suffix]
+     if not close(v.p,add(p.origin,mul(d,self.v('cross_stop')))) or not close(v.n,d):errors.append(p.id+': tee port moved independently')
    if p.kind=='cross':
     for suffix,d in [('up',p.axis),('down',mul(p.axis,-1)),('out',p.direction),('in',mul(p.direction,-1))]:
      v=self.ports[p.id+'.'+suffix]
@@ -396,7 +401,7 @@ def profile_from_measurements(path):
  return profile
 def build(profile=None,close_gap=False,entry60=False,side_speakers=False,shared_desk=False,portal=False,offset=0,rack=None,desk_walls=(1200,2020),rear_upper=1200):
  if portal:return build_portal(profile)
- if shared_desk:return build_shared_desk(profile)
+ if shared_desk:return build_threaded(profile)
  if side_speakers:entry60=True
  if entry60:close_gap=True
  a=Assembly(profile);s=a.v('tee_stop');f=a.v('flange_stop');back=WALL_X-(40+s+f);front=back-(250+2*s);df=back-(602+2*s)
@@ -630,6 +635,139 @@ def build_shared_desk(profile=None,desk_shift=0,rack=None,desk_walls=(1200,2020)
    f'Cross-bearing posts: middle and rear posts stack alike, 602 + coupling + 40, cross, 40 + coupling + 1500 mm (capped top {mid_top.origin[2]+mid_top.data["length"]:g} mm). Boards, equipment and the upper shelf sleeves keep their positions.',
    f'Derived desktop underside {bottom:g} mm / top {bottom+28:g} mm. Front legs finish under the tabletop through elbows: no front-leg bores. The four 44 mm post clearances are open-edge notches, not closed bores: a closed bore would leave only 8 mm of timber to the board edge, which breaks off. The two rear ones are corner notches.']
  return add_equipment_shelf(a,desk_shift,wall_at_desk)
+def build_threaded(profile=None):
+ """V18, all threaded: no sliding T anywhere, so nothing is held at its height by a clamp.
+
+ A frame closed only by threads cannot be screwed together, so the threaded parts never form a loop:
+ every post is its own stack of stock tubes and fixed fittings standing on the floor, and no two posts
+ are joined by more than one threaded pipe. Each board rests on four capped 250 mm arms, one from each
+ corner post, and the boards alone tie the front and rear posts together. The upper clothes rails run
+ between front posts; the lower rail of the double-hang bay hangs on arms from the rear posts, because
+ a second rail between the same front posts would close a loop. Every level is derived from its stack;
+ posts that share a board must arrive at the same height or the build is rejected.
+ Fixed Ts, crosses and elbows share the cross seating values until the real fittings are measured.
+ """
+ a=Assembly(profile);s=a.v('cross_stop');f=a.v('flange_stop');gap=a.v('extension_gap');rise=a.v('saddle_rise')
+ if abs(a.v('elbow_stop')-s)>.001:raise DesignError('Measured cross/T and elbow stops differ; the threaded desk arm and rails no longer close. Reselect stock, do not stretch pipes')
+ back=WALL_X-(40+s+f);front=back-(250+2*s);leg=front-(250+2*s);ys=[1300,2890];Z=(0,0,1)
+ for L in (1000,602,602):ys.append(ys[-1]+L+2*s)
+ PY,NY,PX,NX=(0,1,0),(0,-1,0),(1,0,0),(-1,0,0)
+ def fitting(id,kind,centre,axis,direction,sockets):
+  a.part(id,kind,centre,axis,direction)
+  for name,d in sockets.items():a.port(id+'.'+name,id,'female',add(centre,mul(d,s)),d)
+  return id
+ def socket(id,d):
+  for p in a.ports.values():
+   if p.owner==id and not p.used and close(p.n,d):return p.id
+  raise DesignError(f'{id}: no free socket toward {d}')
+ def coupling(id,port):
+  p=a.ports[port];a.part(id,'extension',add(p.p,mul(p.n,gap/2)),p.n,gap=gap)
+  a.port(id+'.down',id,'female',p.p,mul(p.n,-1));a.port(id+'.up',id,'female',add(p.p,mul(p.n,gap)),p.n);a.connect(port,id+'.down');return id+'.up'
+ level={};joint={}
+ def post(col,x,y,stack):
+  """stack, bottom up: tube lengths (neighbouring tubes get a coupling) and (level, id, form, direction) fittings."""
+  a.flange(col+'.foot',(x,y,0),Z,'floor');port=col+'.foot.socket';tubes=[];after_tube=False;n=c=0
+  for item in stack:
+   if isinstance(item,int):
+    if after_tube:c+=1;port=coupling(f'{col}.coupling{c}',port)
+    n+=1;t=a.from_port(f'{col}.tube{n}',item,port);tubes.append(t);port=t+'.b';after_tube=True;continue
+   name,id,form,d=item;centre=add(a.ports[port].p,(0,0,s));id=id or f'{col}.joint.{name}'
+   if form=='tee':fitting(id,'tee',centre,Z,d,{'up':Z,'down':(0,0,-1),'out':d})
+   elif form=='cross':fitting(id,'cross',centre,Z,d,{'up':Z,'down':(0,0,-1),'out':d,'in':mul(d,-1)})
+   elif form=='top_tee':fitting(id,'tee',centre,PY,(0,0,-1),{'up':PY,'down':NY,'out':(0,0,-1)})
+   elif form=='top_elbow':fitting(id,'elbow',centre,(0,0,-1),d,{'down':(0,0,-1),'in':d})
+   else:raise DesignError('Unknown fitting form '+form)
+   a.connect(port,socket(id,(0,0,-1)));joint[col,name]=id;after_tube=False
+   if abs(level.setdefault(name,centre[2])-centre[2])>.001:raise DesignError(f'{col}: level {name} arrives at {centre[2]:g} mm, not {level[name]:g} mm; the stock stacks no longer agree')
+   port=id+'.up' if form in ('tee','cross') else None
+  if port:raise DesignError(col+': post must end in a top fitting')
+  a.columns[col]={'x':x,'y':y,'tubes':tubes}
+ # Levels: D desk, S speaker trays, A1/A2 desk shelves, F1-F4 fold shelves, Sh shoe shelf, Rl/R lower and upper rails, W wear-again rail, tie wall tie, T top boards.
+ post('DS0',front,ys[0],[602,40,('D','Desk.cross0','cross',NX),300,('S',None,'tee',PY),400,('A1',None,'tee',PY),300,('A2',None,'tee',PY),300,('T',None,'top_elbow',PY)])
+ post('SB0',back,ys[0],[602,40,('D','Desk.cross_rear0','cross',NX),300,('S',None,'tee',PY),400,('A1',None,'tee',PY),300,('A2',None,'tee',PY),60,('tie',None,'tee',PX),200,('T',None,'top_elbow',PY)])
+ post('RF0',front,ys[1],[602,40,('D','Desk.cross1','cross',NX),300,('S',None,'tee',NY),400,('A1',None,'tee',NY),300,('A2',None,'tee',NY),60,('R',None,'tee',PY),200,('T',None,'top_tee',None)])
+ post('RB0',back,ys[1],[602,40,('D','Desk.cross_rear1','cross',NX),200,('Rl',None,'tee',NX),60,('S',None,'tee',NY),400,('A1',None,'tee',NY),300,('A2',None,'tee',NY),60,('tie',None,'tee',PX),200,('T',None,'top_tee',None)])
+ post('RF1',front,ys[2],[602,40,('F1',None,'tee',PY),300,('F2',None,'tee',PY),300,('W',None,'tee',NX),60,('F3',None,'tee',PY),300,('F4',None,'tee',PY),60,('R',None,'tee',NY),200,('T',None,'top_tee',None)])
+ post('RB1',back,ys[2],[602,40,('F1',None,'tee',PY),200,('Rl',None,'tee',NX),60,('F2',None,'tee',PY),400,('F3',None,'tee',PY),300,('F4',None,'tee',PY),60,('tie',None,'tee',PX),200,('T',None,'top_tee',None)])
+ post('RF2',front,ys[3],[150,('Sh',None,'tee',PY),300,100,40,('F1',None,'tee',NY),300,('F2',None,'tee',NY),300,('W',None,'tee',NX),60,('F3',None,'tee',NY),300,('F4',None,'tee',NY),60,('R',None,'tee',PY),200,('T',None,'top_tee',None)])
+ post('RB2',back,ys[3],[150,('Sh',None,'tee',PY),300,100,40,('F1',None,'tee',NY),300,('F2',None,'tee',NY),400,('F3',None,'tee',NY),300,('F4',None,'tee',NY),60,('tie',None,'tee',PX),200,('T',None,'top_tee',None)])
+ post('RF3',front,ys[4],[150,('Sh',None,'tee',NY),1500,100,60,('R',None,'tee',NY),200,('T',None,'top_elbow',NY)])
+ post('RB3',back,ys[4],[150,('Sh',None,'tee',NY),1500,100,60,('tie',None,'tee',PX),200,('T',None,'top_elbow',NY)])
+ if abs(level['S']-level['F2'])>.001 or abs(level['A1']-level['F3'])>.001 or abs(level['A2']-level['F4'])>.001 or abs(level['D']-level['F1'])>.001 or abs(level['R']-level['tie'])>.001:
+  raise DesignError('Desk-side and wardrobe-side levels no longer line up')
+ # Desk: front arm from the middle cross to the front-leg elbow, rear bridge cross to cross, then on into the wall at desk height.
+ axis_z=level['D'];bottom=axis_z+rise;supports=[]
+ for i,(mid,rear,direction) in enumerate((('DS0','SB0',1),('RF0','RB0',-1))):
+  y=ys[i];arm=f'Desk.shared{i}.0';bridge=f'Desk.shared{i}.1'
+  a.from_port(arm+'.tube',250,f'Desk.cross{i}.out');a.from_port(bridge+'.tube',250,f'Desk.cross_rear{i}.out');a.connect(bridge+'.tube.b',f'Desk.cross{i}.in')
+  a.from_port(bridge+'.wall',40,f'Desk.cross_rear{i}.in');wall=add(a.ports[bridge+'.wall.b'].p,(f,0,0));a.flange(bridge+'.wall_flange',wall,NX,'wall');a.connect(bridge+'.wall.b',bridge+'.wall_flange.socket')
+  for stem in (arm,bridge):
+   for k,offset in enumerate((45,205)):
+    sid=stem+'.saddle'+str(k);supports.append((sid,*a.saddle(sid,stem+'.tube',offset,(0,direction,0))))
+  col='DF'+str(i);a.flange(col+'.foot',(leg,y,0),Z,'floor');a.from_port(col+'.lower',602,col+'.foot.socket');a.from_port(col+'.upper',40,coupling(col+'.extension',col+'.lower.b'))
+  fitting(col+'.elbow','elbow',(leg,y,axis_z),(0,0,-1),PX,{'down':(0,0,-1),'in':PX});a.connect(col+'.upper.b',col+'.elbow.down');a.connect(arm+'.tube.b',col+'.elbow.in')
+  a.columns[col]={'x':leg,'y':y,'tubes':[col+'.lower',col+'.upper']}
+ # The desktop keeps its full 702 mm depth: its front edge sits ahead of the front legs.
+ desk=(back-(602+2*s)-30,back+30,ys[0]+5,ys[1]+30)
+ a.board('Desk.top',desk,bottom,28,supports,[(a.columns[k]['x'],a.columns[k]['y'],44) for k in ('DS0','SB0','RF0','RB0')],corner_radii=[(desk[0],desk[2],ENTRY_CORNER_RADIUS)])
+ a.open_edge_bores('Desk.top');reliefs=[]
+ for k,(lo,hi) in (('DS0',(-31,31)),('SB0',(-31,0)),('RF0',(-31,31)),('RB0',(-31,0)),('DF0',(-18,31)),('DF1',(-18,31))):
+  x=a.columns[k]['x'];yy=a.columns[k]['y'];reliefs.append({'bounds':[x+lo,x+hi,yy-18,yy+18,bottom-1,axis_z+17.5]})
+ a.parts['Desk.top'].data['support_reliefs']=reliefs;a.boards['Desk.top']['support_reliefs']=reliefs
+ # Boards stop clear of the fitting castings at the posts, so they need no underside reliefs.
+ clear=s+a.v('cross_engagement')+1;xb=(front-30,back+30)
+ def arm(stem,col,name,d,tabs,inward):
+  a.from_port(stem+'.tube',250,socket(joint[col,name],d));a.cap(stem+'.cap',stem+'.tube.b')
+  return [(f'{stem}.saddle{k}',*a.saddle(f'{stem}.saddle{k}',stem+'.tube',offset,inward)) for k,offset in enumerate(tabs)]
+ def shelf(id,name,bay,thickness=28,recess=None):
+  """Board on four capped arms: bay is (near front, near rear, far front, far rear) post."""
+  bounds=(*xb,a.columns[bay[0]]['y']+clear,a.columns[bay[2]]['y']-clear);tabs=(60,200) if bounds[3]-bounds[2]>1200 else (140,);supports=[]
+  for j,col in enumerate(bay):supports+=arm(f'{id}.arm{j}',col,name,PY if j<2 else NY,tabs,PX if j%2==0 else NX)
+  a.board(id,bounds,level[name]+rise,thickness,supports,recess=recess)
+ desk_bay=('DS0','SB0','RF0','RB0');bays=[(f'RF{j}',f'RB{j}',f'RF{j+1}',f'RB{j+1}') for j in range(3)];cy=(ys[0]+ys[1])/2
+ shelf('Desk.shelf0','A1',desk_bay,40,{'length':1320,'width':32,'depth':20,'centre':[back-215,cy]});shelf('Desk.shelf1','A2',desk_bay);shelf('Desk.shelf2','T',desk_bay)
+ for j,bay in enumerate(bays):shelf('Rack.top'+str(j),'T',bay)
+ for k,name in enumerate(('F1','F2','F3','F4')):shelf('Rack.fold'+str(k),name,bays[1])
+ shelf('Rack.coat_shoes','Sh',bays[2])
+ # Speaker trays: 370 mm squares inside the shelf column, mirrored about the desk centre, on two arms each.
+ middle=(desk[2]+desk[3])/2;tray_x=(front-30,front-30+SPEAKER_TRAY);reach=min(ys[1]-clear-middle,middle-ys[0]-clear)
+ for i,(cols,sign) in enumerate(((('DS0','SB0'),1),(('RF0','RB0'),-1))):
+  outer=middle-sign*reach;yb=(outer,outer+SPEAKER_TRAY) if sign>0 else (outer-SPEAKER_TRAY,outer);id='Speaker'+str(i);tray={'bounds':(*tray_x,*yb),'rotation_degrees':0};supports=[]
+  for j,col in enumerate(cols):
+   x=a.columns[col]['x'];tab=PX if j==0 else NX;start=a.columns[col]['y']+sign*s
+   fits=[o for o in range(20,231,5) if point_in_board(x+tab[0]*a.v('saddle_tab_offset'),start+sign*o,tray,-15)]
+   if len(fits)<2 or fits[-1]-fits[0]<40:raise DesignError(id+': speaker tray cannot reach two saddle stations on its arm')
+   supports+=arm(f'{id}.arm{j}',col,'S',(0,sign,0),(fits[0],fits[-1]),tab)
+  a.board(id+'.platform',tray['bounds'],level['S']+rise,25,supports);a.parts[id+'.platform'].data['speaker_target_mm']=[EAR_MM[0],middle,EAR_MM[1]]
+ # Upper clothes rails between front posts; each is the only threaded link between its two posts.
+ for j,L in ((0,1000),(2,602)):
+  z=level['R'];rail=f'Rack.clean{j}.{z:g}.tube';a.from_port(rail,L,socket(joint[f'RF{j}','R'],PY));a.connect(rail+'.b',socket(joint[f'RF{j+1}','R'],NY))
+ def hung_rail(stem,rail,posts,name,reach,L):
+  """Rail carried on two arms and elbows from fittings that point into the room."""
+  for k,col in enumerate(posts):
+   t=a.from_port(f'{stem}{k}.tube',reach,socket(joint[col,name],NX));c=add(a.ports[t+'.b'].p,mul(NX,s));d=PY if k==0 else NY
+   fitting(f'{stem}{k}.elbow','elbow',c,PX,d,{'down':PX,'in':d});a.connect(t+'.b',f'{stem}{k}.elbow.down')
+  a.from_port(rail,L,f'{stem}0.elbow.in');a.connect(rail+'.b',f'{stem}1.elbow.in')
+ # Lower rail of the double-hang bay on 200 mm arms from the rear posts, 50 mm behind the front post line.
+ hung_rail(f'Rack.clean0.{level["Rl"]:g}.arm',f'Rack.clean0.{level["Rl"]:g}.tube',('RB0','RB1'),'Rl',200,1000)
+ # Wear-again rail in front of the fold bay on 100 mm returns.
+ hung_rail('Wear.return','Wear.rail',('RF1','RF2'),'W',100,602)
+ # One wall tie per rear post, all at the upper rail height, plus the two desk-height flanges.
+ for col,stem in (('SB0','Desk.wall0'),('RB0','Rack.wall0'),('RB1','Rack.wall1'),('RB2','Rack.wall2'),('RB3','Rack.wall3')):
+  t=a.from_port(stem+'.tube',40,socket(joint[col,'tie'],PX));a.flange(stem+'.wall',add(a.ports[t+'.b'].p,(f,0,0)),NX,'wall');a.connect(t+'.b',stem+'.wall.socket')
+ a.lights=[a.light_check('Desk.shelf0')];a.levels={k:v for k,v in sorted(level.items(),key=lambda kv:kv[1])}
+ top=level['T']+rise+28
+ a.notes=['V18 all-threaded frame: no sliding T. Every post is its own stack of uncut stock tubes and fixed threaded Ts, crosses and elbows standing on the floor. No two posts are joined by more than one threaded pipe, because a frame closed only by threads cannot be screwed together.',
+  f'Levels (pipe axis): shoe shelf {level["Sh"]:g}, desk crosses and lowest fold shelf {level["D"]:g}, lower clothes rail {level["Rl"]:g}, speaker trays and second fold shelf {level["S"]:g}, wear-again rail {level["W"]:g}, lower desk shelf and third fold shelf {level["A1"]:g}, upper desk shelf and top fold shelf {level["A2"]:g}, upper clothes rails and wall ties {level["R"]:g}, top boards {level["T"]:g} mm. Board undersides sit {rise:g} mm above their axis. Heights follow the stock lengths and cannot be adjusted afterwards.',
+  'Each board rests on four capped 250 mm arms, one from each corner post, with one-sided saddle tabs screwed into its underside. There are no front-to-back pipes: the boards tie the front and rear posts together, so fit every board before loading the frame.',
+  f'Boards stop {clear:g} mm short of each post axis, clear of the fitting castings, so only the desktop needs underside reliefs.',
+  f'Upper clothes rails at {level["R"]:g} mm run between the front posts. The lower rail of the double-hang bay at {level["Rl"]:g} mm hangs on 200 mm arms and elbows from the two rear posts, 50 mm behind the front post line, because a second rail between the same front posts would close a threaded loop. The wear-again rail hangs the same way from two front posts on 100 mm returns.',
+  f'Desk: a four-way cross at {axis_z:g} mm on each middle and rear post. The middle cross takes the 250 mm front arm to the front-leg elbow and the 250 mm rear bridge; the rear cross takes that bridge and a 40 mm pipe into a wall flange under the back edge of the desktop. The earlier low braces at 235 and 400 mm are gone, so each front leg is held only at its elbow. Derived desktop underside {bottom:g} mm / top {bottom+28:g} mm.',
+  f'Wall fixings: one flange per rear post at {level["tie"]:g} mm and two at {axis_z:g} mm. Nothing from the pipe frame is fixed to the wall between 150 and 450 mm, where sockets and their feeds usually run. Services are still not surveyed: check the wall with a cable detector before drilling.',
+  f'The four desktop post clearances and the two in the service shelf are 44 mm open-edge notches. Top boards finish at {top:g} mm, before the crates.',
+  'Assembly: build each post from the floor up and turn every fitting to its direction as it goes on, then add the arms, rails and wall ties. Fittings are tightened to their direction, not to the end of the thread, so most joints need thread-locker. An uneven floor has to be taken up with shims under the floor flanges.',
+  'Fixed T, cross and elbow seating depths, the saddle holder, the end covers and all loads are unverified. The 60, 100, 150, 300 and 400 mm tubes and the threaded T are toom listings without a confirmed DOLLE number or price. If the real seating depth differs from the preview value, every level moves and the stacks must be re-solved.']
+ return add_equipment_shelf(a,0,True)
 def add_equipment_shelf(a,desk_shift=0,open_bores=False):
  """Rear service shelf on four separate wall brackets behind a 472 mm deep central knee zone; no pipes under the desk."""
  y0,y1=1305+desk_shift,2920+desk_shift;bottom=500
